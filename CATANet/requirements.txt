@@ -1,15 +1,11 @@
-addict
-future
 lmdb
 numpy>=1.17
 opencv-python
-Pillow
 pyyaml
 requests
-scikit-image
 scipy
-tb-nightly
+tensorboard
 torch>=2.1
 torchvision
 tqdm
-yapf
+einops

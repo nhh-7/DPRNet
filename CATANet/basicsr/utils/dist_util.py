@@ -7,8 +7,14 @@ import torch.multiprocessing as mp
 
 enable_deepspeed = os.getenv('ENABLE_DEEPSPEED', 'false').lower() in ['true', '1']
 if enable_deepspeed:
-    import deepspeed
-    import deepspeed.comm.comm as dist
+    try:
+        import deepspeed
+        import deepspeed.comm.comm as dist
+    except ImportError as exc:
+        raise ImportError(
+            'ENABLE_DEEPSPEED=true but `deepspeed` is not installed. '
+            'Please run `pip install deepspeed` or disable ENABLE_DEEPSPEED.'
+        ) from exc
 else:
     import torch.distributed as dist
 

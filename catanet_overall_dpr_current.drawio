@@ -1,0 +1,199 @@
+<mxfile host="Electron" agent="GPT-5.4">
+  <diagram name="CATANet overall architecture (DPR)" id="catanet-overall-dpr">
+    <mxGraphModel dx="2200" dy="1200" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="760" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="lr" parent="1" vertex="1" value="LR&#xa;I_LR" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111111;strokeWidth=1.4;fontSize=16;fontColor=#111111;align=center;verticalAlign=middle;">
+          <mxGeometry x="30" y="280" width="92" height="86" as="geometry" />
+        </mxCell>
+        <mxCell id="shallow" parent="1" vertex="1" value="Shallow Conv&#xa;3x3, C=40" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F2D6F6;strokeColor=#111111;strokeWidth=1.4;fontSize=15;fontColor=#111111;align=center;verticalAlign=middle;">
+          <mxGeometry x="155" y="288" width="100" height="72" as="geometry" />
+        </mxCell>
+
+        <mxCell id="stages_wrap" parent="1" vertex="1" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFDF3;strokeColor=#555555;strokeWidth=1.4;">
+          <mxGeometry x="290" y="120" width="980" height="430" as="geometry" />
+        </mxCell>
+        <mxCell id="stages_title" parent="1" vertex="1" value="Residual Stages x 8" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;fontSize=18;fontColor=#111111;fontStyle=1;align=left;verticalAlign=middle;">
+          <mxGeometry x="325" y="135" width="260" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="stage_note" parent="1" vertex="1" value="patch_size = [16, 20, 24, 28, 16, 20, 24, 28]&#xa;num_prototypes = [16, 32, 64, 128, 16, 32, 64, 128]&#xa;group_size = [256, 128, 64, 32, 256, 128, 64, 32]" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;fontSize=13;fontColor=#444444;align=left;verticalAlign=top;">
+          <mxGeometry x="970" y="138" width="275" height="62" as="geometry" />
+        </mxCell>
+
+        <mxCell id="stage_box" parent="1" vertex="1" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;strokeWidth=1.4;">
+          <mxGeometry x="330" y="185" width="610" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="stage_title" parent="1" vertex="1" value="Each residual stage: x = residual + Conv3x3(LRSA(TAB(x)))" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;fontSize=16;fontColor=#111111;align=left;verticalAlign=middle;">
+          <mxGeometry x="355" y="198" width="470" height="26" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tab_box" parent="1" vertex="1" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF4E8;strokeColor=#C97E42;strokeWidth=1.4;">
+          <mxGeometry x="355" y="240" width="355" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="tab_title" parent="1" vertex="1" value="TAB with DPR Routing" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;fontSize=16;fontColor=#8A4F19;fontStyle=1;align=left;verticalAlign=middle;">
+          <mxGeometry x="372" y="250" width="210" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="ln" parent="1" vertex="1" value="LayerNorm" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F4F4F4;strokeColor=#111111;strokeWidth=1.4;fontSize=14;fontColor=#111111;align=center;verticalAlign=middle;">
+          <mxGeometry x="375" y="300" width="88" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="dpr" parent="1" vertex="1" value="DPR Route&#xa;embed -> soft assign&#xa;prototype refine&#xa;re-match + content sort" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFD8C2;strokeColor=#111111;strokeWidth=1.4;fontSize=14;fontColor=#111111;align=center;verticalAlign=middle;">
+          <mxGeometry x="485" y="278" width="118" height="88" as="geometry" />
+        </mxCell>
+        <mxCell id="iasa" parent="1" vertex="1" value="IASA&#xa;group attn +&#xa;prototype global attn" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DDF2E8;strokeColor=#111111;strokeWidth=1.4;fontSize=14;fontColor=#111111;align=center;verticalAlign=middle;">
+          <mxGeometry x="625" y="278" width="118" height="88" as="geometry" />
+        </mxCell>
+        <mxCell id="conv1x1" parent="1" vertex="1" value="Conv&#xa;1x1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F2D6F6;strokeColor=#111111;strokeWidth=1.4;fontSize=14;fontColor=#111111;align=center;verticalAlign=middle;">
+          <mxGeometry x="375" y="355" width="88" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="tab_plus1" parent="1" vertex="1" value="+" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#FFFFFF;strokeColor=#111111;strokeWidth=1.4;fontSize=20;">
+          <mxGeometry x="510" y="370" width="28" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="ffn" parent="1" vertex="1" value="PreNorm&#xa;ConvFFN" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F7E6FA;strokeColor=#111111;strokeWidth=1.4;fontSize=14;fontColor=#111111;align=center;verticalAlign=middle;">
+          <mxGeometry x="560" y="348" width="110" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="tab_plus2" parent="1" vertex="1" value="+" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#FFFFFF;strokeColor=#111111;strokeWidth=1.4;fontSize=20;">
+          <mxGeometry x="685" y="362" width="28" height="28" as="geometry" />
+        </mxCell>
+
+        <mxCell id="lrsa" parent="1" vertex="1" value="LRSA&#xa;patch divide&#xa;PreNorm Attn&#xa;ConvFFN" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D9EEF8;strokeColor=#111111;strokeWidth=1.4;fontSize=14;fontColor=#111111;align=center;verticalAlign=middle;">
+          <mxGeometry x="780" y="280" width="128" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="midconv" parent="1" vertex="1" value="Mid Conv&#xa;3x3" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F2D6F6;strokeColor=#111111;strokeWidth=1.4;fontSize=14;fontColor=#111111;align=center;verticalAlign=middle;">
+          <mxGeometry x="965" y="280" width="92" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="stage_plus" parent="1" vertex="1" value="+" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#FFFFFF;strokeColor=#111111;strokeWidth=1.4;fontSize=20;">
+          <mxGeometry x="1100" y="296" width="28" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="stage_tail" parent="1" vertex="1" value="stage output" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;fontSize=14;fontColor=#444444;align=left;verticalAlign=middle;">
+          <mxGeometry x="1140" y="295" width="90" height="28" as="geometry" />
+        </mxCell>
+
+        <mxCell id="deep_add" parent="1" vertex="1" value="Deep feature add&#xa;forward_features(x) + shallow x" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;strokeWidth=1.4;fontSize=14;fontColor=#333333;align=center;verticalAlign=middle;">
+          <mxGeometry x="1320" y="285" width="170" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="up_head" parent="1" vertex="1" value="Upsample Head&#xa;Conv 3x3 + PixelShuffle&#xa;x2 / x3 / x4" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DAF1E4;strokeColor=#111111;strokeWidth=1.4;fontSize=14;fontColor=#111111;align=center;verticalAlign=middle;">
+          <mxGeometry x="1530" y="278" width="165" height="86" as="geometry" />
+        </mxCell>
+        <mxCell id="lastconv" parent="1" vertex="1" value="Last Conv&#xa;3x3" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F2D6F6;strokeColor=#111111;strokeWidth=1.4;fontSize=14;fontColor=#111111;align=center;verticalAlign=middle;">
+          <mxGeometry x="1735" y="292" width="92" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="out_plus" parent="1" vertex="1" value="+" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#FFFFFF;strokeColor=#111111;strokeWidth=1.4;fontSize=20;">
+          <mxGeometry x="1865" y="309" width="28" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="sr" parent="1" vertex="1" value="SR&#xa;I_SR" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111111;strokeWidth=1.4;fontSize=16;fontColor=#111111;align=center;verticalAlign=middle;">
+          <mxGeometry x="1925" y="280" width="92" height="86" as="geometry" />
+        </mxCell>
+
+        <mxCell id="global_res" parent="1" vertex="1" value="Global Residual Path&#xa;bilinear interpolate x scale s" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;strokeWidth=1.4;fontSize=14;fontColor=#333333;align=center;verticalAlign=middle;">
+          <mxGeometry x="870" y="620" width="260" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend" parent="1" vertex="1" value="Current CATANet key idea:&#xa;DPR first reorders tokens by dynamic semantic prototypes,&#xa;then IASA and LRSA perform content-aware aggregation." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF9DA;strokeColor=#C9A227;strokeWidth=1.2;fontSize=14;fontColor=#333333;align=left;verticalAlign=middle;">
+          <mxGeometry x="1310" y="135" width="360" height="78" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e1" parent="1" edge="1" source="lr" target="shallow" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#111111;strokeWidth=1.6;endArrow=block;endFill=1;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" parent="1" edge="1" source="shallow" target="ln" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#111111;strokeWidth=1.6;endArrow=block;endFill=1;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" parent="1" edge="1" source="ln" target="dpr" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#111111;strokeWidth=1.6;endArrow=block;endFill=1;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" parent="1" edge="1" source="dpr" target="iasa" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#111111;strokeWidth=1.6;endArrow=block;endFill=1;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" parent="1" edge="1" source="iasa" target="lrsa" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#111111;strokeWidth=1.6;endArrow=block;endFill=1;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="760" y="322" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e6" parent="1" edge="1" source="lrsa" target="midconv" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#111111;strokeWidth=1.6;endArrow=block;endFill=1;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" parent="1" edge="1" source="midconv" target="stage_plus" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#111111;strokeWidth=1.6;endArrow=block;endFill=1;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" parent="1" edge="1" source="stage_plus" target="deep_add" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#111111;strokeWidth=1.6;endArrow=block;endFill=1;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" parent="1" edge="1" source="deep_add" target="up_head" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#111111;strokeWidth=1.6;endArrow=block;endFill=1;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" parent="1" edge="1" source="up_head" target="lastconv" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#111111;strokeWidth=1.6;endArrow=block;endFill=1;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" parent="1" edge="1" source="lastconv" target="out_plus" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#111111;strokeWidth=1.6;endArrow=block;endFill=1;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" parent="1" edge="1" source="out_plus" target="sr" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#111111;strokeWidth=1.6;endArrow=block;endFill=1;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e13" parent="1" edge="1" source="conv1x1" target="tab_plus1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#111111;strokeWidth=1.4;endArrow=block;endFill=1;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e14" parent="1" edge="1" source="tab_plus1" target="ffn" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#111111;strokeWidth=1.4;endArrow=block;endFill=1;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e15" parent="1" edge="1" source="ffn" target="tab_plus2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#111111;strokeWidth=1.4;endArrow=block;endFill=1;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e16" parent="1" edge="1" target="tab_plus1" value="TAB residual" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#555555;strokeWidth=1.3;endArrow=classicThin;endFill=1;dashed=1;dashPattern=5 5;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="395" y="420" />
+              <mxPoint x="524" y="420" />
+            </Array>
+            <mxPoint x="395" y="322" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e17" parent="1" edge="1" source="tab_plus1" target="tab_plus2" value="FFN residual" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#555555;strokeWidth=1.3;endArrow=classicThin;endFill=1;dashed=1;dashPattern=5 5;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="524" y="430" />
+              <mxPoint x="699" y="430" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e18" parent="1" edge="1" target="stage_plus" value="stage residual" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#555555;strokeWidth=1.3;endArrow=classicThin;endFill=1;dashed=1;dashPattern=5 5;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="340" y="455" />
+              <mxPoint x="1114" y="455" />
+            </Array>
+            <mxPoint x="340" y="320" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e19" parent="1" edge="1" source="shallow" target="deep_add" value="shallow residual" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#555555;strokeWidth=1.3;endArrow=classicThin;endFill=1;dashed=1;dashPattern=5 5;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="205" y="505" />
+              <mxPoint x="1405" y="505" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e20" parent="1" edge="1" source="lr" target="global_res" value="scale x s" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#111111;strokeWidth=1.6;endArrow=block;endFill=1;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="76" y="650" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e21" parent="1" edge="1" source="global_res" target="out_plus" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#111111;strokeWidth=1.6;endArrow=block;endFill=1;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1879" y="650" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

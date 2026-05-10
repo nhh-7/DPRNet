@@ -5,11 +5,21 @@ import torch
 import yaml
 from collections import OrderedDict
 from os import path as osp
-import deepspeed
 from basicsr.utils import set_random_seed
 from basicsr.utils.dist_util import get_dist_info, init_dist, master_only,init_dist_deepspeed
 
 enable_deepspeed = os.getenv('ENABLE_DEEPSPEED', 'false').lower() in ['true', '1']
+
+
+def _require_deepspeed():
+    try:
+        import deepspeed
+    except ImportError as exc:
+        raise ImportError(
+            'ENABLE_DEEPSPEED=true but `deepspeed` is not installed. '
+            'Please run `pip install deepspeed` or disable ENABLE_DEEPSPEED.'
+        ) from exc
+    return deepspeed
 
 def ordered_yaml():
     """Support OrderedDict for yaml.
@@ -110,6 +120,7 @@ def parse_options(root_path, is_train=True):
     parser.add_argument(
         '--force_yml', nargs='+', default=None, help='Force to update yml files. Examples: train:ema_decay=0.999')
     if enable_deepspeed:
+        deepspeed = _require_deepspeed()
         parser = deepspeed.add_config_arguments(parser)
     args = parser.parse_args()
 
