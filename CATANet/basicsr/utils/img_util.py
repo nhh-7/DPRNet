@@ -199,6 +199,31 @@ def padding_DP(img_lqL, img_lqR, img_gt, gt_size):
     if h_pad == 0 and w_pad == 0:
         return img_lqL, img_lqR, img_gt
 
+
+def save_cluster_map(belong_idx, h, w, file_path, num_prototypes=16):
+    """Save the clustering result (belong_idx) as a pseudo-color image.
+    Args:
+        belong_idx (Tensor or ndarray): shape (N,) or (1, N) containing cluster indices.
+        h, w (int): Spatial dimensions to reshape N back to.
+        file_path (str): Path to save the image.
+        num_prototypes (int): Total number of prototypes for color scaling.
+    """
+    import numpy as np
+
+    if torch.is_tensor(belong_idx):
+        belong_idx = belong_idx.detach().cpu().numpy()
+    
+    # Reshape and normalize to 0-255
+    belong_idx = belong_idx.reshape(h, w).astype(np.uint8)
+    # Scale to full 0-255 range for better visualization with colormap
+    gray_map = (belong_idx * (255.0 / max(num_prototypes - 1, 1))).astype(np.uint8)
+    
+    # Use OpenCV's built-in colormap (COLORMAP_JET or COLORMAP_VIRIDIS)
+    # This is much faster and has no extra dependencies
+    color_map = cv2.applyColorMap(gray_map, cv2.COLORMAP_JET)
+    
+    imwrite(color_map, file_path)
+
     img_lqL = cv2.copyMakeBorder(img_lqL, 0, h_pad, 0, w_pad, cv2.BORDER_REFLECT)
     img_lqR = cv2.copyMakeBorder(img_lqR, 0, h_pad, 0, w_pad, cv2.BORDER_REFLECT)
     img_gt  = cv2.copyMakeBorder(img_gt,  0, h_pad, 0, w_pad, cv2.BORDER_REFLECT)

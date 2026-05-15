@@ -212,7 +212,8 @@ class TAB(nn.Module):
         x = rearrange(x, 'b c h w->b (h w) c')
         residual = x
         x = self.norm(x)
-        sorted_x, idx_last, _, _, prototypes = self.dpr(x)
+        sorted_x, idx_last, belong_idx, _, prototypes = self.dpr(x)
+        self.last_routing_map = belong_idx # Store for visualization
         y = self.iasa_attn(sorted_x, idx_last, prototypes)
         y = rearrange(y,'b (h w) c->b c h w',h=h).contiguous()
         y = self.conv1x1(y)

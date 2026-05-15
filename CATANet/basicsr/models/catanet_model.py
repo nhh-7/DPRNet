@@ -6,7 +6,7 @@ from tqdm import tqdm
 from basicsr.archs import build_network
 from basicsr.losses import build_loss
 from basicsr.metrics import calculate_metric
-from basicsr.utils import get_root_logger, imwrite, tensor2img
+from basicsr.utils import get_root_logger, imwrite, tensor2img, save_cluster_map
 from basicsr.utils.registry import MODEL_REGISTRY
 from .base_model import BaseModel
 
@@ -229,6 +229,17 @@ class CATANetModel(BaseModel):
                         save_img_path = osp.join(self.opt['path']['visualization'], dataset_name,
                                                  f'{img_name}_{self.opt["name"]}.png')
                 imwrite(sr_img, save_img_path)
+                
+                # Save DPR Cluster Map for the first block
+                net_g = self.net_g.module if hasattr(self.net_g, 'module') else self.net_g
+                if hasattr(net_g, 'blocks') and len(net_g.blocks) > 0:
+                    first_tab = net_g.blocks[0][0]
+                    if hasattr(first_tab, 'last_routing_map'):
+                        routing_map = first_tab.last_routing_map # (1, N)
+                        _, _, h_lq, w_lq = self.lq.shape
+                        cluster_path = save_img_path.replace('.png', '_cluster.png')
+                        save_cluster_map(routing_map[0], h_lq, w_lq, cluster_path, 
+                                         num_prototypes=net_g.num_tokens[0])
 
             if with_metrics:
                 # calculate metrics
