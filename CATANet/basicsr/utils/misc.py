@@ -1,6 +1,7 @@
 import numpy as np
 import os
 import random
+import shutil
 import time
 import torch
 from os import path as osp
@@ -30,7 +31,7 @@ def mkdir_and_rename(path):
     if osp.exists(path):
         new_name = path + '_archived_' + get_time_str()
         print(f'Path already exists. Rename it to {new_name}', flush=True)
-        os.rename(path, new_name)
+        shutil.move(path, new_name)
     os.makedirs(path, exist_ok=True)
 
 
