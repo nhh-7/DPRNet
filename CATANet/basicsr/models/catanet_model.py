@@ -110,6 +110,14 @@ class CATANetModel(BaseModel):
                 l_total += l_style
                 loss_dict['l_style'] = l_style
 
+        net_g = self.net_g.module if hasattr(self.net_g, 'module') else self.net_g
+        if hasattr(net_g, 'blocks'):
+            for i, block in enumerate(net_g.blocks):
+                tab = block[0]
+                if hasattr(tab, 'last_x_scores_mean'):
+                    loss_dict[f'route_b{i}_xscore_mean'] = tab.last_x_scores_mean
+                    loss_dict[f'route_b{i}_xscore_std'] = tab.last_x_scores_std
+
         l_total.backward()
         self.optimizer_g.step()
 
@@ -162,7 +170,7 @@ class CATANetModel(BaseModel):
         else:
             self.net_g.eval()
             with torch.no_grad():
-                out_list = [self.net_g_ema(aug) for aug in lq_list]
+                out_list = [self.net_g(aug) for aug in lq_list]
             self.net_g.train()
 
         # merge results
@@ -213,6 +221,7 @@ class CATANetModel(BaseModel):
                 del self.gt
 
             # tentative for out of GPU memory
+            lq_shape = self.lq.shape
             del self.lq
             del self.output
             torch.cuda.empty_cache()
@@ -236,7 +245,7 @@ class CATANetModel(BaseModel):
                     first_tab = net_g.blocks[0][0]
                     if hasattr(first_tab, 'last_routing_map'):
                         routing_map = first_tab.last_routing_map # (1, N)
-                        _, _, h_lq, w_lq = self.lq.shape
+                        _, _, h_lq, w_lq = lq_shape
                         cluster_path = save_img_path.replace('.png', '_cluster.png')
                         save_cluster_map(routing_map[0], h_lq, w_lq, cluster_path, 
                                          num_prototypes=net_g.num_tokens[0])

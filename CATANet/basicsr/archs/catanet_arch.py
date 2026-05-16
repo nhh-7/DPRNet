@@ -81,10 +81,11 @@ class IASA(nn.Module):
         self.prototype_to_k = nn.Linear(dim, qk_dim, bias=False)
         self.prototype_to_v = nn.Linear(dim, dim, bias=False)
         self.proj = nn.Linear(dim, dim, bias=False)
+        self.global_gate = nn.Parameter(torch.tensor(-1.0))
         self.group_size = group_size
         
     
-    def forward(self, sorted_x, idx_last, prototypes):
+    def forward(self, sorted_x, idx_last, prototypes, sorted_scores=None):
         x = sorted_x
         _, N, _ = x.shape
        
@@ -113,7 +114,18 @@ class IASA(nn.Module):
         v_global = v_global.unsqueeze(1).expand(-1,ng,-1,-1,-1)
        
         out2 = F.scaled_dot_product_attention(paded_q,k_global,v_global)
-        out = out1 + out2
+        global_gate = torch.sigmoid(self.global_gate)
+        if sorted_scores is not None:
+            if pad_n > 0:
+                paded_scores = torch.cat(
+                    (sorted_scores, torch.flip(sorted_scores[:, N - pad_n:N], dims=[-1])),
+                    dim=-1)
+            else:
+                paded_scores = sorted_scores
+            score_gate = rearrange(paded_scores, "b (ng gs) -> b ng 1 gs 1", ng=ng, gs=gs)
+            out = out1 + global_gate * score_gate * out2
+        else:
+            out = out1 + global_gate * out2
         out = rearrange(out, "b ng h gs d -> b (ng gs) (h d)")[:, :N, :]
  
         out = out.scatter(dim=-2, index=idx_last.expand_as(out), src=out)
@@ -148,6 +160,8 @@ class DPR(nn.Module):
         self.prototype_norm = nn.LayerNorm(dim)
         self.refine_gate = nn.Parameter(init_logit(refine_init))
         self.scale = router_dim ** -0.5
+        self.router_logit_scale = nn.Parameter(torch.ones([]) * 2.302585093)  # log(10)
+        self.max_router_logit_scale = 50.0
 
     def forward(self, x):
         b, n, c = x.shape
@@ -173,7 +187,8 @@ class DPR(nn.Module):
 
         token_features = F.normalize(self.token_proj(embed), dim=-1)
         prototype_features = F.normalize(self.prototype_proj(prototypes), dim=-1)
-        score_logits = torch.matmul(token_features, prototype_features.transpose(-2, -1)) * self.scale
+        router_scale = self.router_logit_scale.exp().clamp(max=self.max_router_logit_scale)
+        score_logits = torch.matmul(token_features, prototype_features.transpose(-2, -1)) * router_scale
         scores = F.softmax(score_logits, dim=-1)
 
         x_scores, belong_idx = torch.max(scores, dim=-1)
@@ -186,7 +201,16 @@ class DPR(nn.Module):
         sorted_scores = torch.gather(x_scores, dim=1, index=sorted_idx)
         idx_last = sorted_idx.unsqueeze(-1)
 
-        return sorted_x, idx_last, sorted_belong_idx, sorted_scores, prototypes
+        route_info = {
+            'belong_idx': belong_idx,
+            'x_scores': x_scores,
+            'scores': scores,
+            'sorted_belong_idx': sorted_belong_idx,
+            'sorted_scores': sorted_scores,
+            'sorted_idx': sorted_idx,
+        }
+
+        return sorted_x, idx_last, prototypes, route_info
     
     
 class TAB(nn.Module):
@@ -204,6 +228,8 @@ class TAB(nn.Module):
         self.mlp = PreNorm(dim, ConvFFN(dim,mlp_dim))
         self.dpr = DPR(dim, qk_dim, num_tokens)
         self.iasa_attn = IASA(dim,qk_dim,heads,group_size)
+        self.soft_context_proj = nn.Linear(dim, dim, bias=False)
+        self.soft_fallback_gate = nn.Parameter(torch.tensor(-2.0))
         self.conv1x1 = nn.Conv2d(dim,dim,1, bias=False)
 
     
@@ -212,9 +238,18 @@ class TAB(nn.Module):
         x = rearrange(x, 'b c h w->b (h w) c')
         residual = x
         x = self.norm(x)
-        sorted_x, idx_last, belong_idx, _, prototypes = self.dpr(x)
-        self.last_routing_map = belong_idx # Store for visualization
-        y = self.iasa_attn(sorted_x, idx_last, prototypes)
+        sorted_x, idx_last, prototypes, route_info = self.dpr(x)
+        self.last_routing_map = route_info['belong_idx'].detach() # Store for visualization
+        self.last_sorted_routing_map = route_info['sorted_belong_idx'].detach()
+        with torch.no_grad():
+            x_scores = route_info['x_scores'].detach()
+            self.last_x_scores_mean = x_scores.mean()
+            self.last_x_scores_std = x_scores.std(unbiased=False)
+        hard_y = self.iasa_attn(sorted_x, idx_last, prototypes, route_info['sorted_scores'])
+        soft_context = torch.matmul(route_info['scores'], prototypes)
+        soft_context = self.soft_context_proj(soft_context)
+        low_conf = (1.0 - route_info['x_scores'].detach()).unsqueeze(-1)
+        y = hard_y + torch.sigmoid(self.soft_fallback_gate) * low_conf * soft_context
         y = rearrange(y,'b (h w) c->b c h w',h=h).contiguous()
         y = self.conv1x1(y)
         x = residual + rearrange(y, 'b c h w->b (h w) c')
