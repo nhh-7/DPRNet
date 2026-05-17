@@ -49,15 +49,19 @@ datasets:
 network_g:
   type: CATANet
   upscale: 2
+  router_scale_init: 6.0
+  max_router_logit_scale: 10.0
+  route_balance_weight: 0.0005
 
 # path
 path:
   pretrain_network_g: ~
   strict_load_g: true
-  resume_state: experiments/train_CATANet_x2_scratch/training_states/10000.state
+  resume_state: ~
 
 # training settings
 train:
+  router_scale_lr_mult: 0.1
   optim_g:
     type: Adam
     lr: !!float 2e-4

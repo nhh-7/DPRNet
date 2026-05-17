@@ -3,3 +3,5 @@ __pycache__/
 */datasets/*
 tb_logger/
 .eggs/
+experiments/
+*.zip

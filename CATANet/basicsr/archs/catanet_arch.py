@@ -1,3 +1,4 @@
+import math
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -135,12 +136,21 @@ class IASA(nn.Module):
     
 class DPR(nn.Module):
     def __init__(self, dim, router_dim, num_prototypes,
-                 use_prototype_query_refine=True, refine_init=0.25):
+                 use_prototype_query_refine=True, refine_init=0.25,
+                 router_scale_init=6.0, max_router_logit_scale=10.0,
+                 balance_loss_weight=0.0):
         super().__init__()
         self.dim = dim
         self.router_dim = router_dim
         self.num_prototypes = num_prototypes
         self.use_prototype_query_refine = use_prototype_query_refine
+        if router_scale_init <= 0:
+            raise ValueError('router_scale_init must be positive')
+        if max_router_logit_scale <= 0:
+            raise ValueError('max_router_logit_scale must be positive')
+        self.balance_loss_weight = balance_loss_weight
+        self.aux_loss = None
+        self.last_usage = None
 
         self.embed = nn.Sequential(
             nn.LayerNorm(dim),
@@ -160,14 +170,15 @@ class DPR(nn.Module):
         self.prototype_norm = nn.LayerNorm(dim)
         self.refine_gate = nn.Parameter(init_logit(refine_init))
         self.scale = router_dim ** -0.5
-        self.router_logit_scale = nn.Parameter(torch.ones([]) * 2.302585093)  # log(10)
-        self.max_router_logit_scale = 50.0
+        self.router_logit_scale = nn.Parameter(torch.log(torch.tensor(float(router_scale_init))))
+        self.max_router_logit_scale = float(max_router_logit_scale)
 
     def forward(self, x):
         b, n, c = x.shape
         embed = self.embed(x)
 
         assignment = F.softmax(self.assign(embed), dim=-1)
+
         proto_content = torch.einsum("bnm,bnc->bmc", assignment, x)
         proto_weight = assignment.sum(dim=1).unsqueeze(-1).clamp_min(1e-6)
         prototypes = proto_content / proto_weight
@@ -190,6 +201,13 @@ class DPR(nn.Module):
         router_scale = self.router_logit_scale.exp().clamp(max=self.max_router_logit_scale)
         score_logits = torch.matmul(token_features, prototype_features.transpose(-2, -1)) * router_scale
         scores = F.softmax(score_logits, dim=-1)
+        usage = scores.mean(dim=1).clamp_min(1e-8)
+        self.last_usage = usage.detach().mean(dim=0)
+        if self.training and self.balance_loss_weight > 0:
+            entropy = -(usage * usage.log()).sum(dim=-1) / math.log(self.num_prototypes)
+            self.aux_loss = self.balance_loss_weight * (1.0 - entropy.mean())
+        else:
+            self.aux_loss = None
 
         x_scores, belong_idx = torch.max(scores, dim=-1)
         sort_key = belong_idx.to(scores.dtype) + 0.5 * (1.0 - x_scores)
@@ -216,7 +234,8 @@ class DPR(nn.Module):
 class TAB(nn.Module):
     def __init__(self, dim, qk_dim, mlp_dim, heads, n_iter=3,
                  num_tokens=8, group_size=128,
-                 ema_decay = 0.999):
+                 ema_decay=0.999, router_scale_init=6.0,
+                 max_router_logit_scale=10.0, route_balance_weight=0.0):
         super().__init__()
 
         self.n_iter = n_iter
@@ -226,7 +245,11 @@ class TAB(nn.Module):
         
         self.norm = nn.LayerNorm(dim)
         self.mlp = PreNorm(dim, ConvFFN(dim,mlp_dim))
-        self.dpr = DPR(dim, qk_dim, num_tokens)
+        self.dpr = DPR(
+            dim, qk_dim, num_tokens,
+            router_scale_init=router_scale_init,
+            max_router_logit_scale=max_router_logit_scale,
+            balance_loss_weight=route_balance_weight)
         self.iasa_attn = IASA(dim,qk_dim,heads,group_size)
         self.soft_context_proj = nn.Linear(dim, dim, bias=False)
         self.soft_fallback_gate = nn.Parameter(torch.tensor(-2.0))
@@ -467,6 +490,8 @@ class CATANet(nn.Module):
     def __init__(self,in_chans=3,n_iters=[5,5,5,5,5,5,5,5],
                  num_tokens=[16,32,64,128,16,32,64,128],
                  group_size=[256,128,64,32,256,128,64,32],
+                 router_scale_init=6.0, max_router_logit_scale=10.0,
+                 route_balance_weight=0.0,
                  upscale: int = 4):
         super().__init__()
         
@@ -485,6 +510,14 @@ class CATANet(nn.Module):
         self.n_iters = n_iters
         self.num_tokens = num_tokens
         self.group_size = group_size
+        self.router_scale_init = router_scale_init
+        self.max_router_logit_scale = max_router_logit_scale
+        if isinstance(route_balance_weight, (int, float)):
+            self.route_balance_weight = [float(route_balance_weight)] * self.block_num
+        else:
+            if len(route_balance_weight) != self.block_num:
+                raise ValueError('route_balance_weight length must match block_num')
+            self.route_balance_weight = route_balance_weight
     
         #-----------1 shallow--------------
         self.first_conv = nn.Conv2d(in_chans, self.dim, 3, 1, 1)
@@ -497,7 +530,10 @@ class CATANet(nn.Module):
           
             self.blocks.append(nn.ModuleList([TAB(self.dim, self.qk_dim, self.mlp_dim,
                                                                  self.heads, self.n_iters[i], 
-                                                                 self.num_tokens[i],self.group_size[i]), 
+                                                                 self.num_tokens[i], self.group_size[i],
+                                                                 router_scale_init=self.router_scale_init,
+                                                                 max_router_logit_scale=self.max_router_logit_scale,
+                                                                 route_balance_weight=self.route_balance_weight[i]), 
                                               LRSA(self.dim, self.qk_dim, 
                                                              self.mlp_dim,self.heads)]))
             self.mid_convs.append(nn.Conv2d(self.dim, self.dim,3,1,1))

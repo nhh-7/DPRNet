@@ -18,6 +18,7 @@ class CATANetModel(BaseModel):
 
     def __init__(self, opt):
         super().__init__(opt)
+        self.support_multi_val = True
 
         # define network
         self.net_g = build_network(opt['network_g'])
@@ -74,15 +75,29 @@ class CATANetModel(BaseModel):
     def setup_optimizers(self):
         train_opt = self.opt['train']
         optim_params = []
+        router_scale_params = []
+        router_scale_lr_mult = train_opt.get('router_scale_lr_mult', 0.1)
         for k, v in self.net_g.named_parameters():
             if v.requires_grad:
-                optim_params.append(v)
+                if 'router_logit_scale' in k:
+                    router_scale_params.append(v)
+                else:
+                    optim_params.append(v)
             else:
                 logger = get_root_logger()
                 logger.warning(f'Params {k} will not be optimized.')
 
         optim_type = train_opt['optim_g'].pop('type')
-        self.optimizer_g = self.get_optimizer(optim_type, optim_params, **train_opt['optim_g'])
+        optim_kwargs = train_opt['optim_g']
+        param_groups = [{'params': optim_params}]
+        if router_scale_params:
+            param_groups.append({
+                'params': router_scale_params,
+                'lr': optim_kwargs['lr'] * router_scale_lr_mult
+            })
+            logger = get_root_logger()
+            logger.info(f'Use router_logit_scale lr multiplier: {router_scale_lr_mult}')
+        self.optimizer_g = self.get_optimizer(optim_type, param_groups, **optim_kwargs)
         self.optimizers.append(self.optimizer_g)
 
     def feed_data(self, data):
@@ -110,6 +125,15 @@ class CATANetModel(BaseModel):
             if l_style is not None:
                 l_total += l_style
                 loss_dict['l_style'] = l_style
+
+        l_route = None
+        for module in self.net_g.modules():
+            aux_loss = getattr(module, 'aux_loss', None)
+            if aux_loss is not None:
+                l_route = aux_loss if l_route is None else l_route + aux_loss
+        if l_route is not None:
+            l_total += l_route
+            loss_dict['l_route'] = l_route
 
         l_total.backward()
         self.optimizer_g.step()
