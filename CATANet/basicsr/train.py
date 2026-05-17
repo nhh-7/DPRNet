@@ -1,6 +1,7 @@
 import datetime
 import logging
 import math
+import subprocess
 import time
 import torch
 from os import path as osp
@@ -16,6 +17,19 @@ from basicsr.utils.options import copy_opt_file, dict2str, parse_options
 import os
 
 enable_deepspeed = os.getenv('ENABLE_DEEPSPEED', 'false').lower() in ['true', '1']
+
+
+def run_post_training_script(logger, rank):
+    if rank != 0:
+        return
+
+    script_path = '/root/DPRNet/CATANet/backup_result_and_shutdown.sh'
+    if not osp.isfile(script_path):
+        logger.info(f'Post-training script not found, skip: {script_path}')
+        return
+
+    logger.info(f'Running post-training script: {script_path}')
+    subprocess.run(['/bin/bash', script_path], check=True, cwd='/root/DPRNet/CATANet')
 
 
 def init_tb_loggers(opt):
@@ -227,6 +241,7 @@ def train_pipeline(root_path):
             model.validation(val_loader, current_iter, tb_logger, opt['val']['save_img'])
     if tb_logger:
         tb_logger.close()
+    run_post_training_script(logger, opt['rank'])
 
 
 if __name__ == '__main__':
