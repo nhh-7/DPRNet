@@ -1,3 +1,4 @@
+import math
 import torch
 from collections import OrderedDict
 from os import path as osp
@@ -110,14 +111,6 @@ class CATANetModel(BaseModel):
                 l_total += l_style
                 loss_dict['l_style'] = l_style
 
-        net_g = self.net_g.module if hasattr(self.net_g, 'module') else self.net_g
-        if hasattr(net_g, 'blocks'):
-            for i, block in enumerate(net_g.blocks):
-                tab = block[0]
-                if hasattr(tab, 'last_x_scores_mean'):
-                    loss_dict[f'route_b{i}_xscore_mean'] = tab.last_x_scores_mean
-                    loss_dict[f'route_b{i}_xscore_std'] = tab.last_x_scores_std
-
         l_total.backward()
         self.optimizer_g.step()
 
@@ -204,6 +197,8 @@ class CATANetModel(BaseModel):
             self.metric_results = {metric: 0 for metric in self.metric_results}
 
         metric_data = dict()
+        route_stats_sum = OrderedDict()
+        route_stats_count = 0
         if use_pbar:
             pbar = tqdm(total=len(dataloader), unit='image')
 
@@ -211,6 +206,12 @@ class CATANetModel(BaseModel):
             img_name = osp.splitext(osp.basename(val_data['lq_path'][0]))[0]
             self.feed_data(val_data)
             self.test()
+
+            current_route_stats = self._collect_route_stats()
+            if current_route_stats:
+                for key, value in current_route_stats.items():
+                    route_stats_sum[key] = route_stats_sum.get(key, 0.0) + value
+                route_stats_count += 1
 
             visuals = self.get_current_visuals()
             sr_img = tensor2img([visuals['result']])
@@ -260,15 +261,62 @@ class CATANetModel(BaseModel):
         if use_pbar:
             pbar.close()
 
+        route_stats = OrderedDict()
+        if route_stats_count > 0:
+            for key, value in route_stats_sum.items():
+                route_stats[key] = value / route_stats_count
+
         if with_metrics:
             for metric in self.metric_results.keys():
                 self.metric_results[metric] /= (idx + 1)
                 # update the best metric result
                 self._update_best_metric_result(dataset_name, metric, self.metric_results[metric], current_iter)
 
-            self._log_validation_metric_values(current_iter, dataset_name, tb_logger)
+        if with_metrics or route_stats:
+            self._log_validation_metric_values(current_iter, dataset_name, tb_logger, route_stats)
 
-    def _log_validation_metric_values(self, current_iter, dataset_name, tb_logger):
+    def _get_validation_net_g(self):
+        if hasattr(self, 'net_g_ema'):
+            return self.net_g_ema
+        return self.net_g.module if hasattr(self.net_g, 'module') else self.net_g
+
+    def _collect_route_stats(self):
+        net_g = self._get_validation_net_g()
+        if not hasattr(net_g, 'blocks'):
+            return OrderedDict()
+
+        route_stats = OrderedDict()
+        for i, block in enumerate(net_g.blocks):
+            tab = block[0]
+            if not hasattr(tab, 'last_routing_map') or not hasattr(tab, 'last_x_scores_mean'):
+                continue
+
+            routing_map = tab.last_routing_map.detach().long().reshape(-1)
+            num_prototypes = getattr(tab, 'num_tokens', int(routing_map.max().item()) + 1)
+            if routing_map.numel() == 0 or num_prototypes <= 0:
+                continue
+
+            counts = torch.bincount(routing_map, minlength=num_prototypes).float()
+            usage = counts / counts.sum().clamp_min(1.0)
+            usage_safe = usage.clamp_min(1e-12)
+            entropy_norm = -(usage_safe * usage_safe.log()).sum() / math.log(num_prototypes)
+
+            router_scale = tab.dpr.router_logit_scale.detach().exp()
+            router_scale = router_scale.clamp(max=tab.dpr.max_router_logit_scale)
+
+            route_stats[f'route_b{i}_xscore_mean'] = float(tab.last_x_scores_mean.detach().cpu())
+            route_stats[f'route_b{i}_xscore_std'] = float(tab.last_x_scores_std.detach().cpu())
+            route_stats[f'route_b{i}_usage_active'] = float((counts > 0).sum().detach().cpu())
+            route_stats[f'route_b{i}_usage_max'] = float(usage.max().detach().cpu())
+            route_stats[f'route_b{i}_usage_min'] = float(usage.min().detach().cpu())
+            route_stats[f'route_b{i}_usage_std'] = float(usage.std(unbiased=False).detach().cpu())
+            route_stats[f'route_b{i}_entropy_norm'] = float(entropy_norm.detach().cpu())
+            route_stats[f'route_b{i}_router_scale'] = float(router_scale.detach().cpu())
+
+        return route_stats
+
+    def _log_validation_metric_values(self, current_iter, dataset_name, tb_logger, route_stats=None):
+        route_stats = route_stats or OrderedDict()
         log_str = f'Validation {dataset_name}\n'
         for metric, value in self.metric_results.items():
             log_str += f'\t # {metric}: {value.item():.4f}'
@@ -277,11 +325,28 @@ class CATANetModel(BaseModel):
                             f'{self.best_metric_results[dataset_name][metric]["iter"]} iter')
             log_str += '\n'
 
+        if route_stats:
+            log_str += '\t # DPR route stats averaged over validation images:\n'
+            block_ids = sorted({key.split('_')[1] for key in route_stats.keys() if key.startswith('route_b')})
+            for block_id in block_ids:
+                prefix = f'route_{block_id}_'
+                stat_items = []
+                for stat_name in [
+                        'xscore_mean', 'xscore_std', 'usage_active', 'usage_max',
+                        'usage_min', 'usage_std', 'entropy_norm', 'router_scale']:
+                    key = prefix + stat_name
+                    if key in route_stats:
+                        stat_items.append(f'{stat_name}: {route_stats[key]:.4f}')
+                if stat_items:
+                    log_str += f'\t # {block_id}: ' + ', '.join(stat_items) + '\n'
+
         logger = get_root_logger()
         logger.info(log_str)
         if tb_logger:
             for metric, value in self.metric_results.items():
                 tb_logger.add_scalar(f'metrics/{dataset_name}/{metric}', value, current_iter)
+            for key, value in route_stats.items():
+                tb_logger.add_scalar(f'route_stats/{dataset_name}/{key}', value, current_iter)
 
     def get_current_visuals(self):
         out_dict = OrderedDict()
