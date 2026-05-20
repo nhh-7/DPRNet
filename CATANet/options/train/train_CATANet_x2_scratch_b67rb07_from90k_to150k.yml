@@ -1,5 +1,5 @@
 # general settings for image SR training
-name: train_CATANet_x2_scratch
+name: train_CATANet_x2_scratch_b67rb07_from90k_to150k
 model_type: CATANetModel
 scale: 2
 num_gpu: auto
@@ -57,7 +57,7 @@ network_g:
 path:
   pretrain_network_g: ~
   strict_load_g: true
-  resume_state: experiments/train_CATANet_x2_scratch/training_states/90000.state
+  resume_state: experiments/train_CATANet_x2_scratch_b67rb07_from90k_to150k/training_states/90000.state
 
 # training settings
 train:
