@@ -1,5 +1,4 @@
-# general settings for image SR training
-name: train_CATANet_x2_scratch_b67rb07_from90k_to150k
+name: train_CATANet_x2_scratch
 model_type: CATANetModel
 scale: 2
 num_gpu: auto
@@ -51,13 +50,13 @@ network_g:
   upscale: 2
   router_scale_init: 6.0
   max_router_logit_scale: 10.0
-  route_balance_weight: [0.0005, 0.0005, 0.0005, 0.0005, 0.0005, 0.0005, 0.0007, 0.0007]
+  route_balance_weight: 0.0005
 
 # path
 path:
   pretrain_network_g: ~
   strict_load_g: true
-  resume_state: experiments/train_CATANet_x2_scratch_b67rb07_from90k_to150k/training_states/90000.state
+  resume_state: experiments/train_CATANet_x2_scratch/training_states/90000.state
 
 # training settings
 train:
@@ -73,7 +72,7 @@ train:
     milestones: [300000, 500000, 650000, 700000, 750000]
     gamma: 0.5
 
-  total_iter: 150000
+  total_iter: 100000
 
   # losses
   pixel_opt:
