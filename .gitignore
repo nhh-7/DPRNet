@@ -5,3 +5,5 @@ tb_logger/
 .eggs/
 experiments/
 *.zip
+results/
+.DS_Store

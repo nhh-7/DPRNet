@@ -224,12 +224,6 @@ def save_cluster_map(belong_idx, h, w, file_path, num_prototypes=16):
     
     imwrite(color_map, file_path)
 
-    img_lqL = cv2.copyMakeBorder(img_lqL, 0, h_pad, 0, w_pad, cv2.BORDER_REFLECT)
-    img_lqR = cv2.copyMakeBorder(img_lqR, 0, h_pad, 0, w_pad, cv2.BORDER_REFLECT)
-    img_gt  = cv2.copyMakeBorder(img_gt,  0, h_pad, 0, w_pad, cv2.BORDER_REFLECT)
-    # print('img_lq', img_lq.shape, img_gt.shape)
-    return img_lqL, img_lqR, img_gt
-
 def imfrombytesDP(content, flag='color', float32=False):
     """Read an image from bytes.
 
