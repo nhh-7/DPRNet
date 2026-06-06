@@ -138,12 +138,13 @@ class DPR(nn.Module):
     def __init__(self, dim, router_dim, num_prototypes,
                  use_prototype_query_refine=True, refine_init=0.25,
                  router_scale_init=6.0, max_router_logit_scale=10.0,
-                 balance_loss_weight=0.0):
+                 balance_loss_weight=0.0, use_conf_sort=True):
         super().__init__()
         self.dim = dim
         self.router_dim = router_dim
         self.num_prototypes = num_prototypes
         self.use_prototype_query_refine = use_prototype_query_refine
+        self.use_conf_sort = use_conf_sort
         if router_scale_init <= 0:
             raise ValueError('router_scale_init must be positive')
         if max_router_logit_scale <= 0:
@@ -210,7 +211,10 @@ class DPR(nn.Module):
             self.aux_loss = None
 
         x_scores, belong_idx = torch.max(scores, dim=-1)
-        sort_key = belong_idx.to(scores.dtype) + 0.5 * (1.0 - x_scores)
+        if self.use_conf_sort:
+            sort_key = belong_idx.to(scores.dtype) + 0.5 * (1.0 - x_scores)
+        else:
+            sort_key = belong_idx.to(scores.dtype)
         sorted_idx = torch.argsort(sort_key, dim=-1)
 
         gather_idx = sorted_idx.unsqueeze(-1).expand(b, n, c)
@@ -235,12 +239,16 @@ class TAB(nn.Module):
     def __init__(self, dim, qk_dim, mlp_dim, heads, n_iter=3,
                  num_tokens=8, group_size=128,
                  ema_decay=0.999, router_scale_init=6.0,
-                 max_router_logit_scale=10.0, route_balance_weight=0.0):
+                 max_router_logit_scale=10.0, route_balance_weight=0.0,
+                 use_conf_sort=True, use_iasa_score_gate=True,
+                 use_soft_fallback=True):
         super().__init__()
 
         self.n_iter = n_iter
         self.ema_decay = ema_decay
         self.num_tokens = num_tokens
+        self.use_iasa_score_gate = use_iasa_score_gate
+        self.use_soft_fallback = use_soft_fallback
         
         
         self.norm = nn.LayerNorm(dim)
@@ -249,7 +257,8 @@ class TAB(nn.Module):
             dim, qk_dim, num_tokens,
             router_scale_init=router_scale_init,
             max_router_logit_scale=max_router_logit_scale,
-            balance_loss_weight=route_balance_weight)
+            balance_loss_weight=route_balance_weight,
+            use_conf_sort=use_conf_sort)
         self.iasa_attn = IASA(dim,qk_dim,heads,group_size)
         self.soft_context_proj = nn.Linear(dim, dim, bias=False)
         self.soft_fallback_gate = nn.Parameter(torch.tensor(-2.0))
@@ -268,11 +277,16 @@ class TAB(nn.Module):
             x_scores = route_info['x_scores'].detach()
             self.last_x_scores_mean = x_scores.mean()
             self.last_x_scores_std = x_scores.std(unbiased=False)
-        hard_y = self.iasa_attn(sorted_x, idx_last, prototypes, route_info['sorted_scores'])
-        soft_context = torch.matmul(route_info['scores'], prototypes)
-        soft_context = self.soft_context_proj(soft_context)
-        low_conf = (1.0 - route_info['x_scores'].detach()).unsqueeze(-1)
-        y = hard_y + torch.sigmoid(self.soft_fallback_gate) * low_conf * soft_context
+        hard_y = self.iasa_attn(
+            sorted_x, idx_last, prototypes,
+            route_info['sorted_scores'] if self.use_iasa_score_gate else None)
+        if self.use_soft_fallback:
+            soft_context = torch.matmul(route_info['scores'], prototypes)
+            soft_context = self.soft_context_proj(soft_context)
+            low_conf = (1.0 - route_info['x_scores'].detach()).unsqueeze(-1)
+            y = hard_y + torch.sigmoid(self.soft_fallback_gate) * low_conf * soft_context
+        else:
+            y = hard_y
         y = rearrange(y,'b (h w) c->b c h w',h=h).contiguous()
         y = self.conv1x1(y)
         x = residual + rearrange(y, 'b c h w->b (h w) c')
@@ -492,6 +506,8 @@ class CATANet(nn.Module):
                  group_size=[256,128,64,32,256,128,64,32],
                  router_scale_init=6.0, max_router_logit_scale=10.0,
                  route_balance_weight=0.0,
+                 use_conf_sort=True, use_iasa_score_gate=True,
+                 use_soft_fallback=True,
                  upscale: int = 4):
         super().__init__()
         
@@ -518,6 +534,9 @@ class CATANet(nn.Module):
             if len(route_balance_weight) != self.block_num:
                 raise ValueError('route_balance_weight length must match block_num')
             self.route_balance_weight = route_balance_weight
+        self.use_conf_sort = use_conf_sort
+        self.use_iasa_score_gate = use_iasa_score_gate
+        self.use_soft_fallback = use_soft_fallback
     
         #-----------1 shallow--------------
         self.first_conv = nn.Conv2d(in_chans, self.dim, 3, 1, 1)
@@ -533,7 +552,10 @@ class CATANet(nn.Module):
                                                                  self.num_tokens[i], self.group_size[i],
                                                                  router_scale_init=self.router_scale_init,
                                                                  max_router_logit_scale=self.max_router_logit_scale,
-                                                                 route_balance_weight=self.route_balance_weight[i]), 
+                                                                 route_balance_weight=self.route_balance_weight[i],
+                                                                 use_conf_sort=self.use_conf_sort,
+                                                                 use_iasa_score_gate=self.use_iasa_score_gate,
+                                                                 use_soft_fallback=self.use_soft_fallback), 
                                               LRSA(self.dim, self.qk_dim, 
                                                              self.mlp_dim,self.heads)]))
             self.mid_convs.append(nn.Conv2d(self.dim, self.dim,3,1,1))

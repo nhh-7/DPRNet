@@ -507,3 +507,233 @@ route_balance_weight: [0.0005, 0.0005, 0.0005, 0.0005, 0.0005, 0.0005, 0.0007, 0
   2. `net_g_530000.pth`（Set5 PSNR 最优）
   3. `net_g_500000.pth`（Set14 SSIM 最优，且是关键 milestone 点）
 
+---
+
+## Update 2026-06-01 / 550k -> 675k
+
+### 日志 / checkpoint
+- 日志：
+  - `train_train_CATANet_x2_scratch_20260531_123601.log`
+- model：
+  - 起点：`net_g_550000.pth`
+  - 中间关键点：`net_g_585000.pth`、`net_g_590000.pth`、`net_g_650000.pth`
+  - 最新点：`net_g_675000.pth`
+- state：
+  - 起点：`550000.state`
+  - 中间关键点：`585000.state`、`590000.state`、`650000.state`
+  - 最新点：`675000.state`
+- resume_state：`experiments/train_CATANet_x2_scratch/training_states/550000.state`
+- pretrain_network_g：`/root/DPRNet/CATANet/experiments/train_CATANet_x2_scratch/models/net_g_550000.pth`
+- total_iter：`675000`
+- milestones：`[300000, 500000, 650000, 700000, 750000]`
+- route_balance_weight：`[0.0005, 0.0005, 0.0005, 0.0005, 0.0005, 0.0005, 0.0007, 0.0007]`
+
+### 关键观察
+- LR 是否变化：
+  - `550k -> 650k` 维持 `5e-5 / 5e-6`；
+  - `650000` 当次训练打印仍是 `5e-5 / 5e-6`；
+  - `650200` 起切到 `2.5e-5 / 2.5e-6`；
+  - 说明 **650k milestone decay 正常生效**。
+- Set5 best / final：
+  - 本段 best PSNR：`38.2742 @ 585000`（也是目前全局 best）
+  - 本段 best SSIM：`0.9617 @ 650000`（也是目前全局 best）
+  - final：`38.2624 / 0.9616 @ 675000`
+- Set14 best / final：
+  - 本段 best PSNR：`34.0425 @ 590000`（也是目前全局 best）
+  - 本段 best SSIM：`0.9216 @ 590000`（与历史 `500000` 并列，但按 latest tie 记到 `590000`）
+  - final：`33.9680 / 0.9208 @ 675000`
+- 550k -> 675k 阶段性表现：
+  - `552.5k -> 597.5k`：Set5 / Set14 均值约 `38.2581 / 33.9675`，本段最强点出现在 `585k / 590k`；
+  - `600k -> 647.5k`：Set5 / Set14 均值约 `38.2553 / 33.9711`，仍维持高位但没有继续大幅刷新；
+  - `650k -> 675k`：Set5 / Set14 均值约 `38.2641 / 33.9689`，Set5 均值略高，Set14 仍有震荡。
+- b6 状态：
+  - `585k` Set5 `b6`: active `53.6`, usage_max `0.3033`, entropy `0.6061`, scale `5.8271`
+  - `585k` Set14 `b6`: active `55.2857`, usage_max `0.3823`, entropy `0.5321`, scale `5.8271`
+  - `590k` Set5 `b6`: active `53.0`, usage_max `0.2270`, entropy `0.6295`, scale `5.8270`
+  - `590k` Set14 `b6`: active `54.4286`, usage_max `0.3123`, entropy `0.5693`, scale `5.8270`
+  - `675k` Set5 `b6`: active `52.4`, usage_max `0.2751`, entropy `0.6131`, scale `5.8215`
+  - `675k` Set14 `b6`: active `54.7857`, usage_max `0.3715`, entropy `0.5381`, scale `5.8215`
+  - 判断：Set14 的 `b6` 仍是相对最紧的深层点，但 entropy / active / usage_max 都还在此前健康区间内，没有重新回到 90k/100k 那类局部塌缩。
+- b7 状态：
+  - `585k` Set5 `b7`: active `88.6`, usage_max `0.2294`, entropy `0.5753`, scale `6.0930`
+  - `585k` Set14 `b7`: active `106.2143`, usage_max `0.2218`, entropy `0.6118`, scale `6.0930`
+  - `590k` Set5 `b7`: active `86.8`, usage_max `0.2207`, entropy `0.5859`, scale `6.0950`
+  - `590k` Set14 `b7`: active `104.3571`, usage_max `0.2226`, entropy `0.6124`, scale `6.0950`
+  - `675k` Set5 `b7`: active `87.6`, usage_max `0.2333`, entropy `0.5747`, scale `6.1156`
+  - `675k` Set14 `b7`: active `102.8571`, usage_max `0.2260`, entropy `0.5986`, scale `6.1156`
+  - 判断：`b7` 继续稳定，没有新风险迹象。
+- 是否出现新问题：
+  - 没有 NaN、发散或 loss 异常；
+  - router scale 仍受控，约 `5.82`（b6）/ `6.12`（b7）；
+  - 日志尾部 `Save the latest model` 后重复了一次 `675000` validation，已按 artifact 忽略，不重复计入 CSV。
+
+### 结论
+- `550k -> 675k` 仍然有实质收益：Set5 PSNR、Set5 SSIM、Set14 PSNR/SSIM 都在本段刷新或追平全局 best。
+- `650k` decay 正常生效，没有证据说明 scheduler 失效；不过 `650k` 之后截至 `675k` 还只是短窗口，暂时不能据此判断后续 decay 的最终收益。
+- `b6 / b7` 没有重新 collapse，保守的深层 route balance 策略到 `675k` 仍然成立。
+- `675000` final checkpoint 稳定但不是最优点；从指标角度看，当前更应优先关注 `585000 / 590000 / 650000`。
+
+### 下一步建议
+- 如果目标仍是原计划长程到 `800k`：
+  - 可以继续基于 `675000.state` 往下跑；
+  - 暂时保持当前配置不变；
+  - 下一观察窗口重点看 `675k -> 700k -> 750k` 两次后续 milestone 后的真实行为。
+- 如果当前要挑测试 checkpoint：
+  1. `net_g_590000.pth`：Set14 PSNR/SSIM 最强，综合最推荐；
+  2. `net_g_585000.pth`：Set5 PSNR 最强；
+  3. `net_g_650000.pth`：Set5 SSIM 最强，且位于 650k milestone；
+  4. `net_g_675000.pth`：只作为最新稳定点，不作为当前首选 best。
+
+---
+
+## Update 2026-06-02 / 675k -> 750k
+
+### 日志 / checkpoint
+- 日志：
+  - `train_train_CATANet_x2_scratch_20260601_231947.log`
+- model：
+  - 起点：`net_g_675000.pth`
+  - 中间关键点：`net_g_700000.pth`、`net_g_710000.pth`、`net_g_715000.pth`、`net_g_735000.pth`
+  - 最新点：`net_g_750000.pth`
+- state：
+  - 起点：`675000.state`
+  - 中间关键点：`700000.state`、`710000.state`、`715000.state`、`735000.state`
+  - 最新点：`750000.state`
+- resume_state：`experiments/train_CATANet_x2_scratch/training_states/675000.state`
+- pretrain_network_g：`/root/DPRNet/CATANet/experiments/train_CATANet_x2_scratch/models/net_g_675000.pth`
+- total_iter：`750000`
+- milestones：`[300000, 500000, 650000, 700000, 750000]`
+- route_balance_weight：`[0.0005, 0.0005, 0.0005, 0.0005, 0.0005, 0.0005, 0.0007, 0.0007]`
+
+### 关键观察
+- LR 是否变化：
+  - `675k -> 700k` 维持 `2.5e-5 / 2.5e-6`；
+  - `700000` 当次训练打印仍是 `2.5e-5 / 2.5e-6`；
+  - `700200` 起切到 `1.25e-5 / 1.25e-6`；
+  - 说明 **700k milestone decay 正常生效**。
+- Set5 best / final：
+  - 本段 best PSNR：`38.2720 @ 735000`，没有超过全局 best `38.2742 @ 585000`；
+  - 本段 best SSIM：`0.9617 @ 750000`，与全局 best 并列，按 latest tie 记录到 `750000`；
+  - final：`38.2659 / 0.9617 @ 750000`。
+- Set14 best / final：
+  - 本段 best PSNR：`33.9839 @ 715000`，没有超过全局 best `34.0425 @ 590000`；
+  - 本段 best SSIM：`0.9211 @ 710000`，低于全局 best `0.9216 @ 590000`；
+  - final：`33.9515 / 0.9209 @ 750000`。
+- 675k -> 750k 阶段性表现：
+  - `677.5k -> 697.5k`：Set5 / Set14 均值约 `38.2618 / 33.9636`；
+  - `700k -> 750k`：Set5 / Set14 均值约 `38.2680 / 33.9656`；
+  - `702.5k -> 750k`：Set5 / Set14 均值约 `38.2682 / 33.9663`；
+  - 说明 700k decay 后 Set5 均值略好，Set14 维持震荡高位，但整体没有再刷新全局 PSNR。
+- b6 状态：
+  - `700k` Set5 `b6`: active `50.0`, usage_max `0.2930`, entropy `0.6063`, scale `5.8199`
+  - `700k` Set14 `b6`: active `53.8571`, usage_max `0.3982`, entropy `0.5218`, scale `5.8199`
+  - `735k` Set5 `b6`: active `53.2`, usage_max `0.2415`, entropy `0.6289`, scale `5.8195`
+  - `735k` Set14 `b6`: active `53.8571`, usage_max `0.3285`, entropy `0.5591`, scale `5.8195`
+  - `750k` Set5 `b6`: active `52.0`, usage_max `0.2445`, entropy `0.6171`, scale `5.8188`
+  - `750k` Set14 `b6`: active `54.2857`, usage_max `0.3384`, entropy `0.5553`, scale `5.8188`
+  - 判断：Set14 `b6` 仍是相对最紧点，`700k` 有一次 usage_max 接近 `0.40` 的偏紧状态，但后续回落，没有发展成结构性 collapse。
+- b7 状态：
+  - `700k` Set5 `b7`: active `84.6`, usage_max `0.2091`, entropy `0.5814`, scale `6.1198`
+  - `700k` Set14 `b7`: active `102.6429`, usage_max `0.2515`, entropy `0.5845`, scale `6.1198`
+  - `735k` Set5 `b7`: active `87.8`, usage_max `0.2161`, entropy `0.5789`, scale `6.1225`
+  - `735k` Set14 `b7`: active `104.5`, usage_max `0.2430`, entropy `0.5886`, scale `6.1225`
+  - `750k` Set5 `b7`: active `89.8`, usage_max `0.2092`, entropy `0.5958`, scale `6.1238`
+  - `750k` Set14 `b7`: active `106.1429`, usage_max `0.2488`, entropy `0.6025`, scale `6.1238`
+  - 判断：`b7` 继续稳定，没有出现新的风险迹象。
+- 是否出现新问题：
+  - 没有 NaN、发散或 loss 异常；
+  - router scale 仍受控，约 `5.82`（b6）/ `6.12`（b7）；
+  - 日志尾部 `Save the latest model` 后重复了一次 `750000` validation，Set5 SSIM best iter 被日志 artifact 写成 `750011`，已按既有规则忽略，不重复计入 CSV。
+
+### 结论
+- `675k -> 750k` 是稳定的延续训练，但主要表现为高位震荡和小幅边际收益，不再像 `550k -> 675k` 那样刷新全局 PSNR。
+- `700k` decay 正常生效，没有证据说明 scheduler 失效。
+- `b6 / b7` 没有重新 collapse，当前保守 route balance 策略到 `750k` 仍然成立。
+- `750000` final checkpoint 稳定，且 Set5 SSIM 并列最好；但从 PSNR 和综合指标看，它不是当前首选 best。
+- 当前全局 best 仍主要集中在 `585000 / 590000 / 650000`，后期最好点可额外关注 `735000 / 750000`。
+
+### 下一步建议
+- 如果目标仍是原计划长程到 `800k`：
+  - 可以继续基于 `750000.state` 往下跑；
+  - 暂时保持当前配置不变；
+  - 下一观察窗口重点看 `750k -> 800k`，确认最后一个 milestone 后是否只是平稳收尾，还是还能带来 Set14 恢复。
+- 如果当前要挑测试 checkpoint：
+  1. `net_g_590000.pth`：Set14 PSNR/SSIM 最强，综合仍最推荐；
+  2. `net_g_585000.pth`：Set5 PSNR 全局最强；
+  3. `net_g_650000.pth`：Set5 SSIM 首次全局最强，且位于 650k milestone；
+  4. `net_g_735000.pth`：后期 Set5 PSNR 最强；
+  5. `net_g_750000.pth`：最新稳定点，Set5 SSIM 并列最强，但 Set14 不占优。
+
+---
+
+## Update 2026-06-03 / 750k -> 800k
+
+### 日志 / checkpoint
+- 日志：
+  - `train_train_CATANet_x2_scratch_20260603_125543.log`
+- model：
+  - 起点：`net_g_750000.pth`
+  - 中间关键点：`net_g_777500.pth`、`net_g_785000.pth`、`net_g_792500.pth`、`net_g_797500.pth`
+  - 最新点：`net_g_800000.pth`
+- state：
+  - 起点：`750000.state`
+  - 中间关键点：`777500.state`、`785000.state`、`792500.state`、`797500.state`
+  - 最新点：`800000.state`
+- resume_state：`experiments/train_CATANet_x2_scratch/training_states/750000.state`
+- pretrain_network_g：`/root/DPRNet/CATANet/experiments/train_CATANet_x2_scratch/models/net_g_750000.pth`
+- total_iter：`800000`
+- milestones：`[300000, 500000, 650000, 700000, 750000]`
+- route_balance_weight：`[0.0005, 0.0005, 0.0005, 0.0005, 0.0005, 0.0005, 0.0007, 0.0007]`
+
+### 关键观察
+- LR 是否变化：
+  - 本段从一开始就是 `6.250e-06 / 6.250e-07`，即 `750k` milestone（最后一个 milestone）decay 后的 LR；
+  - 因为 `750k` 是最后一个 milestone，`750k -> 800k` 全程维持该 LR，没有再次衰减；
+  - 说明 scheduler 行为符合预期，本段是最后一段“固定低 LR 收尾训练”。
+- Set5 best / final：
+  - 本段 best PSNR：`38.2763 @ 777500`，**刷新了全局 best**（此前全局 best 是 `38.2742 @ 585000`）；另有一个近似并列点 `38.2742 @ 785000`；
+  - 本段 best SSIM：`0.9617 @ 792500`，与全局 best 并列，按 latest tie 全局 Set5 SSIM best iter 现在记到 `792500`；
+  - final：`38.2684 / 0.9616 @ 800000`。
+- Set14 best / final：
+  - 本段 best PSNR：`33.9804 @ 797500`，没有超过全局 best `34.0425 @ 590000`；
+  - 本段 best SSIM：`0.9210`（多点并列，如 `757500 / 792500`），低于全局 best `0.9216 @ 590000`；
+  - final：`33.9663 / 0.9209 @ 800000`。
+- 750k -> 800k 阶段性表现：
+  - `752.5k -> 775k`：Set5 / Set14 均值约 `38.2673 / 33.9612`；
+  - `777.5k -> 800k`：Set5 / Set14 均值约 `38.2685 / 33.9568`，Set5 均值略升且诞生全局 PSNR best，Set14 略有回落；
+  - `752.5k -> 800k`：Set5 / Set14 均值约 `38.2679 / 33.9590`；
+  - 说明本段 Set5 仍有极小幅边际刷新（且拿下全局 PSNR best），Set14 维持震荡高位、未再刷新全局。
+- b6 状态：
+  - `777.5k` Set5 `b6`: active `53.4`, usage_max `0.2334`, entropy `0.6289`, scale `5.8188`
+  - `777.5k` Set14 `b6`: active `55.0`, usage_max `0.3357`, entropy `0.5578`, scale `5.8188`
+  - `800k` Set5 `b6`: active `53.2`, usage_max `0.2409`, entropy `0.6261`, scale `5.8185`
+  - `800k` Set14 `b6`: active `54.5`, usage_max `0.3377`, entropy `0.5491`, scale `5.8185`
+  - 判断：Set14 `b6` 仍是相对最紧点，但 usage_max 稳定在 `0.33~0.34`，entropy / active 都在此前健康区间，没有重新塌缩。
+- b7 状态：
+  - `777.5k` Set5 `b7`: active `89.2`, usage_max `0.1918`, entropy `0.5905`, scale `6.1252`
+  - `777.5k` Set14 `b7`: active `104.7857`, usage_max `0.2469`, entropy `0.5942`, scale `6.1252`
+  - `800k` Set5 `b7`: active `89.6`, usage_max `0.2077`, entropy `0.5874`, scale `6.1265`
+  - `800k` Set14 `b7`: active `104.9286`, usage_max `0.2407`, entropy `0.5985`, scale `6.1265`
+  - 判断：`b7` 继续稳定，没有新风险迹象。
+- 是否出现新问题：
+  - 没有 NaN、发散或 loss 异常；
+  - router scale 仍受控，约 `5.82`（b6）/ `6.13`（b7）；
+  - 日志尾部 `Save the latest model` 后重复了一次 `800000` validation，已按既有规则忽略，不重复计入 CSV。
+
+### 结论
+- `750k -> 800k` 是“最后一段固定低 LR 收尾训练”，整体表现为高位震荡 + 极小幅边际收益。
+- 但本段并非空跑：Set5 PSNR 拿到了**新的全局 best `38.2763 @ 777500`**，Set5 SSIM 也再次并列全局 best `0.9617 @ 792500`。
+- Set14 在本段没有新全局 best，仍以 `590000` 为最强综合点。
+- `b6 / b7` 没有重新 collapse，保守 route balance 策略一路成立到 `800k`，原计划长程到 `800k` 已顺利完成。
+- `800000` final checkpoint 稳定，但不是最优点；从指标看最优点分布在 `777500`（Set5 PSNR）、`792500`（Set5 SSIM）、`590000`（Set14 综合）。
+
+### 下一步建议
+- 原计划长程目标 `800k` 已经到达，建议：
+  - **训练可以收尾**，不需要再延长到更高 iter；继续训练大概率只是同量级震荡，边际收益已非常有限；
+  - 如确实想再观察，可基于 `800000.state` 小幅延长，但没有强证据支持，需要先明确额外目标。
+- 如果当前要挑测试 checkpoint：
+  1. `net_g_590000.pth`：Set14 PSNR/SSIM 最强，综合仍最推荐；
+  2. `net_g_777500.pth`：Set5 PSNR 全局最强（本段新刷新），后期最佳点；
+  3. `net_g_792500.pth`：Set5 SSIM 全局并列最强，且为后期点；
+  4. `net_g_585000.pth`：早期 Set5 PSNR 高点，可作对照；
+  5. `net_g_800000.pth`：最新稳定收尾点，但 Set5/Set14 均非最优，仅作 final 参考。

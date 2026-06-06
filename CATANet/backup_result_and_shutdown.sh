@@ -13,5 +13,10 @@ zip -q -r "${file}" experiments
 oss cp "${file}" oss://backup/
 rm -f "${file}"
 
+file2="tblogger-$(date "+%Y%m%d-%H%M%S").zip"
+zip -q -r "${file2}" tblogger
+oss cp "${file2}" oss://backup/
+rm -f "${file2}"
+
 # 传输成功后关机
 shutdown
