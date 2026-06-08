@@ -157,5 +157,6 @@ B100 不降或微升。若仅 Urban100 升而 B100 明显降，说明内容路�
       不能从全功能 x3/x4 权重直接关 flag 测（参数已适配全功能，关掉会失配，结论不可信）。
 
 ### 效率脚本（A3 数据 / Table II）
-- [ ] Params 已在 test 日志打印（601,947）；FLOPs / 时延需补独立测量脚本
-      （固定输入尺寸、warmup 后多次平均，统一口径），尚未存在 — 待补
+- [x] Params 已在 test 日志打印（601,947）；FLOPs / 时延脚本已实现：
+      scripts/measure_efficiency.py（固定 HR 输出 1280x720 反推 LR 输入，warmup 后多次平均，
+      FLOPs 后端 thop→fvcore 回退，统一口径）。待训练机运行 `--scale {2,3,4}` 得真值并回填。

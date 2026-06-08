@@ -38,8 +38,9 @@
 - 注：crop_border 按尺度（2/3/4），test_y_channel=true。
 
 ### A3 效率数据（DPRNet + CATANet，三尺度）
-- [ ] Params（总参数量）
-- [ ] FLOPs / Multi-Adds（固定输出尺寸，统一口径并在论文说明）
+- 工具：scripts/measure_efficiency.py（已实现，待训练机运行）。
+- [ ] Params（总参数量）—— test 日志已知 601,947，待脚本统一复核
+- [ ] FLOPs / Multi-Adds（固定输出 1280x720 反推 LR 输入，统一口径并在论文说明）
 - [ ] 推理时延（ms，单 GPU，warmup 后多次平均，固定输入尺寸）
 
 ## B. 从他人论文摘录的对比数据（标注来源，绝不编造）

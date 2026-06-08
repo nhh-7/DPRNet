@@ -30,16 +30,36 @@
 
 ## 当前快照（每次更新）
 
-- **更新时间**：2026-06-06
-- **所处阶段**：规划已完成并通过一致性自检；等待在训练机执行 Day1（启动 x3/x4 + 跑 x2 测试）。
+- **更新时间**：2026-06-08
+- **所处阶段**：Day1 完成。x3/x4 finetune 已 250k 完整跑完（无异常）；本地完成效率脚本。
 - **下一步动作（最优先）**：
-  1. 训练机上启动 x3/x4 finetune（配置已就绪），核对首个 val 点 PSNR 从高值起步。
-  2. 实现效率测量脚本（Params/FLOPs/时延）——Day2 依赖，目前不存在，是唯一实质代码缺口。
+  1. 为 x3/x4 各定一个**统一报告 checkpoint**（同 x2 流程：全 5 基准对比后定单点，禁逐集挑最优）。
+     候选见进度日志：x3 验证最优分散在 210000/232500，x4 在 195000/215000，需测试机全基准复核。
+  2. 训练机运行效率脚本：`python scripts/measure_efficiency.py --scale {2,3,4}`，回填 A3/Table II。
+  3. Day2 写作：抄录 baselines 主表对手指标 + references.bib 初版。
 - **阻塞项**：无（DF2K、checkpoint、模板均已决策闭环）。
 
 ---
 
 ## 进度日志（倒序，最新在上）
+
+### 2026-06-08 · Day1 完成：x3/x4 finetune 250k 跑完 + 日志核对
+- 训练产物已回传本地 experiments/。两尺度均完整跑满 250k，耗时各约 1 天 12 小时。
+- **Day1 验证项全部通过**：
+  · finetune 生效——x3 首个 val(2500) Set5=34.6203、x4 首个 val Set5=32.4194，均从高值起步（非从零爬升），权重正确加载。
+  · loss 正常——全程 l_pix 在 1.4e-2~2.9e-2 区间平稳，l_route 约 1e-6 量级，无 NaN/发散。
+- **各数据集验证最优点（注意分散，需统一报告点）**：
+  · x3：Set5 best 34.7165@210000；Set14 best PSNR 30.6623@250000、SSIM 0.8482@230000。
+  · x4：Set5 best 32.5984@195000；Set14 best PSNR 28.8899@240000、SSIM 0.7882@175000。
+- **待办**：按 x2 同口径，用测试机全 5 基准对比为 x3/x4 各锁定单一报告 checkpoint，禁逐集挑最优。
+- 路由诊断（xscore/usage/entropy/router_scale）已随 val 打印，可作 C3/C4 与 Fig.5/6 证据。
+
+### 2026-06-06 · Day1 启动 + 效率脚本实现
+- 用户在训练机启动 x3/x4 finetune，确认无异常（loss 正常、未报错）。
+- 本地新增效率测量脚本 scripts/measure_efficiency.py：统计 Params / FLOPs / 推理时延，
+  统一口径（固定 HR 输出 1280x720 反推 LR 输入；warmup 后多次平均；FLOPs 后端 thop→fvcore）。
+  py_compile 通过；需在训练机（装 torch）运行得真值，回填 A3/Table II。
+  → 唯一实质代码缺口已补平。
 
 ### 2026-06-06 · 规划一致性自检 + 交接文档化
 - 全面检查 7 个规划文件，修正 5 处不一致：traceability 旧 checkpoint 口径、
@@ -83,9 +103,11 @@
 
 ## 待办与待观察
 
-- [ ] 效率测量脚本（Params/FLOPs/时延）——尚未实现，Day2 依赖。
+- [x] 效率测量脚本（Params/FLOPs/时延）——已实现 scripts/measure_efficiency.py，
+      待训练机运行得真值并回填。
 - [ ] A1 refine 开关顶层透传（做 A1 消融前补，方法同 A2）。
-- [ ] x3/x4 首个 val 点核对（防权重未加载/超参不一致）。
+- [x] x3/x4 首个 val 点核对——已确认 finetune 生效（x3 Set5 34.62 / x4 Set5 32.42 起步）。
+- [ ] x3/x4 统一报告 checkpoint 锁定——需测试机全 5 基准对比定单点（同 x2 流程）。
 - [ ] 观察：x3/x4 能否两周内达到/超过原 CATANet 尺度指标；消融短 iter 是否够体现趋势。
 
 ---
