@@ -7,3 +7,4 @@ experiments/
 *.zip
 results/
 .DS_Store
+.trae

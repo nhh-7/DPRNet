@@ -95,12 +95,12 @@ def main():
 
     device = torch.device(args.device)
 
-    # 由固定输出尺寸反推 LR 输入尺寸（保证整除）
-    if args.output_h % args.scale != 0 or args.output_w % args.scale != 0:
-        raise ValueError(
-            f'output {args.output_h}x{args.output_w} must be divisible by scale {args.scale}')
+    # 由固定输出尺寸反推 LR 输入尺寸；不整除时对 LR 向下取整（与轻量 SR 社区惯例一致，
+    # 例如 x3 下 1280/3 -> LR 宽 426，有效输出 1278x720，误差可忽略）
     lr_h = args.output_h // args.scale
     lr_w = args.output_w // args.scale
+    eff_h = lr_h * args.scale
+    eff_w = lr_w * args.scale
 
     model = build_model(args.scale).to(device)
     lr_input = torch.randn(1, 3, lr_h, lr_w, device=device)
@@ -112,8 +112,9 @@ def main():
     print('=' * 60)
     print(f'Model        : CATANet (DPRNet)  scale x{args.scale}')
     print(f'Device       : {device}')
-    print(f'HR output    : {args.output_h} x {args.output_w} (fixed for FLOPs)')
-    print(f'LR input     : {lr_h} x {lr_w}  (= output / scale)')
+    print(f'HR output    : {args.output_h} x {args.output_w} (requested for FLOPs)')
+    print(f'Eff. output  : {eff_h} x {eff_w}  (= LR * scale, 不整除时向下取整)')
+    print(f'LR input     : {lr_h} x {lr_w}  (= output // scale)')
     print('-' * 60)
     print(f'Params       : {params:,}  ({human_params(params)})')
     if flops is not None:
