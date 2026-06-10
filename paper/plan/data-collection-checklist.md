@@ -194,8 +194,10 @@
 ## D. 图表清单（figures/，含 data-manifest.md）
 
 ### D1 结构图（figures-diagram，无需数据）
-- [ ] Fig.1 整体网络结构（CATANet 主干 + DPR 位置）
-- [ ] Fig.2 DPR 模块数据流（原型生成→refine→匹配→排序→IASA）
+- [~] Fig.1 整体网络结构（CATANet 主干 + DPR 位置）
+      → 规格已写定 paper/figures/figure-specs.md（对应 method Eq.1–3）；待出图（draw.io）
+- [~] Fig.2 DPR 模块数据流（原型生成→refine→匹配→排序→IASA）
+      → 规格已写定 paper/figures/figure-specs.md（对应 method Eq.4–13，标三消融开关）；待出图（TikZ）
 
 ### D2 数据图（figures-python，需 CSV）
 - [ ] Fig.3 PSNR-vs-Params（或 vs FLOPs）散点，突出本文 Pareto

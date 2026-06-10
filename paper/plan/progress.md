@@ -31,19 +31,35 @@
 ## 当前快照（每次更新）
 
 - **更新时间**：2026-06-10
-- **所处阶段**：Day3 进行中。Table I/II 已拼装；Method 章节初稿已写定
-  （paper/sections/2_method.tex，忠于 catanet_arch.py 实现，含 7 节 + 公式，无指标断言）。
+- **所处阶段**：Day3→Day4。Table I/II 已拼装；Method 初稿已写定；
+  Introduction(含 Related Work) 初稿 + Fig.1/Fig.2 结构图规格已写定。
 - **下一步动作（最优先）**：
-  1. Introduction + Related Work 初稿（Day4，先建 evidence map）。
-  2. 方法结构图：Fig.1 整体网络 + Fig.2 DPR 数据流（figures-diagram 出 prompt）。
-  3. 准备消融：A1 需先补 use_prototype_query_refine 顶层透传（CATANet→TAB→DPR，同 A2 法），
-     再建 refine=off 训练 yml；A2/A3 yml 序列就绪后排训（短 iter）。
-  4. 补 Table II 对手 FLOPs/时延（同口径，禁编造）——投稿前必补。
+  1. 准备消融：A1 需先补 use_prototype_query_refine 顶层透传（CATANet→TAB→DPR，同 A2 法），
+     再建 refine=off 训练 yml；A2/A3 yml 序列就绪后排训（短 iter）。这是终稿唯一实验缺口（C1–C4 待训练）。
+  2. 补 Table II 对手 FLOPs/时延（同口径，禁编造）——投稿前必补。
+  3. 据 Fig.2 规格出图（Fig.1 draw.io / Fig.2 TikZ）。
 - **阻塞项**：无。
+- **A1 间接对比可否直接引 CATANet 原论文数据的判断（2026-06-10）**：
+  C1「动态原型 vs 历史中心+EMA」的间接动机对比 **可以直接引用 CATANet 原论文表格**
+  （已摘录在 checklist B8 / Table I，同尺度同 5 基准同 Y 通道口径，标注来源【A】），
+  无需自己重训 EMA 分支。但须满足：(a) 只作"设计动机层面"的间接对比，正文措辞为
+  "compared with the center-based baseline"，不可写成本文新增的受控消融；
+  (b) C2 refine 的受控消融（A1 表 refine on/off）仍必须本文自训，不能用引用替代。
 
 ---
 
 ## 进度日志（倒序，最新在上）
+
+### 2026-06-10 · Day4：Introduction 初稿 + 结构图规格
+- 写定 paper/sections/1_introduction.tex（对应 outline §1，Related Work 融入）：
+  背景(SRCNN/EDSR)→轻量 CNN(CARN/IMDN/RFDN/RLFN)→轻量 Transformer(SwinIR/ELAN/SRFormer/ATD)
+  →内容路由(SPIN/CATANet)→TAB 四限制→DPR 概述→C1–C4 contribution，全部 \cite 对应 references.bib，
+  无任何量化指标断言（仅动机/定位的定性表述），与 traceability 证据状态一致。
+- 写定 paper/figures/figure-specs.md（Fig.1 整体网络 + Fig.2 DPR 数据流的 figures-diagram 规格）：
+  逐元素/箭头对应 2_method.tex 的 Eq.1–13，标注三消融开关位置（A1 refine / A2 三 flag / A3 balance），
+  与 protocol §10.C 呼应；纯结构示意无指标。
+- 判断 A1 间接对比口径（见"当前快照"）：C1 历史中心对照可直接引 CATANet 原论文表格（B8/Table I），
+  C2 refine 受控消融仍须本文自训。
 
 ### 2026-06-10 · Day3：Method 章节初稿
 - 写定 paper/sections/2_method.tex（LaTeX，对应 outline §2）：Overview / Motivation /
