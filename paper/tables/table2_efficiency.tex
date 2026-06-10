@@ -1,0 +1,58 @@
+% Table II — Efficiency comparison.
+% Requires: \usepackage{booktabs}
+% Provenance:
+%   - DPRNet Params / Multi-Adds(MACs, thop) / latency: paper/plan/data-collection-checklist.md A3
+%     (device=cuda, fixed HR output ~720x1280 -> LR derived; warmup=20, repeat=100; thop reports MACs).
+%   - Competitor Params: B1-B8 of the checklist (cited from original papers).
+%   - Representative PSNR: Urban100 x4 from Table I.
+% NOTE (data gap): competitor FLOPs/Multi-Adds and latency are NOT yet collected. They are left as
+%   "-" and must be filled (from each paper's reported Multi-Adds @ same output, or re-measured under
+%   the same protocol) before submission. Do NOT fabricate.
+\begin{table}[t]
+\centering
+\caption{Efficiency comparison on $\times 4$ SR. Multi-Adds are reported by thop (MACs); to compare
+against FLOPs-based papers, multiply by 2. ``-'' denotes values not yet collected under our protocol.
+Representative PSNR is on Urban100 ($\times 4$).}
+\label{tab:efficiency}
+\begin{tabular}{l c c c c}
+\toprule
+Method & Params (K) & Multi-Adds (G) & Latency (ms) & Urban100 PSNR \\
+\midrule
+CARN            & 1592 & -     & - & 26.07 \\
+IMDN            & 715  & -     & - & 26.04 \\
+RFDN            & 550  & -     & - & 26.11 \\
+RLFN            & 543  & -     & - & 26.17 \\
+SwinIR-light    & 897  & -     & - & 26.47 \\
+ELAN-light      & 601  & -     & - & 26.54 \\
+SRFormer-light  & 873  & -     & - & 26.67 \\
+CATANet         & 535  & -     & - & \textbf{26.87} \\
+\textbf{DPRNet (ours)} & 660 & 45.77 & 196.77 $\pm$ 10.02 & \underline{26.82} \\
+\bottomrule
+\end{tabular}
+
+\vspace{2pt}
+{\footnotesize
+\textit{Notes.} DPRNet efficiency is measured on a single CUDA GPU with a fixed HR output of
+$\approx$720$\times$1280 (LR input derived per scale), warmup=20, repeat=100. Multi-Adds are MACs
+reported by thop. Competitor Multi-Adds/latency are not yet collected under the same protocol
+(``-''); fill before submission.}
+\end{table}
+
+% --- DPRNet per-scale efficiency profile (all measured; A3) ---
+% Optionally include as a separate small table or merge into the text.
+\begin{table}[t]
+\centering
+\caption{DPRNet per-scale efficiency profile (measured). LR input derived from a fixed HR output
+$\approx$720$\times$1280; Multi-Adds are MACs (thop); latency averaged over 100 runs after 20 warmups
+on a single CUDA GPU.}
+\label{tab:efficiency_profile}
+\begin{tabular}{c c c c c}
+\toprule
+Scale & LR Input & Params (K) & Multi-Adds (G) & Latency (ms) \\
+\midrule
+$\times 2$ & 360$\times$640 & 601.95 & 126.52 & 712.16 $\pm$ 23.47 \\
+$\times 3$ & 240$\times$426 & 674.15 & 64.28  & 285.39 $\pm$ 5.66  \\
+$\times 4$ & 180$\times$320 & 659.71 & 45.77  & 196.77 $\pm$ 10.02 \\
+\bottomrule
+\end{tabular}
+\end{table}

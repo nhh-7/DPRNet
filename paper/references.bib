@@ -1,0 +1,194 @@
+% references.bib — DPRNet 投稿参考文献（初版）
+% 核实状态：
+%   - arXiv ID 与标题/作者均已核实（来自论文 HTML/PDF/dblp）。
+%   - CATANet 的 DOI 与页码经 dblp 确认（10.1109/CVPR52734.2025.01668, pp.17902-17912）。
+%   - 其余条目的会议页码/年份为常见出处填充，终稿前须用 CrossRef 逐条核对页码与正式 DOI。
+%   - SPIN(zhang2024spin)、ATD(zhang2024atd) 的发表会议/年份待 CrossRef 最终确认。
+% baseline 指标摘录见 plan/data-collection-checklist.md B 节（来源代号 A/B/C/D）。
+
+% ===== 最直接对手（本文基线主体，DPRNet 即在其上替换 TAB） =====
+@inproceedings{liu2025catanet,
+  title     = {{CATANet}: Efficient Content-Aware Token Aggregation for Lightweight Image Super-Resolution},
+  author    = {Liu, Xin and Liu, Jie and Tang, Jie and Wu, Gangshan},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  pages     = {17902--17912},
+  year      = {2025},
+  doi       = {10.1109/CVPR52734.2025.01668},
+  note      = {arXiv:2503.06896}
+}
+
+% ===== CNN 轻量 SR 基线 =====
+@inproceedings{ahn2018carn,
+  title     = {Fast, Accurate, and Lightweight Super-Resolution with Cascading Residual Network},
+  author    = {Ahn, Namhyuk and Kang, Byungkon and Sohn, Kyung-Ah},
+  booktitle = {Proceedings of the European Conference on Computer Vision (ECCV)},
+  pages     = {252--268},
+  year      = {2018},
+  note      = {arXiv:1803.08664}
+}
+
+@inproceedings{hui2019imdn,
+  title     = {Lightweight Image Super-Resolution with Information Multi-Distillation Network},
+  author    = {Hui, Zheng and Gao, Xinbo and Yang, Yunchu and Wang, Xiumei},
+  booktitle = {Proceedings of the 27th ACM International Conference on Multimedia (ACM MM)},
+  pages     = {2024--2032},
+  year      = {2019},
+  doi       = {10.1145/3343031.3351084},
+  note      = {arXiv:1909.11856}
+}
+
+@inproceedings{liu2020rfdn,
+  title     = {Residual Feature Distillation Network for Lightweight Image Super-Resolution},
+  author    = {Liu, Jie and Tang, Jie and Wu, Gangshan},
+  booktitle = {Proceedings of the European Conference on Computer Vision Workshops (ECCVW)},
+  year      = {2020},
+  note      = {arXiv:2009.11551; AIM 2020 Efficient SR Challenge}
+}
+
+@inproceedings{kong2022rlfn,
+  title     = {Residual Local Feature Network for Efficient Super-Resolution},
+  author    = {Kong, Fangyuan and Li, Mingxi and Liu, Songwei and Liu, Ding and He, Jingwen and Bai, Yang and Chen, Fangmin and Fu, Lean},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops (CVPRW)},
+  pages     = {766--776},
+  year      = {2022},
+  note      = {arXiv:2205.07514; NTIRE 2022 Efficient SR Challenge winner}
+}
+
+% ===== Transformer 轻量 SR 基线 =====
+@inproceedings{liang2021swinir,
+  title     = {{SwinIR}: Image Restoration Using Swin Transformer},
+  author    = {Liang, Jingyun and Cao, Jiezhang and Sun, Guolei and Zhang, Kai and Van Gool, Luc and Timofte, Radu},
+  booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision Workshops (ICCVW)},
+  pages     = {1833--1844},
+  year      = {2021},
+  note      = {arXiv:2108.10257}
+}
+
+@inproceedings{zhang2022elan,
+  title     = {Efficient Long-Range Attention Network for Image Super-Resolution},
+  author    = {Zhang, Xindong and Zeng, Hui and Guo, Shi and Zhang, Lei},
+  booktitle = {Proceedings of the European Conference on Computer Vision (ECCV)},
+  pages     = {649--667},
+  year      = {2022},
+  note      = {arXiv:2203.06697}
+}
+
+@inproceedings{zhou2023srformer,
+  title     = {{SRFormer}: Permuted Self-Attention for Single Image Super-Resolution},
+  author    = {Zhou, Yupeng and Li, Zhen and Guo, Chun-Le and Bai, Song and Cheng, Ming-Ming and Hou, Qibin},
+  booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
+  pages     = {12780--12791},
+  year      = {2023},
+  note      = {arXiv:2303.09735}
+}
+
+% ===== 相关 / 对照方法（Introduction & Related Work 引用） =====
+@inproceedings{dong2014srcnn,
+  title     = {Learning a Deep Convolutional Network for Image Super-Resolution},
+  author    = {Dong, Chao and Loy, Chen Change and He, Kaiming and Tang, Xiaoou},
+  booktitle = {Proceedings of the European Conference on Computer Vision (ECCV)},
+  pages     = {184--199},
+  year      = {2014},
+  doi       = {10.1007/978-3-319-10593-2_13}
+}
+
+@inproceedings{lim2017edsr,
+  title     = {Enhanced Deep Residual Networks for Single Image Super-Resolution},
+  author    = {Lim, Bee and Son, Sanghyun and Kim, Heewon and Nah, Seungjun and Lee, Kyoung Mu},
+  booktitle = {Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition Workshops (CVPRW)},
+  pages     = {136--144},
+  year      = {2017},
+  note      = {arXiv:1707.02921}
+}
+
+@article{zhang2024spin,
+  title   = {Lightweight Image Super-Resolution with Superpixel Token Interaction},
+  author  = {Zhang, Aiping and Ren, Wenqi and Liu, Yi and Cao, Xiaochun},
+  journal = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
+  year    = {2023},
+  note    = {SPIN; cluster-based lightweight SR, CATANet 主对照}
+}
+
+@inproceedings{zhang2024atd,
+  title     = {Transcending the Limit of Local Window: Advanced Super-Resolution Transformer with Adaptive Token Dictionary},
+  author    = {Zhang, Leheng and Li, Yuxuan and Zhou, Xiaorui and Zhao, Xiaojie and Gu, Shuhang},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  year      = {2024},
+  note      = {ATD; arXiv:2401.08209}
+}
+
+% ===== 数据集 =====
+@inproceedings{agustsson2017div2k,
+  title     = {{NTIRE} 2017 Challenge on Single Image Super-Resolution: Dataset and Study},
+  author    = {Agustsson, Eirikur and Timofte, Radu},
+  booktitle = {Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition Workshops (CVPRW)},
+  pages     = {126--135},
+  year      = {2017}
+}
+
+@inproceedings{bevilacqua2012set5,
+  title     = {Low-Complexity Single-Image Super-Resolution Based on Nonnegative Neighbor Embedding},
+  author    = {Bevilacqua, Marco and Roumy, Aline and Guillemot, Christine and Alberi-Morel, Marie Line},
+  booktitle = {Proceedings of the British Machine Vision Conference (BMVC)},
+  pages     = {135.1--135.10},
+  year      = {2012},
+  doi       = {10.5244/C.26.135}
+}
+
+@inproceedings{zeyde2010set14,
+  title     = {On Single Image Scale-Up Using Sparse-Representations},
+  author    = {Zeyde, Roman and Elad, Michael and Protter, Matan},
+  booktitle = {International Conference on Curves and Surfaces},
+  pages     = {711--730},
+  year      = {2010},
+  doi       = {10.1007/978-3-642-27413-8_47}
+}
+
+@inproceedings{martin2001bsd100,
+  title     = {A Database of Human Segmented Natural Images and Its Application to Evaluating Segmentation Algorithms and Measuring Ecological Statistics},
+  author    = {Martin, David and Fowlkes, Charless and Tal, Doron and Malik, Jitendra},
+  booktitle = {Proceedings of the IEEE International Conference on Computer Vision (ICCV)},
+  volume    = {2},
+  pages     = {416--423},
+  year      = {2001},
+  doi       = {10.1109/ICCV.2001.937655}
+}
+
+@inproceedings{huang2015urban100,
+  title     = {Single Image Super-Resolution from Transformed Self-Exemplars},
+  author    = {Huang, Jia-Bin and Singh, Abhishek and Ahuja, Narendra},
+  booktitle = {Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+  pages     = {5197--5206},
+  year      = {2015},
+  doi       = {10.1109/CVPR.2015.7299156}
+}
+
+@article{matsui2017manga109,
+  title   = {Sketch-Based Manga Retrieval Using {Manga109} Dataset},
+  author  = {Matsui, Yusuke and Ito, Kota and Aramaki, Yuji and Fujimoto, Azuma and Ogawa, Toru and Yamasaki, Toshihiko and Aizawa, Kiyoharu},
+  journal = {Multimedia Tools and Applications},
+  volume  = {76},
+  number  = {20},
+  pages   = {21811--21838},
+  year    = {2017},
+  doi     = {10.1007/s11042-016-4020-z}
+}
+
+% ===== 指标 / 框架 =====
+@article{wang2004ssim,
+  title   = {Image Quality Assessment: From Error Visibility to Structural Similarity},
+  author  = {Wang, Zhou and Bovik, Alan C. and Sheikh, Hamid R. and Simoncelli, Eero P.},
+  journal = {IEEE Transactions on Image Processing},
+  volume  = {13},
+  number  = {4},
+  pages   = {600--612},
+  year    = {2004},
+  doi     = {10.1109/TIP.2003.819861}
+}
+
+@misc{wang2020basicsr,
+  title        = {{BasicSR}: Open Source Image and Video Restoration Toolbox},
+  author       = {Wang, Xintao and Xie, Liangbin and Yu, Ke and Chan, Kelvin C.K. and Loy, Chen Change and Dong, Chao},
+  howpublished = {\url{https://github.com/XPixelGroup/BasicSR}},
+  year         = {2020}
+}

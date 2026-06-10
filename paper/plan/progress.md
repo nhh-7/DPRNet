@@ -30,18 +30,67 @@
 
 ## 当前快照（每次更新）
 
-- **更新时间**：2026-06-08
-- **所处阶段**：Day1 完成。x3/x4 finetune 已 250k 完整跑完（无异常）；本地完成效率脚本。
+- **更新时间**：2026-06-10
+- **所处阶段**：Day3 进行中。Table I/II 已拼装；Method 章节初稿已写定
+  （paper/sections/2_method.tex，忠于 catanet_arch.py 实现，含 7 节 + 公式，无指标断言）。
 - **下一步动作（最优先）**：
-  1. 为 x3/x4 各定一个**统一报告 checkpoint**（同 x2 流程：全 5 基准对比后定单点，禁逐集挑最优）。
-     候选见进度日志：x3 验证最优分散在 210000/232500，x4 在 195000/215000，需测试机全基准复核。
-  2. 训练机运行效率脚本：`python scripts/measure_efficiency.py --scale {2,3,4}`，回填 A3/Table II。
-  3. Day2 写作：抄录 baselines 主表对手指标 + references.bib 初版。
-- **阻塞项**：无（DF2K、checkpoint、模板均已决策闭环）。
+  1. Introduction + Related Work 初稿（Day4，先建 evidence map）。
+  2. 方法结构图：Fig.1 整体网络 + Fig.2 DPR 数据流（figures-diagram 出 prompt）。
+  3. 准备消融：A1 需先补 use_prototype_query_refine 顶层透传（CATANet→TAB→DPR，同 A2 法），
+     再建 refine=off 训练 yml；A2/A3 yml 序列就绪后排训（短 iter）。
+  4. 补 Table II 对手 FLOPs/时延（同口径，禁编造）——投稿前必补。
+- **阻塞项**：无。
 
 ---
 
 ## 进度日志（倒序，最新在上）
+
+### 2026-06-10 · Day3：Method 章节初稿
+- 写定 paper/sections/2_method.tex（LaTeX，对应 outline §2）：Overview / Motivation /
+  DPR 四阶段（动态原型生成→query refine 确认→置信度匹配→置信度排序）/ IASA 置信度门控 +
+  soft fallback / balance loss / Design discussion，共 7 小节 + 编号公式。
+- 严格忠于实现 catanet_arch.py：assign softmax(Eq.4)、proto_content 加权平均(Eq.5)、
+  refine 门控 γ=σ(g_r)(Eq.7)、可学习温度 τ=min(e^θ,τ_max)(Eq.8)、排序键 b+0.5(1-x_score)(Eq.10)、
+  IASA 门控 β·x_score(Eq.11)、soft fallback α(1-x_score)(Eq.12)、usage 熵正则(Eq.13)。
+- 三个消融开关 use_conf_sort / use_iasa_score_gate / use_soft_fallback 与 refine 开关均在正文
+  对应到 A1/A2/A3，且写明"关闭即严格等价"，与 traceability/protocol §10 一致。
+- 全篇无任何指标断言（无 "results show"），符合 Mock 边界与证据状态约定。
+
+### 2026-06-10 · Day2 收尾：Table I 主对比 + Table II 效率表拼装
+- 用 A2/A3（本文）+ B1–B8（对手）数据拼成 paper/tables/table1_main_comparison.tex：
+  三尺度 × 5 基准，CARN/IMDN/RFDN/RLFN/SwinIR-light/ELAN-light/SRFormer-light/CATANet + DPRNet 共 9 行；
+  逐列核对最优（加粗）/次优（下划线）；RLFN 无 x3、无 Manga109 缺格填 "-"；表注标全部来源与 checkpoint 口径。
+- 关键观察：DPRNet 与原始 CATANet 高度接近，x2 Manga109 双指标全场最高、x4 B100 PSNR/SSIM 全场最高；
+  多数格次优、紧贴 CATANet，符合"接口兼容 + 内容路由质量提升"的预期形态（待消融与可视化进一步支撑 claim）。
+- paper/tables/table2_efficiency.tex：DPRNet 三尺度 Params/MACs(thop)/时延全填（含 per-scale profile 子表）+
+  对手 Params 已填；⚠ 对手 FLOPs/时延未同口径采集，暂填 "-"，投稿前必补（摘录各论文同输出 Multi-Adds 或同协议重测，禁编造）。
+- data-checklist C 节：Table I 标 [x]、Table II 标 [~]（带数据缺口说明）。
+
+### 2026-06-09 · Day2：baseline 对手指标摘录 + references.bib 初版
+- 从权威原始论文交叉核对摘录 8 个对比方法（CARN/IMDN/RFDN/RLFN/SwinIR-light/
+  ELAN-light/SRFormer-light + CATANet 原始）的 x2/x3/x4 × 5 基准 PSNR/SSIM + Params，
+  回填 data-checklist B 节，逐方法标注来源（A=CATANet CVPR2025 Table2 / B=SRFormer Table VI /
+  C=RLFN Table1 / D=RFDN Table3）。
+- 关键发现：RLFN 原论文仅 x2/x4 且无 Manga109，主表对应缺格填 "-"（不补二手来源）；
+  SwinIR/ELAN 在 A/B 两表 Params 口径不同（PSNR/SSIM 一致），主表统一采 A 口径并表注说明。
+- 交叉验证：CATANet 原报 x2 Set5 38.28/0.9617 与本仓库自测 net_g_792500（38.2706/0.9617）
+  高度吻合，佐证 CATANet 复现可信、可作 DPRNet 直接对照基线。
+- 新建 paper/references.bib 初版（19 条：8 对比方法 + SRCNN/EDSR/SPIN/ATD + 5 数据集 +
+  SSIM/BasicSR）。CATANet DOI/页码经 dblp 确认；其余 arXiv ID 已核实，会议页码/正式 DOI
+  待终稿前 CrossRef 逐条核对（文件头已注明核实状态）。
+
+### 2026-06-09 · x3/x4 报告 checkpoint 锁定 + 效率数据回填
+- 测试机全 5 基准复核 x3(210000/232500/250000) 与 x4(195000/240000/250000) 各 3 点。
+- **锁定 net_g_250000 为 x3、x4 统一报告点**（同 x2 口径：全基准均值最优 + 最收敛，禁逐集挑最优）：
+  · x3@250000：均值 PSNR 31.606 / SSIM 0.8811，三点中双最高；Set5 34.7129 / Set14 30.6599 /
+    B100 29.2890 / Urban100 28.9551 / Manga109 34.4133。
+  · x4@250000：均值 PSNR 29.462 / SSIM 0.8312，三点中双最高，Urban100 双指标全场最高；
+    Set5 32.5826 / Set14 28.8846 / B100 27.7648 / Urban100 26.8225 / Manga109 31.2540。
+  · 注：各点差异极小（x3 PSNR 极差 0.017、x4 0.018），250000 最收敛故取之，与 x2 选最晚点逻辑一致。
+- **效率数据回填（A3/Table II）**：efficiency.md（cuda）解析——Params x2/x3/x4=601.95K/674.15K/659.71K，
+  MACs(thop)=126.52/64.28/45.77 G，时延=712.16/285.39/196.77 ms（warmup20 repeat100）。
+  口径：固定 HR≈720×1280 反推 LR；thop 报 MACs，与 FLOPs 论文比需 ×2；x3 HR 不整除按 720×1278。
+- data-checklist A2 回填 x3/x4 完整主表、A3 效率表。三尺度报告口径统一写入"已决策"。
 
 ### 2026-06-08 · Day1 完成：x3/x4 finetune 250k 跑完 + 日志核对
 - 训练产物已回传本地 experiments/。两尺度均完整跑满 250k，耗时各约 1 天 12 小时。
@@ -95,6 +144,7 @@
 ## 已决策（不可回退的约定）
 
 - [x] x2 报告 checkpoint：net_g_792500（统一报告点，不逐数据集挑最优）。
+- [x] x3/x4 报告 checkpoint：均为 net_g_250000（finetune 最终点，全基准均值最优 + 最收敛，禁逐集挑最优）。
 - [x] 期刊模板：latex-templates/latex-template（CVPR 2026 kit）有效可编译；
       投 Neurocomputing/TNNLS 时正文复用、外层格式终稿前迁移。
 - [x] 训练数据：仅 DIV2K（暂不启用 DF2K）。
@@ -104,10 +154,13 @@
 ## 待办与待观察
 
 - [x] 效率测量脚本（Params/FLOPs/时延）——已实现 scripts/measure_efficiency.py，
-      待训练机运行得真值并回填。
+      已在训练机 cuda 运行三尺度并回填 data-checklist A3/Table II。
 - [ ] A1 refine 开关顶层透传（做 A1 消融前补，方法同 A2）。
 - [x] x3/x4 首个 val 点核对——已确认 finetune 生效（x3 Set5 34.62 / x4 Set5 32.42 起步）。
-- [ ] x3/x4 统一报告 checkpoint 锁定——需测试机全 5 基准对比定单点（同 x2 流程）。
+- [x] x3/x4 统一报告 checkpoint 锁定——均为 net_g_250000（全 5 基准复核后定单点）。
+- [x] Day2：摘录 7+1 baseline 三尺度 5 基准指标 + Params（B 节）；references.bib 初版（paper/references.bib）。
+- [ ] 用 B 节数据拼装 Table I 主对比 + Table II 效率表（本文加粗/次优下划线，RLFN 缺格 "-"）。
+- [ ] references.bib 终稿前用 CrossRef 逐条核对会议页码与正式 DOI（SPIN/ATD 发表信息待确认）。
 - [ ] 观察：x3/x4 能否两周内达到/超过原 CATANet 尺度指标；消融短 iter 是否够体现趋势。
 
 ---

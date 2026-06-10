@@ -1,0 +1,71 @@
+% Table I — Main quantitative comparison (PSNR/SSIM, Y channel) on five benchmarks.
+% Scales x2/x3/x4. Best in \textbf{bold}, second-best \underline{underlined} (per column).
+% Requires: \usepackage{booktabs,multirow,graphicx}
+% Provenance: see paper/plan/data-collection-checklist.md (A2 = ours/DPRNet; B1-B8 = competitors).
+%   Competitor numbers transcribed verbatim from original papers; sources keyed [A]CATANet CVPR2025 Tab.2,
+%   [B]SRFormer Tab.VI, [C]RLFN Tab.1, [D]RFDN Tab.3. RLFN has no x3 / no Manga109 -> "-".
+%   SwinIR-light / ELAN-light Params use source [A] convention (see table note).
+\begin{table*}[t]
+\centering
+\caption{Quantitative comparison with state-of-the-art lightweight SR methods on five benchmarks
+(PSNR(dB)/SSIM on the Y channel). \textbf{Best} and \underline{second-best} results are highlighted.
+Competitor metrics are cited from the original papers (see notes). ``-'' denotes results not reported
+in the source.}
+\label{tab:main_comparison}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{l c cc cc cc cc cc}
+\toprule
+\multirow{2}{*}{Method} & \multirow{2}{*}{Params} &
+\multicolumn{2}{c}{Set5} & \multicolumn{2}{c}{Set14} & \multicolumn{2}{c}{BSD100} &
+\multicolumn{2}{c}{Urban100} & \multicolumn{2}{c}{Manga109} \\
+\cmidrule(lr){3-4}\cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}\cmidrule(lr){11-12}
+ & (K) & PSNR & SSIM & PSNR & SSIM & PSNR & SSIM & PSNR & SSIM & PSNR & SSIM \\
+\midrule
+\multicolumn{12}{c}{\textit{Scale} $\times 2$} \\
+\midrule
+CARN            & 1592 & 37.76 & 0.9590 & 33.52 & 0.9166 & 32.09 & 0.8978 & 31.92 & 0.9256 & 38.36 & 0.9765 \\
+IMDN            & 694  & 38.00 & 0.9605 & 33.63 & 0.9177 & 32.19 & 0.8996 & 32.17 & 0.9283 & 38.88 & 0.9774 \\
+RFDN            & 534  & 38.05 & 0.9606 & 33.68 & 0.9184 & 32.16 & 0.8994 & 32.12 & 0.9278 & 38.88 & 0.9773 \\
+RLFN            & 527  & 38.07 & 0.9607 & 33.72 & 0.9187 & 32.22 & 0.9000 & 32.33 & 0.9299 & -     & -      \\
+SwinIR-light    & 878  & 38.14 & 0.9611 & 33.86 & 0.9206 & 32.31 & 0.9012 & 32.76 & 0.9340 & 39.12 & 0.9783 \\
+ELAN-light      & 582  & 38.17 & 0.9611 & 33.94 & 0.9207 & 32.30 & 0.9012 & 32.76 & 0.9340 & 39.11 & 0.9782 \\
+SRFormer-light  & 853  & 38.23 & \underline{0.9613} & 33.94 & 0.9209 & \underline{32.36} & 0.9019 & 32.91 & 0.9353 & 39.28 & \underline{0.9785} \\
+CATANet         & 477  & \textbf{38.28} & \textbf{0.9617} & \textbf{33.99} & \textbf{0.9217} & \textbf{32.37} & \textbf{0.9023} & \textbf{33.09} & \textbf{0.9372} & \underline{39.37} & 0.9784 \\
+\textbf{DPRNet (ours)} & 602 & \underline{38.27} & \textbf{0.9617} & \underline{33.96} & \underline{0.9210} & 32.35 & \underline{0.9020} & \underline{33.05} & \underline{0.9362} & \textbf{39.38} & \textbf{0.9787} \\
+\midrule
+\multicolumn{12}{c}{\textit{Scale} $\times 3$} \\
+\midrule
+CARN            & 1592 & 34.29 & 0.9255 & 30.29 & 0.8407 & 29.06 & 0.8034 & 28.06 & 0.8493 & 33.43 & 0.9427 \\
+IMDN            & 703  & 34.36 & 0.9270 & 30.32 & 0.8417 & 29.09 & 0.8046 & 28.17 & 0.8519 & 33.61 & 0.9445 \\
+RFDN            & 541  & 34.41 & 0.9273 & 30.34 & 0.8420 & 29.09 & 0.8050 & 28.21 & 0.8525 & 33.67 & 0.9449 \\
+RLFN            & -    & -     & -      & -     & -      & -     & -      & -     & -      & -     & -      \\
+SwinIR-light    & 886  & 34.62 & 0.9289 & 30.54 & 0.8463 & 29.20 & 0.8082 & 28.66 & 0.8624 & 33.98 & 0.9478 \\
+ELAN-light      & 590  & 34.64 & 0.9288 & 30.55 & 0.8463 & 29.21 & 0.8081 & 28.69 & 0.8624 & 34.00 & 0.9478 \\
+SRFormer-light  & 861  & 34.67 & 0.9296 & 30.57 & \underline{0.8469} & 29.26 & 0.8099 & 28.81 & 0.8655 & 34.19 & \underline{0.9489} \\
+CATANet         & 550  & \textbf{34.75} & \textbf{0.9300} & \textbf{30.67} & \textbf{0.8481} & \underline{29.28} & \underline{0.8101} & \textbf{29.04} & \textbf{0.8689} & \underline{34.40} & \textbf{0.9499} \\
+\textbf{DPRNet (ours)} & 674 & \underline{34.71} & \underline{0.9298} & \underline{30.66} & \textbf{0.8481} & \textbf{29.29} & \textbf{0.8103} & \underline{28.96} & \underline{0.8675} & \textbf{34.41} & \textbf{0.9499} \\
+\midrule
+\multicolumn{12}{c}{\textit{Scale} $\times 4$} \\
+\midrule
+CARN            & 1592 & 32.13 & 0.8937 & 28.60 & 0.7806 & 27.58 & 0.7349 & 26.07 & 0.7837 & 30.42 & 0.9070 \\
+IMDN            & 715  & 32.21 & 0.8948 & 28.58 & 0.7811 & 27.56 & 0.7353 & 26.04 & 0.7838 & 30.45 & 0.9075 \\
+RFDN            & 550  & 32.24 & 0.8952 & 28.61 & 0.7819 & 27.57 & 0.7360 & 26.11 & 0.7858 & 30.58 & 0.9089 \\
+RLFN            & 543  & 32.24 & 0.8952 & 28.62 & 0.7813 & 27.60 & 0.7364 & 26.17 & 0.7877 & -     & -      \\
+SwinIR-light    & 897  & 32.44 & 0.8976 & 28.77 & 0.7858 & 27.69 & 0.7406 & 26.47 & 0.7980 & 30.92 & 0.9151 \\
+ELAN-light      & 601  & 32.43 & 0.8975 & 28.78 & 0.7858 & 27.69 & 0.7406 & 26.54 & 0.7982 & 30.92 & 0.9150 \\
+SRFormer-light  & 873  & \underline{32.51} & \underline{0.8988} & 28.82 & \underline{0.7872} & 27.73 & 0.7422 & 26.67 & 0.8032 & 31.17 & 0.9165 \\
+CATANet         & 535  & \textbf{32.58} & \textbf{0.8998} & \textbf{28.90} & \textbf{0.7880} & \underline{27.75} & \underline{0.7427} & \textbf{26.87} & \textbf{0.8081} & \textbf{31.31} & \textbf{0.9183} \\
+\textbf{DPRNet (ours)} & 660 & \textbf{32.58} & \textbf{0.8998} & \underline{28.88} & \textbf{0.7880} & \textbf{27.76} & \textbf{0.7434} & \underline{26.82} & \underline{0.8065} & \underline{31.25} & \underline{0.9181} \\
+\bottomrule
+\end{tabular}%
+}
+
+\vspace{2pt}
+{\footnotesize
+\textit{Notes.} DPRNet (ours) uses a single unified checkpoint per scale (x2: \texttt{net\_g\_792500};
+x3/x4: \texttt{net\_g\_250000}), reported across all benchmarks without per-dataset cherry-picking.
+Competitor numbers are cited verbatim: CARN/IMDN/RFDN/SwinIR-light/ELAN-light/CATANet from CATANet
+(CVPR 2025, Tab.~2); SRFormer-light from its paper (Tab.~VI); RLFN from its paper (Tab.~1).
+RLFN does not report x3 or Manga109 in the original paper (``-''). Params for SwinIR-light and
+ELAN-light follow the convention of the CATANet table.}
+\end{table*}
