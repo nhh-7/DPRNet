@@ -19,7 +19,7 @@
 
 **关键背景事实（不要再推翻）**：
 - 训练在远程机（数据路径 /hy-tmp/...），本地 Mac 无 torch、无权重，只能改代码/文档。
-- x2 已训练完成；x3/x4 从 x2 权重 finetune；消融在 x2 上做。
+- x2 已训练完成；x3/x4 从 x2 权重 finetune；消融在 x4 上做（对齐 CATANet 原论文消融口径 scale=4）。
 - 全部指标统一用单一 checkpoint **net_g_792500** 报告，禁止逐数据集挑最优。
 - 仅用 DIV2K 训练（不启用 DF2K），三尺度同口径。
 
@@ -31,13 +31,19 @@
 ## 当前快照（每次更新）
 
 - **更新时间**：2026-06-10
-- **所处阶段**：Day3→Day4。Table I/II 已拼装；Method 初稿已写定；
-  Introduction(含 Related Work) 初稿 + Fig.1/Fig.2 结构图规格已写定。
+- **所处阶段**：Day4→Day5。Table I/II 已拼装；Method/Introduction 初稿已写定；
+  消融实验前置条件（代码透传 + 6 个 yml）已就绪，待训练机排训。
 - **下一步动作（最优先）**：
-  1. 准备消融：A1 需先补 use_prototype_query_refine 顶层透传（CATANet→TAB→DPR，同 A2 法），
-     再建 refine=off 训练 yml；A2/A3 yml 序列就绪后排训（短 iter）。这是终稿唯一实验缺口（C1–C4 待训练）。
+  1. ✅ A1 refine 顶层透传已补（CATANet→TAB→DPR），6 个消融 yml 已建（见下）。
+     → 待训练机排训：A1/A2/A3 + full 参照（x4 finetune 100k 短 iter）。这是终稿唯一实验缺口（C1–C4）。
   2. 补 Table II 对手 FLOPs/时延（同口径，禁编造）——投稿前必补。
   3. 据 Fig.2 规格出图（Fig.1 draw.io / Fig.2 TikZ）。
+- **消融 yml 清单（CATANet/options/train/）**：
+  · train_CATANet_x4_abl_full.yml —— 全功能参照（A1/A2/A3 共享顶行）。
+  · train_CATANet_x4_abl_A1_refine_off.yml —— A1：refine=off。
+  · train_CATANet_x4_abl_A2_v1_hardsort.yml / _v2_confsort / _v3_scoregate —— A2 逐项加法 v1-v3（v4=full）。
+  · train_CATANet_x4_abl_A3_balance_off.yml —— A3：balance=0（balance on=full）；多 seed 用 --force_yml。
+  · 统一口径：从 x4 net_g_250000 finetune，x4，total_iter=100k，milestones [50k,80k,95k]，val=Set5+Urban100。
 - **阻塞项**：无。
 - **A1 间接对比可否直接引 CATANet 原论文数据的判断（2026-06-10）**：
   C1「动态原型 vs 历史中心+EMA」的间接动机对比 **可以直接引用 CATANet 原论文表格**
@@ -49,6 +55,31 @@
 ---
 
 ## 进度日志（倒序，最新在上）
+
+### 2026-06-10 · 消融尺度改 x2→x4（对齐 CATANet 原论文）
+- 复核 CATANet 原论文（arXiv:2503.06896 / CVPR2025 supplementary）：其消融实验全部在
+  **scale=4** 上做（原文 "calculated with a scale factor of 4. All models are trained
+  250K on DIV2K from scratch"），Table A/B/C 报 Set5/Urban100 等。
+- 决策：本文消融改到 x4。理由：(1) 对齐原论文消融口径，审稿人可直接对比；
+  (2) x4 退化最重，DPR 内容路由（动态原型/置信路由）在高频纹理 Urban100/Manga109
+  上的收益最易显现，x2 上各变体差异可能落在噪声内。
+- 训练口径：采用 **x4 finetune**（从 net_g_250000 起 100k 短 iter），非原论文的
+  from-scratch 250k，以节省算力；论文中注明此口径差异（趋势性结论）。
+- 已将 6 个消融 yml 由 x2 重建为 x4（scale/upscale=4、dataroot X4、filename '{}x4'、
+  gt_size=256、crop_border=4、pretrain 指向 train_CATANet_x4_finetune/net_g_250000.pth），
+  删除旧 x2 版本；experiment-protocol.md §5/§10.C 同步更新。6 个 yml 解析通过。
+
+### 2026-06-10 · Day4/5：消融前置就绪（refine 透传 + 6 个消融 yml）
+- catanet_arch.py 补 use_prototype_query_refine 顶层透传（CATANet→TAB→DPR，与 A2 三 flag 同法）：
+  CATANet __init__ 加参/存 self/传 TAB；TAB __init__ 加参/传 DPR；DPR 原已有。默认 True 严格等价原行为。
+  py_compile 通过；运行时前向验证待训练机。
+- 新建 6 个消融 yml（CATANet/options/train/，均 x4 从 net_g_250000 finetune，100k 短 iter，
+  milestones [50k,80k,95k]，val=Set5+Urban100，其余与 x4 finetune 主训对齐）：
+  · _abl_full（全开，A1/A2/A3 共享顶行参照）
+  · _abl_A1_refine_off（A1：refine off）
+  · _abl_A2_v1_hardsort / _v2_confsort / _v3_scoregate（A2 逐项加法 v1-v3，v4=full）
+  · _abl_A3_balance_off（A3：route_balance_weight 全 0；balance on=full；多 seed 用 --force_yml）
+- 6 个 yml YAML 解析通过；protocol §10.C A1 项标 [x]。
 
 ### 2026-06-10 · Day4：Introduction 初稿 + 结构图规格
 - 写定 paper/sections/1_introduction.tex（对应 outline §1，Related Work 融入）：

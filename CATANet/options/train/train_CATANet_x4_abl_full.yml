@@ -1,0 +1,119 @@
+# Ablation reference: FULL DPRNet (all switches ON).
+# Shared top-row reference for A1 / A2 / A3 (same init + same short budget).
+# Scale x4 to match CATANet ablation protocol; finetune from x4 net_g_250000 for a short 100k budget.
+name: train_CATANet_x4_abl_full
+model_type: CATANetModel
+scale: 4
+num_gpu: auto
+manual_seed: 3407
+# dataset and data loader settings
+datasets:
+  train:
+    task: SR
+    name: DIV2K
+    type: PairedImageDataset
+    dataroot_gt: /hy-tmp/DIV2K_train_HR
+    dataroot_lq: /hy-tmp/DIV2K_train_LR_bicubic/X4
+    filename_tmpl: '{}x4'
+    io_backend:
+      type: disk
+
+    gt_size: 256
+    use_hflip: true
+    use_rot: true
+
+    # data loader
+    use_shuffle: true
+    num_worker_per_gpu: 8
+    batch_size_per_gpu: 16
+    dataset_enlarge_ratio: 100
+    prefetch_mode: 'cuda'
+    pin_memory: true
+
+  val_0:
+    name: Set5
+    type: PairedImageDataset
+    dataroot_gt: /hy-tmp/TestDataSR/HR/Set5/x4
+    dataroot_lq: /hy-tmp/TestDataSR/LR/LRBI/Set5/x4
+    filename_tmpl: '{}'
+    io_backend:
+      type: disk
+  val_1:
+    name: Urban100
+    type: PairedImageDataset
+    dataroot_gt: /hy-tmp/TestDataSR/HR/Urban100/x4
+    dataroot_lq: /hy-tmp/TestDataSR/LR/LRBI/Urban100/x4
+    filename_tmpl: '{}'
+    io_backend:
+      type: disk
+
+# network structures
+network_g:
+  type: CATANet
+  upscale: 4
+  router_scale_init: 6.0
+  max_router_logit_scale: 10.0
+  route_balance_weight: [0.0005, 0.0005, 0.0005, 0.0005, 0.0005, 0.0005, 0.0007, 0.0007]
+  # --- ablation switches (FULL = all ON) ---
+  use_prototype_query_refine: true   # A1
+  use_conf_sort: true                # A2
+  use_iasa_score_gate: true          # A2
+  use_soft_fallback: true            # A2
+
+# path
+path:
+  pretrain_network_g: experiments/train_CATANet_x4_finetune/models/net_g_250000.pth
+  strict_load_g: false
+  resume_state: ~
+
+# training settings
+train:
+  router_scale_lr_mult: 0.1
+  optim_g:
+    type: Adam
+    lr: !!float 2e-4
+    weight_decay: 0
+    betas: [0.9, 0.99]
+
+  scheduler:
+    type: MultiStepLR
+    milestones: [50000, 80000, 95000]
+    gamma: 0.5
+
+  total_iter: 100000
+
+  # losses
+  pixel_opt:
+    type: L1Loss
+    loss_weight: 1.0
+    reduction: mean
+
+# validation settings
+val:
+  val_freq: !!float 2500
+  save_img: false
+
+  metrics:
+    psnr: # metric name, can be arbitrary
+      type: calculate_psnr_pt
+      crop_border: 4
+      test_y_channel: true
+
+    ssim:
+      type: calculate_ssim_pt
+      crop_border: 4
+      test_y_channel: true
+
+# logging settings
+logger:
+  print_freq: 200
+  save_checkpoint_freq: !!float 5000
+  use_tb_logger: true
+  wandb:
+    project: ~
+    resume_id: ~
+
+# dist training settings
+dist_params:
+  backend: nccl
+  port: 29500

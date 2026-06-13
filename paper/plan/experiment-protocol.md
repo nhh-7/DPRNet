@@ -56,7 +56,11 @@ B100 不降或微升。若仅 Urban100 升而 B100 明显降，说明内容路�
 
 ## 5. 消融实验 (Ablation) — 核心 3 组
 
-全部在 x2（最快收敛）上做，统一 finetune/相同 iter，报 Set5+Urban100（+ B100 抽查）。
+全部在 x4 上做（对齐 CATANet 原论文：其消融均在 scale=4 进行；且 x4 退化最重，
+DPR 内容路由在高频纹理上的收益最易显现）。统一从 x4 net_g_250000 finetune、相同 iter
+（100k），报 Set5+Urban100（+ B100 抽查）。
+注：CATANet 原论文消融为 x4 from scratch 250k；本文为节省算力采用 x4 finetune 短 iter，
+论文中需注明此口径差异（趋势性结论，非绝对 PSNR 对齐）。
 
 ### A1 DPR 原型设计 (验证 C1) — 降级方案 (b)
 说明：历史中心+EMA 对照不在本文重实现，改用引用 CATANet 原论文表格作间接动机对比。
@@ -134,15 +138,17 @@ B100 不降或微升。若仅 Urban100 升而 B100 明显降，说明内容路�
 ### C. 各消融变体需要的开关（开始对应消融前改，改完即训）
 - 核查结论（已读 catanet_arch.py 全部路由/原型/IASA 实现，2026-06-06）：
 
-- [ ] A1 动态原型 vs 历史中心：【降级方案 (b)，已定】不做完整 EMA 对照分支
+- [x] A1 动态原型 vs 历史中心：【降级方案 (b)，已定】不做完整 EMA 对照分支
       （重实现工作量大、风险高）。改为：
       · 主张 C1 用「引用 CATANet 原论文表格」作间接对比（同尺度同基准，标注来源），
         说明 DPR 动态原型 vs 原 TAB 历史中心+EMA 的差异为设计动机，不作为本文新增消融；
       · 本文 A1 实测消融改为「DPR 内部设计」开关：use_prototype_query_refine
-        （refine 开/关，arch DPR 已有该参数 L139/L187），验证 refine 对路由质量的贡献。
-      → 待办：use_prototype_query_refine 目前仅 DPR 层有，CATANet 顶层未透传，
-        yml 暂配不了；做 A1 前需补一条透传（CATANet→TAB→DPR），与 A2 三 flag 同法。
-        无需改算法逻辑，仅加参数传递 + 新建 refine=off 训练 yml。
+        （refine 开/关，arch DPR 已有该参数 L139/L188），验证 refine 对路由质量的贡献。
+      → ✅ 已完成（2026-06-10）：use_prototype_query_refine 已贯通 CATANet→TAB→DPR
+        （catanet_arch.py：CATANet __init__ L511/存 L541/传 L561，TAB __init__ L244/传 L262，DPR L139）。
+        默认 True 严格等价原行为，可由 yml 配置；py_compile 通过（运行时前向验证需训练机）。
+        消融 yml 已建（x4）：train_CATANet_x4_abl_A1_refine_off.yml（refine=off）vs
+        train_CATANet_x4_abl_full.yml（refine=on，全功能参照）。
 - [x] A2 逐项加法：✅ 三个独立 flag 已实现（catanet_arch.py 2026-06-06）：
       · use_conf_sort（DPR）：关闭→sort_key=belong_idx（去掉 +0.5(1-score)），arch L214-217
       · use_iasa_score_gate（TAB）：关闭→IASA 传 sorted_scores=None（退化分支 L119-129），arch L280-282

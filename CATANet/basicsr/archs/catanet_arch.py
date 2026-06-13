@@ -241,7 +241,7 @@ class TAB(nn.Module):
                  ema_decay=0.999, router_scale_init=6.0,
                  max_router_logit_scale=10.0, route_balance_weight=0.0,
                  use_conf_sort=True, use_iasa_score_gate=True,
-                 use_soft_fallback=True):
+                 use_soft_fallback=True, use_prototype_query_refine=True):
         super().__init__()
 
         self.n_iter = n_iter
@@ -258,7 +258,8 @@ class TAB(nn.Module):
             router_scale_init=router_scale_init,
             max_router_logit_scale=max_router_logit_scale,
             balance_loss_weight=route_balance_weight,
-            use_conf_sort=use_conf_sort)
+            use_conf_sort=use_conf_sort,
+            use_prototype_query_refine=use_prototype_query_refine)
         self.iasa_attn = IASA(dim,qk_dim,heads,group_size)
         self.soft_context_proj = nn.Linear(dim, dim, bias=False)
         self.soft_fallback_gate = nn.Parameter(torch.tensor(-2.0))
@@ -507,7 +508,7 @@ class CATANet(nn.Module):
                  router_scale_init=6.0, max_router_logit_scale=10.0,
                  route_balance_weight=0.0,
                  use_conf_sort=True, use_iasa_score_gate=True,
-                 use_soft_fallback=True,
+                 use_soft_fallback=True, use_prototype_query_refine=True,
                  upscale: int = 4):
         super().__init__()
         
@@ -537,6 +538,7 @@ class CATANet(nn.Module):
         self.use_conf_sort = use_conf_sort
         self.use_iasa_score_gate = use_iasa_score_gate
         self.use_soft_fallback = use_soft_fallback
+        self.use_prototype_query_refine = use_prototype_query_refine
     
         #-----------1 shallow--------------
         self.first_conv = nn.Conv2d(in_chans, self.dim, 3, 1, 1)
@@ -555,7 +557,8 @@ class CATANet(nn.Module):
                                                                  route_balance_weight=self.route_balance_weight[i],
                                                                  use_conf_sort=self.use_conf_sort,
                                                                  use_iasa_score_gate=self.use_iasa_score_gate,
-                                                                 use_soft_fallback=self.use_soft_fallback), 
+                                                                 use_soft_fallback=self.use_soft_fallback,
+                                                                 use_prototype_query_refine=self.use_prototype_query_refine), 
                                               LRSA(self.dim, self.qk_dim, 
                                                              self.mlp_dim,self.heads)]))
             self.mid_convs.append(nn.Conv2d(self.dim, self.dim,3,1,1))
