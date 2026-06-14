@@ -68,16 +68,16 @@ train:
     betas: [0.9, 0.99]
   scheduler:
     type: MultiStepLR
-    milestones: [50000, 80000, 95000]
+    milestones: [40000, 64000, 76000]
     gamma: 0.5
-  total_iter: 100000
+  total_iter: 80000
   pixel_opt:
     type: L1Loss
     loss_weight: 1.0
     reduction: mean
 
 val:
-  val_freq: !!float 2500
+  val_freq: !!float 10000
   save_img: false
   metrics:
     psnr:
@@ -91,7 +91,7 @@ val:
 
 logger:
   print_freq: 200
-  save_checkpoint_freq: !!float 5000
+  save_checkpoint_freq: !!float 10000
   use_tb_logger: true
   wandb:
     project: ~

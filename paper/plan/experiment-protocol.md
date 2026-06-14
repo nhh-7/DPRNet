@@ -58,7 +58,7 @@ B100 不降或微升。若仅 Urban100 升而 B100 明显降，说明内容路�
 
 全部在 x4 上做（对齐 CATANet 原论文：其消融均在 scale=4 进行；且 x4 退化最重，
 DPR 内容路由在高频纹理上的收益最易显现）。统一从 x4 net_g_250000 finetune、相同 iter
-（100k），报 Set5+Urban100（+ B100 抽查）。
+（80k），训练中每 10k 验证/存档一次，报 Set5+Urban100（+ B100 抽查）。
 注：CATANet 原论文消融为 x4 from scratch 250k；本文为节省算力采用 x4 finetune 短 iter，
 论文中需注明此口径差异（趋势性结论，非绝对 PSNR 对齐）。
 

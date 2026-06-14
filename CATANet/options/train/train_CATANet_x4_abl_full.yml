@@ -1,6 +1,6 @@
 # Ablation reference: FULL DPRNet (all switches ON).
 # Shared top-row reference for A1 / A2 / A3 (same init + same short budget).
-# Scale x4 to match CATANet ablation protocol; finetune from x4 net_g_250000 for a short 100k budget.
+# Scale x4 to match CATANet ablation protocol; finetune from x4 net_g_250000 for a short 80k budget.
 name: train_CATANet_x4_abl_full
 model_type: CATANetModel
 scale: 4
@@ -77,10 +77,10 @@ train:
 
   scheduler:
     type: MultiStepLR
-    milestones: [50000, 80000, 95000]
+    milestones: [40000, 64000, 76000]
     gamma: 0.5
 
-  total_iter: 100000
+  total_iter: 80000
 
   # losses
   pixel_opt:
@@ -90,7 +90,7 @@ train:
 
 # validation settings
 val:
-  val_freq: !!float 2500
+  val_freq: !!float 10000
   save_img: false
 
   metrics:
@@ -107,7 +107,7 @@ val:
 # logging settings
 logger:
   print_freq: 200
-  save_checkpoint_freq: !!float 5000
+  save_checkpoint_freq: !!float 10000
   use_tb_logger: true
   wandb:
     project: ~
