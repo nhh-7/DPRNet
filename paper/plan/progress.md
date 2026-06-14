@@ -56,6 +56,16 @@
 
 ## 进度日志（倒序，最新在上）
 
+### 2026-06-14 · 修复消融关闭分支导致的 DDP unused-parameter 报错
+- 现象：4 卡运行 A1 refine_off 时，DDP 报
+  `Expected to have finished reduction... parameters that were not used in producing loss`。
+- 原因：A1 关闭 `use_prototype_query_refine` 后，DPR refine 分支参数仍注册在模型中但 forward 不使用；
+  A2 关闭 `use_soft_fallback` 时也会使 `soft_fallback_gate` 参数不参与 loss。
+- 修复：在会关闭分支的消融 yml 中设置顶层 `find_unused_parameters: true`：
+  `train_CATANet_x4_abl_A1_refine_off.yml`、`A2_v1_hardsort.yml`、
+  `A2_v2_confsort.yml`、`A2_v3_scoregate.yml`。A3 不关闭结构分支，保持默认。
+- 验证：上述 yml 均可被 YAML 正常解析，`BaseModel.model_to_device` 会读取该字段并传给 DDP。
+
 ### 2026-06-10 · 消融尺度改 x2→x4（对齐 CATANet 原论文）
 - 复核 CATANet 原论文（arXiv:2503.06896 / CVPR2025 supplementary）：其消融实验全部在
   **scale=4** 上做（原文 "calculated with a scale factor of 4. All models are trained
