@@ -5,7 +5,6 @@ name: train_CATANet_x4_abl_A2_v1_hardsort
 model_type: CATANetModel
 scale: 4
 num_gpu: auto
-find_unused_parameters: true
 manual_seed: 3407
 datasets:
   train:

@@ -173,6 +173,12 @@ class DPR(nn.Module):
         self.scale = router_dim ** -0.5
         self.router_logit_scale = nn.Parameter(torch.log(torch.tensor(float(router_scale_init))))
         self.max_router_logit_scale = float(max_router_logit_scale)
+        if not self.use_prototype_query_refine:
+            self.prototype_queries.requires_grad_(False)
+            self.refine_gate.requires_grad_(False)
+            for module in (self.refine_q, self.refine_k, self.refine_v):
+                for param in module.parameters():
+                    param.requires_grad_(False)
 
     def forward(self, x):
         b, n, c = x.shape
@@ -263,6 +269,10 @@ class TAB(nn.Module):
         self.iasa_attn = IASA(dim,qk_dim,heads,group_size)
         self.soft_context_proj = nn.Linear(dim, dim, bias=False)
         self.soft_fallback_gate = nn.Parameter(torch.tensor(-2.0))
+        if not self.use_soft_fallback:
+            self.soft_fallback_gate.requires_grad_(False)
+            for param in self.soft_context_proj.parameters():
+                param.requires_grad_(False)
         self.conv1x1 = nn.Conv2d(dim,dim,1, bias=False)
 
     

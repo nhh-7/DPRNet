@@ -56,12 +56,29 @@
 
 ## 进度日志（倒序，最新在上）
 
+### 2026-06-15 · 修正 A2 多卡 DDP marked-ready-twice 报错
+- 现象：A2_v1_hardsort 4 卡训练在 backward 时报
+  `Expected to mark a variable ready only once`，参数为
+  `blocks.7.0.dpr.router_logit_scale`。
+- 原因：上一轮为解决关闭分支的 unused-parameter，把 A1/A2 yml 设置了
+  `find_unused_parameters: true`；但 DPR 的 `aux_loss` 存在于模块属性中、不是 forward 返回值，
+  同时又参与 `l_total.backward()`。DDP unused 检测会误判这些路由参数，随后 aux loss 反传时再次触发
+  hook，导致 marked-ready-twice。
+- 修复：撤销所有消融 yml 的 `find_unused_parameters`；改为在网络构造时冻结被关闭分支参数：
+  `use_prototype_query_refine=false` 时冻结 DPR refine 分支参数，
+  `use_soft_fallback=false` 时冻结 `soft_fallback_gate` 和 `soft_context_proj`。
+  这样普通 DDP 不再期待这些参数有梯度，也不会干扰 aux loss。
+- 验证：`catanet_arch.py` py_compile 通过；6 个 x4 消融 yml 解析通过且不再包含
+  `find_unused_parameters`。本地无 torch，运行时需训练机复跑验证。
+
 ### 2026-06-14 · 修复消融关闭分支导致的 DDP unused-parameter 报错
+- 注意：该方案已在 2026-06-15 被替换；不要再使用 `find_unused_parameters: true`，
+  以免触发 aux loss 相关的 marked-ready-twice。
 - 现象：4 卡运行 A1 refine_off 时，DDP 报
   `Expected to have finished reduction... parameters that were not used in producing loss`。
 - 原因：A1 关闭 `use_prototype_query_refine` 后，DPR refine 分支参数仍注册在模型中但 forward 不使用；
   A2 关闭 `use_soft_fallback` 时也会使 `soft_fallback_gate` 参数不参与 loss。
-- 修复：在会关闭分支的消融 yml 中设置顶层 `find_unused_parameters: true`：
+- 当时尝试：在会关闭分支的消融 yml 中设置顶层 `find_unused_parameters: true`：
   `train_CATANet_x4_abl_A1_refine_off.yml`、`A2_v1_hardsort.yml`、
   `A2_v2_confsort.yml`、`A2_v3_scoregate.yml`。A3 不关闭结构分支，保持默认。
 - 验证：上述 yml 均可被 YAML 正常解析，`BaseModel.model_to_device` 会读取该字段并传给 DDP。
