@@ -1,0 +1,61 @@
+% =====================================================================
+% Section: Experiments -- Comparison with state-of-the-art (outline.md §3.2;
+%   defines sec:main_comparison). Discusses Table I (tab:main_comparison) and
+%   references Table II (tab:efficiency).
+% Draft v1 (2026-06-17). Every numeric statement is read VERBATIM from
+%   paper/tables/table1_main_comparison.tex (self-tested DPRNet rows; competitor
+%   rows cited from original papers per the table notes). Bold/underline status in
+%   the table is the basis for "best/second-best" wording.
+% HONEST FRAMING (matches data, not the optimistic plan): against the strongest
+%   baseline CATANet, DPRNet is ON PAR at comparable cost -- it leads on BSD100
+%   (x3,x4) and Manga109 (x2), ties Set5 (x4), and is a close second on Urban100.
+%   It does NOT show "largest gains on Urban100"; do not assert that. DPRNet also
+%   carries a modestly higher parameter count than CATANet.
+% =====================================================================
+\subsection{Comparison with state-of-the-art}
+\label{sec:main_comparison}
+
+We compare DPRNet against eight representative lightweight SR methods spanning
+CNN-based designs (CARN~\cite{ahn2018carn}, IMDN~\cite{hui2019imdn},
+RFDN~\cite{liu2020rfdn}, RLFN~\cite{kong2022rlfn}) and Transformer/routing-based
+designs (SwinIR-light~\cite{liang2021swinir}, ELAN-light~\cite{zhang2022elan},
+SRFormer-light~\cite{zhou2023srformer}, and the most direct predecessor
+CATANet~\cite{liu2025catanet}). Competitor numbers are cited verbatim from the
+original papers (see the notes of Table~\ref{tab:main_comparison}); DPRNet uses a
+single unified checkpoint per scale, reported across all five benchmarks without
+per-dataset selection.
+
+\paragraph{Overall accuracy.}
+Table~\ref{tab:main_comparison} shows that DPRNet and CATANet form the top tier at
+all three scales, both clearly ahead of the remaining seven methods. For example,
+at $\times4$ DPRNet reaches $32.58$/$0.8998$\,dB on Set5 and $27.76$/$0.7434$ on
+BSD100, exceeding the strongest non-routing competitor SRFormer-light
+($32.51$/$0.8988$ and $27.73$/$0.7422$) while using a comparable parameter budget.
+The consistent advantage of the two content-routing methods over window- and
+distillation-based baselines supports the value of content-aware token
+aggregation in the lightweight regime.
+
+\paragraph{Comparison with CATANet.}
+Against CATANet---the strongest baseline and the method DPRNet differs from only in
+the routing module---DPRNet is on par, trading the lead across benchmarks rather
+than dominating. DPRNet attains the best BSD100 results at both $\times3$
+($29.29$/$0.8103$ vs.\ $29.28$/$0.8101$) and $\times4$ ($27.76$/$0.7434$ vs.\
+$27.75$/$0.7427$), the best Manga109 at $\times2$ ($39.38$/$0.9787$ vs.\
+$39.37$/$0.9784$), and matches CATANet on Set5 at $\times4$ (both $32.58$/$0.8998$).
+On Urban100 it is a close second at every scale (e.g.\ $26.82$ vs.\ $26.87$ at
+$\times4$), and similarly within $0.01$--$0.08$\,dB on Set5/Set14. These differences
+are small and benchmark-dependent: replacing the EMA-center routing of TAB with the
+dynamic prototype routing of DPR preserves CATANet-level reconstruction quality
+while changing the routing mechanism to the interpretable, confidence-aware
+formulation analyzed in Sec.~\ref{sec:ablation} and Sec.~\ref{sec:routing_analysis}.
+
+\paragraph{Efficiency.}
+Table~\ref{tab:efficiency} reports the efficiency profile at $\times4$. DPRNet has
+$660$K parameters and $45.77$\,G Multi-Adds for a fixed $\approx720{\times}1280$
+output, keeping it within the lightweight bracket alongside the compared methods
+while delivering top-tier accuracy. DPRNet's parameter count is modestly higher than
+CATANet's ($660$K vs.\ $535$K at $\times4$), reflecting the learnable query bank and
+router projections of DPR; the per-scale profile is given in
+Table~\ref{tab:efficiency_profile}. A complete Multi-Adds/latency comparison against
+all competitors under our measurement protocol is left for the final version, as
+those numbers are not yet collected under a unified setting.

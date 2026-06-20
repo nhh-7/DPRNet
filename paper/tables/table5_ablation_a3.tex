@@ -1,0 +1,51 @@
+% Table V — Ablation A3: prototype balance loss (verifies C4).
+% Requires: \usepackage{booktabs}
+% Provenance: paper/plan/data-collection-checklist.md / experiment-protocol.md §5.A3.
+%   balance OFF = route_balance_weight all 0.0; balance ON = full (default weights). x4, 80k finetune
+%   from net_g_250000; routing diagnostics read at iter 80000 on Urban100 (8 TAB blocks, Y channel).
+%   entropy_norm = normalized prototype-usage entropy (higher = more balanced usage).
+% SUPPORTED CLAIM: balance loss raises usage entropy in ALL 8 blocks (mean 0.6227 -> 0.6865), i.e. more
+%   balanced prototype usage -- a mechanistic effect that survives the shared-init short finetune.
+% PENDING: the multi-seed variance analysis (2 extra seeds) is NOT yet available (single seed 3407);
+%   the "lower seed variance" sub-claim of C4 must remain pending until those runs exist. Do NOT fabricate.
+\begin{table}[t]
+\centering
+\caption{Ablation A3 ($\times 4$): prototype balance loss. Block-averaged normalized prototype-usage
+entropy on Urban100 (higher $=$ more balanced usage) and reconstruction quality at iter 80k. The balance
+loss yields consistently higher usage entropy across all eight TAB blocks while keeping reconstruction
+quality unchanged.}
+\label{tab:abl_a3}
+\begin{tabular}{l c cc c}
+\toprule
+\multirow{2}{*}{Variant} & Usage entropy & \multicolumn{2}{c}{Set5} & Urban100 \\
+\cmidrule(lr){3-4}
+ & (mean, $\uparrow$) & PSNR & SSIM & PSNR/SSIM \\
+\midrule
+w/o balance loss          & 0.6227 & 32.5689 & 0.8997 & 26.8262 / 0.8062 \\
+w/\ \ balance loss (def.) & 0.6865 & 32.5656 & 0.8997 & 26.8146 / 0.8065 \\
+\bottomrule
+\end{tabular}
+
+\vspace{4pt}
+% Per-block normalized usage entropy (Urban100, iter 80k): supporting detail for the mechanism claim.
+\centering
+\caption{Per-block normalized prototype-usage entropy (Urban100, iter 80k). The balance loss increases
+usage entropy in every TAB block ($b_0$--$b_7$).}
+\label{tab:abl_a3_perblock}
+\begin{tabular}{l cccccccc}
+\toprule
+Variant & $b_0$ & $b_1$ & $b_2$ & $b_3$ & $b_4$ & $b_5$ & $b_6$ & $b_7$ \\
+\midrule
+w/o balance & 0.6482 & 0.5655 & 0.6947 & 0.6268 & 0.7088 & 0.5764 & 0.6279 & 0.5332 \\
+w/\ \ balance & 0.7181 & 0.5845 & 0.7227 & 0.6810 & 0.8466 & 0.6352 & 0.6848 & 0.6193 \\
+\bottomrule
+\end{tabular}
+
+\vspace{2pt}
+{\footnotesize
+\textit{Notes.} $\times 4$ ablation finetuned from \texttt{net\_g\_250000} for an 80k budget; diagnostics
+read at iter 80k on Urban100. The balance loss consistently increases prototype-usage entropy (more
+balanced usage) across all blocks, supporting C4's balancing mechanism. PSNR/SSIM differences are within
+run-to-run variance. The seed-variance reduction sub-claim of C4 requires multi-seed runs (currently a
+single seed, 3407) and is left as future work; it must not be asserted before those runs exist.}
+\end{table}

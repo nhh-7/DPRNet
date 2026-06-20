@@ -1,0 +1,39 @@
+% Table IV — Ablation A2: confidence-aware routing, incremental (verifies C3).
+% Requires: \usepackage{booktabs}
+% Provenance: paper/plan/data-collection-checklist.md / experiment-protocol.md §5.A2.
+%   Three independent switches added cumulatively: use_conf_sort -> use_iasa_score_gate -> use_soft_fallback.
+%   v1=all off, v2=+conf_sort, v3=+score_gate, v4=full(+soft_fallback). All x4, 80k finetune from
+%   net_g_250000; metrics at iter 80000 (Y channel, crop_border=4).
+% IMPORTANT (honest disclosure): all variants share the SAME full-functioning initialization and a SHORT
+%   80k budget, so PSNR/SSIM differences fall within run-to-run variance and do NOT form a monotone gain.
+%   The components are reported as quality-neutral and complementary on top of a converged backbone; the
+%   confidence signal's effect is shown mechanistically via the routing diagnostics (entropy/usage), not PSNR.
+\begin{table}[t]
+\centering
+\caption{Ablation A2 ($\times 4$): incremental confidence-aware routing components. PSNR(dB)/SSIM
+(Y channel) at iter 80k. Under the short finetune protocol the four configurations reach comparable
+reconstruction quality (differences within run-to-run variance); the components are mutually compatible
+and do not degrade quality.}
+\label{tab:abl_a2}
+\begin{tabular}{l ccc cc c}
+\toprule
+\multirow{2}{*}{Variant} & \multicolumn{3}{c}{Switches} & \multicolumn{2}{c}{Set5} & Urban100 \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-6}
+ & sort & gate & fb & PSNR & SSIM & PSNR/SSIM \\
+\midrule
+v1 (hard sort)        & \ding{55} & \ding{55} & \ding{55} & 32.5459 & 0.8995 & 26.8559 / 0.8074 \\
+v2 (+conf.\ sort)     & \ding{51} & \ding{55} & \ding{55} & 32.5249 & 0.8995 & 26.8324 / 0.8065 \\
+v3 (+score gate)      & \ding{51} & \ding{51} & \ding{55} & 32.5116 & 0.8992 & 26.8123 / 0.8056 \\
+v4 (full, +soft fb)   & \ding{51} & \ding{51} & \ding{51} & 32.5656 & 0.8997 & 26.8146 / 0.8065 \\
+\bottomrule
+\end{tabular}
+
+\vspace{2pt}
+{\footnotesize
+\textit{Notes.} ``sort''=confidence-aware sort key, ``gate''=IASA score gating, ``fb''=soft fallback.
+All variants are $\times 4$ finetuned from the full-functioning checkpoint (\texttt{net\_g\_250000})
+for an 80k budget; metrics read at iter 80k. Because the variants share this initialization and a short
+budget, the PSNR/SSIM differences are within run-to-run variance and do NOT constitute a monotone
+incremental gain; they are reported as quality-neutrality and compatibility. Requires
+\texttt{\textbackslash usepackage\{pifont\}} for \ding{}.}
+\end{table}

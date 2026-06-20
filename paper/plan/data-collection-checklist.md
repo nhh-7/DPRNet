@@ -18,6 +18,9 @@
 - 工具：参照已有 training_key_metrics.csv 的提取方式，对 x3/x4/消融同样处理。
 
 ### A2 最终测试指标（每个尺度，全 5 基准）
+> **权威来源（后续一律以此为准）**：`paper/data/dprnet_main_metrics.csv`
+> （15 行 = 3 尺度 × 5 基准，逐行带 `source_log` 溯源到原始日志；已与日志逐格核对）。
+> 本节表格仅作"选点依据"说明，精确数值取 CSV，不再翻原始日志。
 - [x] x2：Set5/Set14/B100/Urban100/Manga109 PSNR/SSIM（用 test_CATANet_x2.yml）
   - 报告点：net_g_792500.pth（已锁定为主报告点 + x3/x4 finetune 起点 + 消融/可视化基准）
   - 数据来源：results/CATANet/test_CATANet_x2-792500/test_test_CATANet_x2_20260606_154428.log
@@ -67,6 +70,9 @@
 - 三尺度统一报告口径：x2=net_g_792500，x3=net_g_250000，x4=net_g_250000（均"全基准均值最优 + 最收敛"，禁逐集挑最优）。
 
 ### A3 效率数据（DPRNet + CATANet，三尺度）
+> **权威来源（后续一律以此为准）**：`paper/data/dprnet_efficiency.csv`
+> （3 行 = 三尺度 Params/MACs(thop)/时延，带 `source` 溯源到 efficiency.md；已逐格核对）。
+> 本节表格仅作口径说明，精确数值取 CSV，不再翻原始日志。
 - 工具：scripts/measure_efficiency.py（已实现并在训练机 cuda 上运行）。
 - 来源：results/CATANet/efficiency.md（device=cuda，固定 HR≈720×1280 反推 LR；FLOPs 后端 thop，报 MACs，
   对比 FLOPs-based 论文需 ×2；时延 warmup=20、repeat=100，单位 ms）。
@@ -185,10 +191,18 @@
       → paper/tables/table1_main_comparison.tex（三尺度齐，逐列加粗/下划线已核对，RLFN 缺格填 "-"）
 - [~] Table II 效率：方法 | Params | FLOPs | 时延 | 代表 PSNR
       → paper/tables/table2_efficiency.tex（DPRNet 三尺度 Params/MACs/时延已填 + 对手 Params 已填；
-      ⚠ 对手 FLOPs/时延未在同口径采集，暂填 "-"，投稿前需补：从各论文同输出 Multi-Adds 摘录或同协议重测，禁编造）
-- [ ] Table III 消融 A1：动态原型 vs 历史中心
-- [ ] Table IV 消融 A2：置信度感知逐项加法（排序/门控/fallback）
-- [ ] Table V 消融 A3：balance loss 多 seed（mean±std）
+      CATANet x4 Multi-Adds 已补 46.8G（带 †，引自 CATANet CVPR'25 同 ~720×1280 输出，与我方 thop MACs 可比）；
+      ⚠ 其余 7 对手 Multi-Adds 跨源参数口径不一致（如 SwinIR-light 897K vs 930K）暂未填，投稿前统一取
+      CATANet Tab.2 或同协议重测；对手时延依赖硬件不可引，留 "-"。禁编造。正文已写于 §3.3 sec:efficiency）
+- [x] Table III 消融 A1：refine on/off（受限口径：质量中性）
+      → paper/tables/table3_ablation_a1.tex（80k 真实数据：w/o refine Set5 32.5494 / Urban100 26.8358；
+      w/ refine 32.5656 / 26.8146；差异在噪声内，仅报质量中性，不主张 PSNR 增益）
+- [x] Table IV 消融 A2：置信度感知逐项加法（排序/门控/fallback）（受限口径：组件兼容/质量中性）
+      → paper/tables/table4_ablation_a2.tex（80k 真实数据 v1-v4，PSNR 差异落噪声内且非单调，
+      仅报"组件相互兼容、不损质量"，不主张逐项增益；x_scores 机制证据另见路由诊断）
+- [x] Table V 消融 A3：balance loss（机制证据已有；多 seed 方差待补）
+      → paper/tables/table5_ablation_a3.tex（balance ON 在 8 block usage 熵全升，均值 0.6227→0.6865，
+      支撑 C4 均衡机制；PSNR 中性；"多 seed 方差下降"待补，当前仅 seed=3407）
 - [ ] (可选) 超参表：num_prototypes / router_dim 扫描
 
 ## D. 图表清单（figures/，含 data-manifest.md）
@@ -203,7 +217,10 @@
 - [ ] Fig.3 PSNR-vs-Params（或 vs FLOPs）散点，突出本文 Pareto
 - [ ] Fig.4 训练曲线对比（可选，DPRNet vs CATANet val PSNR）
 - [ ] Fig.5 x_scores 直方图（加 router scale 前后区分度对比）
-- [ ] Fig.6 prototype usage 分布柱状图
+      → 需推理（本机无 torch/matplotlib），§3.6 已注明 camera-ready 补
+- [x] Fig.6 prototype usage 分布柱状图
+      → paper/figures/fig6_usage_entropy.tex（pgfplots/TikZ，per-block 归一化 usage 熵
+      balance on vs off，数据 verbatim 自 ablation_perblock_urban100_80k.csv；正文引于 §3.6）
 
 ### D3 可视化图（需跑模型输出）
 - [ ] Fig.7 视觉对比（Urban100/Manga109 难样本，GT/Bicubic/对手/本文 crop）

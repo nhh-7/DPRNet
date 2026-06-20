@@ -1,0 +1,8 @@
+# DPRNet efficiency, authoritative source for Table II + per-scale profile. Use THIS file, not the raw log.
+# Source: CATANet/results/CATANet/efficiency.md (device=cuda; fixed HR output ~720x1280, LR derived per scale;
+#   thop reports MACs -> multiply by 2 for FLOPs-based papers; latency warmup=20, repeat=100, ms).
+# x3 effective output 720x1278 (HR not divisible by 3, floored).
+scale,lr_input,params,params_k,macs_thop_g,latency_ms_mean,latency_ms_std,source
+x2,360x640,601947,601.947,126.5178,712.162,23.471,CATANet/results/CATANet/efficiency.md
+x3,240x426,674147,674.147,64.2803,285.387,5.655,CATANet/results/CATANet/efficiency.md
+x4,180x320,659707,659.707,45.7679,196.765,10.018,CATANet/results/CATANet/efficiency.md

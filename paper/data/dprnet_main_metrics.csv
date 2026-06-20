@@ -1,0 +1,20 @@
+# DPRNet self-tested PSNR/SSIM (Y channel), authoritative source for Table I "DPRNet (ours)" rows.
+# Transcribed verbatim from the original test logs (see source_log). Use THIS file, not the raw logs.
+# Unified report checkpoint per scale (no per-dataset cherry-picking): x2=net_g_792500, x3/x4=net_g_250000.
+# crop_border = scale (2/3/4), test_y_channel=true.
+scale,checkpoint,dataset,psnr,ssim,crop_border,source_log
+x2,net_g_792500,Set5,38.2706,0.9617,2,CATANet/results/CATANet/test_CATANet_x2-792500/test_test_CATANet_x2_20260606_154428.log
+x2,net_g_792500,Set14,33.9614,0.9210,2,CATANet/results/CATANet/test_CATANet_x2-792500/test_test_CATANet_x2_20260606_154428.log
+x2,net_g_792500,B100,32.3509,0.9020,2,CATANet/results/CATANet/test_CATANet_x2-792500/test_test_CATANet_x2_20260606_154428.log
+x2,net_g_792500,Urban100,33.0500,0.9362,2,CATANet/results/CATANet/test_CATANet_x2-792500/test_test_CATANet_x2_20260606_154428.log
+x2,net_g_792500,Manga109,39.3804,0.9787,2,CATANet/results/CATANet/test_CATANet_x2-792500/test_test_CATANet_x2_20260606_154428.log
+x3,net_g_250000,Set5,34.7129,0.9298,3,CATANet/results/CATANet/test_CATANet_x3-250000/test_test_CATANet_x3_20260608_221117.log
+x3,net_g_250000,Set14,30.6599,0.8481,3,CATANet/results/CATANet/test_CATANet_x3-250000/test_test_CATANet_x3_20260608_221117.log
+x3,net_g_250000,B100,29.2890,0.8103,3,CATANet/results/CATANet/test_CATANet_x3-250000/test_test_CATANet_x3_20260608_221117.log
+x3,net_g_250000,Urban100,28.9551,0.8675,3,CATANet/results/CATANet/test_CATANet_x3-250000/test_test_CATANet_x3_20260608_221117.log
+x3,net_g_250000,Manga109,34.4133,0.9499,3,CATANet/results/CATANet/test_CATANet_x3-250000/test_test_CATANet_x3_20260608_221117.log
+x4,net_g_250000,Set5,32.5826,0.8998,4,CATANet/results/CATANet/test_CATANet_x4-250000/test_test_CATANet_x4_20260608_231742.log
+x4,net_g_250000,Set14,28.8846,0.7880,4,CATANet/results/CATANet/test_CATANet_x4-250000/test_test_CATANet_x4_20260608_231742.log
+x4,net_g_250000,B100,27.7648,0.7434,4,CATANet/results/CATANet/test_CATANet_x4-250000/test_test_CATANet_x4_20260608_231742.log
+x4,net_g_250000,Urban100,26.8225,0.8065,4,CATANet/results/CATANet/test_CATANet_x4-250000/test_test_CATANet_x4_20260608_231742.log
+x4,net_g_250000,Manga109,31.2540,0.9181,4,CATANet/results/CATANet/test_CATANet_x4-250000/test_test_CATANet_x4_20260608_231742.log

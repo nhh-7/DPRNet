@@ -1,0 +1,88 @@
+% =====================================================================
+% Section: Experiments -- Ablation study  (outline.md §3.5; defines sec:ablation,
+%   referenced by 1_introduction.tex and 2_method.tex).
+% Draft v1 (2026-06-17). Numbers are taken verbatim from the x4 ablation training
+%   logs at iter 80k (paper/tables/table3_ablation_a1.tex / table4 / table5;
+%   raw CSVs in paper/data/). Claims follow plan/review/method-experiment-
+%   traceability.md ("消融实验的已知局限"): A1/A2 are reported as quality-neutral /
+%   component-compatible (NOT incremental PSNR gains); A3 supports the balancing
+%   MECHANISM (usage entropy), with the seed-variance sub-claim left as future work.
+% Requires: booktabs (tables), pifont (Table IV \ding).
+% =====================================================================
+\subsection{Ablation study}
+\label{sec:ablation}
+
+We ablate the four design elements of DPR using the independent switches exposed in
+Sec.~\ref{sec:method}. All ablations are conducted at scale $\times4$, following
+CATANet~\cite{liu2025catanet} whose ablations are likewise performed at $\times4$, the
+setting in which content routing on high-frequency texture is most exercised. To keep
+the compute budget tractable, each variant is \emph{finetuned} from the converged
+full-model checkpoint and trained for a short $80$k-iteration budget, with validation
+on Set5 and Urban100 (Y channel, matched \texttt{crop\_border}) every $10$k iterations;
+we report the iter-$80$k point. Besides PSNR/SSIM we log routing diagnostics per TAB
+block---the normalized prototype-usage entropy $\mathcal{H}(u)$ of
+Eq.~\eqref{eq:balance}, the active-prototype usage, and the learnable temperature---to
+inspect the routing behavior directly.
+
+\paragraph{Protocol caveat.}
+Because every variant is finetuned from the \emph{same} full-model initialization for a
+short budget, the disabled components are removed from an already converged
+representation rather than learned from scratch. Under this protocol the reconstruction
+differences among variants are small and fall within run-to-run training variance (the
+full model's own validation PSNR fluctuates by $\sim0.03$\,dB between adjacent $10$k
+checkpoints). We therefore read the PSNR/SSIM columns as evidence of
+\emph{quality-neutrality and component compatibility}---each design element can be added
+or removed without degrading reconstruction---rather than as cumulative accuracy gains,
+and we substantiate the routing-level effects through the diagnostics. A fully separated
+attribution of each switch would require retraining every variant from a
+switch-neutral initialization to the CATANet $\times4$ from-scratch budget, which we
+leave to future work.
+
+\paragraph{A1: decoupled prototype confirmation.}
+Table~\ref{tab:abl_a1} compares DPR with and without the query-refinement stage
+(Eq.~\eqref{eq:proto_refine}). The two settings reach comparable reconstruction quality
+(Set5 $32.55$ vs.\ $32.57$\,dB; Urban100 $26.84$ vs.\ $26.81$\,dB, both within the
+variance band), confirming that adding the learnable query bank does not perturb
+reconstruction. As the refinement is gated by a small-initialized scalar
+(Eq.~\eqref{eq:proto_refine}), it acts as a residual confirmation step that keeps the
+prototype slots stable while decoupling generation from confirmation (C2); we therefore
+retain it by default. The motivation for dynamic, per-image prototypes over the
+cross-batch EMA centers of the baseline (C1) is supported indirectly by the published
+CATANet results rather than by this controlled switch, since re-implementing the EMA
+center branch is outside the scope of our ablation.
+
+\paragraph{A2: confidence-aware routing.}
+Table~\ref{tab:abl_a2} adds the three confidence-aware components cumulatively:
+confidence-aware ordering (Eq.~\eqref{eq:sortkey}), the IASA score gate
+(Eq.~\eqref{eq:iasa_gate}), and the soft prototype fallback
+(Eq.~\eqref{eq:soft_fallback}). Across the four configurations PSNR/SSIM stays within a
+$\sim0.04$\,dB band on both Set5 and Urban100 and is not monotone in the number of
+enabled components, which---given the shared-initialization protocol above---indicates
+that the three switches are mutually compatible and quality-preserving rather than
+individually accuracy-additive on top of a converged backbone. The components are kept
+because they make the routing path interpretable and confidence-driven: the retained
+per-token confidence $x^{\mathrm{s}}$ modulates ordering, the global gate, and the
+fallback (C3), which we visualize through the $x^{\mathrm{s}}$ distributions in
+Sec.~\ref{sec:routing_analysis}.
+
+\paragraph{A3: prototype usage balancing.}
+Table~\ref{tab:abl_a3} isolates the usage-balancing regularizer
+(Eq.~\eqref{eq:balance}). Enabling it raises the block-averaged normalized usage entropy
+from $0.6227$ to $0.6865$ on Urban100, and the increase is \emph{consistent across all
+eight TAB blocks} ($b_0$--$b_7$; Table~\ref{tab:abl_a3_perblock}), i.e.\ the regularizer
+drives a more balanced use of prototype slots and counteracts the collapse that the
+learnable temperature would otherwise encourage (C4). This effect is visible even under
+the short finetune protocol because it concerns the usage \emph{distribution} rather than
+absolute reconstruction, and the PSNR/SSIM remains unchanged within variance. The
+complementary part of C4---a reduction of seed-to-seed variance---requires repeating the
+runs over multiple seeds; with a single seed available we report the balancing mechanism
+here and leave the variance analysis as future work, and we do not claim a variance
+reduction without those runs.
+
+\paragraph{Summary.}
+The ablations show that DPR's design elements are quality-neutral and mutually
+compatible under a shared-initialization finetune, and that the balancing regularizer
+produces a measurable, block-consistent increase in prototype-usage entropy. Stronger,
+fully separated accuracy attributions are deferred to from-scratch retraining; the
+present study supports the mechanism of each component without overstating its isolated
+contribution to PSNR.

@@ -17,6 +17,16 @@
 4. `paper/plan/data-collection-checklist.md`——要收集的数据/图表清单及已填项。
 5. `paper/plan/review/method-experiment-traceability.md`——贡献↔实验↔claim 映射。
 
+**数据来源（后续一律以 CSV 为准，不再翻原始日志）**：
+- 我方自测数据全部摘录为 `paper/data/` 下的权威 CSV，已与原始日志逐格核对、带 source 溯源字段：
+  · `dprnet_main_metrics.csv`——x2/x3/x4 × 5 基准 PSNR/SSIM（Table I 的 ours 行 / §3.2 / §3.3 代表 PSNR）。
+  · `dprnet_efficiency.csv`——三尺度 Params/MACs/时延（Table II + per-scale 子表 / §3.3）。
+  · `ablation_metrics.csv`——6 变体 80k 汇总（Table III/IV/V / §3.5 / §3.6 均值）。
+  · `ablation_perblock_urban100_80k.csv`——6 变体 × 8 block 路由诊断（Fig.6 / §3.6 逐块）。
+  · `ablation_val_curves.csv`——6 变体 val 全程曲线（"差异落噪声内"论证 / 可选 Fig.4）。
+- **对手（基线）数据不在 CSV**，仍以 data-collection-checklist.md §B（B1–B8，标来源 A/B/C/D）为准。
+- 一句话约定：**我方数据看 paper/data/*.csv，对手数据看 checklist §B**。
+
 **关键背景事实（不要再推翻）**：
 - 训练在远程机（数据路径 /hy-tmp/...），本地 Mac 无 torch、无权重，只能改代码/文档。
 - x2 已训练完成；x3/x4 从 x2 权重 finetune；消融在 x4 上做（对齐 CATANet 原论文消融口径 scale=4）。
@@ -30,14 +40,26 @@
 
 ## 当前快照（每次更新）
 
-- **更新时间**：2026-06-10
-- **所处阶段**：Day4→Day5。Table I/II 已拼装；Method/Introduction 初稿已写定；
-  消融实验前置条件（代码透传 + 6 个 yml）已就绪，待训练机排训。
+- **更新时间**：2026-06-17
+- **所处阶段**：Day5→Day9。消融实验已训练完成并分析；Table III/IV/V（受限口径）已拼装；
+  Experiments 已写定 3.1 设置（sec:exp_setup）+ 3.2 主对比（sec:main_comparison）+
+  3.3 效率（sec:efficiency）+ 3.5 消融（sec:ablation）+ 3.6 路由分析（sec:routing_analysis）+ Fig.6。
+  Table I 完整；Table II 已补 CATANet 同源 Multi-Adds（46.8G），其余 7 对手 compute/时延仍缺。
 - **下一步动作（最优先）**：
-  1. ✅ A1 refine 顶层透传已补（CATANet→TAB→DPR），6 个消融 yml 已建（见下）。
-     → 待训练机排训：A1/A2/A3 + full 参照（x4 finetune 80k 短 iter，10k 验证/存档）。这是终稿唯一实验缺口（C1–C4）。
-  2. 补 Table II 对手 FLOPs/时延（同口径，禁编造）——投稿前必补。
-  3. 据 Fig.2 规格出图（Fig.1 draw.io / Fig.2 TikZ）。
+  1. 写 Experiments 余下 3.4 视觉对比（视觉图需推理出图，待训练机）。
+  2. 补 Table II 其余 7 对手 Multi-Adds（统一取自 CATANet Tab.2 或同协议重测，禁编造）；
+     对手时延依赖硬件不可引，留 "-"；补 3.1 硬件占位（GPU 型号/GPU·hours）。
+  3. 出 Fig.1/2（结构图，figure-specs）；Fig.5 x_scores 直方图 + Fig.8 聚类图需推理出图。
+  4. **修 intro 不一致**：1_introduction.tex L86-89 "largest gains on Urban100/Manga109"
+     与 Table I 实情不符（Urban100 DPRNet 全尺度次于 CATANet）；改为"与 CATANet 持平、
+     B100/Manga 互有领先"。详见下方注。
+- **消融结论（已分析，关键事实，勿推翻）**：
+  · 6 个 x4 消融全部跑满（A1/A2/A3 各 80k，full 100k），日志解析干净。
+  · **方法学局限**：全部变体从全功能 net_g_250000 finetune（共享全开关收敛权重），
+    PSNR 差异落噪声内（±0.03dB）且 A1/A2 方向与预期相反 → **不主张逐项 PSNR 增益**。
+    详见 review/method-experiment-traceability.md「消融实验的已知局限」。
+  · **可主张**：A3 balance loss 在 8 个 block usage 熵全升（0.6227→0.6865），支撑 C4 均衡机制。
+
 - **消融 yml 清单（CATANet/options/train/）**：
   · train_CATANet_x4_abl_full.yml —— 全功能参照（A1/A2/A3 共享顶行）。
   · train_CATANet_x4_abl_A1_refine_off.yml —— A1：refine=off。
@@ -55,6 +77,76 @@
 ---
 
 ## 进度日志（倒序，最新在上）
+
+### 2026-06-20 · 摘录我方自测数据为权威 CSV + 登记数据来源
+- 新建 paper/data/dprnet_main_metrics.csv（15 行，x2/x3/x4 × 5 基准 PSNR/SSIM，带 source_log）
+  与 paper/data/dprnet_efficiency.csv（3 行，三尺度 Params/MACs/时延，带 source）——
+  数值逐格摘自原始测试日志/efficiency.md 并核对一致，作为 Table I（ours 行）/Table II 的唯一事实源。
+- 复核 Table I（ours 三行）与 Table II（DPRNet 行）：与原始日志逐格一致，无录入错误；
+  DPRNet 多数格紧随 CATANet 次优属数据真实形态，非改错。
+- 登记数据来源约定：progress 接手指南 + checklist §A2/§A3 顶部均加"权威来源指向 CSV、后续一律以 CSV 为准、
+  不再翻原始日志"；明确"我方数据看 paper/data/*.csv，对手数据看 checklist §B"。
+- 待修（未动）：1_introduction.tex L86-89 "largest gains on Urban100, Manga109" 与 Table I 矛盾，仍待改。
+
+### 2026-06-17（续3）· 写 3.3 效率分析 + 补 Table II CATANet 同源 Multi-Adds
+- 新建 paper/sections/3_experiments_efficiency.tex（定义 sec:efficiency，讨论 Table II + per-scale）：
+  · 参数：DPRNet x4 660K，轻量档内（< SwinIR/SRFormer/CARN，≈ELAN-light），但**大于 CATANet 535K**——
+    如实说明 query bank + router/score 投影带来的参数增量，**不主张参数优势**，在等精度下对比。
+  · 计算：DPRNet x4 Multi-Adds 45.77G **反而略低于** CATANet 46.8G（同输出口径）→ 额外参数不增推理算量。
+  · per-scale：x2/x3/x4 MACs 126.52/64.28/45.77G、时延 712/285/197ms，参数近似尺度无关（0.60–0.67M）。
+  · 诚实边界：其余 7 对手 compute/时延未同口径采集，留 "-"，明确不编造。
+- **关键发现**：DPRNet 虽参数多于 CATANet，但 x4 Multi-Adds 更低且精度持平 → 算量维度可正面表述。
+- 补 paper/tables/table2_efficiency.tex：CATANet x4 Multi-Adds 填 46.8G（带 † 注，引自 CATANet CVPR'25
+  同 ~720×1280 输出，与我方 thop MACs 直接可比）；其余 7 对手 Multi-Adds 经核查跨源参数口径不一致
+  （如 SwinIR-light 897K vs 别处 930K），为避免不一致**不强填**，表注说明须统一取 CATANet Tab.2 或重测；
+  对手时延依赖硬件不可引，留 "-"。来源核查：CATANet 论文/补充材料 Tab.B/C（536K/46.8G），arXiv 2503.06896。
+- 同步 progress 快照/下一步/日志。
+
+### 2026-06-17（续2）· 写 3.1 实验设置 + 3.2 主对比
+- 新建 paper/sections/3_experiments_setup.tex（开 \section{Experiments}，定义 sec:exp_setup）：
+  数据集/指标（DIV2K 训练，5 基准 Y 通道，crop_border=s）、网络配置（L=8/C=40/M=[16,32,64,128]×2/
+  group=128/τ_init=e^6 clamp10/λ）、训练（x2 scratch 800k → x3/x4 finetune 250k，patch 128/192/256，
+  bs16，Adam 2e-4 MultiStep，router lr×0.1）、效率测量口径。全部 verbatim 自 yml/checklist。
+  · 硬件留 [PLACEHOLDER]（GPU 型号/GPU·hours 未采，checklist A1 仍 open），禁编造。
+- 新建 paper/sections/3_experiments_comparison.tex（定义 sec:main_comparison，讨论 Table I/II）：
+  · **诚实口径（贴合真实数据，非乐观计划）**：DPRNet 与 CATANet 同处第一梯队、同档成本下"持平"，
+    B100(x3/x4)、Manga109(x2) 领先，Set5(x4) 持平，Urban100 全尺度紧随次优；**不主张"Urban100 最大增益"**。
+    并如实点出 DPRNet 参数略高于 CATANet（660K vs 535K）。数字逐项核对自 Table I。
+- **发现 intro 不一致**：1_introduction.tex L86-89 称 "largest gains on Urban100, Manga109"，
+  与 Table I 矛盾（Urban100 DPRNet 全尺度次于 CATANet）。已记入下一步待修，本轮未改 intro（待确认）。
+- 同步 progress 快照/下一步。
+
+### 2026-06-17（续）· 写 3.6 路由可解释性 + 出 Fig.6
+- 新建 paper/sections/3_experiments_routing_analysis.tex（定义 sec:routing_analysis，被 3.5 引用）：
+  · C4 均衡：usage 熵 8 block 全升（0.6227→0.6865）+ active 槽 47.5→52.3（防塌缩）。
+  · C4 温度：router_scale 稳定在 5.65–6.51（均值 6.06）< clamp 10，未饱和。
+  · C3：置信度信号各 block 非退化（x^s≈1e-2 远高于 1/M 均匀底），证明 softmax 分配有信息。
+  · 诚实边界：x_scores 直方图 + 聚类图需推理（本机无 torch/matplotlib），注明 camera-ready 补，
+    不在本节作定量断言。数字逐项核对自 paper/data CSV。
+- 新建 paper/figures/fig6_usage_entropy.tex（pgfplots/TikZ，依赖 pgfplots；矢量，无需本地渲染）：
+  per-block 归一化 usage 熵 balance on vs off 柱状图，数据 verbatim 自 perblock CSV。
+  （本机无 matplotlib/LaTeX，故选 TikZ 源码 + 真实数值，编译留待论文整体构建。）
+- 同步 traceability：C3/C4 行补 §3.6 + Fig.6 证据与 allowed claim；progress 快照/下一步更新；
+  data-checklist Fig.6 标 [x]。
+
+### 2026-06-17 · 消融实验分析 + 决定"保留数据改写 claim" + 拼 Table III/IV/V + 写消融正文
+- 解析 6 个 x4 消融日志（experiments/*abl*，A1/A2/A3 各 80k，full 100k，全跑满）。
+  提取每 10k val（Set5+Urban100）PSNR/SSIM 曲线 + 每 block 路由诊断（xscore/usage/熵/router_scale）。
+- **诊断出方法学局限**：6 个变体的 pretrain_network_g 全指向 train_CATANet_x4_finetune/net_g_250000.pth
+  —— 该 ckpt 是全开关、带 balance、收敛 250k 的全功能模型。即便"全关"baseline 也从全功能权重退火 80k，
+  导致各开关 PSNR 差异落噪声内（±0.03dB）且 A1/A2 方向与预期相反（A2 全关 v1 反而 Urban100 最高）。
+  正是 protocol §10 注2 早警告的"从全功能权重关 flag 测会失配"。
+- **决策（用户拍板）**：保留现有数据，彻底改写 claim，不重训。
+  · A1/A2：只报"质量中性、组件兼容"，不主张逐项 PSNR 增益。
+  · C1 动态原型 vs 历史中心：仍只作动机层面，引 CATANet 原论文间接对比。
+  · C4：balance loss 在 8 block usage 熵全升（均值 0.6227→0.6865）→ 可主张均衡机制；
+    "多 seed 方差下降"待补（当前仅 seed 3407），暂不主张。
+- **产出**：paper/tables/table3_ablation_a1.tex / table4_ablation_a2.tex / table5_ablation_a3.tex
+  （均含真实 80k 数据 + 受限口径表注 + 数据局限披露）；消融分析正文
+  paper/sections/3_experiments_ablation.tex（定义 sec:ablation，被 intro/method 引用，数字逐项核对自表格）；
+  路由诊断 CSV 导出 paper/data/（ablation_metrics / perblock_urban100_80k / val_curves，供 Fig.6）；
+  同步更新 traceability（C1-C4 allowed claim 收紧 + 新增「消融实验的已知局限」节）、
+  data-checklist Table III/IV/V 标 [x]（受限）。
 
 ### 2026-06-15 · 修正 A2 多卡 DDP marked-ready-twice 报错
 - 现象：A2_v1_hardsort 4 卡训练在 backward 时报
