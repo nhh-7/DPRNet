@@ -46,10 +46,12 @@ each stage. More prototypes give the router a finer content vocabulary but enlar
 query bank and the matching cost, while too few prototypes force unrelated tokens to
 share a slot. We keep the prototype schedule aligned with the CATANet backbone so that
 the comparison isolates the routing mechanism rather than a capacity change; this is also
-why DPRNet carries a modestly higher parameter count than CATANet ($660$K vs.\ $535$K at
-$\times4$) yet a slightly \emph{lower} Multi-Adds ($45.77$\,G vs.\ $46.8$\,G), as the added
-parameters live in the query bank and projections rather than in the dominant attention
-cost (Sec.~\ref{sec:efficiency}). A systematic sweep of the prototype schedule is a
+why DPRNet carries a modestly higher parameter count and Multi-Adds than CATANet
+($660$K/$52.14$\,G vs.\ $535$K/$46.8$\,G at $\times4$ under a common $256{\times}256$ input),
+as the added cost lives in the query bank and projections of DPR. Even so, DPRNet stays
+within the lightweight bracket and below the Transformer baselines SwinIR-light
+($60.3$\,G) and SRFormer-light ($56.5$\,G) at higher accuracy (Sec.~\ref{sec:efficiency}).
+A systematic sweep of the prototype schedule is a
 natural extension but is orthogonal to the routing formulation studied here.
 
 \paragraph{Limitations.}

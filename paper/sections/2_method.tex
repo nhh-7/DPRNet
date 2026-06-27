@@ -13,7 +13,8 @@
 \subsection{Overview}
 \label{sec:method_overview}
 We build on the lightweight super-resolution (SR) backbone of CATANet and replace
-its token-routing component with a \emph{Dynamic Prototype Routing} (DPR) module.
+its token-routing component with a \emph{Dynamic Prototype Routing} (DPR) module
+(Fig.~\ref{fig:arch}).
 Given a low-resolution (LR) input $I_{LR}\in\mathbb{R}^{3\times H\times W}$, a
 $3\times3$ convolution extracts shallow features
 $F_0\in\mathbb{R}^{C\times H\times W}$ ($C{=}40$). The deep feature extractor is a
@@ -68,7 +69,7 @@ through routing and aggregation.
 \label{sec:method_dpr}
 DPR maps a token sequence $X\in\mathbb{R}^{B\times N\times C}$ to a content-reordered
 sequence together with a set of $M$ dynamic prototypes and routing meta-information.
-We describe its four stages.
+We describe its four stages (Fig.~\ref{fig:dpr}).
 
 \paragraph{(1) Dynamic prototype generation.}
 We first embed tokens with a lightweight head

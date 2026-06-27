@@ -1,7 +1,6 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.6.26)  27 JUN 2026 12:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.6.26)  27 JUN 2026 16:19
 entering extended mode
  restricted \write18 enabled.
- file:line:error style messages enabled.
  %&-line parsing enabled.
 **main.tex
 (./main.tex
@@ -489,7 +488,27 @@ File: tikzlibrarytopaths.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 File: tikzlibraryplotmarks.code.tex 2025-08-29 v3.1.11a (3.1.11a)
  (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/libraries/pgflibraryplotmarks.code.tex
 File: pgflibraryplotmarks.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-)))) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.sty
+))) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarypositioning.code.tex
+File: tikzlibrarypositioning.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.meta.code.tex
+File: pgflibraryarrows.meta.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfarrowinset=\dimen313
+\pgfarrowlength=\dimen314
+\pgfarrowwidth=\dimen315
+\pgfarrowlinewidth=\dimen316
+) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarycalc.code.tex
+File: tikzlibrarycalc.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryfit.code.tex
+File: tikzlibraryfit.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarybackgrounds.code.tex
+File: tikzlibrarybackgrounds.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@layerbox@background=\box71
+\pgf@layerboxsaved@background=\box72
+) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshapes.geometric.code.tex
+File: tikzlibraryshapes.geometric.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+ (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshapes.geometric.code.tex
+File: pgflibraryshapes.geometric.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+))) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2026-06-17 v7.01r Hypertext links for LaTeX
  (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty
 Package: iftex 2024/12/12 v1.0g TeX engine tests
@@ -518,7 +537,7 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 ) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/stringenc/stringenc.sty
 Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO)
 )
-\@linkdim=\dimen313
+\@linkdim=\dimen317
 \Hy@linkcounter=\count361
 \Hy@pagecounter=\count362
  (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.def
@@ -556,13 +575,13 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 28
 ))
 \c@Hy@tempcnt=\count364
 LaTeX Info: Redefining \url on input line 4805.
-\XeTeXLinkMargin=\dimen314
+\XeTeXLinkMargin=\dimen318
  (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/bitset/bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
 )
 \Fld@menulength=\count365
-\Field@Width=\dimen315
-\Fld@charsize=\dimen316
+\Field@Width=\dimen319
+\Fld@charsize=\dimen320
 Package hyperref Info: Hyper figures OFF on input line 6091.
 Package hyperref Info: Link nesting OFF on input line 6096.
 Package hyperref Info: Hyper index ON on input line 6099.
@@ -597,7 +616,7 @@ Package cleveref Info: always capitalise cross-reference names on input line 783
 Package cleveref Info: always capitalise cross-reference names on input line 7852.
 )
 ==> First Aid for cleveref.sty applied!
-LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 44.
+LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 46.
 (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 ) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
@@ -606,24 +625,24 @@ File: l3backend-pdftex.def 2026-02-18 L3 backend support: PDF output (pdfTeX)
 ) (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
  (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
  (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/grfext/grfext.sty
@@ -642,18 +661,18 @@ Package caption Info: End \AtBeginDocument code.
  ABD: EveryShipout initializing macros
 Package pgfplots notification 'compat/show suggested version=true': you might benefit from \pgfplotsset{compat=1.18} (current compat level: 1.16).
 
-Package backref Info: ** backref set up for natbib ** on input line 44.
-Package hyperref Info: Link coloring ON on input line 44.
+Package backref Info: ** backref set up for natbib ** on input line 46.
+Package hyperref Info: Link coloring ON on input line 46.
 (./main.out) (./main.out)
 \@outlinefile=\write4
 \openout4 = `main.out'.
 
  (./sections/0_abstract.tex
-LaTeX Font Info:    Trying to load font information for U+msa on input line 25.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 26.
  (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 25.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 26.
  (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )) (./sections/1_introduction.tex
@@ -671,43 +690,118 @@ File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 94.
  (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-)) (./sections/2_method.tex [2] [3]) (./sections/3_experiments_setup.tex [4]) (./sections/3_experiments_comparison.tex) (./tables/table1_main_comparison.tex) (./tables/table2_efficiency.tex) (./sections/3_experiments_efficiency.tex [5]) [6] (./sections/3_experiments_ablation.tex [7]) (./tables/table3_ablation_a1.tex) (./tables/table4_ablation_a2.tex) (./tables/table5_ablation_a3.tex) (./sections/3_experiments_routing_analysis.tex [8]) (./figures/fig6_usage_entropy.tex
+)) (./sections/2_method.tex [2] [3]) (./figures/fig1_architecture.tex) (./figures/fig2_dpr.tex
+LaTeX Font Info:    Font shape `OT1/pcr/m/it' in size <7> not available
+(Font)              Font shape `OT1/pcr/m/sl' tried instead on input line 121.
+) (./sections/3_experiments_setup.tex [4]
+
+LaTeX Warning: Text page 5 contains only floats.
+
+
+LaTeX Warning: Text page 5 contains only floats.
+
+[5]) (./sections/3_experiments_comparison.tex) (./tables/table1_main_comparison.tex) (./tables/table2_efficiency.tex) (./sections/3_experiments_efficiency.tex [6] [7]) (./figures/fig3_psnr_params.tex) (./sections/3_experiments_visual.tex) (./figures/fig7_visual.tex [8]
+<figures/fig7_assets/Urban100_img_092_GT_full_box.png, id=305, 1027.84pt x 694.595pt>
+File: figures/fig7_assets/Urban100_img_092_GT_full_box.png Graphic file (type png)
+<use figures/fig7_assets/Urban100_img_092_GT_full_box.png>
+Package pdftex.def Info: figures/fig7_assets/Urban100_img_092_GT_full_box.png  used on input line 54.
+(pdftex.def)             Requested size: 94.40388pt x 63.79329pt.
+<figures/fig7_assets/Urban100_img_092_Bicubic_crop.png, id=306, 289.08pt x 289.08pt>
+File: figures/fig7_assets/Urban100_img_092_Bicubic_crop.png Graphic file (type png)
+<use figures/fig7_assets/Urban100_img_092_Bicubic_crop.png>
+Package pdftex.def Info: figures/fig7_assets/Urban100_img_092_Bicubic_crop.png  used on input line 54.
+(pdftex.def)             Requested size: 94.40388pt x 94.4042pt.
+File: figures/fig7_assets/Urban100_img_092_Bicubic_crop.png Graphic file (type png)
+<use figures/fig7_assets/Urban100_img_092_Bicubic_crop.png>
+Package pdftex.def Info: figures/fig7_assets/Urban100_img_092_Bicubic_crop.png  used on input line 54.
+(pdftex.def)             Requested size: 94.40388pt x 94.4042pt.
+<figures/fig7_assets/Urban100_img_092_DPRNet_crop.png, id=307, 289.08pt x 289.08pt>
+File: figures/fig7_assets/Urban100_img_092_DPRNet_crop.png Graphic file (type png)
+<use figures/fig7_assets/Urban100_img_092_DPRNet_crop.png>
+Package pdftex.def Info: figures/fig7_assets/Urban100_img_092_DPRNet_crop.png  used on input line 54.
+(pdftex.def)             Requested size: 94.40388pt x 94.4042pt.
+<figures/fig7_assets/Urban100_img_092_GT_crop.png, id=308, 289.08pt x 289.08pt>
+File: figures/fig7_assets/Urban100_img_092_GT_crop.png Graphic file (type png)
+<use figures/fig7_assets/Urban100_img_092_GT_crop.png>
+Package pdftex.def Info: figures/fig7_assets/Urban100_img_092_GT_crop.png  used on input line 54.
+(pdftex.def)             Requested size: 94.40388pt x 94.4042pt.
+<figures/fig7_assets/Urban100_img_024_GT_full_box.png, id=309, 1027.84pt x 662.475pt>
+File: figures/fig7_assets/Urban100_img_024_GT_full_box.png Graphic file (type png)
+<use figures/fig7_assets/Urban100_img_024_GT_full_box.png>
+Package pdftex.def Info: figures/fig7_assets/Urban100_img_024_GT_full_box.png  used on input line 57.
+(pdftex.def)             Requested size: 94.40388pt x 60.8433pt.
+<figures/fig7_assets/Urban100_img_024_Bicubic_crop.png, id=310, 289.08pt x 289.08pt>
+File: figures/fig7_assets/Urban100_img_024_Bicubic_crop.png Graphic file (type png)
+<use figures/fig7_assets/Urban100_img_024_Bicubic_crop.png>
+Package pdftex.def Info: figures/fig7_assets/Urban100_img_024_Bicubic_crop.png  used on input line 57.
+(pdftex.def)             Requested size: 94.40388pt x 94.4042pt.
+File: figures/fig7_assets/Urban100_img_024_Bicubic_crop.png Graphic file (type png)
+<use figures/fig7_assets/Urban100_img_024_Bicubic_crop.png>
+Package pdftex.def Info: figures/fig7_assets/Urban100_img_024_Bicubic_crop.png  used on input line 57.
+(pdftex.def)             Requested size: 94.40388pt x 94.4042pt.
+<figures/fig7_assets/Urban100_img_024_DPRNet_crop.png, id=311, 289.08pt x 289.08pt>
+File: figures/fig7_assets/Urban100_img_024_DPRNet_crop.png Graphic file (type png)
+<use figures/fig7_assets/Urban100_img_024_DPRNet_crop.png>
+Package pdftex.def Info: figures/fig7_assets/Urban100_img_024_DPRNet_crop.png  used on input line 57.
+(pdftex.def)             Requested size: 94.40388pt x 94.4042pt.
+<figures/fig7_assets/Urban100_img_024_GT_crop.png, id=312, 289.08pt x 289.08pt>
+File: figures/fig7_assets/Urban100_img_024_GT_crop.png Graphic file (type png)
+<use figures/fig7_assets/Urban100_img_024_GT_crop.png>
+Package pdftex.def Info: figures/fig7_assets/Urban100_img_024_GT_crop.png  used on input line 57.
+(pdftex.def)             Requested size: 94.40388pt x 94.4042pt.
+<figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_full_box.png, id=313, 827.09pt x 1172.38pt>
+File: figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_full_box.png Graphic file (type png)
+<use figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_full_box.png>
+Package pdftex.def Info: figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_full_box.png  used on input line 60.
+(pdftex.def)             Requested size: 94.40388pt x 133.81012pt.
+<figures/fig7_assets/Manga109_ThatsIzumiko_000_Bicubic_crop.png, id=314, 289.08pt x 289.08pt>
+File: figures/fig7_assets/Manga109_ThatsIzumiko_000_Bicubic_crop.png Graphic file (type png)
+<use figures/fig7_assets/Manga109_ThatsIzumiko_000_Bicubic_crop.png>
+Package pdftex.def Info: figures/fig7_assets/Manga109_ThatsIzumiko_000_Bicubic_crop.png  used on input line 60.
+(pdftex.def)             Requested size: 94.40388pt x 94.4042pt.
+File: figures/fig7_assets/Manga109_ThatsIzumiko_000_Bicubic_crop.png Graphic file (type png)
+<use figures/fig7_assets/Manga109_ThatsIzumiko_000_Bicubic_crop.png>
+Package pdftex.def Info: figures/fig7_assets/Manga109_ThatsIzumiko_000_Bicubic_crop.png  used on input line 60.
+(pdftex.def)             Requested size: 94.40388pt x 94.4042pt.
+<figures/fig7_assets/Manga109_ThatsIzumiko_000_DPRNet_crop.png, id=315, 289.08pt x 289.08pt>
+File: figures/fig7_assets/Manga109_ThatsIzumiko_000_DPRNet_crop.png Graphic file (type png)
+<use figures/fig7_assets/Manga109_ThatsIzumiko_000_DPRNet_crop.png>
+Package pdftex.def Info: figures/fig7_assets/Manga109_ThatsIzumiko_000_DPRNet_crop.png  used on input line 60.
+(pdftex.def)             Requested size: 94.40388pt x 94.4042pt.
+<figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_crop.png, id=316, 289.08pt x 289.08pt>
+File: figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_crop.png Graphic file (type png)
+<use figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_crop.png>
+Package pdftex.def Info: figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_crop.png  used on input line 60.
+(pdftex.def)             Requested size: 94.40388pt x 94.4042pt.
+) (./sections/3_experiments_ablation.tex) (./tables/table3_ablation_a1.tex) (./tables/table4_ablation_a2.tex) (./tables/table5_ablation_a3.tex) [9] (./sections/3_experiments_routing_analysis.tex [10 <./figures/fig7_assets/Urban100_img_092_GT_full_box.png (PNG copy)> <./figures/fig7_assets/Urban100_img_092_Bicubic_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_092_DPRNet_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_092_GT_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_024_GT_full_box.png (PNG copy)> <./figures/fig7_assets/Urban100_img_024_Bicubic_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_024_DPRNet_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_024_GT_crop.png (PNG copy)> <./figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_full_box.png (PNG copy)> <./figures/fig7_assets/Manga109_ThatsIzumiko_000_Bicubic_crop.png (PNG copy)> <./figures/fig7_assets/Manga109_ThatsIzumiko_000_DPRNet_crop.png (PNG copy)> <./figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_crop.png (PNG copy)>]) (./figures/fig6_usage_entropy.tex
 Package pgfplots info on input line 31: Using 'lua backend=false' for axis: x coord trafo unsupported.
-) (./sections/4_discussion.tex [9]) (./sections/5_conclusion.tex) (./main.bbl (./main.brf)
+) [11] (./sections/4_discussion.tex) (./sections/5_conclusion.tex) [12] (./main.bbl (./main.brf)
 \tf@brf=\write5
 \openout5 = `main.brf'.
 
- [10]) [11
-
-] (./main.aux)
+) [13] (./main.aux)
  ***********
 LaTeX2e <2026-06-01>
 L3 programming layer <2026-06-18>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 0E19FDC5C7CB8742096B57055AC2A9AE;2694.
-
-
-Package rerunfilecheck Warning: File `main.brf' has changed.
-(rerunfilecheck)                Rerun to get bibliographical references right.
-
-Package rerunfilecheck Info: Checksums for `main.brf':
-(rerunfilecheck)             Before: D41D8CD98F00B204E9800998ECF8427E;0
-(rerunfilecheck)             After:  A7940032D2DF303008B8D543B8414B40;1119.
+(rerunfilecheck)             Checksum: B23B5A93BE850256D1581CBD3B5C85DE;2865.
+Package rerunfilecheck Info: File `main.brf' has not changed.
+(rerunfilecheck)             Checksum: CD5F3CEA88D1D8946D8F539221029AC6;1227.
  ) 
 Here is how much of TeX's memory you used:
- 35755 strings out of 469158
- 832365 string characters out of 5459505
- 1383403 words of memory out of 5000000
- 64056 multiletter control sequences out of 15000+600000
- 661432 words of font info for 106 fonts, out of 8000000 for 9000
+ 37399 strings out of 469158
+ 873573 string characters out of 5459505
+ 1421449 words of memory out of 5000000
+ 65649 multiletter control sequences out of 15000+600000
+ 668570 words of font info for 116 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 104i,20n,111p,742b,2375s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmri8a.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on main.pdf (11 pages, 334974 bytes).
+ 104i,20n,111p,1356b,2383s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/urw/courier/ucrro8a.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmri8a.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb>
+Output written on main.pdf (13 pages, 5329416 bytes).
 PDF statistics:
- 447 PDF objects out of 1000 (max. 8388607)
- 379 compressed objects within 4 object streams
- 99 named destinations out of 1000 (max. 500000)
- 141 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 565 PDF objects out of 1000 (max. 8388607)
+ 458 compressed objects within 5 object streams
+ 106 named destinations out of 1000 (max. 500000)
+ 209 words of extra memory for PDF output out of 10000 (max. 10000000)
 

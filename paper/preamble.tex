@@ -4,8 +4,14 @@
 
 \usepackage{multirow}   % Table I (tab:main_comparison)
 \usepackage{pifont}     % Table IV (\ding{51}/\ding{55} switches)
-\usepackage{pgfplots}   % Fig.6 (per-block usage entropy)
+\usepackage{pgfplots}   % Fig.6 (per-block usage entropy), Fig.3 (PSNR-vs-Params)
 \pgfplotsset{compat=1.16}
+\usetikzlibrary{positioning,arrows.meta,calc,fit,backgrounds,shapes.geometric} % Fig.1/Fig.2 structure diagrams
+
+%% Highlight color for the DPR/TAB contribution in structure figures.
+%% (cvprblue is also defined in main.tex; define here so figures compile standalone.)
+\providecommand{\dprhl}{}
+\definecolor{dprblue}{rgb}{0.21,0.49,0.74}
 
 %% Inline annotation helpers (disable for camera-ready).
 \newcommand{\red}[1]{{\color{red}#1}}

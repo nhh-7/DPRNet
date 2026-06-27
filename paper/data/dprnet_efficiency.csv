@@ -1,8 +1,16 @@
 # DPRNet efficiency, authoritative source for Table II + per-scale profile. Use THIS file, not the raw log.
-# Source: CATANet/results/CATANet/efficiency.md (device=cuda; fixed HR output ~720x1280, LR derived per scale;
-#   thop reports MACs -> multiply by 2 for FLOPs-based papers; latency warmup=20, repeat=100, ms).
-# x3 effective output 720x1278 (HR not divisible by 3, floored).
-scale,lr_input,params,params_k,macs_thop_g,latency_ms_mean,latency_ms_std,source
-x2,360x640,601947,601.947,126.5178,712.162,23.471,CATANet/results/CATANet/efficiency.md
-x3,240x426,674147,674.147,64.2803,285.387,5.655,CATANet/results/CATANet/efficiency.md
-x4,180x320,659707,659.707,45.7679,196.765,10.018,CATANet/results/CATANet/efficiency.md
+# Two measurement modes (the paper must state which one a table uses, and keep it consistent):
+#   mode=A_fixed_lr_256 : fixed LR input 256x256 (x4 output 1024x1024). MATCHES the CATANet paper Tab.6
+#     convention (CATANet 46.8G / SwinIR-light 60.3G / SRFormer-light 56.5G), so DPRNet MACs are now
+#     DIRECTLY comparable to those cited competitors. THIS is the Table II reporting mode.
+#   mode=B_fixed_hr_720x1280 : legacy, fixed HR output ~720x1280 (LR derived per scale). NOT comparable
+#     to the CATANet paper numbers; kept only as our own cross-scale self-profile / historical record.
+# thop reports MACs -> multiply by 2 for FLOPs-based papers; latency warmup=20, repeat=100, ms (device=cuda).
+# x3 (mode B) effective output 720x1278 (HR not divisible by 3, floored).
+scale,lr_input,params,params_k,macs_thop_g,latency_ms_mean,latency_ms_std,mode,source
+x2,256x256,601947,601.947,36.1882,183.571,7.700,A_fixed_lr_256,measure_efficiency.py --scale 2 --lr-h 256 --lr-w 256 (efficiency_new.md)
+x3,256x256,674147,674.147,41.2607,185.880,6.329,A_fixed_lr_256,measure_efficiency.py --scale 3 --lr-h 256 --lr-w 256 (efficiency_new.md)
+x4,256x256,659707,659.707,52.1370,198.162,9.434,A_fixed_lr_256,measure_efficiency.py --scale 4 --lr-h 256 --lr-w 256 (efficiency_new.md)
+x2,360x640,601947,601.947,126.5178,712.162,23.471,B_fixed_hr_720x1280,CATANet/results/CATANet/efficiency.md
+x3,240x426,674147,674.147,64.2803,285.387,5.655,B_fixed_hr_720x1280,CATANet/results/CATANet/efficiency.md
+x4,180x320,659707,659.707,45.7679,196.765,10.018,B_fixed_hr_720x1280,CATANet/results/CATANet/efficiency.md

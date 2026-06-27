@@ -211,13 +211,18 @@
 ## D. 图表清单（figures/，含 data-manifest.md）
 
 ### D1 结构图（figures-diagram，无需数据）
-- [~] Fig.1 整体网络结构（CATANet 主干 + DPR 位置）
-      → 规格已写定 paper/figures/figure-specs.md（对应 method Eq.1–3）；待出图（draw.io）
-- [~] Fig.2 DPR 模块数据流（原型生成→refine→匹配→排序→IASA）
-      → 规格已写定 paper/figures/figure-specs.md（对应 method Eq.4–13，标三消融开关）；待出图（TikZ）
+- [x] Fig.1 整体网络结构（CATANet 主干 + DPR 位置）
+      → paper/figures/fig1_architecture.tex（TikZ 矢量，figure*，对应 method Eq.1–3 数据流 +
+      TAB 内部展开；DPR 高亮并引向 Fig.2）。已串入 main.tex，pdflatex 编译通过、0 Overfull。
+- [x] Fig.2 DPR 模块数据流（原型生成→refine→匹配→排序→IASA）
+      → paper/figures/fig2_dpr.tex（TikZ 矢量，figure*，6 个 stage 对应 Eq.4–13，
+      标 A1/A2/A3 三消融开关 + γ/β/α/τ 门控）。已串入 main.tex，编译通过、0 Overfull。
 
 ### D2 数据图（figures-python，需 CSV）
-- [ ] Fig.3 PSNR-vs-Params（或 vs FLOPs）散点，突出本文 Pareto
+- [x] Fig.3 PSNR-vs-Params（或 vs FLOPs）散点，突出本文 Pareto
+      → paper/figures/fig3_psnr_params.tex（pgfplots/TikZ，x4 Urban100 PSNR vs Params，
+      9 方法；数据 verbatim 自 Table II/Table I；DPRNet 用蓝色五角星高亮在左上）。
+      已串入 main.tex，§3.3 efficiency Parameters 段引于 Fig.~\ref{fig:psnr_params}，编译通过、0 Overfull。
 - [ ] Fig.4 训练曲线对比（可选，DPRNet vs CATANet val PSNR）
 - [ ] Fig.5 x_scores 直方图（加 router scale 前后区分度对比）
       → 需推理（本机无 torch/matplotlib），§3.6 已注明 camera-ready 补
@@ -226,7 +231,17 @@
       balance on vs off，数据 verbatim 自 ablation_perblock_urban100_80k.csv；正文引于 §3.6）
 
 ### D3 可视化图（需跑模型输出）
-- [ ] Fig.7 视觉对比（Urban100/Manga109 难样本，GT/Bicubic/对手/本文 crop）
+- [~] Fig.7 视觉对比（Urban100/Manga109 难样本，GT/Bicubic/对手/本文 crop）
+  - **难样本已选定（2026-06-27，3 行方案）**：Urban100 `img_092`、`img_024`；Manga109 `ThatsIzumiko_000`。
+    选点依据：对 DPRNet x4 SR 输出（test_CATANet_x4-250000/visualization）算高频能量（Laplacian 方差）排序，
+    三者均居各集前列（脚本 paper/scripts/rank_hf_samples.py），且 img_092/img_024 为 SR 文献常用密集建筑栅格难样本、
+    ThatsIzumiko_000 为高对比线稿。备选：Urban100 img_072、Manga109 HighschoolKimengumi_vol01。
+  - **已有素材**：DPRNet 自测 x4 SR 全图已在 results/CATANet/test_CATANet_x4-250000/visualization/{Urban100,Manga109}/
+    （`<name>_x4_CATANet.png`，注意 `_CATANet` 仅为 arch 注册名，实为 DPRNet 输出）。
+  - **缺口（需训练机/原始数据，禁本地编造）**：(a) GT 高清原图（本地 datasets/ 仅 README，需取 /hy-tmp/TestDataSR/HR）；
+    (b) Bicubic 上采基线（从 LR /hy-tmp/TestDataSR/LR/LRBI 双三次得到）；(c) 对手 SR 输出（至少原版 CATANet，
+    建议加 SRFormer-light，用各自权重在训练机推理）。当前先用 DPRNet+GT 出占位图，对手列留占位。
+  - **裁剪口径**：每行选同一 crop patch（红框标在全图缩略，右侧放大 crop），各列标 PSNR/SSIM；x4。
 - [ ] Fig.8 路由聚类图（原始顺序 belong_idx → H×W 上色）
 - [ ] Fig.9 排序前后 token 邻域语义一致性
 

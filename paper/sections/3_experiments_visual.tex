@@ -1,0 +1,38 @@
+% =====================================================================
+% Section: Experiments -- Qualitative (visual) comparison (outline.md §3.4;
+%   defines sec:visual). Discusses Fig.7 (fig:visual).
+% Draft v1 (2026-06-27). Samples chosen by GT high-frequency-energy ranking +
+%   SR-literature convention (paper/scripts/build_fig7_assets.py). PSNR/SSIM are
+%   read VERBATIM from paper/figures/fig7_assets/metrics.csv (Y channel, crop_border=4,
+%   recomputed from published 8-bit PNGs; ~0.07 dB below the logged float means due to
+%   PNG quantization -- relative Bicubic-vs-DPRNet gaps are exact).
+% HONEST BOUNDARY: competitor SR crops (original CATANet / SRFormer-light) are not yet
+%   available locally; Fig.7's competitor column is a placeholder and this text makes
+%   no DPRNet-vs-competitor visual claim until those crops are produced on the
+%   training machine. Only DPRNet-vs-Bicubic / vs-GT statements are made here.
+% =====================================================================
+\subsection{Qualitative comparison}
+\label{sec:visual}
+
+Beyond aggregate PSNR/SSIM, Fig.~\ref{fig:visual} compares reconstructions at
+$\times4$ on three texture-dense hard samples selected by ground-truth
+high-frequency energy: two Urban100 images dominated by repetitive building
+grids (\texttt{img\_092}, \texttt{img\_024}) and one Manga109 page of
+high-contrast line art (\texttt{ThatsIzumiko}). These are exactly the regimes in
+which content-based routing is expected to help most, since distant tokens that
+share the same structure can be aggregated together rather than only within a
+local window.
+
+On the repetitive facades of Urban100, the bicubic baseline collapses adjacent
+window edges into blurred, aliased bands, whereas DPRNet recovers the grid
+spacing with markedly sharper boundaries; the per-crop scores rise from
+$16.58$/$0.4377$ to $19.62$/$0.6922$ on \texttt{img\_092} and from
+$18.14$/$0.4593$ to $21.05$/$0.7071$ on \texttt{img\_024}. On the Manga109 line
+art, where thin strokes are easily broken by upsampling, DPRNet keeps the
+contours continuous and improves the score from $18.00$/$0.5118$ to
+$21.42$/$0.7597$. These observations are consistent with the routing diagnostics
+of Sec.~\ref{sec:routing_analysis}: confidence-aware aggregation concentrates on
+the structured, high-frequency regions that bicubic interpolation cannot resolve.
+A side-by-side comparison against the strongest competitors
+(CATANet~\cite{liu2025catanet}, SRFormer-light~\cite{zhou2023srformer}) on the
+same crops is included in the final version.

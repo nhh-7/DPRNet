@@ -1,23 +1,28 @@
 % Table II — Efficiency comparison.
 % Requires: \usepackage{booktabs}
 % Provenance:
-%   - DPRNet Params / Multi-Adds(MACs, thop) / latency: paper/plan/data-collection-checklist.md A3
-%     (device=cuda, fixed HR output ~720x1280 -> LR derived; warmup=20, repeat=100; thop reports MACs).
+%   - DPRNet Params / Multi-Adds(MACs, thop) / latency: paper/data/dprnet_efficiency.csv,
+%     mode=A_fixed_lr_256 (fixed LR input 256x256 -> x4 output 1024x1024; device=cuda,
+%     warmup=20, repeat=100; thop reports MACs). x4: 660K / 52.14G / 198.16+-9.43 ms.
 %   - Competitor Params: B1-B8 of the checklist (cited from original papers / CATANet Tab.2, source [A]).
-%   - Multi-Adds for CATANet (46.8G), SwinIR-light (60.3G), SRFormer-light (56.5G): all cited from the
-%     CATANet paper (CVPR'25) Tab.6, which measures Multi-Adds with a 3x256x256 input (x4 output
-%     1024x1024). NOTE: this convention DIFFERS from our DPRNet MACs (derived from ~720x1280 HR output),
-%     so these three are NOT directly comparable to DPRNet and are flagged with a dagger. Re-measure
-%     DPRNet+CATANet under one unified protocol (e.g. input 256x256) before claiming a compute win.
+%   - Multi-Adds for CATANet (46.8G), SwinIR-light (60.3G), SRFormer-light (56.5G): cited from the
+%     CATANet paper (CVPR'25) Tab.6, measured with a 3x256x256 input (x4 output 1024x1024).
+%     DPRNet is now re-measured under the SAME 256x256-input protocol, so these three competitor
+%     Multi-Adds are DIRECTLY comparable to DPRNet's 52.14G (no dagger needed).
 %   - Representative PSNR: Urban100 x4 from Table I.
 % NOTE (data gap): CARN/IMDN/RFDN/RLFN/ELAN-light Multi-Adds are NOT in CATANet Tab.6 and are not filled.
 %   Competitor LATENCY is device-dependent and cannot be cited from other papers' hardware; left "-".
 %   Do NOT fabricate.
+% HONEST FRAMING: under the unified 256x256 protocol DPRNet (52.14G) needs MORE Multi-Adds than
+%   CATANet (46.8G) -- do NOT claim a compute win over CATANet -- but it is clearly LOWER than the
+%   Transformer baselines SwinIR-light (60.3G) and SRFormer-light (56.5G) while achieving the best
+%   Urban100 PSNR, and it stays within the same lightweight bracket.
 \begin{table}[t]
 \centering
-\caption{Efficiency comparison on $\times 4$ SR. Multi-Adds are reported by thop (MACs); to compare
-against FLOPs-based papers, multiply by 2. ``-'' denotes values not yet collected under our protocol.
-Representative PSNR is on Urban100 ($\times 4$).}
+\caption{Efficiency comparison on $\times 4$ SR. Multi-Adds are reported by thop (MACs) under a unified
+fixed LR input of $256\times256$ ($\times4$ output $1024\times1024$); to compare against FLOPs-based
+papers, multiply by 2. ``-'' denotes values not available under this protocol. Representative PSNR is on
+Urban100 ($\times 4$).}
 \label{tab:efficiency}
 \resizebox{\columnwidth}{!}{%
 \begin{tabular}{l c c c c}
@@ -28,42 +33,45 @@ CARN            & 1592 & -     & - & 26.07 \\
 IMDN            & 715  & -     & - & 26.04 \\
 RFDN            & 550  & -     & - & 26.11 \\
 RLFN            & 543  & -     & - & 26.17 \\
-SwinIR-light    & 897  & 60.3$^{\ddagger}$ & - & 26.47 \\
+SwinIR-light    & 897  & 60.3  & - & 26.47 \\
 ELAN-light      & 601  & -     & - & 26.54 \\
-SRFormer-light  & 873  & 56.5$^{\ddagger}$ & - & 26.67 \\
-CATANet         & 535  & 46.8$^{\ddagger}$  & - & \underline{26.87} \\
-\textbf{DPRNet (ours)} & 660 & 45.77 & 196.77 $\pm$ 10.02 & \textbf{26.89} \\
+SRFormer-light  & 873  & 56.5  & - & 26.67 \\
+CATANet         & 535  & \textbf{46.8} & - & \underline{26.87} \\
+\textbf{DPRNet (ours)} & 660 & 52.14 & 198.16 $\pm$ 9.43 & \textbf{26.89} \\
 \bottomrule
 \end{tabular}%
 }
 
 \vspace{2pt}
 {\footnotesize
-\textit{Notes.} DPRNet efficiency is measured on a single CUDA GPU with a fixed HR output of
-$\approx$720$\times$1280 (LR input derived per scale), warmup=20, repeat=100. Multi-Adds are MACs
-reported by thop. $^{\ddagger}$Multi-Adds for CATANet, SwinIR-light and SRFormer-light are cited from
-the CATANet paper (CVPR'25, Tab.~6), measured with a $3\times256\times256$ input ($\times4$ output
-$1024\times1024$); this convention differs from our $\approx$720$\times$1280 setting, so these values
-are \emph{not} directly comparable to DPRNet and serve only as a reference. Remaining competitors'
-Multi-Adds/latency are not yet collected under a unified protocol (``-''); fill before submission.}
+\textit{Notes.} All Multi-Adds are MACs reported by thop under a common $256\times256$ LR input
+($\times4$ output $1024\times1024$): DPRNet is measured under this protocol, and the CATANet,
+SwinIR-light and SRFormer-light values are taken from the CATANet paper (CVPR'25, Tab.~6), which uses
+the identical input convention, so the four routing/Transformer entries are directly comparable. DPRNet
+needs more Multi-Adds than its direct predecessor CATANet ($52.14$ vs.\ $46.8$\,G) but markedly fewer
+than the Transformer baselines SwinIR-light ($60.3$\,G) and SRFormer-light ($56.5$\,G), while attaining
+the best Urban100 PSNR. DPRNet latency is averaged over $100$ runs after $20$ warm-ups on a single CUDA
+GPU. Remaining competitors' Multi-Adds (CARN/IMDN/RFDN/RLFN/ELAN-light, absent from a common source) and
+all competitor latencies (device-dependent) are not available under this protocol (``-''); we do not
+fabricate them.}
 \end{table}
 
-% --- DPRNet per-scale efficiency profile (all measured; A3) ---
+% --- DPRNet per-scale efficiency profile (all measured; mode=A_fixed_lr_256) ---
 % Optionally include as a separate small table or merge into the text.
 \begin{table}[t]
 \centering
-\caption{DPRNet per-scale efficiency profile (measured). LR input derived from a fixed HR output
-$\approx$720$\times$1280; Multi-Adds are MACs (thop); latency averaged over 100 runs after 20 warmups
-on a single CUDA GPU.}
+\caption{DPRNet per-scale efficiency profile (measured). All scales use a fixed LR input of
+$256\times256$; Multi-Adds are MACs (thop); latency averaged over $100$ runs after $20$ warm-ups on a
+single CUDA GPU.}
 \label{tab:efficiency_profile}
 \resizebox{\columnwidth}{!}{%
 \begin{tabular}{c c c c c}
 \toprule
 Scale & LR Input & Params (K) & Multi-Adds (G) & Latency (ms) \\
 \midrule
-$\times 2$ & 360$\times$640 & 601.95 & 126.52 & 712.16 $\pm$ 23.47 \\
-$\times 3$ & 240$\times$426 & 674.15 & 64.28  & 285.39 $\pm$ 5.66  \\
-$\times 4$ & 180$\times$320 & 659.71 & 45.77  & 196.77 $\pm$ 10.02 \\
+$\times 2$ & 256$\times$256 & 601.95 & 36.19 & 183.57 $\pm$ 7.70 \\
+$\times 3$ & 256$\times$256 & 674.15 & 41.26 & 185.88 $\pm$ 6.33 \\
+$\times 4$ & 256$\times$256 & 659.71 & 52.14 & 198.16 $\pm$ 9.43 \\
 \bottomrule
 \end{tabular}%
 }

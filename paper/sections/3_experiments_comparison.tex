@@ -56,11 +56,14 @@ Sec.~\ref{sec:routing_analysis}.
 
 \paragraph{Efficiency.}
 Table~\ref{tab:efficiency} reports the efficiency profile at $\times4$. DPRNet has
-$660$K parameters and $45.77$\,G Multi-Adds for a fixed $\approx720{\times}1280$
-output, keeping it within the lightweight bracket alongside the compared methods
-while delivering top-tier accuracy. DPRNet's parameter count is modestly higher than
-CATANet's ($660$K vs.\ $535$K at $\times4$), reflecting the learnable query bank and
-router projections of DPR; the per-scale profile is given in
-Table~\ref{tab:efficiency_profile}. A complete Multi-Adds/latency comparison against
-all competitors under our measurement protocol is left for the final version, as
-those numbers are not yet collected under a unified setting.
+$660$K parameters and $52.14$\,G Multi-Adds for a fixed $256{\times}256$ LR input,
+keeping it within the lightweight bracket alongside the compared methods---in
+particular below the lightweight Transformer baselines SwinIR-light ($60.3$\,G) and
+SRFormer-light ($56.5$\,G) under the same input convention---while delivering top-tier
+accuracy. Both its parameter count and Multi-Adds are modestly higher than CATANet's
+($660$K/$52.14$\,G vs.\ $535$K/$46.8$\,G at $\times4$), reflecting the learnable query
+bank and router projections of DPR, so we make no efficiency claim against CATANet; the
+per-scale profile is given in Table~\ref{tab:efficiency_profile}. A complete
+Multi-Adds/latency comparison against all competitors under our measurement protocol is
+left for the final version, as the remaining numbers are not yet collected under a
+unified setting.

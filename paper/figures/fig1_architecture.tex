@@ -1,0 +1,129 @@
+% =====================================================================
+% Fig.1 -- Overall architecture of DPRNet.
+% outline.md §2.1 / figure-specs.md "Fig.1" / method Eq.(1)-(3).
+% Self-contained TikZ figure (full-width figure*); \input into the paper.
+% Requires in preamble: \usepackage{pgfplots} (loads tikz) +
+%   \usetikzlibrary{positioning,arrows.meta,calc,fit,backgrounds,shapes.geometric}
+%   and \definecolor{dprblue}{...}.
+% The contribution is confined to the DPR module inside each TAB; the rest of the
+% CATANet backbone is unchanged. DPR/TAB are highlighted and point to Fig.2.
+% NO numerical/result content (pure structure schematic).
+% =====================================================================
+\begin{figure*}[t]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+    font=\footnotesize,
+    >={Latex[length=4pt]},
+    mod/.style={rounded corners=2pt, draw=black!70, fill=black!6,
+                minimum height=8mm, align=center, inner sep=3pt},
+    hl/.style={rounded corners=2pt, draw=dprblue, line width=0.9pt, fill=dprblue!16,
+                minimum height=8mm, align=center, inner sep=3pt},
+    op/.style={circle, draw=black!70, inner sep=0pt, minimum size=4.4mm},
+    io/.style={align=center, inner sep=2pt, font=\scriptsize},
+    flow/.style={->, draw=black!75, line width=0.6pt},
+    bypass/.style={->, draw=black!55, line width=0.6pt, dashed},
+    lbl/.style={font=\scriptsize, black!60},
+    node distance=4mm and 6mm,
+]
+% ===================== main horizontal pipeline =====================
+\node[io] (ilr) {$I_{LR}$\\$3{\times}H{\times}W$};
+\node[mod, right=of ilr] (conv0) {Conv\\$3{\times}3$};
+\node[mod, right=of conv0] (b1) {Block$_1$};
+\node[mod, right=of b1] (b2) {Block$_2$};
+\node[right=2mm of b2] (dots) {$\cdots$};
+\node[mod, right=2mm of dots] (bL) {Block$_L$};
+\node[op, right=of bL] (gadd) {$+$};
+\node[mod, right=of gadd] (up) {Up\\PixelShuffle$\uparrow s$};
+\node[op, right=of up] (oadd) {$+$};
+\node[io, right=of oadd] (isr) {$I_{SR}$\\$3{\times}sH{\times}sW$};
+
+\draw[flow] (ilr) -- (conv0);
+\draw[flow] (conv0) -- node[above, lbl] {$F_0$} (b1);
+\draw[flow] (b1) -- (b2);
+\draw[flow] (b2) -- (dots);
+\draw[flow] (dots) -- (bL);
+\draw[flow] (bL) -- node[above, lbl] {$F_L$} (gadd);
+\draw[flow] (gadd) -- (up);
+\draw[flow] (up) -- (oadd);
+\draw[flow] (oadd) -- (isr);
+% global residual F0 -> +
+\draw[flow] (conv0.south) |- ++(0,-7mm) -| node[pos=0.25, below, lbl] {$F_0$ (global residual)} (gadd.south);
+% bilinear bypass
+\draw[bypass] (ilr.south) |- ++(0,-13mm) -| node[pos=0.25, below, lbl] {Bilinear$\uparrow s$} (oadd.south);
+
+\node[lbl, above=0.5mm of conv0.north] {$C{=}40$};
+\node[lbl, above=0.5mm of bL.north] {$L{=}8$};
+
+% ===================== Block_l expansion =====================
+\node[mod, draw=black!45, fill=black!4, below=16mm of b1, xshift=4mm,
+      minimum width=22mm] (tab) {\textbf{TAB}$_l$};
+\node[hl, right=5mm of tab] (lrsa) {LRSA$_l$};
+\node[mod, right=5mm of lrsa] (cf) {Conv\\$3{\times}3$};
+\node[op, right=5mm of cf] (badd) {$+$};
+\coordinate (bin) at ($(tab.west)+(-7mm,0)$);
+\node[io, left=1mm of bin] (binlbl) {$F_{l-1}$};
+\node[io, right=4mm of badd] (boutlbl) {$F_l$};
+
+\draw[flow] (binlbl) -- (tab);
+\draw[flow] (tab) -- (lrsa);
+\draw[flow] (lrsa) -- (cf);
+\draw[flow] (cf) -- (badd);
+\draw[flow] (badd) -- (boutlbl);
+\draw[flow] (bin) |- ++(0,-9mm) -| (badd.south); % block residual
+
+% make TAB highlighted (contribution) -- overlay a dprblue frame label
+\node[hl, fit=(tab), inner sep=1pt] (tabhl) {};
+\node[lbl, dprblue, below=0.5mm of tabhl.south] {contains DPR (Fig.~\ref{fig:dpr})};
+
+% dashed leaders from Block_1 in the pipeline to its expansion
+\draw[dprblue!60, dashed] (b1.south west) -- (tabhl.north west);
+\draw[dprblue!60, dashed] (b1.south east) -- (lrsa.north east);
+\node[lbl, above=0.5mm of tab.north west, anchor=south west] {Block$_l$: \ $F_l{=}F_{l-1}{+}\mathrm{Conv}(\mathrm{LRSA}(\mathrm{TAB}(F_{l-1})))$};
+
+% ===================== TAB internal dataflow =====================
+\node[io, below=15mm of tab, xshift=-2mm] (x) {$X$\\$B{\times}N{\times}C$};
+\node[mod, right=4mm of x] (ln) {LN};
+\node[hl, right=4mm of ln] (dpr) {\textbf{DPR}};
+\node[mod, right=4mm of dpr] (iasa) {IASA};
+\node[mod, right=4mm of iasa] (c11) {Conv\\$1{\times}1$};
+\node[mod, right=4mm of c11] (ffn) {ConvFFN};
+\node[io, right=4mm of ffn] (xout) {$\to F_l$};
+
+\draw[flow] (x) -- (ln);
+\draw[flow] (ln) -- (dpr);
+\draw[flow] (dpr) -- (iasa);
+\draw[flow] (iasa) -- (c11);
+\draw[flow] (c11) -- (ffn);
+\draw[flow] (ffn) -- (xout);
+% residuals on Conv1x1 and ConvFFN
+\draw[flow] (iasa.south) |- ++(0,-6mm) -| (c11.south);
+\draw[flow] (c11.south) |- ++(0,-9mm) -| (ffn.south);
+\node[lbl, above=0.5mm of ln.north west, anchor=south west]
+  {TAB$_l$ dataflow ($N{=}HW$): \ $X\to\mathrm{LN}\to\mathrm{DPR}\to\mathrm{IASA}\to\mathrm{Conv}_{1\times1}\to\mathrm{ConvFFN}$};
+
+% dashed leaders from TAB_l box to its expansion
+\draw[dprblue!60, dashed] (tabhl.south west) -- (ln.north west);
+\draw[dprblue!60, dashed] (tabhl.south east) -- (iasa.north east);
+% DPR points to Fig.2
+\node[lbl, dprblue, below=0.5mm of dpr.south] {Fig.~\ref{fig:dpr}};
+
+% interface note
+\node[lbl, align=left, anchor=north west] at ($(x.south west)+(0,-7mm)$)
+  {Interface $\mathbb{R}^{C\times H\times W}\!\to\!\mathbb{R}^{C\times H\times W}$ unchanged (drop-in replacement); \ $s\in\{2,3,4\}$.};
+
+\end{tikzpicture}%
+}
+\caption{Overall architecture of DPRNet. A $3{\times}3$ convolution extracts shallow
+features $F_0$ ($C{=}40$); a stack of $L{=}8$ blocks, each coupling a Token
+Aggregation Block (TAB) with local self-attention (LRSA) and a fusion convolution
+under a residual connection (Eq.~\eqref{eq:assign} context, Eqs.~(1)--(3)),
+produces $F_L$; a global residual, a pixel-shuffle upsampler and a bilinear bypass
+reconstruct $I_{SR}$. The contribution is confined to the DPR module inside each
+TAB (highlighted), whose data flow $X\to\mathrm{LN}\to\mathrm{DPR}\to\mathrm{IASA}
+\to\mathrm{Conv}_{1\times1}\to\mathrm{ConvFFN}$ keeps the TAB interface
+$\mathbb{R}^{C\times H\times W}\!\to\!\mathbb{R}^{C\times H\times W}$ unchanged, so
+the rest of the CATANet backbone is a drop-in host; DPR is detailed in
+Fig.~\ref{fig:dpr}.}
+\label{fig:arch}
+\end{figure*}

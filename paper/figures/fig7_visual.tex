@@ -1,0 +1,70 @@
+% =====================================================================
+% Fig.7 -- Qualitative (visual) comparison at x4 on hard samples.
+% outline.md §3.4 / data-collection-checklist D3 "Fig.7".
+% Two-column figure (figure*); \input into the paper after §3.4.
+%
+% HARD SAMPLES (selected 2026-06-27 by GT high-frequency energy ranking +
+%   SR-literature convention; see paper/scripts/build_fig7_assets.py):
+%     Urban100 img_092, Urban100 img_024  (dense building grids)
+%     Manga109 ThatsIzumiko_000           (high-contrast line art)
+%
+% ASSET PROVENANCE (paper/figures/fig7_assets/, generated locally):
+%   - GT, LR  : CATANet/datasets/TestDataSR/{HR,LR/LRBI}/.../x4  (local datasets)
+%   - Bicubic : LR upscaled x4 (PIL BICUBIC) -- real, computed locally
+%   - DPRNet  : CATANet/results/.../test_CATANet_x4-250000/visualization (our SR output;
+%               "_CATANet" is only the arch registry name -- these ARE DPRNet outputs)
+%   - PSNR/SSIM (Y, crop_border=4) in fig7_assets/metrics.csv:
+%       img_092           Bicubic 16.58/0.4377  DPRNet 19.62/0.6922
+%       img_024           Bicubic 18.14/0.4593  DPRNet 21.05/0.7071
+%       ThatsIzumiko_000  Bicubic 18.00/0.5118  DPRNet 21.42/0.7597
+%     (Recomputed from published 8-bit PNGs; ~0.07 dB below the logged float means
+%      due to PNG quantization. Relative Bicubic-vs-DPRNet gaps are exact.)
+%
+% TODO (training machine): competitor SR outputs (original CATANet, SRFormer-light)
+%   are NOT available locally. The 4th column is a PLACEHOLDER; replace
+%   "fig7_assets/<tag>_Competitor_crop.png" + its PSNR/SSIM once inference is run.
+% =====================================================================
+\newcommand{\figsevenrow}[6]{%
+  % #1=asset tag  #2=row caption  #3..#5 = Bicubic/DPRNet metric strings  #6=GT label
+  \begin{subfigure}{0.19\textwidth}
+    \includegraphics[width=\linewidth]{figures/fig7_assets/#1_GT_full_box.png}
+    \caption*{\scriptsize #2}
+  \end{subfigure}\hfill
+  \begin{subfigure}{0.19\textwidth}
+    \includegraphics[width=\linewidth]{figures/fig7_assets/#1_Bicubic_crop.png}
+    \caption*{\scriptsize Bicubic\\#3}
+  \end{subfigure}\hfill
+  \begin{subfigure}{0.19\textwidth}
+    % PLACEHOLDER competitor crop -- replace with real CATANet/SRFormer-light output.
+    \includegraphics[width=\linewidth]{figures/fig7_assets/#1_Bicubic_crop.png}
+    \caption*{\scriptsize \TODO{CATANet}\\\textcolor{red}{--/--}}
+  \end{subfigure}\hfill
+  \begin{subfigure}{0.19\textwidth}
+    \includegraphics[width=\linewidth]{figures/fig7_assets/#1_DPRNet_crop.png}
+    \caption*{\scriptsize DPRNet (ours)\\#4}
+  \end{subfigure}\hfill
+  \begin{subfigure}{0.19\textwidth}
+    \includegraphics[width=\linewidth]{figures/fig7_assets/#1_GT_crop.png}
+    \caption*{\scriptsize GT\\#5}
+  \end{subfigure}%
+}
+
+\begin{figure*}[t]
+\centering
+\figsevenrow{Urban100_img_092}{Urban100: img\_092}{16.58/0.4377}{\textbf{19.62/0.6922}}{PSNR/SSIM}{}
+
+\vspace{2pt}
+\figsevenrow{Urban100_img_024}{Urban100: img\_024}{18.14/0.4593}{\textbf{21.05/0.7071}}{PSNR/SSIM}{}
+
+\vspace{2pt}
+\figsevenrow{Manga109_ThatsIzumiko_000}{Manga109: ThatsIzumiko}{18.00/0.5118}{\textbf{21.42/0.7597}}{PSNR/SSIM}{}
+
+\caption{Qualitative comparison at $\times4$ on texture-dense hard samples. The
+leftmost panel shows the ground-truth image with the (red) crop region; the
+remaining panels magnify that region. DPRNet restores repetitive building grids
+and high-contrast line art with sharper, less aliased structure than Bicubic, and
+PSNR/SSIM (Y channel, computed on the full image) are reported under the crops.
+\TODO{The third column (competitor SR: original CATANet / SRFormer-light) is a
+placeholder pending inference on the training machine.}}
+\label{fig:visual}
+\end{figure*}

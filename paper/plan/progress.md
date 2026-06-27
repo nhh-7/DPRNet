@@ -43,21 +43,39 @@
 - **更新时间**：2026-06-27
 - **所处阶段**：Day9→Day11。消融实验已训练完成并分析；Table III/IV/V（受限口径）已拼装；
   Experiments 已写定 3.1 设置（sec:exp_setup）+ 3.2 主对比（sec:main_comparison）+
-  3.3 效率（sec:efficiency）+ 3.5 消融（sec:ablation）+ 3.6 路由分析（sec:routing_analysis）+ Fig.6。
-  **2026-06-27 续：Abstract（0_abstract.tex）+ Discussion（4_discussion.tex）+ Conclusion（5_conclusion.tex）已写定**，
-  正文文字部分仅剩 3.4 视觉对比待出图后补。Table I 完整；Table II 已补 3 个同源 Multi-Adds
-  （CATANet 46.8G / SwinIR-light 60.3G / SRFormer-light 56.5G，均引自 CATANet Tab.6，input 256×256 口径，
-  带 ‡ 注明与 DPRNet 720×1280 口径不可直接比），CARN/IMDN/RFDN/RLFN/ELAN-light 仍缺（论文无）。
-  **⚠ 待重测：Table II 口径不一致风险见下方日志 2026-06-27（续2）。**
-  **2026-06-27：paper/data/*.csv 实验数据已更正，正文/表格/计划文档相关数据已全部同步修订（见日志）。**
+  3.3 效率（sec:efficiency）+ **3.4 视觉对比（sec:visual）** + 3.5 消融（sec:ablation）+
+  3.6 路由分析（sec:routing_analysis）+ Fig.6。
+  Abstract（0_abstract.tex）+ Discussion（4_discussion.tex）+ Conclusion（5_conclusion.tex）已写定。
+  **✅ 2026-06-27（续7）：本地数据集就位（CATANet/datasets/TestDataSR HR+LR 全 5 基准），解锁 3.4 视觉对比。**
+  写定 3.4 正文（3_experiments_visual.tex）+ Fig.7（fig7_visual.tex）：3 行难样本
+  Urban100 img_092/img_024 + Manga109 ThatsIzumiko_000（按 GT 高频能量自动选样 + 选 crop，
+  脚本 paper/scripts/build_fig7_assets.py / rank_hf_samples.py）。GT/Bicubic/DPRNet 三列**本地出真图**
+  （fig7_assets/，12 crop + metrics.csv，PSNR/SSIM 已对照官方日志验证，差 0.07dB 系 PNG 量化）；
+  **对手列（CATANet/SRFormer-light）留占位，需训练机推理**。正文仅作 DPRNet-vs-Bicubic/GT 表述，未越界。
+  **✅ 续7 还修复了一个预先存在缺口**：fig1_architecture.tex 在磁盘上丢失（progress 续6 记录已建但实际未落盘，
+  git 从未跟踪），会阻断全文编译。已按 figure-specs.md Fig.1 规格用 TikZ 重建（整体流水 + Block_l 展开 +
+  TAB 内部数据流，DPR/TAB 高亮引向 Fig.2，对应 Eq.1–3）。
+  **全文 pdflatex→bibtex→×2 干净编译 13 页（原 12+1），0 Overfull/0 undefined ref，仅 2 个 "page 5 only floats" 美观提示。**
+  仍缺的图（Fig.5/8）需训练机推理；Fig.7 对手列待补。
+  **✅ 2026-06-27（续6）：Fig.1 整体结构 / Fig.2 DPR 数据流 / Fig.3 PSNR-vs-Params 散点已出图**
+  （fig1_architecture.tex / fig2_dpr.tex / fig3_psnr_params.tex，均 TikZ/pgfplots 矢量），
+  已串入 main.tex 并在正文引用；全文 pdflatex→bibtex→×2 干净编译 **12 页**，0 Overfull/0 警告/0 悬空引用。
+  仍缺的图（Fig.5/7/8）与 3.4 视觉对比均需训练机推理。
+  **✅ 2026-06-27（续5）：Multi-Adds 已用统一协议（input 256×256）在训练机重测完成（efficiency_new.md），
+  口径不一致风险已解除。** DPRNet x4=52.14G / x3=41.26G / x2=36.19G（均 256×256 输入，thop MACs）。
+  **关键事实转变**：256×256 同口径下 DPRNet 52.14G **高于** CATANet 46.8G（原"算量更低"主张已推翻），
+  但**显著低于** SwinIR-light 60.3G / SRFormer-light 56.5G（三者本就同 256×256 口径，现已直接可比，去掉 ‡）。
+  Table II / per-scale 子表 / 3.3 / Abstract / 3.2 / Discussion / 3.1 setup 全部已同步改为统一口径表述。
 - **下一步动作（最优先）**：
-  1. **⚠ 用统一协议（input 256×256）在训练机重测 DPRNet 与 CATANet 的 Multi-Adds**，
-     消除 Table II 口径不一致（详见日志 2026-06-27 续2）；重测后再定 §3.3/Abstract/comparison 表述。
+  1. ~~⚠ 重测 Multi-Adds~~ **已完成（2026-06-27 续5）**：DPRNet 52.14G（256×256），
      CARN/IMDN/RFDN/RLFN/ELAN-light 论文无 Multi-Adds，留 "-"；对手时延依赖硬件不可引，留 "-"；
-     补 3.1 硬件占位（GPU 型号/GPU·hours）。
-  2. 出 Fig.1/2（结构图，figure-specs）；Fig.3 PSNR-vs-Params 散点（figures-python，CSV 已有）。
+     仍需补 3.1 硬件占位（GPU 型号/GPU·hours，checklist A1）。
+  2. ~~出 Fig.1/2（结构图）；Fig.3 PSNR-vs-Params 散点~~ **已完成（2026-06-27 续6）**：
+     Fig.1 fig1_architecture.tex（整体结构 TikZ）、Fig.2 fig2_dpr.tex（DPR 数据流 TikZ，标 A1/A2/A3 开关）、
+     Fig.3 fig3_psnr_params.tex（x4 Urban100 PSNR-vs-Params pgfplots 散点）均已出图并串入 main.tex，
+     §Method 引 Fig.1/2、§3.3 引 Fig.3；全文 pdflatex→bibtex→×2 干净编译 12 页，0 Overfull/0 警告/0 悬空引用。
   3. 待训练机：写 3.4 视觉对比 + 出 Fig.7 视觉图 / Fig.5 x_scores 直方图 / Fig.8 聚类图（需推理）。
-  4. 收尾：建顶层 main.tex 串起全章节；references.bib 终稿前 CrossRef 核对；期刊模板迁移。
+  4. 收尾：references.bib 终稿前 CrossRef 核对；期刊模板迁移；3.1 硬件占位补值。
   5. ~~写 Abstract/Discussion/Conclusion~~ **已完成（2026-06-27）**。
   6. ~~修 intro 不一致~~ **已完成（2026-06-27）**：更正后 DPRNet 在 Table I 几乎全格领先 CATANet
      （仅 x4 Manga109 SSIM 次优），intro 已改为"matches or slightly surpasses"，主对比正文同步重写。
@@ -86,6 +104,52 @@
 ---
 
 ## 进度日志（倒序，最新在上）
+
+### 2026-06-27（续6）· 出 Fig.1/Fig.2 结构图 + Fig.3 PSNR-vs-Params 散点，全文编译验证
+- 新建 paper/figures/fig1_architecture.tex（TikZ，figure*）：整体网络流水（I_LR→Conv→L=8 blocks→
+  global residual→Up→I_SR，含 bilinear bypass）+ Block_l 内部（TAB→LRSA→Conv，残差）+ TAB 内部
+  数据流（X→LN→DPR→IASA→Conv1×1→ConvFFN），DPR/TAB 用 dprblue 高亮、引线指向 Fig.2。
+  对应 method §Overview Eq.1–3，无任何指标。
+- 新建 paper/figures/fig2_dpr.tex（TikZ，figure*）：DPR 6 个 stage 全图——(1)动态原型生成 (2)query refine
+  (3)置信度匹配+可学习温度 (4)置信度排序 (5)IASA 聚合+soft fallback (6)balance loss，对应 Eq.4–13；
+  γ/β/α/τ 门控用蓝色小圆、虚线调制；A1/A2(×3)/A3 消融开关用黄色小标签标在对应位置，
+  caption 引 Table III–V（tab:abl_a1..a3）。
+- 新建 paper/figures/fig3_psnr_params.tex（pgfplots，单栏）：x4 Urban100 PSNR vs Params 散点，
+  9 方法数据 verbatim 自 Table II（Params）+ Table I（PSNR），DPRNet 用蓝色五角星高亮在左上（660K/26.89）。
+  pgfplots 内联数据用 row sep=crcr + \\ 终止（兼容 \resizebox）。
+- 串联：main.tex 在 §Method 后 \input Fig.1/2、在 §3.3 efficiency 后 \input Fig.3；
+  正文加引用——2_method §Overview 引 Fig.~\ref{fig:arch}、§DPR 引 Fig.~\ref{fig:dpr}，
+  3_experiments_efficiency Parameters 段引 Fig.~\ref{fig:psnr_params}。
+- preamble.tex 补 \usetikzlibrary{positioning,arrows.meta,calc,fit,backgrounds,shapes.geometric} +
+  \definecolor{dprblue}。三图均用 \resizebox 包裹消除 Overfull（Fig.1/2 →\textwidth，Fig.3 →\columnwidth）。
+- **编译验证（本地 TinyTeX/TeX Live 2026，新装 standalone+varwidth 仅供单图预览）**：
+  pdflatex→bibtex→pdflatex×2 干净通过，**12 页**（原 11 页 +1），0 Overfull/Underfull、
+  0 LaTeX Warning、0 悬空引用/citation。三图各自 standalone 渲染 PNG 肉眼核对：节点无重叠、
+  箭头方向与 Eq. 对应、消融开关标签正确、Fig.3 各方法标签可读且 DPRNet 居左上最优。
+
+### 2026-06-27（续5）· Multi-Adds 统一协议（256×256）重测完成 + 口径风险解除 + 全量同步
+- **训练机重测**：用改造后的 scripts/measure_efficiency.py 新增「固定 LR 输入」口径（--lr-h/--lr-w），
+  在 cuda:0 跑三尺度 256×256，结果存 efficiency_new.md：
+  · x4：Params 659.707K / **Multi-Adds 52.1370G** / Latency 198.162±9.434 ms；
+  · x3：674.147K / 41.2607G / 185.880±6.329 ms；
+  · x2：601.947K / 36.1882G / 183.571±7.700 ms。
+- **口径风险解除（续2 遗留的最高优先项）**：256×256 输入正是 CATANet 论文 Tab.6 报 Multi-Adds 的口径，
+  DPRNet 重测到该口径后与 CATANet 46.8G / SwinIR-light 60.3G / SRFormer-light 56.5G **直接可比**，
+  原 ‡ 脚注与"720×1280 不可直接比"的免责声明全部删除。CATANet 一侧**照引论文 46.8G，不重测**（用户决策）。
+- **关键事实转变（勿推翻）**：256×256 同口径下 **DPRNet 52.14G > CATANet 46.8G**——
+  续2 预判被证实，原"DPRNet 算量更低于 CATANet"主张**推翻**。新诚实框架：
+  对 CATANet **不主张任何算量/参数优势**（52.14G/660K vs 46.8G/535K，均更高）；
+  可主张的是 **DPRNet 显著低于 Transformer 基线 SwinIR-light 60.3G / SRFormer-light 56.5G 且精度最高**，
+  仍稳处轻量档。per-scale 趋势在固定输入下**反转**：MACs 随 scale 增大（36.19→41.26→52.14G，上采样尾部主导）。
+- **同步修订（grep 复查无残留旧值 45.77/720/196.77 等）**：
+  · paper/data/dprnet_efficiency.csv：加 mode 列，新增 3 条 mode=A_fixed_lr_256 行（256×256），保留旧 mode=B 行作记录。
+  · paper/tables/table2_efficiency.tex：主表 DPRNet 行 52.14/198.16，去三个 ‡；per-scale 子表三尺度统一 256×256；
+    caption/Notes/provenance 重写为统一 256×256 口径 + 新诚实框架。
+  · 正文 4 处：3_experiments_efficiency（Computation 段 + per-scale 段 + intro 段 + Pending 段全改）、
+    3_experiments_comparison（Efficiency 段）、0_abstract（去"below CATANet"改"fewer than SwinIR/SRFormer"）、
+    4_discussion（prototype-count 段）、3_experiments_setup（Efficiency measurement 段口径）。
+- 脚本改动：scripts/measure_efficiency.py 加口径 A（--lr-h/--lr-w，推荐对齐论文）/ 保留口径 B（--output-*），
+  py_compile 通过；本机无 torch，真值已由训练机产出。
 
 ### 2026-06-27（续4）· 本地装 TinyTeX 编译通过，修 3 类编译错误 + 清零 Overfull
 - **本地从零搭建 LaTeX 环境**：`brew install --cask basictex` 需 sudo 交互密码失败，改用

@@ -9,7 +9,9 @@
 % NOTE (placeholders / open items, see plan/progress.md):
 %   - paper ID, title final wording, authors: TODO.
 %   - §3.1 hardware (GPU model / GPU-hours): [PLACEHOLDER] in 3_experiments_setup.
-%   - §3.4 visual comparison + Figs 1/2/3/5/7/8 not yet produced (need GPU/inference).
+%   - §3.4 visual comparison: GT/Bicubic/DPRNet crops produced locally (Fig.7);
+%     competitor column (CATANet/SRFormer-light) is a placeholder pending inference.
+%   - Figs 5/8 (x_scores histogram / cluster maps) not yet produced (need inference).
 %   - Table II competitor Multi-Adds caliber mismatch flagged (CATANet/SwinIR/SRFormer
 %     are 256x256-input, NOT directly comparable to DPRNet); re-measure before claims.
 % This file is meant to compile the text+tables+Fig.6 that already exist, so we can
@@ -48,6 +50,8 @@ Paper ID \paperID
 
 \input{sections/1_introduction}
 \input{sections/2_method}
+\input{figures/fig1_architecture}         % defines fig:arch
+\input{figures/fig2_dpr}                  % defines fig:dpr
 
 % ---- Experiments ----
 \input{sections/3_experiments_setup}      % opens \section{Experiments}
@@ -57,6 +61,10 @@ Paper ID \paperID
 \input{tables/table2_efficiency}          % defines tab:efficiency + tab:efficiency_profile
 
 \input{sections/3_experiments_efficiency}
+\input{figures/fig3_psnr_params}          % defines fig:psnr_params
+
+\input{sections/3_experiments_visual}     % §3.4 qualitative comparison
+\input{figures/fig7_visual}               % defines fig:visual
 
 \input{sections/3_experiments_ablation}   % Tables III/IV/V
 \input{tables/table3_ablation_a1}

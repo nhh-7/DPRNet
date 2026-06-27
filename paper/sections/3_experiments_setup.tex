@@ -58,6 +58,9 @@ submission].
 
 \paragraph{Efficiency measurement.}
 Parameters, Multi-Adds (MACs reported by thop), and inference latency are measured
-on a single CUDA GPU for a fixed HR output of $\approx720{\times}1280$ (the LR input
-is derived per scale), averaging over $100$ runs after $20$ warm-up runs. To compare
-with FLOPs-based reports, the Multi-Adds values are multiplied by two.
+on a single CUDA GPU for a fixed LR input of $256{\times}256$ ($\times4$ output
+$1024{\times}1024$), averaging over $100$ runs after $20$ warm-up runs. This input
+convention matches the one under which the CATANet paper reports Multi-Adds for
+itself and the lightweight Transformer baselines, making the figures directly
+comparable. To compare with FLOPs-based reports, the Multi-Adds values are multiplied
+by two.

@@ -1,0 +1,138 @@
+% =====================================================================
+% Fig.2 -- Dynamic Prototype Routing (DPR) pipeline.
+% outline.md §2.2-2.7 / figure-specs.md "Fig.2" / method Eq.(4)-(13).
+% Self-contained TikZ figure (full-width figure*); \input into the paper.
+% Requires in preamble: \usepackage{pgfplots} (loads tikz) +
+%   \usetikzlibrary{positioning,arrows.meta,calc,fit,backgrounds,shapes.geometric}
+%   and \definecolor{dprblue}{...}.
+% Solid arrow = tensor flow; dashed arrow = gate/regularization bypass.
+% Three ablation switches (A1 refine / A2 three flags / A3 balance) are labeled
+% at their position, echoing Tables III/IV/V. NO numerical/result content.
+% =====================================================================
+\begin{figure*}[t]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+    font=\footnotesize,
+    >={Latex[length=4pt]},
+    mod/.style={rounded corners=2pt, draw=black!70, fill=black!6,
+                minimum height=7mm, align=center, inner sep=3pt},
+    hl/.style={rounded corners=2pt, draw=dprblue, line width=0.8pt, fill=dprblue!14,
+                minimum height=7mm, align=center, inner sep=3pt},
+    op/.style={circle, draw=black!70, inner sep=0pt, minimum size=4mm},
+    gnode/.style={circle, draw=dprblue, fill=dprblue!12, inner sep=0pt, minimum size=4.6mm,
+                  font=\scriptsize},
+    io/.style={align=center, inner sep=2pt, font=\scriptsize},
+    flow/.style={->, draw=black!75, line width=0.6pt},
+    gate/.style={->, draw=dprblue!70, line width=0.6pt, dashed},
+    sw/.style={font=\scriptsize\itshape, draw=black!45, fill=yellow!18, rounded corners=1pt,
+               inner sep=1.5pt, align=center},
+    stagelbl/.style={font=\scriptsize\bfseries, black!60},
+    node distance=5mm and 7mm,
+]
+% ===================== Stage (1) generation =====================
+\node[io] (x) {$X$\\$B{\times}N{\times}C$};
+\node[mod, right=of x] (emb) {Token embed\\$E{=}\mathrm{GELU}(\mathrm{Lin}(\mathrm{LN}(X)))$};
+\node[mod, right=of emb] (assign) {Soft assign\\$A{=}\mathrm{softmax}(EW_a)$};
+\node[hl, right=of assign] (pc) {$P^{\mathrm{c}}$\\\scriptsize weighted avg\\\scriptsize + LN, $\ell_2$};
+
+\draw[flow] (x) -- (emb);
+\draw[flow] (emb) -- (assign);
+\draw[flow] (assign) -- (pc);
+\draw[flow] (x.north) |- ++(0,5mm) -| (pc.north); % X used in aggregation Eq.5
+
+\node[stagelbl, above=1mm of emb.north west, anchor=south west]
+  {(1) Dynamic prototype generation (C1)};
+
+% ===================== Stage (2) confirmation =====================
+\node[hl, below=10mm of pc] (pr) {Query refine\\\scriptsize cross-attn, bank $Q$};
+\node[gnode, left=8mm of pr] (gamma) {$\gamma$};
+\node[hl, left=8mm of gamma] (p) {$P$\\\scriptsize fused proto.};
+
+\draw[flow] (pc.south) -- (pr.north);
+\draw[flow] (emb.south) |- (pr.east);
+\draw[flow] (pr) -- (gamma);
+\draw[gate] (gamma) -- (p);
+\draw[flow] (pc.west) -| ($(p.north)+(0,0)$); % residual P^c into P (Eq.7)
+\node[sw, below=2mm of pr] (a1) {A1: \texttt{refine=off}\\$\Rightarrow P{=}P^{\mathrm{c}}$};
+\node[stagelbl, above=1mm of pr.north east, anchor=south east]
+  {(2) Confirmation by query refine (C2)};
+
+% ===================== Stage (3) matching =====================
+\node[mod, below=12mm of p] (match) {Match in router space\\$S{=}\mathrm{softmax}(\tau\hat{E}\hat{P}^{\!\top})$};
+\node[gnode, right=7mm of match] (tau) {$\tau$};
+\node[mod, right=8mm of tau] (read) {Read-out\\$x^{\mathrm{s}}{=}\max_m S$,\ $b{=}\arg\max_m S$};
+
+\draw[flow] (p.south) -- (match.north);
+\draw[flow] (emb.south) |- ($(match.west)+(0,2mm)$);
+\draw[gate] (tau) -- (match);
+\draw[flow] (match) -- (read);
+\node[stagelbl, above=1mm of match.north west, anchor=south west]
+  {(3) Confidence-aware matching, learnable $\tau$ (C3/C4)};
+
+% ===================== Stage (4) ordering =====================
+\node[mod, right=9mm of read] (sort) {Confidence sort\\$k{=}b{+}0.5(1{-}x^{\mathrm{s}})$};
+\draw[flow] (read) -- (sort);
+\node[sw, below=2mm of sort] (a2a) {A2: \texttt{conf\_sort=off}\\$\Rightarrow k{=}b$};
+\node[stagelbl, above=1mm of sort.north east, anchor=south east]
+  {(4) Ordering (C3)};
+
+% ===================== Stage (5) IASA aggregation =====================
+\node[mod, below=14mm of match, xshift=2mm] (loc) {Intra-group\\local attn $\to O_{\mathrm{loc}}$};
+\node[mod, right=of loc] (glb) {Global branch\\attend $P\to O_{\mathrm{glb}}$};
+\node[gnode, right=6mm of glb] (beta) {$\beta$};
+\node[op, right=6mm of beta] (oadd) {$+$};
+\node[mod, right=6mm of oadd] (fb) {Soft fallback\\$Y{=}O{+}\alpha(1{-}x^{\mathrm{s}})\bar X W_s$};
+\node[gnode, above=5mm of fb] (alpha) {$\alpha$};
+\node[mod, right=of fb] (scatter) {scatter-back\\$\pi^{-1}$};
+\node[io, right=6mm of scatter] (yout) {to Conv$_{1\times1}$};
+
+\draw[flow] (sort.south) |- (loc.west);    % reordered tokens X^pi to IASA
+\draw[flow] (loc) -- (glb);
+\draw[flow] (glb) -- (beta);
+\draw[flow] (beta) -- (oadd);
+\draw[flow] (loc.south) |- ++(0,-4mm) -| (oadd.south); % O_loc skip into sum
+\draw[flow] (oadd) -- node[above, font=\scriptsize] {$O$} (fb);
+\draw[gate] (alpha) -- (fb);
+\draw[gate] (read.south) |- ($(beta.north)+(0,1mm)$); % x^s modulates global gate
+\draw[flow] (fb) -- (scatter);
+\draw[flow] (scatter) -- (yout);
+\node[sw, below=2mm of beta] (a2b) {A2: \texttt{score\_gate=off}};
+\node[sw, below=2mm of fb] (a2c) {A2: \texttt{fallback=off}\\$\Rightarrow Y{=}O$};
+\node[stagelbl, above=6mm of loc.north west, anchor=south west]
+  {(5) Confidence-aware aggregation (IASA, C3)};
+
+% ===================== Stage (6) balance loss =====================
+\node[mod, draw=black!45, fill=black!4, below=9mm of glb] (bal)
+  {Usage entropy\\$u_m{=}\frac1N\sum_n S_{n,m}$,\ \ $\mathcal{L}_{\mathrm{bal}}{=}\lambda(1{-}\mathcal{H}(u))$};
+\draw[gate] (match.south) |- (bal.west);
+\node[sw, right=6mm of bal] (a3) {A3: $\lambda{=}0$\\$\Rightarrow$ no balancing};
+\draw[gate] (bal) -- (a3);
+\node[stagelbl, below=1mm of bal.south west, anchor=north west]
+  {(6) Usage balancing (C4)};
+
+% ---- legend ----
+\node[io, anchor=south east] at ($(yout.south east)+(0,-20mm)$) (leg) {};
+\draw[flow] ($(leg)+(-3.2cm,0)$) -- ++(7mm,0) node[right, font=\scriptsize] {tensor flow};
+\draw[gate] ($(leg)+(-3.2cm,-4mm)$) -- ++(7mm,0) node[right, font=\scriptsize] {gate / regularizer};
+\node[gnode] at ($(leg)+(0.1cm,0)$) {}; \node[right, font=\scriptsize] at ($(leg)+(0.3cm,0)$) {learnable gate $\gamma,\beta,\alpha,\tau$};
+
+\end{tikzpicture}%
+}
+\caption{Dynamic Prototype Routing (DPR). \textbf{(1)} Tokens generate dynamic
+prototypes $P^{\mathrm{c}}$ from the current input by soft assignment
+(Eqs.~\eqref{eq:assign}--\eqref{eq:proto_content}, C1); \textbf{(2)} a learnable
+query bank refines them through a gate $\gamma$ into the confirmed prototypes $P$
+(Eq.~\eqref{eq:proto_refine}, C2); \textbf{(3)} tokens are matched back with a
+learnable temperature $\tau$, yielding scores $S$, confidence $x^{\mathrm{s}}$ and
+labels $b$ (Eqs.~\eqref{eq:scores}--\eqref{eq:belong}, C3/C4); \textbf{(4)} a
+confidence-aware key orders tokens (Eq.~\eqref{eq:sortkey}, C3); \textbf{(5)} IASA
+aggregates the reordered tokens with a confidence-modulated global gate $\beta$ and
+a soft prototype fallback $\alpha$ (Eqs.~\eqref{eq:iasa_gate}--\eqref{eq:soft_fallback},
+C3); and \textbf{(6)} a usage-entropy regularizer balances prototype usage
+(Eq.~\eqref{eq:balance}, C4). Solid arrows denote tensor flow, dashed arrows denote
+gating/regularization. The yellow tags mark the ablation switches A1/A2/A3
+(Tables~\ref{tab:abl_a1}--\ref{tab:abl_a3}); each switch defaults to the
+full model and is exactly equivalent to its disabled form.}
+\label{fig:dpr}
+\end{figure*}
