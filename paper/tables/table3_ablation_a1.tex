@@ -5,15 +5,17 @@
 %   Metrics parsed from training logs at iter 80000 (val on Set5 + Urban100, Y channel, crop_border=4).
 %   entropy_norm = block-averaged normalized prototype-usage entropy on Urban100 (8 TAB blocks).
 % IMPORTANT (honest disclosure): all variants share the SAME full-functioning initialization and a SHORT
-%   80k finetune budget; reconstruction differences fall within run-to-run variance and must NOT be read
-%   as cumulative gains. The ablation is reported for mechanism/quality-neutrality, not for absolute PSNR.
+%   80k finetune budget; the full model is best but the margin is small (~0.04-0.05 dB) and must NOT be
+%   over-read as a large isolated gain. The ablation is reported for mechanism + quality (mildly positive),
+%   not for a strong absolute-PSNR claim.
 \begin{table}[t]
 \centering
 \caption{Ablation A1 ($\times 4$): prototype query refine. PSNR(dB)/SSIM (Y channel) at iter 80k and
-block-averaged normalized prototype-usage entropy on Urban100. Both settings reach comparable
-reconstruction quality under the short finetune protocol (differences within run-to-run variance);
-refine is retained as it does not degrade quality while keeping slot assignment stable.}
+block-averaged normalized prototype-usage entropy on Urban100. Enabling refine gives the better
+reconstruction on both benchmarks under the short finetune protocol; it is retained as it improves
+(and does not degrade) quality while keeping slot assignment stable.}
 \label{tab:abl_a1}
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{l cc c}
 \toprule
 \multirow{2}{*}{Variant} & \multicolumn{2}{c}{Set5} & Urban100 \\
@@ -21,15 +23,17 @@ refine is retained as it does not degrade quality while keeping slot assignment 
  & PSNR & SSIM & PSNR/SSIM \\
 \midrule
 w/o refine               & 32.5494 & 0.8995 & 26.8358 / 0.8065 \\
-w/\ \ refine (default)   & 32.5656 & 0.8997 & 26.8146 / 0.8065 \\
+w/\ \ refine (default)   & 32.5878 & 0.9001 & 26.8905 / 0.8086 \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 
 \vspace{2pt}
 {\footnotesize
 \textit{Notes.} $\times 4$ ablation finetuned from the full-functioning checkpoint
-(\texttt{net\_g\_250000}) for an 80k budget; metrics read at iter 80k. Because all variants share this
-initialization and a short budget, the PSNR/SSIM gap is within run-to-run variance and is reported as
-quality-neutrality rather than a gain. The design motivation of dynamic prototypes vs.\ history-center+EMA
-is supported indirectly by the cited CATANet results (Table~I), not by this controlled ablation.}
+(\texttt{net\_g\_250000}) for an 80k budget; metrics read at iter 80k. Enabling refine yields the better
+PSNR/SSIM on both Set5 and Urban100, though all variants share this initialization and a short budget so
+the margin (\,$\sim$0.04--0.05\,dB\,) should not be over-read as a large isolated gain. The design
+motivation of dynamic prototypes vs.\ history-center+EMA is supported indirectly by the cited CATANet
+results (Table~I), not by this controlled ablation.}
 \end{table}

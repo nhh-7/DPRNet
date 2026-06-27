@@ -7,9 +7,10 @@
 %   cited from the CATANet CVPR'25 paper at the same ~720x1280 output (same source as
 %   our PSNR/Params), so directly comparable to our thop MACs.
 % HONEST FRAMING: DPRNet has MORE params than CATANet (660K vs 535K) but FEWER
-%   Multi-Adds (45.77G vs 46.8G) at x4, at on-par accuracy. Do NOT claim a param
-%   advantage. The other 7 competitors' Multi-Adds/latency are not yet collected
-%   under a unified protocol -> discuss params only for them, defer compute/latency.
+%   Multi-Adds (45.77G vs 46.8G) at x4, while slightly surpassing CATANet's accuracy
+%   (Urban100 26.89 vs 26.87). Do NOT claim a param advantage. The other 7
+%   competitors' Multi-Adds/latency are not yet collected under a unified protocol ->
+%   discuss params only for them, defer compute/latency.
 % =====================================================================
 \subsection{Model complexity and efficiency}
 \label{sec:efficiency}
@@ -29,8 +30,8 @@ SwinIR-light ($897$K), SRFormer-light ($873$K), and the CNN-heavy CARN
 ($1592$K). It is, however, larger than its direct predecessor CATANet ($535$K):
 the learnable query bank and the router/score projections of DPR add parameters
 relative to the EMA-center routing of CATANet. We therefore do not claim a
-parameter advantage over CATANet; the comparison below is at \emph{matched
-accuracy} (Urban100 $26.82$ vs.\ $26.87$, within the variance discussed in
+parameter advantage over CATANet; the comparison below is at \emph{matched-or-better
+accuracy} (Urban100 $26.89$ vs.\ $26.87$, with the full ablation analysis in
 Sec.~\ref{sec:ablation}).
 
 \paragraph{Computation.}
@@ -40,9 +41,9 @@ the extra parameters of DPR do not translate into extra inference computation:
 the dynamic prototype routing replaces CATANet's training-time EMA center updates
 with per-image query refinement that is gated by a small scalar
 (Eq.~\eqref{eq:proto_refine}), keeping the dominant cost---the intra-group
-attention---essentially unchanged. DPRNet therefore matches CATANet-level
-reconstruction at comparable compute, trading a modest parameter increase for an
-interpretable, confidence-aware routing mechanism.
+attention---essentially unchanged. DPRNet therefore matches or slightly surpasses
+CATANet-level reconstruction at comparable compute, trading a modest parameter
+increase for an interpretable, confidence-aware routing mechanism.
 
 \paragraph{Per-scale behavior.}
 Table~\ref{tab:efficiency_profile} shows the expected trend across scales: for a

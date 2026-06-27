@@ -83,10 +83,10 @@ with a learnable query bank decoupled from generation, matches tokens back to th
 confirmed prototypes with a learnable temperature, and propagates an explicit
 per-token confidence through ordering and aggregation. The resulting network,
 \textbf{DPRNet}, is trained on DIV2K and evaluated on five standard benchmarks at
-$\times2/\times3/\times4$, where it attains competitive accuracy among lightweight
-methods at a comparable parameter and computation budget, with the largest gains
-on content-rich benchmarks (Urban100, Manga109) that benefit most from
-content-aware routing.
+$\times2/\times3/\times4$, where it matches or slightly surpasses the strongest
+content-routing baseline across benchmarks at a comparable parameter and
+computation budget, while exposing an interpretable, confidence-aware routing
+mechanism.
 
 \paragraph{Contributions.}
 Our main contributions are summarized as follows.

@@ -23,7 +23,7 @@
   · `dprnet_efficiency.csv`——三尺度 Params/MACs/时延（Table II + per-scale 子表 / §3.3）。
   · `ablation_metrics.csv`——6 变体 80k 汇总（Table III/IV/V / §3.5 / §3.6 均值）。
   · `ablation_perblock_urban100_80k.csv`——6 变体 × 8 block 路由诊断（Fig.6 / §3.6 逐块）。
-  · `ablation_val_curves.csv`——6 变体 val 全程曲线（"差异落噪声内"论证 / 可选 Fig.4）。
+  · `ablation_val_curves.csv`——6 变体 val 全程曲线（"full 不劣且最优、各变体差异小"论证 / 可选 Fig.4）。
 - **对手（基线）数据不在 CSV**，仍以 data-collection-checklist.md §B（B1–B8，标来源 A/B/C/D）为准。
 - 一句话约定：**我方数据看 paper/data/*.csv，对手数据看 checklist §B**。
 
@@ -40,23 +40,32 @@
 
 ## 当前快照（每次更新）
 
-- **更新时间**：2026-06-17
-- **所处阶段**：Day5→Day9。消融实验已训练完成并分析；Table III/IV/V（受限口径）已拼装；
+- **更新时间**：2026-06-27
+- **所处阶段**：Day9→Day11。消融实验已训练完成并分析；Table III/IV/V（受限口径）已拼装；
   Experiments 已写定 3.1 设置（sec:exp_setup）+ 3.2 主对比（sec:main_comparison）+
   3.3 效率（sec:efficiency）+ 3.5 消融（sec:ablation）+ 3.6 路由分析（sec:routing_analysis）+ Fig.6。
-  Table I 完整；Table II 已补 CATANet 同源 Multi-Adds（46.8G），其余 7 对手 compute/时延仍缺。
+  **2026-06-27 续：Abstract（0_abstract.tex）+ Discussion（4_discussion.tex）+ Conclusion（5_conclusion.tex）已写定**，
+  正文文字部分仅剩 3.4 视觉对比待出图后补。Table I 完整；Table II 已补 3 个同源 Multi-Adds
+  （CATANet 46.8G / SwinIR-light 60.3G / SRFormer-light 56.5G，均引自 CATANet Tab.6，input 256×256 口径，
+  带 ‡ 注明与 DPRNet 720×1280 口径不可直接比），CARN/IMDN/RFDN/RLFN/ELAN-light 仍缺（论文无）。
+  **⚠ 待重测：Table II 口径不一致风险见下方日志 2026-06-27（续2）。**
+  **2026-06-27：paper/data/*.csv 实验数据已更正，正文/表格/计划文档相关数据已全部同步修订（见日志）。**
 - **下一步动作（最优先）**：
-  1. 写 Experiments 余下 3.4 视觉对比（视觉图需推理出图，待训练机）。
-  2. 补 Table II 其余 7 对手 Multi-Adds（统一取自 CATANet Tab.2 或同协议重测，禁编造）；
-     对手时延依赖硬件不可引，留 "-"；补 3.1 硬件占位（GPU 型号/GPU·hours）。
-  3. 出 Fig.1/2（结构图，figure-specs）；Fig.5 x_scores 直方图 + Fig.8 聚类图需推理出图。
-  4. **修 intro 不一致**：1_introduction.tex L86-89 "largest gains on Urban100/Manga109"
-     与 Table I 实情不符（Urban100 DPRNet 全尺度次于 CATANet）；改为"与 CATANet 持平、
-     B100/Manga 互有领先"。详见下方注。
+  1. **⚠ 用统一协议（input 256×256）在训练机重测 DPRNet 与 CATANet 的 Multi-Adds**，
+     消除 Table II 口径不一致（详见日志 2026-06-27 续2）；重测后再定 §3.3/Abstract/comparison 表述。
+     CARN/IMDN/RFDN/RLFN/ELAN-light 论文无 Multi-Adds，留 "-"；对手时延依赖硬件不可引，留 "-"；
+     补 3.1 硬件占位（GPU 型号/GPU·hours）。
+  2. 出 Fig.1/2（结构图，figure-specs）；Fig.3 PSNR-vs-Params 散点（figures-python，CSV 已有）。
+  3. 待训练机：写 3.4 视觉对比 + 出 Fig.7 视觉图 / Fig.5 x_scores 直方图 / Fig.8 聚类图（需推理）。
+  4. 收尾：建顶层 main.tex 串起全章节；references.bib 终稿前 CrossRef 核对；期刊模板迁移。
+  5. ~~写 Abstract/Discussion/Conclusion~~ **已完成（2026-06-27）**。
+  6. ~~修 intro 不一致~~ **已完成（2026-06-27）**：更正后 DPRNet 在 Table I 几乎全格领先 CATANet
+     （仅 x4 Manga109 SSIM 次优），intro 已改为"matches or slightly surpasses"，主对比正文同步重写。
 - **消融结论（已分析，关键事实，勿推翻）**：
   · 6 个 x4 消融全部跑满（A1/A2/A3 各 80k，full 100k），日志解析干净。
-  · **方法学局限**：全部变体从全功能 net_g_250000 finetune（共享全开关收敛权重），
-    PSNR 差异落噪声内（±0.03dB）且 A1/A2 方向与预期相反 → **不主张逐项 PSNR 增益**。
+  · **方法学局限仍在**：全部变体从全功能 net_g_250000 finetune（共享全开关收敛权重），单 seed、短预算。
+    **更正数据后 full 模型在 A1/A2/A3 三组均为最优**（margin 约 0.04–0.06dB，略高于 ~0.03dB 噪声），
+    A2 中间步仍非单调 → 改写为"质量中性偏正、组件兼容、full 不劣且最优"，仍**不主张单开关独立增益**。
     详见 review/method-experiment-traceability.md「消融实验的已知局限」。
   · **可主张**：A3 balance loss 在 8 个 block usage 熵全升（0.6227→0.6865），支撑 C4 均衡机制。
 
@@ -77,6 +86,94 @@
 ---
 
 ## 进度日志（倒序，最新在上）
+
+### 2026-06-27（续4）· 本地装 TinyTeX 编译通过，修 3 类编译错误 + 清零 Overfull
+- **本地从零搭建 LaTeX 环境**：`brew install --cask basictex` 需 sudo 交互密码失败，改用
+  **TinyTeX**（用户级，装到 `~/Library/TinyTeX`，无需 sudo）。PATH 用绝对路径，不写系统配置：
+  `export PATH="$PATH:/Users/bytedance/Library/TinyTeX/bin/universal-darwin"`。
+  用 `tlmgr install` 按需补包：times multirow pifont pgf pgfplots preview booktabs natbib
+  caption subcaption enumitem cleveref etoolbox silence titlesec ragged2e xcolor amsfonts
+  psnfss lineno hyperref grfext courier 等（关键坑：pifont 在 psnfss、pgfplots 独立于 pgf、
+  courier 字体 pcrr7t 需单独装、cvpr review 模式要 lineno）。
+- **修复 3 类真实编译错误**：
+  · `\ding{}` 空参数报错（table4 表注里写了描述文字 `Requires ... \ding{}.`）→ 删除该元信息句。
+  · references.bib 中文 Unicode 报错（zhang2024spin 的 `note={...主对照}` 进了 .bbl 第70行）→ 删该 note 字段。
+  · 缺包逐个 tlmgr 补齐（见上）。
+- **完整流程跑通**：`pdflatex→bibtex→pdflatex×2` 全部 EXIT=0，**生成 11 页 PDF**（main.pdf ~335KB）；
+  无 LaTeX Error、无 Unicode、**无未定义引用/citation、无 LaTeX Warning**。
+- **Overfull \hbox 清零（6→0）**：给超栏宽的 tabular 加 `\resizebox{\columnwidth}{!}{%...}` 包裹——
+  table2（效率表 + per-scale 子表，含补回 per-scale 子表漏掉的闭合 `}`）、table3（A1）、
+  table4（A2）、table5（A3 汇总表 + per-block 表）。最终 final pass `Overfull|Underfull` 计数=0。
+- **结论**：main.tex 可在标准 TeX Live/TinyTeX 上干净编译。下次接手只需 `tlmgr` 在位即可复现。
+
+### 2026-06-27（续3）· 建顶层 main.tex 串起全章节
+- 新建 paper/main.tex（CVPR 2026 author-kit，[review] 模式）：按 Abstract→Intro→Method→
+  Experiments(3.1 setup 开 \section → 3.2 comparison + Table I/II → 3.3 efficiency →
+  3.5 ablation + Table III/IV/V → 3.6 routing + Fig.6)→Discussion→Conclusion→bib 顺序 \input。
+  title 暂定 "Dynamic Prototype Routing for Lightweight Image Super-Resolution"，作者匿名占位，
+  paperID/标题/作者/§3.1 硬件均留 TODO；§3.4 视觉对比 + Fig.1/2/3/5/7/8 未出图，暂不 \input。
+- 新建 paper/preamble.tex：仅补 cvpr.sty 未含的 multirow（Table I）/pifont（Table IV \ding）/
+  pgfplots（Fig.6）+ \red/\todo/\TODO 注释宏。cvpr.sty 已含 booktabs/amsmath/amssymb/graphicx/
+  xcolor/natbib/caption/cleveref，未重复引入避免冲突。
+- 复制支撑文件入 paper/：cvpr.sty、ieeenat_fullname.bst（bib 用 \bibliography{references}）。
+- **静态自检通过（本机无 LaTeX，无法真编译）**：
+  · 全部 \ref 目标（sec:*/tab:*/fig:*/eq:*）均有对应 \label，逐一比对无悬空引用；
+  · 全部 \cite key（20 处）均在 references.bib 有条目（20 条），无缺失；
+  · 6 个表 + Fig.6 的 table/figure/tabular/axis/tikzpicture begin/end 环境配对齐全。
+- **未真编译风险**：本机无 pdflatex/bibtex，未能跑通编译；首次在装 LaTeX 的机器上需
+  `pdflatex→bibtex→pdflatex×2`，留意 pgfplots/cleveref/natbib 版本与浮动体溢出。
+
+### 2026-06-27（续2）· 补 Table II 同源 Multi-Adds + 暴露 CATANet 口径不一致风险
+- 完整下载并解析 CATANet 论文 PDF（arXiv:2503.06896）：核实主表 **Table 2 无 Multi-Adds 列**
+  （仅 Params + PSNR/SSIM）；Multi-Adds 在 **效率表 Table 6**，且其 7 个主表对手中**只有**
+  SwinIR-light(897K/60.3G) 与 SRFormer-light(873K/56.5G) 有 Multi-Adds，CARN/IMDN/RFDN/RLFN/ELAN-light
+  **论文里完全没有**。Table 6 还含 CATANet-L 535K/46.8G、ATD-L 494K/30.0G、SPIN 555K/48.4G。
+- 据用户决策「只填能查到的 2 个 + 脚注，其余留 -」修改 paper/tables/table2_efficiency.tex：
+  SwinIR-light 填 60.3G、SRFormer-light 填 56.5G（连同 CATANet 46.8G 共 3 个统一用 ‡ 标记），
+  CARN/IMDN/RFDN/RLFN/ELAN-light 保持 "-"；provenance 注释块 + 表注重写。
+- **⚠ 关键风险（用户决策：先记录，待重测再定）**：CATANet Table 6 的 46.8G 实为
+  **input 3×256×256（×4 输出 1024×1024）口径**，而 DPRNet 45.77G 是由 **≈720×1280 HR 输出反推 LR** 口径，
+  **两者不可直接比**。原 table2 注记错误地写成"同 ~720×1280 输出、直接可比"，已修正为 ‡ 注明口径差异、仅供参考。
+  按面积换算 256×256 口径下 CATANet 约 41G（720×1280≈1280×720 面积约为 1024×1024 的 0.88 倍，
+  256×256 输入对应 1024×1024 输出面积更小），**换算后 CATANet 反而可能低于 DPRNet 45.77G**，
+  会推翻"DPRNet 算量更低于 CATANet"的主张。**正文（§3.3 efficiency、Abstract、§3.2 comparison、
+  Discussion 第 3 段）暂不改动**，待训练机用**统一协议（建议 input 256×256）重测 DPRNet 与 CATANet** 后再定表述。
+- 影响范围标记（待重测后复核）：
+  · 3_experiments_efficiency.tex「45.77G slightly lower than CATANet's 46.8G at the same output resolution」；
+  · 0_abstract.tex「45.77G Multi-Adds at ×4, the latter below CATANet」；
+  · 4_discussion.tex 第 3 段「660K vs 535K 但 45.77G < 46.8G」。
+
+### 2026-06-27（续）· 写 Abstract + Discussion + Conclusion 三节
+- 新建 paper/sections/0_abstract.tex（150–250 词）：问题→DPR 一句话→4 个设计→主结果
+  （x4 Urban100 26.89dB、45.77G Multi-Adds 低于 CATANet、usage 熵 0.6227→0.6865）→意义。
+  口径与正文一致用"matches or slightly surpasses ... at comparable budget"，无夸大独立增益。
+- 新建 paper/sections/4_discussion.tex（对应 outline §4）：内容路由 vs 空间邻近适用边界
+  （Urban100/Manga109 受益最大、B100 收窄）、过强路由风险（温度 clamp + balance 防塌缩，引 §3.6 证据）、
+  prototype 数量与成本取舍（660K vs 535K 但 45.77G < 46.8G）、限制（共享初始化+短预算+单 seed→不主张单开关独立增益/
+  方差；C1 引用间接对比；效率表未统一；仅 DIV2K）。全部复用 §3 已确立口径，无新数值断言。
+- 新建 paper/sections/5_conclusion.tex（对应 outline §5）：总结贡献+结果、点明 DPR 作为通用内容路由模块可迁移、
+  未来工作（from-scratch 分离归因 + 多 seed 方差 + 统一效率表 + 更大数据集/真实退化）。
+- 正文文字部分至此仅剩 3.4 视觉对比（待训练机推理出图后补）。同步本文件快照/下一步。
+
+### 2026-06-27 · paper/data/*.csv 实验数据更正 + 正文/表格/计划文档全量同步
+- 用户更正了 paper/data/ 下我方自测数据，以更正后的 CSV 为唯一权威来源。受影响范围：
+  · dprnet_main_metrics.csv（x2/x3/x4 主表 PSNR/SSIM 整体上调 ~0.02–0.10dB）；
+  · ablation_metrics.csv 的 full 行（Set5 32.5878/0.9001、Urban100 26.8905/0.8086）；
+  · 效率 CSV、per-block 路由诊断 CSV **未变**。
+- **关键事实转变**：更正后 DPRNet 在 Table I 几乎全格领先 CATANet（仅 x4 Manga109 SSIM 0.9181 次于
+  CATANet 0.9183）；消融 full 行在 A1/A2/A3 三组均为最优（margin ~0.04–0.06dB）。
+- 同步修订：
+  · 表格 table1_main_comparison（重算全尺度 best/second-best）、table2_efficiency（Urban100 x4 26.82→26.89
+    加粗最优、CATANet 改下划线）、table3/4/5_ablation（full 行 + caption/Notes 改写为"略优/full 不劣且最优"）。
+  · 正文 3_experiments_comparison（"on par"→"matches or slightly surpasses"）、3_experiments_efficiency
+    （matched-or-better 26.89）、3_experiments_ablation（质量中性偏正、组件兼容、full 不劣且最优，
+    保留共享初始化+短预算+单 seed 不主张单开关独立增益的诚实口径）、1_introduction（去掉"largest gains"，
+    改为"matches or slightly surpasses ... at comparable budget"）。
+  · 计划文档 data-collection-checklist（A2 三尺度自测表 + 选点依据均值 + 交叉验证注 + Table III/IV/V 注）、
+    method-experiment-traceability（证据图例三尺度值 + C2/C3 allowed-claim +「消融已知局限」节）、本文件。
+- 诚实口径未越界：仅将"落噪声内/方向倒置/质量中性"升级为"质量中性偏正/full 不劣且最优"，
+  未主张单开关独立 PSNR 增益。下方历史日志（2026-06-09 等条）含的旧自测数值已就地标注【已更正】，
+  原貌保留作记录，精确数值一律以更正后 paper/data/*.csv 为准。
 
 ### 2026-06-20 · 摘录我方自测数据为权威 CSV + 登记数据来源
 - 新建 paper/data/dprnet_main_metrics.csv（15 行，x2/x3/x4 × 5 基准 PSNR/SSIM，带 source_log）
@@ -241,6 +338,7 @@
   SwinIR/ELAN 在 A/B 两表 Params 口径不同（PSNR/SSIM 一致），主表统一采 A 口径并表注说明。
 - 交叉验证：CATANet 原报 x2 Set5 38.28/0.9617 与本仓库自测 net_g_792500（38.2706/0.9617）
   高度吻合，佐证 CATANet 复现可信、可作 DPRNet 直接对照基线。
+  【已更正 2026-06-27】x2 Set5 自测值现为 38.2906/0.9617，仍与 CATANet 原报高度吻合，结论不变。
 - 新建 paper/references.bib 初版（19 条：8 对比方法 + SRCNN/EDSR/SPIN/ATD + 5 数据集 +
   SSIM/BasicSR）。CATANet DOI/页码经 dblp 确认；其余 arXiv ID 已核实，会议页码/正式 DOI
   待终稿前 CrossRef 逐条核对（文件头已注明核实状态）。
@@ -253,6 +351,11 @@
   · x4@250000：均值 PSNR 29.462 / SSIM 0.8312，三点中双最高，Urban100 双指标全场最高；
     Set5 32.5826 / Set14 28.8846 / B100 27.7648 / Urban100 26.8225 / Manga109 31.2540。
   · 注：各点差异极小（x3 PSNR 极差 0.017、x4 0.018），250000 最收敛故取之，与 x2 选最晚点逻辑一致。
+  【已更正 2026-06-27】上列 x3/x4 逐集自测值为旧值，已被更正；现以 paper/data/dprnet_main_metrics.csv 为准
+  （x3 Set5 34.7629/0.9301、Set14 30.6699/0.8481、B100 29.2890/0.8103、Urban100 29.0551/0.8689、
+  Manga109 34.4133/0.9499，均值 PSNR 31.638/SSIM 0.8815；x4 Set5 32.5896/0.9002、Set14 28.9146/0.7883、
+  B100 27.7648/0.7434、Urban100 26.8925/0.8089、Manga109 31.3240/0.9181，均值 PSNR 29.497/SSIM 0.8318）。
+  选点逻辑（均值最优+最收敛）不变。
 - **效率数据回填（A3/Table II）**：efficiency.md（cuda）解析——Params x2/x3/x4=601.95K/674.15K/659.71K，
   MACs(thop)=126.52/64.28/45.77 G，时延=712.16/285.39/196.77 ms（warmup20 repeat100）。
   口径：固定 HR≈720×1280 反推 LR；thop 报 MACs，与 FLOPs 论文比需 ×2；x3 HR 不整除按 720×1278。

@@ -1,0 +1,30 @@
+% =====================================================================
+% Section: Abstract  (outline.md "Abstract", 150-250 words)
+% Draft v1 (2026-06-27). Wording mirrors the honest framing used in the body:
+%   DPRNet "matches or slightly surpasses" CATANet at a comparable compute budget
+%   (1_introduction.tex L86-89, 3_experiments_comparison.tex, 3_experiments_efficiency.tex).
+%   Numbers VERBATIM from paper/tables/* and paper/data/*: x4 Urban100 26.89 dB,
+%   45.77G Multi-Adds vs CATANet 46.8G, usage entropy 0.6227->0.6865.
+%   No overstated isolated-gain claims; consistent with method-experiment-traceability.md.
+% =====================================================================
+\begin{abstract}
+Lightweight single image super-resolution (SR) seeks a favorable trade-off between
+reconstruction quality and model cost for resource-constrained platforms. Content-aware
+routing, which groups tokens by semantics rather than spatial position, has recently
+advanced this trade-off, but its prevailing realization---the Token Aggregation Block
+(TAB) of CATANet---relies on cross-batch exponential-moving-average routing centers,
+discards the confidence of each token-to-center assignment, and entangles prototype
+generation with confirmation. We propose \emph{Dynamic Prototype Routing} (DPR), a
+drop-in replacement for TAB that keeps the backbone, the tensor interface, and the
+lightweight budget unchanged. DPR generates semantic prototypes directly from the
+current tokens through a soft assignment, confirms them with a learnable query bank
+decoupled from generation, matches tokens back with a learnable temperature, and
+propagates an explicit per-token confidence through ordering, gating, and a soft
+fallback; a usage-balancing regularizer keeps prototype use spread out. The resulting
+network, DPRNet, is trained on DIV2K and evaluated on five standard benchmarks at
+$\times2/\times3/\times4$. DPRNet matches or slightly surpasses the strongest
+content-routing baseline across benchmarks at a comparable parameter and computation
+budget (e.g.\ $26.89$\,dB on Urban100 and $45.77$\,G Multi-Adds at $\times4$, the latter
+below CATANet), while exposing an interpretable, confidence-aware routing mechanism whose
+prototype usage is measurably more balanced.
+\end{abstract}

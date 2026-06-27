@@ -4,21 +4,22 @@
 %   - DPRNet Params / Multi-Adds(MACs, thop) / latency: paper/plan/data-collection-checklist.md A3
 %     (device=cuda, fixed HR output ~720x1280 -> LR derived; warmup=20, repeat=100; thop reports MACs).
 %   - Competitor Params: B1-B8 of the checklist (cited from original papers / CATANet Tab.2, source [A]).
-%   - CATANet Multi-Adds (x4) = 46.8G: cited from the CATANet paper (CVPR'25) supplementary Tab.B/C,
-%     the SAME source as our CATANet PSNR/Params, measured at the same ~720x1280 output -> directly
-%     comparable to our thop MACs. This is the one competitor whose compute we can fill consistently.
+%   - Multi-Adds for CATANet (46.8G), SwinIR-light (60.3G), SRFormer-light (56.5G): all cited from the
+%     CATANet paper (CVPR'25) Tab.6, which measures Multi-Adds with a 3x256x256 input (x4 output
+%     1024x1024). NOTE: this convention DIFFERS from our DPRNet MACs (derived from ~720x1280 HR output),
+%     so these three are NOT directly comparable to DPRNet and are flagged with a dagger. Re-measure
+%     DPRNet+CATANet under one unified protocol (e.g. input 256x256) before claiming a compute win.
 %   - Representative PSNR: Urban100 x4 from Table I.
-% NOTE (data gap): the other 7 competitors' Multi-Adds are NOT filled. Their published compute uses
-%   inconsistent param/measurement conventions vs our unified Tab.I source (e.g. SwinIR-light 897K here
-%   vs 930K elsewhere), so mixing them would be unsafe; they must be taken from CATANet Tab.2 (unified)
-%   or re-measured under our protocol before submission. Competitor LATENCY is device-dependent and
-%   cannot be cited from other papers' hardware; left "-". Do NOT fabricate.
+% NOTE (data gap): CARN/IMDN/RFDN/RLFN/ELAN-light Multi-Adds are NOT in CATANet Tab.6 and are not filled.
+%   Competitor LATENCY is device-dependent and cannot be cited from other papers' hardware; left "-".
+%   Do NOT fabricate.
 \begin{table}[t]
 \centering
 \caption{Efficiency comparison on $\times 4$ SR. Multi-Adds are reported by thop (MACs); to compare
 against FLOPs-based papers, multiply by 2. ``-'' denotes values not yet collected under our protocol.
 Representative PSNR is on Urban100 ($\times 4$).}
 \label{tab:efficiency}
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{l c c c c}
 \toprule
 Method & Params (K) & Multi-Adds (G) & Latency (ms) & Urban100 PSNR \\
@@ -27,21 +28,24 @@ CARN            & 1592 & -     & - & 26.07 \\
 IMDN            & 715  & -     & - & 26.04 \\
 RFDN            & 550  & -     & - & 26.11 \\
 RLFN            & 543  & -     & - & 26.17 \\
-SwinIR-light    & 897  & -     & - & 26.47 \\
+SwinIR-light    & 897  & 60.3$^{\ddagger}$ & - & 26.47 \\
 ELAN-light      & 601  & -     & - & 26.54 \\
-SRFormer-light  & 873  & -     & - & 26.67 \\
-CATANet         & 535  & 46.8$^{\dagger}$  & - & \textbf{26.87} \\
-\textbf{DPRNet (ours)} & 660 & 45.77 & 196.77 $\pm$ 10.02 & \underline{26.82} \\
+SRFormer-light  & 873  & 56.5$^{\ddagger}$ & - & 26.67 \\
+CATANet         & 535  & 46.8$^{\ddagger}$  & - & \underline{26.87} \\
+\textbf{DPRNet (ours)} & 660 & 45.77 & 196.77 $\pm$ 10.02 & \textbf{26.89} \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 
 \vspace{2pt}
 {\footnotesize
 \textit{Notes.} DPRNet efficiency is measured on a single CUDA GPU with a fixed HR output of
 $\approx$720$\times$1280 (LR input derived per scale), warmup=20, repeat=100. Multi-Adds are MACs
-reported by thop. $^{\dagger}$CATANet Multi-Adds is cited from its paper (CVPR'25, measured at the
-same $\approx$720$\times$1280 output), directly comparable to our MACs. The remaining competitors'
-Multi-Adds/latency are not yet collected under the same protocol (``-''); fill before submission.}
+reported by thop. $^{\ddagger}$Multi-Adds for CATANet, SwinIR-light and SRFormer-light are cited from
+the CATANet paper (CVPR'25, Tab.~6), measured with a $3\times256\times256$ input ($\times4$ output
+$1024\times1024$); this convention differs from our $\approx$720$\times$1280 setting, so these values
+are \emph{not} directly comparable to DPRNet and serve only as a reference. Remaining competitors'
+Multi-Adds/latency are not yet collected under a unified protocol (``-''); fill before submission.}
 \end{table}
 
 % --- DPRNet per-scale efficiency profile (all measured; A3) ---
@@ -52,6 +56,7 @@ Multi-Adds/latency are not yet collected under the same protocol (``-''); fill b
 $\approx$720$\times$1280; Multi-Adds are MACs (thop); latency averaged over 100 runs after 20 warmups
 on a single CUDA GPU.}
 \label{tab:efficiency_profile}
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{c c c c c}
 \toprule
 Scale & LR Input & Params (K) & Multi-Adds (G) & Latency (ms) \\
@@ -60,5 +65,6 @@ $\times 2$ & 360$\times$640 & 601.95 & 126.52 & 712.16 $\pm$ 23.47 \\
 $\times 3$ & 240$\times$426 & 674.15 & 64.28  & 285.39 $\pm$ 5.66  \\
 $\times 4$ & 180$\times$320 & 659.71 & 45.77  & 196.77 $\pm$ 10.02 \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table}

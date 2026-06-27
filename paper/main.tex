@@ -1,0 +1,80 @@
+% =====================================================================
+% DPRNet — top-level manuscript file.
+% Built 2026-06-27. Wires together the section drafts (sections/), the
+% tables (tables/) and Fig.6 (figures/) under the CVPR 2026 author kit.
+%
+% Support files copied into paper/: cvpr.sty, ieeenat_fullname.bst.
+% Bibliography database: references.bib.
+%
+% NOTE (placeholders / open items, see plan/progress.md):
+%   - paper ID, title final wording, authors: TODO.
+%   - §3.1 hardware (GPU model / GPU-hours): [PLACEHOLDER] in 3_experiments_setup.
+%   - §3.4 visual comparison + Figs 1/2/3/5/7/8 not yet produced (need GPU/inference).
+%   - Table II competitor Multi-Adds caliber mismatch flagged (CATANet/SwinIR/SRFormer
+%     are 256x256-input, NOT directly comparable to DPRNet); re-measure before claims.
+% This file is meant to compile the text+tables+Fig.6 that already exist, so we can
+% catch cross-reference / citation / package issues early. Missing figures are simply
+% absent (their \ref targets are tables/Fig.6 only; structure figures are not yet cited).
+% =====================================================================
+\documentclass[10pt,twocolumn,letterpaper]{article}
+
+%%%%%%%%% PAPER TYPE
+% \usepackage{cvpr}              % CAMERA-READY
+\usepackage[review]{cvpr}        % REVIEW (line numbers, anonymized)
+% \usepackage[pagenumbers]{cvpr} % arXiv-style page numbers
+
+\input{preamble}
+
+\definecolor{cvprblue}{rgb}{0.21,0.49,0.74}
+\usepackage[pagebackref,breaklinks,colorlinks,allcolors=cvprblue]{hyperref}
+
+%%%%%%%%% PAPER ID
+\def\paperID{*****} % TODO: enter submission ID
+\def\confName{CVPR}
+\def\confYear{2026}
+
+%%%%%%%%% TITLE — TODO finalize
+\title{Dynamic Prototype Routing for Lightweight Image Super-Resolution}
+
+%%%%%%%%% AUTHORS — TODO finalize (anonymized in review build)
+\author{Anonymous Submission\\
+Paper ID \paperID
+}
+
+\begin{document}
+\maketitle
+
+\input{sections/0_abstract}
+
+\input{sections/1_introduction}
+\input{sections/2_method}
+
+% ---- Experiments ----
+\input{sections/3_experiments_setup}      % opens \section{Experiments}
+
+\input{sections/3_experiments_comparison} % Table I + Table II
+\input{tables/table1_main_comparison}
+\input{tables/table2_efficiency}          % defines tab:efficiency + tab:efficiency_profile
+
+\input{sections/3_experiments_efficiency}
+
+\input{sections/3_experiments_ablation}   % Tables III/IV/V
+\input{tables/table3_ablation_a1}
+\input{tables/table4_ablation_a2}
+\input{tables/table5_ablation_a3}
+
+\input{sections/3_experiments_routing_analysis}
+\input{figures/fig6_usage_entropy}        % defines fig:usage_entropy
+
+% TODO §3.4 visual comparison (needs inference); Figs 1/2/3/5/7/8 pending.
+
+\input{sections/4_discussion}
+\input{sections/5_conclusion}
+
+{
+    \small
+    \bibliographystyle{ieeenat_fullname}
+    \bibliography{references}
+}
+
+\end{document}

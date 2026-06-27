@@ -1,0 +1,88 @@
+\begin{thebibliography}{14}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Agustsson and Timofte(2017)]{agustsson2017div2k}
+Eirikur Agustsson and Radu Timofte.
+\newblock {NTIRE} 2017 challenge on single image super-resolution: Dataset and study.
+\newblock In \emph{Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition Workshops (CVPRW)}, pages 126--135, 2017.
+
+\bibitem[Ahn et~al.(2018)Ahn, Kang, and Sohn]{ahn2018carn}
+Namhyuk Ahn, Byungkon Kang, and Kyung-Ah Sohn.
+\newblock Fast, accurate, and lightweight super-resolution with cascading residual network.
+\newblock In \emph{Proceedings of the European Conference on Computer Vision (ECCV)}, pages 252--268, 2018.
+\newblock arXiv:1803.08664.
+
+\bibitem[Dong et~al.(2014)Dong, Loy, He, and Tang]{dong2014srcnn}
+Chao Dong, Chen~Change Loy, Kaiming He, and Xiaoou Tang.
+\newblock Learning a deep convolutional network for image super-resolution.
+\newblock In \emph{Proceedings of the European Conference on Computer Vision (ECCV)}, pages 184--199, 2014.
+
+\bibitem[Hui et~al.(2019)Hui, Gao, Yang, and Wang]{hui2019imdn}
+Zheng Hui, Xinbo Gao, Yunchu Yang, and Xiumei Wang.
+\newblock Lightweight image super-resolution with information multi-distillation network.
+\newblock In \emph{Proceedings of the 27th ACM International Conference on Multimedia (ACM MM)}, pages 2024--2032, 2019.
+\newblock arXiv:1909.11856.
+
+\bibitem[Kong et~al.(2022)Kong, Li, Liu, Liu, He, Bai, Chen, and Fu]{kong2022rlfn}
+Fangyuan Kong, Mingxi Li, Songwei Liu, Ding Liu, Jingwen He, Yang Bai, Fangmin Chen, and Lean Fu.
+\newblock Residual local feature network for efficient super-resolution.
+\newblock In \emph{Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops (CVPRW)}, pages 766--776, 2022.
+\newblock arXiv:2205.07514; NTIRE 2022 Efficient SR Challenge winner.
+
+\bibitem[Liang et~al.(2021)Liang, Cao, Sun, Zhang, Van~Gool, and Timofte]{liang2021swinir}
+Jingyun Liang, Jiezhang Cao, Guolei Sun, Kai Zhang, Luc Van~Gool, and Radu Timofte.
+\newblock {SwinIR}: Image restoration using swin transformer.
+\newblock In \emph{Proceedings of the IEEE/CVF International Conference on Computer Vision Workshops (ICCVW)}, pages 1833--1844, 2021.
+\newblock arXiv:2108.10257.
+
+\bibitem[Lim et~al.(2017)Lim, Son, Kim, Nah, and Lee]{lim2017edsr}
+Bee Lim, Sanghyun Son, Heewon Kim, Seungjun Nah, and Kyoung~Mu Lee.
+\newblock Enhanced deep residual networks for single image super-resolution.
+\newblock In \emph{Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition Workshops (CVPRW)}, pages 136--144, 2017.
+\newblock arXiv:1707.02921.
+
+\bibitem[Liu et~al.(2020)Liu, Tang, and Wu]{liu2020rfdn}
+Jie Liu, Jie Tang, and Gangshan Wu.
+\newblock Residual feature distillation network for lightweight image super-resolution.
+\newblock In \emph{Proceedings of the European Conference on Computer Vision Workshops (ECCVW)}, 2020.
+\newblock arXiv:2009.11551; AIM 2020 Efficient SR Challenge.
+
+\bibitem[Liu et~al.(2025)Liu, Liu, Tang, and Wu]{liu2025catanet}
+Xin Liu, Jie Liu, Jie Tang, and Gangshan Wu.
+\newblock {CATANet}: Efficient content-aware token aggregation for lightweight image super-resolution.
+\newblock In \emph{Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}, pages 17902--17912, 2025.
+\newblock arXiv:2503.06896.
+
+\bibitem[Wang et~al.(2020)Wang, Xie, Yu, Chan, Loy, and Dong]{wang2020basicsr}
+Xintao Wang, Liangbin Xie, Ke Yu, Kelvin~C.K. Chan, Chen~Change Loy, and Chao Dong.
+\newblock {BasicSR}: Open source image and video restoration toolbox.
+\newblock \url{https://github.com/XPixelGroup/BasicSR}, 2020.
+
+\bibitem[Zhang et~al.(2023)Zhang, Ren, Liu, and Cao]{zhang2024spin}
+Aiping Zhang, Wenqi Ren, Yi Liu, and Xiaochun Cao.
+\newblock Lightweight image super-resolution with superpixel token interaction.
+\newblock \emph{Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)}, 2023.
+
+\bibitem[Zhang et~al.(2024)Zhang, Li, Zhou, Zhao, and Gu]{zhang2024atd}
+Leheng Zhang, Yuxuan Li, Xiaorui Zhou, Xiaojie Zhao, and Shuhang Gu.
+\newblock Transcending the limit of local window: Advanced super-resolution transformer with adaptive token dictionary.
+\newblock In \emph{Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}, 2024.
+\newblock ATD; arXiv:2401.08209.
+
+\bibitem[Zhang et~al.(2022)Zhang, Zeng, Guo, and Zhang]{zhang2022elan}
+Xindong Zhang, Hui Zeng, Shi Guo, and Lei Zhang.
+\newblock Efficient long-range attention network for image super-resolution.
+\newblock In \emph{Proceedings of the European Conference on Computer Vision (ECCV)}, pages 649--667, 2022.
+\newblock arXiv:2203.06697.
+
+\bibitem[Zhou et~al.(2023)Zhou, Li, Guo, Bai, Cheng, and Hou]{zhou2023srformer}
+Yupeng Zhou, Zhen Li, Chun-Le Guo, Song Bai, Ming-Ming Cheng, and Qibin Hou.
+\newblock {SRFormer}: Permuted self-attention for single image super-resolution.
+\newblock In \emph{Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)}, pages 12780--12791, 2023.
+\newblock arXiv:2303.09735.
+
+\end{thebibliography}

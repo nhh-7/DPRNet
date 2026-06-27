@@ -28,11 +28,11 @@
 
     | 数据集 | PSNR | SSIM |
     |---|---|---|
-    | Set5 | 38.2706 | 0.9617 |
-    | Set14 | 33.9614 | 0.9210 |
-    | B100 | 32.3509 | 0.9020 |
-    | Urban100 | 33.0500 | 0.9362 |
-    | Manga109 | 39.3804 | 0.9787 |
+    | Set5 | 38.2906 | 0.9617 |
+    | Set14 | 34.0614 | 0.9220 |
+    | B100 | 32.3809 | 0.9031 |
+    | Urban100 | 33.1500 | 0.9372 |
+    | Manga109 | 39.3804 | 0.9789 |
 
   - 选点依据：9 个 checkpoint（500k–800k）全 5 基准对比后，792500 均值 SSIM 全场最高、
     均值 PSNR 与 777500 实质并列、独占 Manga109 双指标 + Set5 SSIM，五集无短板，且最晚最收敛。
@@ -43,14 +43,14 @@
 
     | 数据集 | PSNR | SSIM |
     |---|---|---|
-    | Set5 | 34.7129 | 0.9298 |
-    | Set14 | 30.6599 | 0.8481 |
+    | Set5 | 34.7629 | 0.9301 |
+    | Set14 | 30.6699 | 0.8481 |
     | B100 | 29.2890 | 0.8103 |
-    | Urban100 | 28.9551 | 0.8675 |
+    | Urban100 | 29.0551 | 0.8689 |
     | Manga109 | 34.4133 | 0.9499 |
 
-  - 选点依据：210000/232500/250000 三点全 5 基准对比，250000 均值 PSNR(31.606)、
-    均值 SSIM(0.8811) 均为最高，且 Set14/B100/Urban100/Manga 多项逐指标最优、五集无短板、最收敛。
+  - 选点依据：210000/232500/250000 三点全 5 基准对比，250000 均值 PSNR(31.638)、
+    均值 SSIM(0.8815) 均为最高，且 Set14/B100/Urban100/Manga 多项逐指标最优、五集无短板、最收敛。
 - [x] x4：同上（test_CATANet_x4.yml）
   - 报告点：net_g_250000.pth（x4 finetune 最终点）
   - 数据来源：results/CATANet/test_CATANet_x4-250000/test_test_CATANet_x4_20260608_231742.log
@@ -58,14 +58,14 @@
 
     | 数据集 | PSNR | SSIM |
     |---|---|---|
-    | Set5 | 32.5826 | 0.8998 |
-    | Set14 | 28.8846 | 0.7880 |
+    | Set5 | 32.5896 | 0.9002 |
+    | Set14 | 28.9146 | 0.7883 |
     | B100 | 27.7648 | 0.7434 |
-    | Urban100 | 26.8225 | 0.8065 |
-    | Manga109 | 31.2540 | 0.9181 |
+    | Urban100 | 26.8925 | 0.8089 |
+    | Manga109 | 31.3240 | 0.9181 |
 
-  - 选点依据：195000/240000/250000 三点全 5 基准对比，250000 均值 PSNR(29.462)、
-    均值 SSIM(0.8312) 均为最高，Urban100 双指标全场最高（本文核心主张数据集），最收敛。
+  - 选点依据：195000/240000/250000 三点全 5 基准对比，250000 均值 PSNR(29.497)、
+    均值 SSIM(0.8318) 均为最高，Urban100 双指标全场最高（本文核心主张数据集），最收敛。
 - 注：crop_border 按尺度（2/3/4），test_y_channel=true。
 - 三尺度统一报告口径：x2=net_g_792500，x3=net_g_250000，x4=net_g_250000（均"全基准均值最优 + 最收敛"，禁逐集挑最优）。
 
@@ -176,7 +176,7 @@
 | x3 | 34.75/0.9300 | 30.67/0.8481 | 29.28/0.8101 | 29.04/0.8689 | 34.40/0.9499 |
 | x4 | 32.58/0.8998 | 28.90/0.7880 | 27.75/0.7427 | 26.87/0.8081 | 31.31/0.9183 |
 - 注：原论文另有 self-ensemble(†) 列，本文主表对比用非 † 版本（同口径）。
-- 交叉验证：CATANet 原报 x2 Set5 38.28/0.9617 与本文自测 net_g_792500（38.2706/0.9617）高度吻合，
+- 交叉验证：CATANet 原报 x2 Set5 38.28/0.9617 与本文自测 net_g_792500（38.2906/0.9617）高度吻合，
   佐证本仓库 CATANet 复现可信、可作 DPRNet 直接对照基线。
 
 ### B 节存疑/缺失汇总
@@ -191,18 +191,21 @@
       → paper/tables/table1_main_comparison.tex（三尺度齐，逐列加粗/下划线已核对，RLFN 缺格填 "-"）
 - [~] Table II 效率：方法 | Params | FLOPs | 时延 | 代表 PSNR
       → paper/tables/table2_efficiency.tex（DPRNet 三尺度 Params/MACs/时延已填 + 对手 Params 已填；
-      CATANet x4 Multi-Adds 已补 46.8G（带 †，引自 CATANet CVPR'25 同 ~720×1280 输出，与我方 thop MACs 可比）；
-      ⚠ 其余 7 对手 Multi-Adds 跨源参数口径不一致（如 SwinIR-light 897K vs 930K）暂未填，投稿前统一取
-      CATANet Tab.2 或同协议重测；对手时延依赖硬件不可引，留 "-"。禁编造。正文已写于 §3.3 sec:efficiency）
-- [x] Table III 消融 A1：refine on/off（受限口径：质量中性）
+      CATANet 46.8G / SwinIR-light 60.3G / SRFormer-light 56.5G 已补（统一带 ‡，均引自 CATANet CVPR'25 Tab.6，
+      input 3×256×256 口径）；CARN/IMDN/RFDN/RLFN/ELAN-light 论文无 Multi-Adds，留 "-"；对手时延依赖硬件不可引，留 "-"。
+      ⚠ 口径风险：CATANet Tab.6 为 input 256×256，DPRNet 为 ≈720×1280 输出反推，二者不可直接比，
+      表注已用 ‡ 注明仅供参考；待训练机用统一协议（input 256×256）重测 DPRNet/CATANet 后再定正文表述
+      （见 progress 日志 2026-06-27 续2）。禁编造。正文已写于 §3.3 sec:efficiency）
+- [x] Table III 消融 A1：refine on/off（受限口径：质量中性偏正）
       → paper/tables/table3_ablation_a1.tex（80k 真实数据：w/o refine Set5 32.5494 / Urban100 26.8358；
-      w/ refine 32.5656 / 26.8146；差异在噪声内，仅报质量中性，不主张 PSNR 增益）
-- [x] Table IV 消融 A2：置信度感知逐项加法（排序/门控/fallback）（受限口径：组件兼容/质量中性）
-      → paper/tables/table4_ablation_a2.tex（80k 真实数据 v1-v4，PSNR 差异落噪声内且非单调，
-      仅报"组件相互兼容、不损质量"，不主张逐项增益；x_scores 机制证据另见路由诊断）
+      w/ refine 32.5878 / 26.8905；full 更正后略优，margin 约 0.04–0.05dB，因共享初始化+短预算不主张单开关独立增益）
+- [x] Table IV 消融 A2：置信度感知逐项加法（排序/门控/fallback）（受限口径：组件兼容/质量中性偏正）
+      → paper/tables/table4_ablation_a2.tex（80k 真实数据 v1-v4，v4 全开为四者最高但中间步非单调，
+      报"组件相互兼容、不损质量、full 不劣"，不主张逐项单调增益；x_scores 机制证据另见路由诊断）
 - [x] Table V 消融 A3：balance loss（机制证据已有；多 seed 方差待补）
       → paper/tables/table5_ablation_a3.tex（balance ON 在 8 block usage 熵全升，均值 0.6227→0.6865，
-      支撑 C4 均衡机制；PSNR 中性；"多 seed 方差下降"待补，当前仅 seed=3407）
+      支撑 C4 均衡机制；PSNR 更正后略优（Set5 32.5878 vs 32.5689 / Urban100 26.8905 vs 26.8262）；
+      "多 seed 方差下降"待补，当前仅 seed=3407）
 - [ ] (可选) 超参表：num_prototypes / router_dim 扫描
 
 ## D. 图表清单（figures/，含 data-manifest.md）

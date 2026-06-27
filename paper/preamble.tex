@@ -1,0 +1,13 @@
+%% DPRNet preamble — extra packages beyond what cvpr.sty already loads.
+%% cvpr.sty already provides: times, xspace, xcolor(dvipsnames), graphicx,
+%% amsmath, amssymb, booktabs, natbib, caption/subcaption, url, cleveref, enumitem.
+
+\usepackage{multirow}   % Table I (tab:main_comparison)
+\usepackage{pifont}     % Table IV (\ding{51}/\ding{55} switches)
+\usepackage{pgfplots}   % Fig.6 (per-block usage entropy)
+\pgfplotsset{compat=1.16}
+
+%% Inline annotation helpers (disable for camera-ready).
+\newcommand{\red}[1]{{\color{red}#1}}
+\newcommand{\todo}[1]{{\color{red}#1}}
+\newcommand{\TODO}[1]{\textbf{\color{red}[TODO: #1]}}

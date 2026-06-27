@@ -1,0 +1,1013 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{dong2014srcnn}
+\citation{lim2017edsr}
+\citation{ahn2018carn}
+\citation{hui2019imdn}
+\citation{liu2020rfdn}
+\citation{kong2022rlfn}
+\citation{liang2021swinir}
+\citation{zhang2022elan}
+\citation{zhou2023srformer}
+\citation{zhang2024atd}
+\citation{zhang2024spin}
+\citation{liu2025catanet}
+\def\@LN@column{1}
+\@LN{0}{0}
+\@LN{1}{0}
+\@LN{2}{0}
+\@LN{3}{0}
+\@LN{4}{0}
+\@LN{5}{0}
+\@LN{6}{0}
+\@LN{7}{0}
+\@LN{8}{0}
+\@LN{9}{0}
+\@LN{10}{0}
+\@LN{11}{0}
+\@LN{12}{0}
+\@LN{13}{0}
+\@LN{14}{0}
+\@LN{15}{0}
+\@LN{16}{0}
+\@LN{17}{0}
+\@LN{18}{0}
+\@LN{19}{0}
+\@LN{20}{0}
+\@LN{21}{0}
+\@LN{22}{0}
+\@LN{23}{0}
+\@LN{24}{0}
+\@LN{25}{0}
+\@LN{26}{0}
+\@LN{27}{0}
+\@writefile{toc}{\contentsline {section}{\numberline {1}\hskip -1em.~Introduction}{1}{section.1}\protected@file@percent }
+\newlabel{sec:intro}{{1}{1}{\texorpdfstring {\hskip -1em.~}{}Introduction}{section.1}{}}
+\newlabel{sec:intro@cref}{{[section][1][]1}{[1][1][]1}{}{}{}}
+\@LN{28}{0}
+\@LN{29}{0}
+\@LN{30}{0}
+\@LN{31}{0}
+\@writefile{brf}{\backcite{dong2014srcnn}{{1}{1}{section.1}}}
+\@LN{32}{0}
+\@LN{33}{0}
+\@writefile{brf}{\backcite{lim2017edsr}{{1}{1}{section.1}}}
+\@LN{34}{0}
+\@LN{35}{0}
+\@LN{36}{0}
+\def\@LN@column{2}
+\@LN{37}{0}
+\@LN{38}{0}
+\@LN{39}{0}
+\@LN{40}{0}
+\@LN{41}{0}
+\@writefile{toc}{\contentsline {paragraph}{Lightweight CNN-based SR.}{1}{section*.1}\protected@file@percent }
+\@LN{42}{0}
+\@LN{43}{0}
+\@LN{44}{0}
+\@writefile{brf}{\backcite{ahn2018carn}{{1}{1}{section*.1}}}
+\@LN{45}{0}
+\@LN{46}{0}
+\@writefile{brf}{\backcite{hui2019imdn}{{1}{1}{section*.1}}}
+\@LN{47}{0}
+\@writefile{brf}{\backcite{liu2020rfdn}{{1}{1}{section*.1}}}
+\@LN{48}{0}
+\@LN{49}{0}
+\@LN{50}{0}
+\@writefile{brf}{\backcite{kong2022rlfn}{{1}{1}{section*.1}}}
+\@LN{51}{0}
+\@LN{52}{0}
+\@LN{53}{0}
+\@LN{54}{0}
+\@LN{55}{0}
+\@writefile{toc}{\contentsline {paragraph}{Lightweight Transformer-based SR.}{1}{section*.2}\protected@file@percent }
+\@LN{56}{0}
+\@LN{57}{0}
+\@LN{58}{0}
+\@writefile{brf}{\backcite{liang2021swinir}{{1}{1}{section*.2}}}
+\@LN{59}{0}
+\@writefile{brf}{\backcite{zhang2022elan}{{1}{1}{section*.2}}}
+\@LN{60}{0}
+\@LN{61}{0}
+\@writefile{brf}{\backcite{zhou2023srformer}{{1}{1}{section*.2}}}
+\@LN{62}{0}
+\@writefile{brf}{\backcite{zhang2024atd}{{1}{1}{section*.2}}}
+\@LN{63}{0}
+\@LN{64}{0}
+\@LN{65}{0}
+\@LN{66}{0}
+\@LN{67}{0}
+\@writefile{toc}{\contentsline {paragraph}{Content-aware / cluster-based routing.}{1}{section*.3}\protected@file@percent }
+\@LN{68}{0}
+\@LN{69}{0}
+\@LN{70}{0}
+\@LN{71}{0}
+\@writefile{brf}{\backcite{zhang2024spin}{{1}{1}{section*.3}}}
+\@LN{72}{0}
+\@LN{73}{0}
+\@LN{74}{0}
+\def\@LN@column{1}
+\@LN{75}{1}
+\@LN{76}{1}
+\@writefile{brf}{\backcite{liu2025catanet}{{2}{1}{section*.3}}}
+\@LN{77}{1}
+\@LN{78}{1}
+\@LN{79}{1}
+\@writefile{toc}{\contentsline {paragraph}{Limitations of center-based routing.}{2}{section*.4}\protected@file@percent }
+\@LN{80}{1}
+\@LN{81}{1}
+\@LN{82}{1}
+\@LN{83}{1}
+\@LN{84}{1}
+\@LN{85}{1}
+\@LN{86}{1}
+\@LN{87}{1}
+\@LN{88}{1}
+\@LN{89}{1}
+\@LN{90}{1}
+\@LN{91}{1}
+\@LN{92}{1}
+\@LN{93}{1}
+\@LN{94}{1}
+\@LN{95}{1}
+\@LN{96}{1}
+\@LN{97}{1}
+\@LN{98}{1}
+\@LN{99}{1}
+\@LN{100}{1}
+\@writefile{toc}{\contentsline {paragraph}{Our approach.}{2}{section*.5}\protected@file@percent }
+\@LN{101}{1}
+\@LN{102}{1}
+\@LN{103}{1}
+\@LN{104}{1}
+\@LN{105}{1}
+\@LN{106}{1}
+\@LN{107}{1}
+\@LN{108}{1}
+\@LN{109}{1}
+\@LN{110}{1}
+\@LN{111}{1}
+\@LN{112}{1}
+\@LN{113}{1}
+\@LN{114}{1}
+\@LN{115}{1}
+\@LN{116}{1}
+\@writefile{toc}{\contentsline {paragraph}{Contributions.}{2}{section*.6}\protected@file@percent }
+\@LN{117}{1}
+\@LN{118}{1}
+\@LN{119}{1}
+\@LN{120}{1}
+\@LN{121}{1}
+\@LN{122}{1}
+\@LN{123}{1}
+\def\@LN@column{2}
+\@LN{124}{1}
+\@LN{125}{1}
+\@LN{126}{1}
+\@LN{127}{1}
+\@LN{128}{1}
+\@LN{129}{1}
+\@LN{130}{1}
+\@LN{131}{1}
+\@LN{132}{1}
+\@LN{133}{1}
+\@LN{134}{1}
+\@LN{135}{1}
+\@LN{136}{1}
+\@LN{137}{1}
+\@LN{138}{1}
+\@LN{139}{1}
+\@LN{140}{1}
+\@LN{141}{1}
+\@LN{142}{1}
+\@LN{143}{1}
+\@LN{144}{1}
+\@writefile{toc}{\contentsline {section}{\numberline {2}\hskip -1em.~Method}{2}{section.2}\protected@file@percent }
+\newlabel{sec:method}{{2}{2}{\texorpdfstring {\hskip -1em.~}{}Method}{section.2}{}}
+\newlabel{sec:method@cref}{{[section][2][]2}{[1][2][]2}{}{}{}}
+\@LN{145}{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}\hskip -1em.~Overview}{2}{subsection.2.1}\protected@file@percent }
+\newlabel{sec:method_overview}{{2.1}{2}{\texorpdfstring {\hskip -1em.~}{}Overview}{subsection.2.1}{}}
+\newlabel{sec:method_overview@cref}{{[subsection][1][2]2.1}{[1][2][]2}{}{}{}}
+\@LN{146}{1}
+\@LN{147}{1}
+\@LN{148}{1}
+\@LN{149}{1}
+\@LN{150}{1}
+\@LN{151}{1}
+\@LN{152}{1}
+\@LN{153}{1}
+\@LN{154}{1}
+\@LN{155}{1}
+\@LN{156}{1}
+\@LN{157}{1}
+\@LN{158}{1}
+\@LN{159}{1}
+\@LN{160}{1}
+\@LN{161}{1}
+\@LN{162}{1}
+\@LN{163}{1}
+\@LN{164}{1}
+\@LN{165}{1}
+\@LN{166}{1}
+\@LN{167}{1}
+\@LN{168}{1}
+\@LN{169}{1}
+\@LN{170}{1}
+\@LN{171}{1}
+\def\@LN@column{1}
+\@LN{172}{2}
+\@LN{173}{2}
+\@LN{174}{2}
+\@LN{175}{2}
+\@LN{176}{2}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}\hskip -1em.~Motivation: limitations of center-based routing}{3}{subsection.2.2}\protected@file@percent }
+\newlabel{sec:method_motivation}{{2.2}{3}{\texorpdfstring {\hskip -1em.~}{}Motivation: limitations of center-based routing}{subsection.2.2}{}}
+\newlabel{sec:method_motivation@cref}{{[subsection][2][2]2.2}{[1][3][]3}{}{}{}}
+\@LN{177}{2}
+\@LN{178}{2}
+\@LN{179}{2}
+\@LN{180}{2}
+\@LN{181}{2}
+\@LN{182}{2}
+\@LN{183}{2}
+\@LN{184}{2}
+\@LN{185}{2}
+\@LN{186}{2}
+\@LN{187}{2}
+\@LN{188}{2}
+\@LN{189}{2}
+\@LN{190}{2}
+\@LN{191}{2}
+\@LN{192}{2}
+\@LN{193}{2}
+\@LN{194}{2}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}\hskip -1em.~Dynamic Prototype Routing}{3}{subsection.2.3}\protected@file@percent }
+\newlabel{sec:method_dpr}{{2.3}{3}{\texorpdfstring {\hskip -1em.~}{}Dynamic Prototype Routing}{subsection.2.3}{}}
+\newlabel{sec:method_dpr@cref}{{[subsection][3][2]2.3}{[1][3][]3}{}{}{}}
+\@LN{195}{2}
+\@LN{196}{2}
+\@LN{197}{2}
+\@LN{198}{2}
+\@writefile{toc}{\contentsline {paragraph}{(1) Dynamic prototype generation.}{3}{section*.7}\protected@file@percent }
+\@LN{199}{2}
+\@LN{200}{2}
+\@LN{201}{2}
+\@LN{202}{2}
+\newlabel{eq:assign}{{4}{3}{(1) Dynamic prototype generation}{equation.4}{}}
+\newlabel{eq:assign@cref}{{[equation][4][]4}{[1][3][]3}{}{}{}}
+\@LN{203}{2}
+\@LN{204}{2}
+\@LN{205}{2}
+\newlabel{eq:proto_content}{{5}{3}{(1) Dynamic prototype generation}{equation.5}{}}
+\newlabel{eq:proto_content@cref}{{[equation][5][]5}{[1][3][]3}{}{}{}}
+\@LN{206}{2}
+\@LN{207}{2}
+\@LN{208}{2}
+\@LN{209}{2}
+\@LN{210}{2}
+\@writefile{toc}{\contentsline {paragraph}{(2) Prototype confirmation by query refinement.}{3}{section*.8}\protected@file@percent }
+\@LN{211}{2}
+\@LN{212}{2}
+\@LN{213}{2}
+\@LN{214}{2}
+\def\@LN@column{2}
+\@LN{215}{2}
+\@LN{216}{2}
+\@LN{217}{2}
+\@LN{218}{2}
+\@LN{219}{2}
+\newlabel{eq:proto_refine}{{7}{3}{(2) Prototype confirmation by query refinement}{equation.7}{}}
+\newlabel{eq:proto_refine@cref}{{[equation][7][]7}{[1][3][]3}{}{}{}}
+\@LN{220}{2}
+\@LN{221}{2}
+\@LN{222}{2}
+\@LN{223}{2}
+\@LN{224}{2}
+\@LN{225}{2}
+\@LN{226}{2}
+\@LN{227}{2}
+\@writefile{toc}{\contentsline {paragraph}{(3) Confidence-aware token-to-prototype matching.}{3}{section*.9}\protected@file@percent }
+\@LN{228}{2}
+\@LN{229}{2}
+\@LN{230}{2}
+\@LN{231}{2}
+\@LN{232}{2}
+\newlabel{eq:scores}{{8}{3}{(3) Confidence-aware token-to-prototype matching}{equation.8}{}}
+\newlabel{eq:scores@cref}{{[equation][8][]8}{[1][3][]3}{}{}{}}
+\@LN{233}{2}
+\@LN{234}{2}
+\@LN{235}{2}
+\@LN{236}{2}
+\@LN{237}{2}
+\newlabel{eq:belong}{{9}{3}{(3) Confidence-aware token-to-prototype matching}{equation.9}{}}
+\newlabel{eq:belong@cref}{{[equation][9][]9}{[1][3][]3}{}{}{}}
+\@LN{238}{2}
+\@LN{239}{2}
+\@LN{240}{2}
+\@writefile{toc}{\contentsline {paragraph}{(4) Confidence-aware ordering.}{3}{section*.10}\protected@file@percent }
+\@LN{241}{2}
+\@LN{242}{2}
+\@LN{243}{2}
+\@LN{244}{2}
+\newlabel{eq:sortkey}{{10}{3}{(4) Confidence-aware ordering}{equation.10}{}}
+\newlabel{eq:sortkey@cref}{{[equation][10][]10}{[1][3][]3}{}{}{}}
+\@LN{245}{2}
+\@LN{246}{2}
+\@LN{247}{2}
+\@LN{248}{2}
+\@LN{249}{2}
+\@LN{250}{2}
+\@LN{251}{2}
+\@LN{252}{2}
+\@LN{253}{2}
+\@LN{254}{2}
+\@LN{255}{2}
+\citation{agustsson2017div2k}
+\citation{wang2020basicsr}
+\def\@LN@column{1}
+\@LN{256}{3}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}\hskip -1em.~Confidence-aware aggregation (IASA)}{4}{subsection.2.4}\protected@file@percent }
+\newlabel{sec:method_iasa}{{2.4}{4}{\texorpdfstring {\hskip -1em.~}{}Confidence-aware aggregation (IASA)}{subsection.2.4}{}}
+\newlabel{sec:method_iasa@cref}{{[subsection][4][2]2.4}{[1][3][]4}{}{}{}}
+\@LN{257}{3}
+\@LN{258}{3}
+\@LN{259}{3}
+\@LN{260}{3}
+\@LN{261}{3}
+\@LN{262}{3}
+\@LN{263}{3}
+\@LN{264}{3}
+\@LN{265}{3}
+\newlabel{eq:iasa_gate}{{11}{4}{\texorpdfstring {\hskip -1em.~}{}Confidence-aware aggregation (IASA)}{equation.11}{}}
+\newlabel{eq:iasa_gate@cref}{{[equation][11][]11}{[1][4][]4}{}{}{}}
+\@LN{266}{3}
+\@LN{267}{3}
+\@LN{268}{3}
+\@LN{269}{3}
+\@LN{270}{3}
+\@LN{271}{3}
+\@writefile{toc}{\contentsline {paragraph}{Soft prototype fallback.}{4}{section*.11}\protected@file@percent }
+\@LN{272}{3}
+\@LN{273}{3}
+\@LN{274}{3}
+\@LN{275}{3}
+\@LN{276}{3}
+\newlabel{eq:soft_fallback}{{12}{4}{Soft prototype fallback}{equation.12}{}}
+\newlabel{eq:soft_fallback@cref}{{[equation][12][]12}{[1][4][]4}{}{}{}}
+\@LN{277}{3}
+\@LN{278}{3}
+\@LN{279}{3}
+\@LN{280}{3}
+\@LN{281}{3}
+\@LN{282}{3}
+\@LN{283}{3}
+\@LN{284}{3}
+\@LN{285}{3}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5}\hskip -1em.~Prototype usage balancing}{4}{subsection.2.5}\protected@file@percent }
+\newlabel{sec:method_balance}{{2.5}{4}{\texorpdfstring {\hskip -1em.~}{}Prototype usage balancing}{subsection.2.5}{}}
+\newlabel{sec:method_balance@cref}{{[subsection][5][2]2.5}{[1][4][]4}{}{}{}}
+\@LN{286}{3}
+\@LN{287}{3}
+\@LN{288}{3}
+\@LN{289}{3}
+\@LN{290}{3}
+\newlabel{eq:balance}{{13}{4}{\texorpdfstring {\hskip -1em.~}{}Prototype usage balancing}{equation.13}{}}
+\newlabel{eq:balance@cref}{{[equation][13][]13}{[1][4][]4}{}{}{}}
+\@LN{291}{3}
+\@LN{292}{3}
+\@LN{293}{3}
+\@LN{294}{3}
+\@LN{295}{3}
+\@LN{296}{3}
+\@LN{297}{3}
+\def\@LN@column{2}
+\@LN{298}{3}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.6}\hskip -1em.~Discussion of design}{4}{subsection.2.6}\protected@file@percent }
+\newlabel{sec:method_design}{{2.6}{4}{\texorpdfstring {\hskip -1em.~}{}Discussion of design}{subsection.2.6}{}}
+\newlabel{sec:method_design@cref}{{[subsection][6][2]2.6}{[1][4][]4}{}{}{}}
+\@LN{299}{3}
+\@LN{300}{3}
+\@LN{301}{3}
+\@LN{302}{3}
+\@LN{303}{3}
+\@LN{304}{3}
+\@LN{305}{3}
+\@LN{306}{3}
+\@LN{307}{3}
+\@LN{308}{3}
+\@LN{309}{3}
+\@LN{310}{3}
+\@LN{311}{3}
+\@writefile{toc}{\contentsline {section}{\numberline {3}\hskip -1em.~Experiments}{4}{section.3}\protected@file@percent }
+\newlabel{sec:experiments}{{3}{4}{\texorpdfstring {\hskip -1em.~}{}Experiments}{section.3}{}}
+\newlabel{sec:experiments@cref}{{[section][3][]3}{[1][4][]4}{}{}{}}
+\@LN{312}{3}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}\hskip -1em.~Datasets and implementation details}{4}{subsection.3.1}\protected@file@percent }
+\newlabel{sec:exp_setup}{{3.1}{4}{\texorpdfstring {\hskip -1em.~}{}Datasets and implementation details}{subsection.3.1}{}}
+\newlabel{sec:exp_setup@cref}{{[subsection][1][3]3.1}{[1][4][]4}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Datasets and metrics.}{4}{section*.12}\protected@file@percent }
+\@LN{313}{3}
+\@LN{314}{3}
+\@writefile{brf}{\backcite{agustsson2017div2k}{{4}{3.1}{section*.12}}}
+\@LN{315}{3}
+\@LN{316}{3}
+\@LN{317}{3}
+\@LN{318}{3}
+\@LN{319}{3}
+\@LN{320}{3}
+\@LN{321}{3}
+\@writefile{toc}{\contentsline {paragraph}{Network configuration.}{4}{section*.13}\protected@file@percent }
+\@LN{322}{3}
+\@LN{323}{3}
+\@LN{324}{3}
+\@LN{325}{3}
+\@LN{326}{3}
+\@LN{327}{3}
+\@LN{328}{3}
+\@LN{329}{3}
+\@LN{330}{3}
+\@LN{331}{3}
+\@LN{332}{3}
+\@LN{333}{3}
+\@writefile{toc}{\contentsline {paragraph}{Training.}{4}{section*.14}\protected@file@percent }
+\@LN{334}{3}
+\@LN{335}{3}
+\@LN{336}{3}
+\@LN{337}{3}
+\@LN{338}{3}
+\@LN{339}{3}
+\@LN{340}{3}
+\@LN{341}{3}
+\@LN{342}{3}
+\@LN{343}{3}
+\@LN{344}{3}
+\@LN{345}{3}
+\citation{ahn2018carn}
+\citation{hui2019imdn}
+\citation{liu2020rfdn}
+\citation{kong2022rlfn}
+\citation{liang2021swinir}
+\citation{zhang2022elan}
+\citation{zhou2023srformer}
+\citation{liu2025catanet}
+\def\@LN@column{1}
+\@LN{346}{4}
+\@LN{347}{4}
+\@LN{348}{4}
+\@LN{349}{4}
+\@LN{350}{4}
+\@writefile{brf}{\backcite{wang2020basicsr}{{5}{3.1}{section*.14}}}
+\@LN{351}{4}
+\@LN{352}{4}
+\@LN{353}{4}
+\@LN{354}{4}
+\@writefile{toc}{\contentsline {paragraph}{Efficiency measurement.}{5}{section*.15}\protected@file@percent }
+\@LN{355}{4}
+\@LN{356}{4}
+\@LN{357}{4}
+\@LN{358}{4}
+\@LN{359}{4}
+\@LN{360}{4}
+\@LN{361}{4}
+\@LN{362}{4}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}\hskip -1em.~Comparison with state-of-the-art}{5}{subsection.3.2}\protected@file@percent }
+\newlabel{sec:main_comparison}{{3.2}{5}{\texorpdfstring {\hskip -1em.~}{}Comparison with state-of-the-art}{subsection.3.2}{}}
+\newlabel{sec:main_comparison@cref}{{[subsection][2][3]3.2}{[1][5][]5}{}{}{}}
+\@LN{363}{4}
+\@LN{364}{4}
+\@writefile{brf}{\backcite{ahn2018carn}{{5}{3.2}{subsection.3.2}}}
+\@writefile{brf}{\backcite{hui2019imdn}{{5}{3.2}{subsection.3.2}}}
+\@writefile{brf}{\backcite{liu2020rfdn}{{5}{3.2}{subsection.3.2}}}
+\@writefile{brf}{\backcite{kong2022rlfn}{{5}{3.2}{subsection.3.2}}}
+\@LN{365}{4}
+\@writefile{brf}{\backcite{liang2021swinir}{{5}{3.2}{subsection.3.2}}}
+\@LN{366}{4}
+\@writefile{brf}{\backcite{zhang2022elan}{{5}{3.2}{subsection.3.2}}}
+\@writefile{brf}{\backcite{zhou2023srformer}{{5}{3.2}{subsection.3.2}}}
+\@LN{367}{4}
+\@writefile{brf}{\backcite{liu2025catanet}{{5}{3.2}{subsection.3.2}}}
+\@LN{368}{4}
+\@LN{369}{4}
+\@LN{370}{4}
+\@LN{371}{4}
+\@writefile{toc}{\contentsline {paragraph}{Overall accuracy.}{5}{section*.16}\protected@file@percent }
+\@LN{372}{4}
+\@LN{373}{4}
+\@LN{374}{4}
+\@LN{375}{4}
+\@LN{376}{4}
+\@LN{377}{4}
+\@LN{378}{4}
+\@LN{379}{4}
+\@LN{380}{4}
+\@LN{381}{4}
+\@LN{382}{4}
+\@writefile{toc}{\contentsline {paragraph}{Comparison with CATANet.}{5}{section*.17}\protected@file@percent }
+\@LN{383}{4}
+\@LN{384}{4}
+\@LN{385}{4}
+\@LN{386}{4}
+\@LN{387}{4}
+\@LN{388}{4}
+\@LN{389}{4}
+\@LN{390}{4}
+\@LN{391}{4}
+\@LN{392}{4}
+\@LN{393}{4}
+\@LN{394}{4}
+\def\@LN@column{2}
+\@LN{395}{4}
+\@LN{396}{4}
+\@LN{397}{4}
+\@LN{398}{4}
+\@LN{399}{4}
+\@LN{400}{4}
+\@LN{401}{4}
+\@LN{402}{4}
+\@LN{403}{4}
+\@writefile{toc}{\contentsline {paragraph}{Efficiency.}{5}{section*.18}\protected@file@percent }
+\@LN{404}{4}
+\@LN{405}{4}
+\@LN{406}{4}
+\@LN{407}{4}
+\@LN{408}{4}
+\@LN{409}{4}
+\@LN{410}{4}
+\@LN{411}{4}
+\@LN{412}{4}
+\@LN{413}{4}
+\@LN{414}{4}
+\@LN{415}{4}
+\@LN{416}{4}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}\hskip -1em.~Model complexity and efficiency}{5}{subsection.3.3}\protected@file@percent }
+\newlabel{sec:efficiency}{{3.3}{5}{\texorpdfstring {\hskip -1em.~}{}Model complexity and efficiency}{subsection.3.3}{}}
+\newlabel{sec:efficiency@cref}{{[subsection][3][3]3.3}{[1][5][]5}{}{}{}}
+\@LN{417}{4}
+\@LN{418}{4}
+\@LN{419}{4}
+\@LN{420}{4}
+\@LN{421}{4}
+\@LN{422}{4}
+\@LN{423}{4}
+\@writefile{toc}{\contentsline {paragraph}{Parameters.}{5}{section*.22}\protected@file@percent }
+\@LN{424}{4}
+\@LN{425}{4}
+\@LN{426}{4}
+\@LN{427}{4}
+\@LN{428}{4}
+\@LN{429}{4}
+\@LN{430}{4}
+\@LN{431}{4}
+\@LN{432}{4}
+\@LN{433}{4}
+\@LN{434}{4}
+\@LN{435}{4}
+\@writefile{toc}{\contentsline {paragraph}{Computation.}{5}{section*.23}\protected@file@percent }
+\@LN{436}{4}
+\@LN{437}{4}
+\@LN{438}{4}
+\@LN{439}{4}
+\@LN{440}{4}
+\@LN{441}{4}
+\@LN{442}{4}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Quantitative comparison with state-of-the-art lightweight SR methods on five benchmarks (PSNR(dB)/SSIM on the Y channel). \textbf  {Best} and \underline  {second-best} results are highlighted. Competitor metrics are cited from the original papers (see notes). ``-'' denotes results not reported in the source.}}{6}{table.caption.19}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{tab:main_comparison}{{1}{6}{Quantitative comparison with state-of-the-art lightweight SR methods on five benchmarks (PSNR(dB)/SSIM on the Y channel). \textbf {Best} and \underline {second-best} results are highlighted. Competitor metrics are cited from the original papers (see notes). ``-'' denotes results not reported in the source}{table.caption.19}{}}
+\newlabel{tab:main_comparison@cref}{{[table][1][]1}{[1][5][]6}{}{}{}}
+\def\@LN@column{1}
+\@LN{443}{5}
+\@LN{444}{5}
+\@LN{445}{5}
+\@LN{446}{5}
+\@LN{447}{5}
+\@LN{448}{5}
+\@writefile{toc}{\contentsline {paragraph}{Per-scale behavior.}{6}{section*.24}\protected@file@percent }
+\@LN{449}{5}
+\@LN{450}{5}
+\def\@LN@column{2}
+\@LN{451}{5}
+\@LN{452}{5}
+\@LN{453}{5}
+\@LN{454}{5}
+\@LN{455}{5}
+\@LN{456}{5}
+\@writefile{toc}{\contentsline {paragraph}{Pending measurements.}{6}{section*.25}\protected@file@percent }
+\@LN{457}{5}
+\@LN{458}{5}
+\citation{liu2025catanet}
+\def\@LN@column{1}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Efficiency comparison on $\times 4$ SR. Multi-Adds are reported by thop (MACs); to compare against FLOPs-based papers, multiply by 2. ``-'' denotes values not yet collected under our protocol. Representative PSNR is on Urban100 ($\times 4$).}}{7}{table.caption.20}\protected@file@percent }
+\newlabel{tab:efficiency}{{2}{7}{Efficiency comparison on $\times 4$ SR. Multi-Adds are reported by thop (MACs); to compare against FLOPs-based papers, multiply by 2. ``-'' denotes values not yet collected under our protocol. Representative PSNR is on Urban100 ($\times 4$)}{table.caption.20}{}}
+\newlabel{tab:efficiency@cref}{{[table][2][]2}{[1][5][]7}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces DPRNet per-scale efficiency profile (measured). LR input derived from a fixed HR output $\approx $720$\times $1280; Multi-Adds are MACs (thop); latency averaged over 100 runs after 20 warmups on a single CUDA GPU.}}{7}{table.caption.21}\protected@file@percent }
+\newlabel{tab:efficiency_profile}{{3}{7}{DPRNet per-scale efficiency profile (measured). LR input derived from a fixed HR output $\approx $720$\times $1280; Multi-Adds are MACs (thop); latency averaged over 100 runs after 20 warmups on a single CUDA GPU}{table.caption.21}{}}
+\newlabel{tab:efficiency_profile@cref}{{[table][3][]3}{[1][5][]7}{}{}{}}
+\@LN{459}{6}
+\@LN{460}{6}
+\@LN{461}{6}
+\@LN{462}{6}
+\@LN{463}{6}
+\@LN{464}{6}
+\@LN{465}{6}
+\@LN{466}{6}
+\@LN{467}{6}
+\@LN{468}{6}
+\@LN{469}{6}
+\@LN{470}{6}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}\hskip -1em.~Ablation study}{7}{subsection.3.4}\protected@file@percent }
+\newlabel{sec:ablation}{{3.4}{7}{\texorpdfstring {\hskip -1em.~}{}Ablation study}{subsection.3.4}{}}
+\newlabel{sec:ablation@cref}{{[subsection][4][3]3.4}{[1][7][]7}{}{}{}}
+\@LN{471}{6}
+\@LN{472}{6}
+\@writefile{brf}{\backcite{liu2025catanet}{{7}{3.4}{subsection.3.4}}}
+\@LN{473}{6}
+\@LN{474}{6}
+\@LN{475}{6}
+\@LN{476}{6}
+\@LN{477}{6}
+\@LN{478}{6}
+\def\@LN@column{2}
+\@LN{479}{6}
+\@LN{480}{6}
+\@LN{481}{6}
+\@LN{482}{6}
+\@LN{483}{6}
+\@LN{484}{6}
+\@writefile{toc}{\contentsline {paragraph}{Protocol caveat.}{7}{section*.26}\protected@file@percent }
+\@LN{485}{6}
+\@LN{486}{6}
+\@LN{487}{6}
+\@LN{488}{6}
+\@LN{489}{6}
+\@LN{490}{6}
+\@LN{491}{6}
+\@LN{492}{6}
+\@LN{493}{6}
+\@LN{494}{6}
+\@LN{495}{6}
+\@LN{496}{6}
+\@LN{497}{6}
+\@LN{498}{6}
+\@LN{499}{6}
+\@LN{500}{6}
+\@LN{501}{6}
+\@LN{502}{6}
+\@LN{503}{6}
+\@LN{504}{6}
+\@writefile{toc}{\contentsline {paragraph}{A1: decoupled prototype confirmation.}{7}{section*.27}\protected@file@percent }
+\@LN{505}{6}
+\@LN{506}{6}
+\@LN{507}{6}
+\@LN{508}{6}
+\@LN{509}{6}
+\@LN{510}{6}
+\@LN{511}{6}
+\@LN{512}{6}
+\@LN{513}{6}
+\@LN{514}{6}
+\@LN{515}{6}
+\@LN{516}{6}
+\@LN{517}{6}
+\@LN{518}{6}
+\@LN{519}{6}
+\@writefile{toc}{\contentsline {paragraph}{A2: confidence-aware routing.}{7}{section*.28}\protected@file@percent }
+\@LN{520}{6}
+\@LN{521}{6}
+\@LN{522}{6}
+\@LN{523}{6}
+\@LN{524}{6}
+\@LN{525}{6}
+\@LN{526}{6}
+\@LN{527}{6}
+\@LN{528}{6}
+\def\@LN@column{1}
+\@LN{529}{7}
+\@LN{530}{7}
+\@LN{531}{7}
+\@LN{532}{7}
+\@LN{533}{7}
+\@LN{534}{7}
+\@LN{535}{7}
+\@LN{536}{7}
+\@LN{537}{7}
+\@writefile{toc}{\contentsline {paragraph}{A3: prototype usage balancing.}{8}{section*.29}\protected@file@percent }
+\@LN{538}{7}
+\@LN{539}{7}
+\@LN{540}{7}
+\@LN{541}{7}
+\@LN{542}{7}
+\@LN{543}{7}
+\@LN{544}{7}
+\@LN{545}{7}
+\@LN{546}{7}
+\@LN{547}{7}
+\@LN{548}{7}
+\@LN{549}{7}
+\@LN{550}{7}
+\@LN{551}{7}
+\@LN{552}{7}
+\@LN{553}{7}
+\@LN{554}{7}
+\@LN{555}{7}
+\@LN{556}{7}
+\@writefile{toc}{\contentsline {paragraph}{Summary.}{8}{section*.30}\protected@file@percent }
+\@LN{557}{7}
+\@LN{558}{7}
+\@LN{559}{7}
+\@LN{560}{7}
+\@LN{561}{7}
+\@LN{562}{7}
+\@LN{563}{7}
+\@LN{564}{7}
+\@LN{565}{7}
+\@LN{566}{7}
+\@LN{567}{7}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5}\hskip -1em.~Routing interpretability analysis}{8}{subsection.3.5}\protected@file@percent }
+\newlabel{sec:routing_analysis}{{3.5}{8}{\texorpdfstring {\hskip -1em.~}{}Routing interpretability analysis}{subsection.3.5}{}}
+\newlabel{sec:routing_analysis@cref}{{[subsection][5][3]3.5}{[1][8][]8}{}{}{}}
+\@LN{568}{7}
+\@LN{569}{7}
+\@LN{570}{7}
+\@LN{571}{7}
+\@LN{572}{7}
+\@LN{573}{7}
+\@LN{574}{7}
+\@LN{575}{7}
+\@LN{576}{7}
+\def\@LN@column{2}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Ablation A1 ($\times 4$): prototype query refine. PSNR(dB)/SSIM (Y channel) at iter 80k and block-averaged normalized prototype-usage entropy on Urban100. Enabling refine gives the better reconstruction on both benchmarks under the short finetune protocol; it is retained as it improves (and does not degrade) quality while keeping slot assignment stable.}}{8}{table.caption.31}\protected@file@percent }
+\newlabel{tab:abl_a1}{{4}{8}{Ablation A1 ($\times 4$): prototype query refine. PSNR(dB)/SSIM (Y channel) at iter 80k and block-averaged normalized prototype-usage entropy on Urban100. Enabling refine gives the better reconstruction on both benchmarks under the short finetune protocol; it is retained as it improves (and does not degrade) quality while keeping slot assignment stable}{table.caption.31}{}}
+\newlabel{tab:abl_a1@cref}{{[table][4][]4}{[1][8][]8}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Ablation A2 ($\times 4$): incremental confidence-aware routing components. PSNR(dB)/SSIM (Y channel) at iter 80k. The full configuration (v4) attains the best reconstruction, but the intermediate steps are not monotone; under the short finetune protocol the components are mutually compatible and quality-preserving rather than individually accuracy-additive.}}{8}{table.caption.32}\protected@file@percent }
+\newlabel{tab:abl_a2}{{5}{8}{Ablation A2 ($\times 4$): incremental confidence-aware routing components. PSNR(dB)/SSIM (Y channel) at iter 80k. The full configuration (v4) attains the best reconstruction, but the intermediate steps are not monotone; under the short finetune protocol the components are mutually compatible and quality-preserving rather than individually accuracy-additive}{table.caption.32}{}}
+\newlabel{tab:abl_a2@cref}{{[table][5][]5}{[1][8][]8}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Balanced prototype usage (C4).}{8}{section*.34}\protected@file@percent }
+\@LN{577}{7}
+\@LN{578}{7}
+\@LN{579}{7}
+\@LN{580}{7}
+\@LN{581}{7}
+\@LN{582}{7}
+\@LN{583}{7}
+\@LN{584}{7}
+\@LN{585}{7}
+\@LN{586}{7}
+\@LN{587}{7}
+\@LN{588}{7}
+\def\@LN@column{1}
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Ablation A3 ($\times 4$): prototype balance loss. Block-averaged normalized prototype-usage entropy on Urban100 (higher $=$ more balanced usage) and reconstruction quality at iter 80k. The balance loss yields consistently higher usage entropy across all eight TAB blocks while also slightly improving reconstruction quality.}}{9}{table.caption.33}\protected@file@percent }
+\newlabel{tab:abl_a3}{{6}{9}{Ablation A3 ($\times 4$): prototype balance loss. Block-averaged normalized prototype-usage entropy on Urban100 (higher $=$ more balanced usage) and reconstruction quality at iter 80k. The balance loss yields consistently higher usage entropy across all eight TAB blocks while also slightly improving reconstruction quality}{table.caption.33}{}}
+\newlabel{tab:abl_a3@cref}{{[table][6][]6}{[1][8][]9}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Per-block normalized prototype-usage entropy (Urban100, iter 80k). The balance loss increases usage entropy in every TAB block ($b_0$--$b_7$).}}{9}{table.caption.33}\protected@file@percent }
+\newlabel{tab:abl_a3_perblock}{{7}{9}{Per-block normalized prototype-usage entropy (Urban100, iter 80k). The balance loss increases usage entropy in every TAB block ($b_0$--$b_7$)}{table.caption.33}{}}
+\newlabel{tab:abl_a3_perblock@cref}{{[table][7][]7}{[1][8][]9}{}{}{}}
+\@LN{589}{8}
+\@LN{590}{8}
+\@writefile{toc}{\contentsline {paragraph}{Bounded routing temperature (C4).}{9}{section*.35}\protected@file@percent }
+\@LN{591}{8}
+\@LN{592}{8}
+\@LN{593}{8}
+\@LN{594}{8}
+\@LN{595}{8}
+\@LN{596}{8}
+\@LN{597}{8}
+\@LN{598}{8}
+\@LN{599}{8}
+\@writefile{toc}{\contentsline {paragraph}{Confidence-aware routing signal (C3).}{9}{section*.36}\protected@file@percent }
+\@LN{600}{8}
+\@LN{601}{8}
+\@LN{602}{8}
+\@LN{603}{8}
+\@LN{604}{8}
+\@LN{605}{8}
+\@LN{606}{8}
+\@LN{607}{8}
+\@LN{608}{8}
+\@LN{609}{8}
+\@LN{610}{8}
+\@LN{611}{8}
+\@LN{612}{8}
+\@LN{613}{8}
+\@LN{614}{8}
+\def\@LN@column{2}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Normalized prototype-usage entropy $\mathcal  {H}(u)$ (Eq.~\eqref  {eq:balance}; higher $=$ more balanced) per TAB block ($b_0$--$b_7$) at $\times 4$, iter $80$k on Urban100. The usage-balancing regularizer increases the entropy in \emph  {all eight} blocks (block-mean $0.6227\!\rightarrow \!0.6865$), confirming that it counteracts the collapse onto a few prototypes encouraged by the learnable temperature (C4).}}{9}{figure.caption.38}\protected@file@percent }
+\newlabel{fig:usage_entropy}{{1}{9}{Normalized prototype-usage entropy $\mathcal {H}(u)$ (Eq.~\eqref {eq:balance}; higher $=$ more balanced) per TAB block ($b_0$--$b_7$) at $\times 4$, iter $80$k on Urban100. The usage-balancing regularizer increases the entropy in \emph {all eight} blocks (block-mean $0.6227\!\rightarrow \!0.6865$), confirming that it counteracts the collapse onto a few prototypes encouraged by the learnable temperature (C4)}{figure.caption.38}{}}
+\newlabel{fig:usage_entropy@cref}{{[figure][1][]1}{[1][9][]9}{}{}{}}
+\@LN{615}{8}
+\@LN{616}{8}
+\@LN{617}{8}
+\@LN{618}{8}
+\@writefile{toc}{\contentsline {paragraph}{Summary.}{9}{section*.37}\protected@file@percent }
+\@LN{619}{8}
+\@LN{620}{8}
+\@LN{621}{8}
+\@LN{622}{8}
+\@LN{623}{8}
+\@LN{624}{8}
+\@LN{625}{8}
+\@LN{626}{8}
+\@LN{627}{8}
+\@LN{628}{8}
+\@writefile{toc}{\contentsline {section}{\numberline {4}\hskip -1em.~Discussion}{9}{section.4}\protected@file@percent }
+\newlabel{sec:discussion}{{4}{9}{\texorpdfstring {\hskip -1em.~}{}Discussion}{section.4}{}}
+\newlabel{sec:discussion@cref}{{[section][4][]4}{[1][9][]9}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Content routing vs.\ spatial locality.}{9}{section*.39}\protected@file@percent }
+\@LN{629}{8}
+\@LN{630}{8}
+\@LN{631}{8}
+\@LN{632}{8}
+\@LN{633}{8}
+\@LN{634}{8}
+\@LN{635}{8}
+\@LN{636}{8}
+\@LN{637}{8}
+\@LN{638}{8}
+\@LN{639}{8}
+\@LN{640}{8}
+\@LN{641}{8}
+\@LN{642}{8}
+\@LN{643}{8}
+\@LN{644}{8}
+\bibstyle{ieeenat_fullname}
+\bibdata{references}
+\bibcite{agustsson2017div2k}{{1}{2017}{{Agustsson and Timofte}}{{}}}
+\bibcite{ahn2018carn}{{2}{2018}{{Ahn et~al.}}{{Ahn, Kang, and Sohn}}}
+\bibcite{dong2014srcnn}{{3}{2014}{{Dong et~al.}}{{Dong, Loy, He, and Tang}}}
+\bibcite{hui2019imdn}{{4}{2019}{{Hui et~al.}}{{Hui, Gao, Yang, and Wang}}}
+\bibcite{kong2022rlfn}{{5}{2022}{{Kong et~al.}}{{Kong, Li, Liu, Liu, He, Bai, Chen, and Fu}}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {paragraph}{The risk of over-strong routing.}{10}{section*.40}\protected@file@percent }
+\@LN{645}{9}
+\@LN{646}{9}
+\@LN{647}{9}
+\@LN{648}{9}
+\@LN{649}{9}
+\@LN{650}{9}
+\@LN{651}{9}
+\@LN{652}{9}
+\@LN{653}{9}
+\@LN{654}{9}
+\@LN{655}{9}
+\@LN{656}{9}
+\@LN{657}{9}
+\@LN{658}{9}
+\@LN{659}{9}
+\@LN{660}{9}
+\@writefile{toc}{\contentsline {paragraph}{Prototype count and the cost trade-off.}{10}{section*.41}\protected@file@percent }
+\@LN{661}{9}
+\@LN{662}{9}
+\@LN{663}{9}
+\@LN{664}{9}
+\@LN{665}{9}
+\@LN{666}{9}
+\@LN{667}{9}
+\@LN{668}{9}
+\@LN{669}{9}
+\@LN{670}{9}
+\@LN{671}{9}
+\@LN{672}{9}
+\@LN{673}{9}
+\@LN{674}{9}
+\@LN{675}{9}
+\@LN{676}{9}
+\@writefile{toc}{\contentsline {paragraph}{Limitations.}{10}{section*.42}\protected@file@percent }
+\@LN{677}{9}
+\@LN{678}{9}
+\@LN{679}{9}
+\@LN{680}{9}
+\@LN{681}{9}
+\@LN{682}{9}
+\@LN{683}{9}
+\@LN{684}{9}
+\@LN{685}{9}
+\@LN{686}{9}
+\@LN{687}{9}
+\@LN{688}{9}
+\@LN{689}{9}
+\@LN{690}{9}
+\@LN{691}{9}
+\@LN{692}{9}
+\@LN{693}{9}
+\@LN{694}{9}
+\@LN{695}{9}
+\def\@LN@column{2}
+\@LN{696}{9}
+\@LN{697}{9}
+\@LN{698}{9}
+\@LN{699}{9}
+\@LN{700}{9}
+\@writefile{toc}{\contentsline {section}{\numberline {5}\hskip -1em.~Conclusion}{10}{section.5}\protected@file@percent }
+\newlabel{sec:conclusion}{{5}{10}{\texorpdfstring {\hskip -1em.~}{}Conclusion}{section.5}{}}
+\newlabel{sec:conclusion@cref}{{[section][5][]5}{[1][10][]10}{}{}{}}
+\@LN{701}{9}
+\@LN{702}{9}
+\@LN{703}{9}
+\@LN{704}{9}
+\@LN{705}{9}
+\@LN{706}{9}
+\@LN{707}{9}
+\@LN{708}{9}
+\@LN{709}{9}
+\@LN{710}{9}
+\@LN{711}{9}
+\@LN{712}{9}
+\@LN{713}{9}
+\@LN{714}{9}
+\@LN{715}{9}
+\@LN{716}{9}
+\@LN{717}{9}
+\@LN{718}{9}
+\@LN{719}{9}
+\@LN{720}{9}
+\@LN{721}{9}
+\@LN{722}{9}
+\@LN{723}{9}
+\@LN{724}{9}
+\@LN{725}{9}
+\@LN{726}{9}
+\@LN{727}{9}
+\@LN{728}{9}
+\@LN{729}{9}
+\@LN{730}{9}
+\@LN{731}{9}
+\@LN{732}{9}
+\@LN{733}{9}
+\@LN{734}{9}
+\@LN{735}{9}
+\@LN{736}{9}
+\@LN{737}{9}
+\@LN{738}{9}
+\@LN{739}{9}
+\@LN{740}{9}
+\@LN{741}{9}
+\@LN{742}{9}
+\@LN{743}{9}
+\@LN{744}{9}
+\@LN{745}{9}
+\@LN{746}{9}
+\bibcite{liang2021swinir}{{6}{2021}{{Liang et~al.}}{{Liang, Cao, Sun, Zhang, Van~Gool, and Timofte}}}
+\bibcite{lim2017edsr}{{7}{2017}{{Lim et~al.}}{{Lim, Son, Kim, Nah, and Lee}}}
+\bibcite{liu2020rfdn}{{8}{2020}{{Liu et~al.}}{{Liu, Tang, and Wu}}}
+\bibcite{liu2025catanet}{{9}{2025}{{Liu et~al.}}{{Liu, Liu, Tang, and Wu}}}
+\bibcite{wang2020basicsr}{{10}{2020}{{Wang et~al.}}{{Wang, Xie, Yu, Chan, Loy, and Dong}}}
+\bibcite{zhang2024spin}{{11}{2023}{{Zhang et~al.}}{{Zhang, Ren, Liu, and Cao}}}
+\bibcite{zhang2024atd}{{12}{2024}{{Zhang et~al.}}{{Zhang, Li, Zhou, Zhao, and Gu}}}
+\bibcite{zhang2022elan}{{13}{2022}{{Zhang et~al.}}{{Zhang, Zeng, Guo, and Zhang}}}
+\bibcite{zhou2023srformer}{{14}{2023}{{Zhou et~al.}}{{Zhou, Li, Guo, Bai, Cheng, and Hou}}}
+\def\@LN@column{1}
+\@LN{747}{10}
+\@LN{748}{10}
+\@LN{749}{10}
+\@LN{750}{10}
+\@LN{751}{10}
+\@LN{752}{10}
+\@LN{753}{10}
+\@LN{754}{10}
+\@LN{755}{10}
+\@LN{756}{10}
+\@LN{757}{10}
+\@LN{758}{10}
+\@LN{759}{10}
+\@LN{760}{10}
+\@LN{761}{10}
+\@LN{762}{10}
+\@LN{763}{10}
+\@LN{764}{10}
+\@LN{765}{10}
+\@LN{766}{10}
+\@LN{767}{10}
+\@LN{768}{10}
+\@LN{769}{10}
+\@LN{770}{10}
+\@LN{771}{10}
+\@LN{772}{10}
+\@LN{773}{10}
+\@LN{774}{10}
+\@LN{775}{10}
+\@LN{776}{10}
+\@LN{777}{10}
+\@LN{778}{10}
+\@LN{779}{10}
+\@LN{780}{10}
+\@LN{781}{10}
+\@LN{782}{10}
+\@LN{783}{10}
+\@LN{784}{10}
+\@LN{785}{10}
+\@LN{786}{10}
+\@LN{787}{10}
+\@LN{788}{10}
+\@LN{789}{10}
+\@LN{790}{10}
+\@LN{791}{10}
+\@LN{792}{10}
+\@LN{793}{10}
+\@LN{794}{10}
+\@LN{795}{10}
+\@LN{796}{10}
+\@LN{797}{10}
+\def\@LN@column{2}
+\gdef \@abspage@last{11}

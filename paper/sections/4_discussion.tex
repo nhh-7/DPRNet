@@ -1,0 +1,70 @@
+% =====================================================================
+% Section: Discussion  (outline.md §4)
+% Draft v1 (2026-06-27). Discusses the applicability boundary of content routing,
+%   the risk of over-strong routing, prototype-count trade-off, and limitations.
+% Consistent with the honest framing of the experiments:
+%   - DPRNet matches/slightly surpasses CATANet at comparable compute
+%     (3_experiments_comparison.tex, 3_experiments_efficiency.tex).
+%   - Ablation is a shared-init, short-budget, single-seed study; no isolated-gain
+%     or variance-reduction claims (3_experiments_ablation.tex,
+%     method-experiment-traceability.md "消融实验的已知局限").
+%   - Some figures (x^s histogram, cluster maps, visual comparison) are camera-ready.
+% No new numeric claims beyond those already established in the body.
+% =====================================================================
+\section{Discussion}
+\label{sec:discussion}
+
+\paragraph{Content routing vs.\ spatial locality.}
+The benchmark results in Sec.~\ref{sec:main_comparison} indicate where content-aware
+routing helps most. On Urban100 and Manga109---images dominated by repetitive structures
+and long-range self-similarity---DPRNet and CATANet, the two routing methods, clearly
+separate from the window- and distillation-based baselines, whereas on the more
+stochastic textures of BSD100 the margin between all top-tier methods narrows. This is
+consistent with the premise of content routing: grouping tokens by semantics is most
+beneficial when semantically related content is spatially scattered, and less so when
+local statistics already capture the signal. DPR does not discard spatial locality but
+complements it, since each TAB is paired with a local self-attention unit
+(Sec.~\ref{sec:method_overview}); the routing module supplies the long-range, content-based
+interaction that a fixed spatial window cannot.
+
+\paragraph{The risk of over-strong routing.}
+A confidence-aware router can, in principle, sharpen its assignments until tokens collapse
+onto a few prototypes, which would defeat the purpose of routing and destabilize training.
+Two components of DPR are explicitly designed against this failure mode: the routing
+temperature is clamped (Eq.~\eqref{eq:scores}) and the usage-balancing regularizer
+(Eq.~\eqref{eq:balance}) penalizes peaky usage distributions. The diagnostics in
+Sec.~\ref{sec:routing_analysis} show both mechanisms operating as intended---the learned
+temperature settles in a moderate, unsaturated range (block-mean $6.06$, below the clamp
+of $10$) and the balancing regularizer raises the prototype-usage entropy in all eight
+blocks ($0.6227\!\rightarrow\!0.6865$) while increasing the number of active prototypes.
+In other words, the gains of confidence-aware routing are obtained without letting the
+router become degenerate.
+
+\paragraph{Prototype count and the cost trade-off.}
+DPR uses a per-block prototype budget $M=[16,32,64,128,16,32,64,128]$, growing within
+each stage. More prototypes give the router a finer content vocabulary but enlarge the
+query bank and the matching cost, while too few prototypes force unrelated tokens to
+share a slot. We keep the prototype schedule aligned with the CATANet backbone so that
+the comparison isolates the routing mechanism rather than a capacity change; this is also
+why DPRNet carries a modestly higher parameter count than CATANet ($660$K vs.\ $535$K at
+$\times4$) yet a slightly \emph{lower} Multi-Adds ($45.77$\,G vs.\ $46.8$\,G), as the added
+parameters live in the query bank and projections rather than in the dominant attention
+cost (Sec.~\ref{sec:efficiency}). A systematic sweep of the prototype schedule is a
+natural extension but is orthogonal to the routing formulation studied here.
+
+\paragraph{Limitations.}
+Several limitations bound the present study and frame our claims conservatively. First,
+the ablations (Sec.~\ref{sec:ablation}) finetune every variant from the same converged
+full-model checkpoint under a short $80$k-iteration, single-seed budget; this isolates
+whether each design element is quality-neutral-to-mildly-positive and mutually compatible,
+but it cannot attribute an isolated PSNR gain to any single switch, and the seed-variance
+component of C4 is therefore left as future work rather than asserted. A fully separated
+attribution would require retraining each variant from a switch-neutral initialization at
+the CATANet $\times4$ from-scratch budget. Second, the motivation for dynamic, per-image
+prototypes over cross-batch EMA centers (C1) is supported indirectly through the published
+CATANet results rather than through a re-implemented EMA branch. Third, the unified
+efficiency comparison is incomplete: competitor Multi-Adds and latency are not yet measured
+under a single protocol, and the corresponding cells are left blank rather than filled from
+inconsistent sources (Sec.~\ref{sec:efficiency}). Finally, models are trained on DIV2K only;
+larger training sets (e.g.\ DF2K) and real-world or arbitrary-scale degradations are not
+explored here and may further shift the trade-off.
