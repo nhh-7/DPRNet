@@ -78,8 +78,8 @@ temperature, and propagates an explicit per-token confidence through ordering, g
 and a soft fallback; a usage-balancing regularizer keeps prototype use spread out. The
 resulting network, DPRNet, is trained on DIV2K and evaluated on five standard benchmarks
 at \texorpdfstring{$\times2/\times3/\times4$}{x2/x3/x4}. DPRNet matches or slightly surpasses the strongest
-content-routing baseline across benchmarks at a comparable parameter and computation
-budget (e.g.\ \texorpdfstring{$26.89$\,dB}{26.89 dB} on Urban100 at
+content-routing baseline across benchmarks with a comparable lightweight cost profile
+(e.g.\ \texorpdfstring{$26.89$\,dB}{26.89 dB} on Urban100 at
 \texorpdfstring{$\times4$}{x4} with \texorpdfstring{$52.14$\,G}{52.14 G} Multi-Adds, fewer
 than the lightweight Transformer baselines SwinIR-light and SRFormer-light), while
 exposing an interpretable, confidence-aware routing mechanism whose prototype usage is

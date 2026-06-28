@@ -78,9 +78,9 @@ component of C4 is therefore left as future work rather than asserted. A fully s
 attribution would require retraining each variant from a switch-neutral initialization at
 the CATANet $\times4$ from-scratch budget. Second, the motivation for dynamic, per-image
 prototypes over cross-batch EMA centers (C1) is supported indirectly through the published
-CATANet results rather than through a re-implemented EMA branch. Third, the unified
-efficiency comparison is incomplete: competitor Multi-Adds and latency are not yet measured
-under a single protocol, and the corresponding cells are left blank rather than filled from
-inconsistent sources (Sec.~\ref{sec:efficiency}). Finally, models are trained on DIV2K only;
-larger training sets (e.g.\ DF2K) and real-world or arbitrary-scale degradations are not
-explored here and may further shift the trade-off.
+CATANet results rather than through a re-implemented EMA branch. Third, the efficiency
+comparison is intentionally limited to common-protocol MACs and our measured DPRNet runtime:
+we do not claim cross-method latency because the competing models were not remeasured on the
+same hardware and implementation stack (Sec.~\ref{sec:efficiency}). Finally, models are
+trained on DIV2K only; larger training sets (e.g.\ DF2K) and real-world or arbitrary-scale
+degradations are not explored here and may further shift the trade-off.

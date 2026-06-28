@@ -62,15 +62,15 @@ Lim, B.; Son, S.; Kim, H.; Nah, S.; Lee, K.M.
 
 \bibitem[Wang et~al.(2021)Wang, Chen, and Hoi]{wang2021survey}
 Wang, Z.; Chen, J.; Hoi, S.C.H.
-\newblock A Comprehensive Review of Deep Learning-Based Single Image Super-Resolution.
+\newblock Deep Learning Algorithms for Single Image Super-Resolution: A Systematic Review.
 \newblock {\em Electronics} {\bf 2021}, {\em 10},~867.
 \newblock {\url{https://doi.org/10.3390/electronics10070867}}.
 
 \bibitem[Dong et~al.(2016)Dong, Loy, and Tang]{dong2016fsrcnn}
 Dong, C.; Loy, C.C.; Tang, X.
 \newblock Accelerating the Super-Resolution Convolutional Neural Network.
-\newblock In Proceedings of the European Conference on Computer Vision (ECCV),  2016, pp. 375--390.
-\newblock arXiv:1608.00367, {\url{https://doi.org/10.1007/978-3-319-46475-6_24}}.
+\newblock In Proceedings of the European Conference on Computer Vision (ECCV),  2016, pp. 391--407.
+\newblock arXiv:1608.00367, {\url{https://doi.org/10.1007/978-3-319-46475-6_25}}.
 
 \bibitem[Shi et~al.(2016)Shi, Caballero, Huszar, Totz, Aitken, Bishop, Rueckert, and Wang]{shi2016espcn}
 Shi, W.; Caballero, J.; Huszar, F.; Totz, J.; Aitken, A.P.; Bishop, R.; Rueckert, D.; Wang, Z.
@@ -240,10 +240,10 @@ Bevilacqua, M.; Roumy, A.; Guillemot, C.; Alberi-Morel, M.L.
 \newblock In Proceedings of the British Machine Vision Conference (BMVC),  2012, pp. 135.1--135.10.
 \newblock {\url{https://doi.org/10.5244/C.26.135}}.
 
-\bibitem[Zeyde et~al.(2010)Zeyde, Elad, and Protter]{zeyde2010set14}
+\bibitem[Zeyde et~al.(2012)Zeyde, Elad, and Protter]{zeyde2010set14}
 Zeyde, R.; Elad, M.; Protter, M.
 \newblock On Single Image Scale-Up Using Sparse-Representations.
-\newblock In Proceedings of the International Conference on Curves and Surfaces,  2010, pp. 711--730.
+\newblock In Proceedings of the International Conference on Curves and Surfaces,  2012, pp. 711--730.
 \newblock {\url{https://doi.org/10.1007/978-3-642-27413-8_47}}.
 
 \bibitem[Martin et~al.(2001)Martin, Fowlkes, Tal, and Malik]{martin2001bsd100}

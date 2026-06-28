@@ -1,0 +1,24 @@
+## Task Packet
+
+- Scope: Audit manuscript-facing LaTeX sources for leftover TODO markers, placeholders, internal process notes, and unresolved scientific-boundary statements.
+- Stage: S5 Review.
+- Files to read:
+  - `paper/main_mdpi.tex`
+  - `paper/sections/*.tex`
+  - `paper/tables/*.tex`
+  - `paper/figures/*.tex`
+  - `paper/references.bib`
+  - `paper/main_mdpi.bbl`
+- Files allowed to edit:
+  - `paper/plan/progress.md`
+- Required skills: using-research-writing, paper-orchestration, peer-review, verification.
+- Required artifacts:
+  - A concise audit result in the conversation.
+  - Capability-use audit in `paper/plan/progress.md`.
+- Rejection checks:
+  - Do not treat planning files as manuscript content.
+  - Do not flag legitimate scientific limitations merely because they contain words like "future work" or "cannot".
+  - Flag any manuscript-visible TODO/FIXME/placeholder/internal-process wording.
+- Validation commands:
+  - `rg` scans over manuscript-facing sources.
+  - PDF/BibTeX log scan for unresolved references and warning-like leftovers.

@@ -1,0 +1,35 @@
+## Task Packet
+
+- Scope: Resolve the Table 2 efficiency-comparison gap and perform a per-reference DOI/metadata verification pass.
+- Stage: S5 Review + S3 Experiments + S1 Evidence.
+- Files to read:
+  - `paper/tables/table2_efficiency.tex`
+  - `paper/sections/3_experiments_comparison.tex`
+  - `paper/sections/3_experiments_efficiency.tex`
+  - `paper/sections/4_discussion.tex`
+  - `paper/references.bib`
+  - `paper/plan/review/reference-final-verification.md`
+- Files allowed to edit:
+  - `paper/tables/table2_efficiency.tex`
+  - `paper/sections/3_experiments_comparison.tex`
+  - `paper/sections/3_experiments_efficiency.tex`
+  - `paper/sections/4_discussion.tex`
+  - `paper/references.bib`
+  - `paper/plan/review/reference-doi-audit-2026-06-28.md`
+  - `paper/plan/progress.md`
+- Required skills: using-research-writing, paper-orchestration, literature-review, verification, latex-output.
+- Required artifacts:
+  - A manuscript revision that avoids a visibly incomplete Table 2.
+  - A per-reference DOI/metadata audit report with verified/fixed/risk status.
+  - A rebuilt PDF and clean LaTeX/BibTeX logs.
+- Rejection checks:
+  - Do not invent missing competitor MACs or latency.
+  - Do not mix hardware-dependent latency from different papers in one numeric comparison.
+  - Do not claim a compute advantage over CATANet.
+  - Do not fabricate DOI values; unresolved references must be flagged instead.
+  - Keep all cite keys stable unless a source is intentionally replaced.
+- Validation commands:
+  - CrossRef/DOI API checks for all DOI-bearing references.
+  - `rg -n "not yet available|left blank|Remaining competitors|Proceedings of the Proceedings|budget unchanged|lightweight budget unchanged" paper`
+  - TinyTeX full build: `pdflatex -> bibtex -> pdflatex -> pdflatex`.
+  - `rg -n "Warning|Overfull|Underfull|undefined references|Citation .* undefined|Reference .* undefined|! LaTeX Error|Emergency stop" paper/main_mdpi.log paper/main_mdpi.blg`

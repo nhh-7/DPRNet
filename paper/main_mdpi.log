@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.6.26)  28 JUN 2026 19:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.6.26)  28 JUN 2026 20:05
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1231,123 +1231,123 @@ LaTeX Font Info:    Font shape `U/msa/m/n' will be
 (Font)              scaled to size 9.37807pt on input line 127.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
 (Font)              scaled to size 9.37807pt on input line 127.
-) (./figures/fig2_dpr.tex) [6] (./sections/3_experiments_setup.tex [7]) (./sections/3_experiments_comparison.tex [8]) (./tables/table1_main_comparison.tex) (./tables/table2_efficiency.tex) (./sections/3_experiments_efficiency.tex [9] [10]) (./figures/fig3_psnr_params.tex) [11] (./sections/3_experiments_visual.tex) (./figures/fig7_visual.tex
-<figures/fig7_assets/Urban100_img_092_GT_full_box.png, id=370, 1027.84pt x 694.595pt>
+) (./figures/fig2_dpr.tex) [6] (./sections/3_experiments_setup.tex [7]) (./sections/3_experiments_comparison.tex [8]) (./tables/table1_main_comparison.tex) (./tables/table2_efficiency.tex) (./sections/3_experiments_efficiency.tex [9] [10]) (./figures/fig3_psnr_params.tex) (./sections/3_experiments_visual.tex [11]) (./figures/fig7_visual.tex
+<figures/fig7_assets/Urban100_img_092_GT_full_box.png, id=373, 1027.84pt x 694.595pt>
 File: figures/fig7_assets/Urban100_img_092_GT_full_box.png Graphic file (type png)
 <use figures/fig7_assets/Urban100_img_092_GT_full_box.png>
 Package pdftex.def Info: figures/fig7_assets/Urban100_img_092_GT_full_box.png  used on input line 66.
 (pdftex.def)             Requested size: 88.81596pt x 60.03026pt.
-<figures/fig7_assets/Urban100_img_024_GT_full_box.png, id=371, 1027.84pt x 662.475pt>
+<figures/fig7_assets/Urban100_img_024_GT_full_box.png, id=374, 1027.84pt x 662.475pt>
 File: figures/fig7_assets/Urban100_img_024_GT_full_box.png Graphic file (type png)
 <use figures/fig7_assets/Urban100_img_024_GT_full_box.png>
 Package pdftex.def Info: figures/fig7_assets/Urban100_img_024_GT_full_box.png  used on input line 67.
 (pdftex.def)             Requested size: 93.12895pt x 60.03026pt.
-<figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_full_box.png, id=372, 827.09pt x 1172.38pt>
+<figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_full_box.png, id=375, 827.09pt x 1172.38pt>
 File: figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_full_box.png Graphic file (type png)
 <use figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_full_box.png>
 Package pdftex.def Info: figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_full_box.png  used on input line 68.
 (pdftex.def)             Requested size: 42.34131pt x 60.03026pt.
-<figures/fig7_assets/Urban100_img_092_Bicubic_crop.png, id=373, 289.08pt x 289.08pt>
+<figures/fig7_assets/Urban100_img_092_Bicubic_crop.png, id=376, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Urban100_img_092_Bicubic_crop.png Graphic file (type png)
 <use figures/fig7_assets/Urban100_img_092_Bicubic_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Urban100_img_092_Bicubic_crop.png  used on input line 71.
 (pdftex.def)             Requested size: 53.23578pt x 53.23193pt.
-<figures/fig7_assets/Urban100_img_092_IMDN_crop.png, id=374, 289.08pt x 289.08pt>
+<figures/fig7_assets/Urban100_img_092_IMDN_crop.png, id=377, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Urban100_img_092_IMDN_crop.png Graphic file (type png)
 <use figures/fig7_assets/Urban100_img_092_IMDN_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Urban100_img_092_IMDN_crop.png  used on input line 71.
 (pdftex.def)             Requested size: 53.23578pt x 53.23193pt.
-<figures/fig7_assets/Urban100_img_092_SwinIR-light_crop.png, id=375, 289.08pt x 289.08pt>
+<figures/fig7_assets/Urban100_img_092_SwinIR-light_crop.png, id=378, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Urban100_img_092_SwinIR-light_crop.png Graphic file (type png)
 <use figures/fig7_assets/Urban100_img_092_SwinIR-light_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Urban100_img_092_SwinIR-light_crop.png  used on input line 71.
 (pdftex.def)             Requested size: 53.23578pt x 53.23193pt.
-<figures/fig7_assets/Urban100_img_092_SRFormer-light_crop.png, id=376, 289.08pt x 289.08pt>
+<figures/fig7_assets/Urban100_img_092_SRFormer-light_crop.png, id=379, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Urban100_img_092_SRFormer-light_crop.png Graphic file (type png)
 <use figures/fig7_assets/Urban100_img_092_SRFormer-light_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Urban100_img_092_SRFormer-light_crop.png  used on input line 71.
 (pdftex.def)             Requested size: 53.23578pt x 53.23193pt.
-<figures/fig7_assets/Urban100_img_092_CATANet_crop.png, id=377, 289.08pt x 289.08pt>
+<figures/fig7_assets/Urban100_img_092_CATANet_crop.png, id=380, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Urban100_img_092_CATANet_crop.png Graphic file (type png)
 <use figures/fig7_assets/Urban100_img_092_CATANet_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Urban100_img_092_CATANet_crop.png  used on input line 71.
 (pdftex.def)             Requested size: 53.23578pt x 53.23193pt.
-<figures/fig7_assets/Urban100_img_092_DPRNet_crop.png, id=378, 289.08pt x 289.08pt>
+<figures/fig7_assets/Urban100_img_092_DPRNet_crop.png, id=381, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Urban100_img_092_DPRNet_crop.png Graphic file (type png)
 <use figures/fig7_assets/Urban100_img_092_DPRNet_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Urban100_img_092_DPRNet_crop.png  used on input line 71.
 (pdftex.def)             Requested size: 53.23578pt x 53.23193pt.
-<figures/fig7_assets/Urban100_img_092_GT_crop.png, id=379, 289.08pt x 289.08pt>
+<figures/fig7_assets/Urban100_img_092_GT_crop.png, id=382, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Urban100_img_092_GT_crop.png Graphic file (type png)
 <use figures/fig7_assets/Urban100_img_092_GT_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Urban100_img_092_GT_crop.png  used on input line 71.
 (pdftex.def)             Requested size: 53.23578pt x 53.23193pt.
-<figures/fig7_assets/Urban100_img_024_Bicubic_crop.png, id=380, 289.08pt x 289.08pt>
+<figures/fig7_assets/Urban100_img_024_Bicubic_crop.png, id=383, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Urban100_img_024_Bicubic_crop.png Graphic file (type png)
 <use figures/fig7_assets/Urban100_img_024_Bicubic_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Urban100_img_024_Bicubic_crop.png  used on input line 74.
 (pdftex.def)             Requested size: 53.23578pt x 53.23193pt.
-<figures/fig7_assets/Urban100_img_024_IMDN_crop.png, id=381, 289.08pt x 289.08pt>
+<figures/fig7_assets/Urban100_img_024_IMDN_crop.png, id=384, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Urban100_img_024_IMDN_crop.png Graphic file (type png)
 <use figures/fig7_assets/Urban100_img_024_IMDN_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Urban100_img_024_IMDN_crop.png  used on input line 74.
 (pdftex.def)             Requested size: 53.23578pt x 53.23193pt.
-<figures/fig7_assets/Urban100_img_024_SwinIR-light_crop.png, id=382, 289.08pt x 289.08pt>
+<figures/fig7_assets/Urban100_img_024_SwinIR-light_crop.png, id=385, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Urban100_img_024_SwinIR-light_crop.png Graphic file (type png)
 <use figures/fig7_assets/Urban100_img_024_SwinIR-light_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Urban100_img_024_SwinIR-light_crop.png  used on input line 74.
 (pdftex.def)             Requested size: 53.23578pt x 53.23193pt.
-<figures/fig7_assets/Urban100_img_024_SRFormer-light_crop.png, id=383, 289.08pt x 289.08pt>
+<figures/fig7_assets/Urban100_img_024_SRFormer-light_crop.png, id=386, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Urban100_img_024_SRFormer-light_crop.png Graphic file (type png)
 <use figures/fig7_assets/Urban100_img_024_SRFormer-light_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Urban100_img_024_SRFormer-light_crop.png  used on input line 74.
 (pdftex.def)             Requested size: 53.23578pt x 53.23193pt.
-<figures/fig7_assets/Urban100_img_024_CATANet_crop.png, id=384, 289.08pt x 289.08pt>
+<figures/fig7_assets/Urban100_img_024_CATANet_crop.png, id=387, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Urban100_img_024_CATANet_crop.png Graphic file (type png)
 <use figures/fig7_assets/Urban100_img_024_CATANet_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Urban100_img_024_CATANet_crop.png  used on input line 74.
 (pdftex.def)             Requested size: 53.23578pt x 53.23193pt.
-<figures/fig7_assets/Urban100_img_024_DPRNet_crop.png, id=385, 289.08pt x 289.08pt>
+<figures/fig7_assets/Urban100_img_024_DPRNet_crop.png, id=388, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Urban100_img_024_DPRNet_crop.png Graphic file (type png)
 <use figures/fig7_assets/Urban100_img_024_DPRNet_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Urban100_img_024_DPRNet_crop.png  used on input line 74.
 (pdftex.def)             Requested size: 53.23578pt x 53.23193pt.
-<figures/fig7_assets/Urban100_img_024_GT_crop.png, id=386, 289.08pt x 289.08pt>
+<figures/fig7_assets/Urban100_img_024_GT_crop.png, id=389, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Urban100_img_024_GT_crop.png Graphic file (type png)
 <use figures/fig7_assets/Urban100_img_024_GT_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Urban100_img_024_GT_crop.png  used on input line 74.
 (pdftex.def)             Requested size: 53.23578pt x 53.23193pt.
-<figures/fig7_assets/Manga109_ThatsIzumiko_000_Bicubic_crop.png, id=387, 289.08pt x 289.08pt>
+<figures/fig7_assets/Manga109_ThatsIzumiko_000_Bicubic_crop.png, id=390, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Manga109_ThatsIzumiko_000_Bicubic_crop.png Graphic file (type png)
 <use figures/fig7_assets/Manga109_ThatsIzumiko_000_Bicubic_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Manga109_ThatsIzumiko_000_Bicubic_crop.png  used on input line 77.
 (pdftex.def)             Requested size: 53.23578pt x 53.23193pt.
-<figures/fig7_assets/Manga109_ThatsIzumiko_000_IMDN_crop.png, id=388, 289.08pt x 289.08pt>
+<figures/fig7_assets/Manga109_ThatsIzumiko_000_IMDN_crop.png, id=391, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Manga109_ThatsIzumiko_000_IMDN_crop.png Graphic file (type png)
 <use figures/fig7_assets/Manga109_ThatsIzumiko_000_IMDN_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Manga109_ThatsIzumiko_000_IMDN_crop.png  used on input line 77.
 (pdftex.def)             Requested size: 53.23578pt x 53.23193pt.
-<figures/fig7_assets/Manga109_ThatsIzumiko_000_SwinIR-light_crop.png, id=389, 289.08pt x 289.08pt>
+<figures/fig7_assets/Manga109_ThatsIzumiko_000_SwinIR-light_crop.png, id=392, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Manga109_ThatsIzumiko_000_SwinIR-light_crop.png Graphic file (type png)
 <use figures/fig7_assets/Manga109_ThatsIzumiko_000_SwinIR-light_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Manga109_ThatsIzumiko_000_SwinIR-light_crop.png  used on input line 77.
 (pdftex.def)             Requested size: 53.23578pt x 53.23193pt.
-<figures/fig7_assets/Manga109_ThatsIzumiko_000_SRFormer-light_crop.png, id=390, 289.08pt x 289.08pt>
+<figures/fig7_assets/Manga109_ThatsIzumiko_000_SRFormer-light_crop.png, id=393, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Manga109_ThatsIzumiko_000_SRFormer-light_crop.png Graphic file (type png)
 <use figures/fig7_assets/Manga109_ThatsIzumiko_000_SRFormer-light_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Manga109_ThatsIzumiko_000_SRFormer-light_crop.png  used on input line 77.
 (pdftex.def)             Requested size: 53.23578pt x 53.23193pt.
-<figures/fig7_assets/Manga109_ThatsIzumiko_000_CATANet_crop.png, id=391, 289.08pt x 289.08pt>
+<figures/fig7_assets/Manga109_ThatsIzumiko_000_CATANet_crop.png, id=394, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Manga109_ThatsIzumiko_000_CATANet_crop.png Graphic file (type png)
 <use figures/fig7_assets/Manga109_ThatsIzumiko_000_CATANet_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Manga109_ThatsIzumiko_000_CATANet_crop.png  used on input line 77.
 (pdftex.def)             Requested size: 53.23578pt x 53.23193pt.
-<figures/fig7_assets/Manga109_ThatsIzumiko_000_DPRNet_crop.png, id=392, 289.08pt x 289.08pt>
+<figures/fig7_assets/Manga109_ThatsIzumiko_000_DPRNet_crop.png, id=395, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Manga109_ThatsIzumiko_000_DPRNet_crop.png Graphic file (type png)
 <use figures/fig7_assets/Manga109_ThatsIzumiko_000_DPRNet_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Manga109_ThatsIzumiko_000_DPRNet_crop.png  used on input line 77.
 (pdftex.def)             Requested size: 53.23578pt x 53.23193pt.
-<figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_crop.png, id=393, 289.08pt x 289.08pt>
+<figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_crop.png, id=396, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_crop.png Graphic file (type png)
 <use figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_crop.png  used on input line 77.
@@ -1355,62 +1355,62 @@ Package pdftex.def Info: figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_crop.p
 ) (./sections/3_experiments_ablation.tex [12] [13 <./figures/fig7_assets/Urban100_img_092_GT_full_box.png (PNG copy)> <./figures/fig7_assets/Urban100_img_024_GT_full_box.png (PNG copy)> <./figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_full_box.png (PNG copy)> <./figures/fig7_assets/Urban100_img_092_Bicubic_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_092_IMDN_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_092_SwinIR-light_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_092_SRFormer-light_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_092_CATANet_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_092_DPRNet_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_092_GT_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_024_Bicubic_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_024_IMDN_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_024_SwinIR-light_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_024_SRFormer-light_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_024_CATANet_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_024_DPRNet_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_024_GT_crop.png (PNG copy)> <./figures/fig7_assets/Manga109_ThatsIzumiko_000_Bicubic_crop.png (PNG copy)> <./figures/fig7_assets/Manga109_ThatsIzumiko_000_IMDN_crop.png (PNG copy)> <./figures/fig7_assets/Manga109_ThatsIzumiko_000_SwinIR-light_crop.png (PNG copy)> <./figures/fig7_assets/Manga109_ThatsIzumiko_000_SRFormer-light_crop.png (PNG copy)> <./figures/fig7_assets/Manga109_ThatsIzumiko_000_CATANet_crop.png (PNG copy)> <./figures/fig7_assets/Manga109_ThatsIzumiko_000_DPRNet_crop.png (PNG copy)> <./figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_crop.png (PNG copy)>]) (./tables/table3_ablation_a1.tex) (./tables/table4_ablation_a2.tex) (./tables/table5_ablation_a3.tex) (./sections/3_experiments_routing_analysis.tex [14] [15]) (./figures/fig5_xscore_hist.tex) (./figures/fig6_usage_entropy.tex
 Package pgfplots info on input line 31: Using 'lua backend=false' for axis: x coord trafo unsupported.
 ) (./figures/fig8_cluster_maps.tex [16]
-<figures/fig58_assets/fig8_Urban100_img_092_lr.png, id=463, 1027.84pt x 694.595pt>
+<figures/fig58_assets/fig8_Urban100_img_092_lr.png, id=466, 1027.84pt x 694.595pt>
 File: figures/fig58_assets/fig8_Urban100_img_092_lr.png Graphic file (type png)
 <use figures/fig58_assets/fig8_Urban100_img_092_lr.png>
 Package pdftex.def Info: figures/fig58_assets/fig8_Urban100_img_092_lr.png  used on input line 38.
 (pdftex.def)             Requested size: 96.6151pt x 65.28769pt.
-<figures/fig58_assets/fig8_Urban100_img_092_b0_cluster.png, id=464, 1027.84pt x 694.595pt>
+<figures/fig58_assets/fig8_Urban100_img_092_b0_cluster.png, id=467, 1027.84pt x 694.595pt>
 File: figures/fig58_assets/fig8_Urban100_img_092_b0_cluster.png Graphic file (type png)
 <use figures/fig58_assets/fig8_Urban100_img_092_b0_cluster.png>
 Package pdftex.def Info: figures/fig58_assets/fig8_Urban100_img_092_b0_cluster.png  used on input line 38.
 (pdftex.def)             Requested size: 96.6151pt x 65.28769pt.
-<figures/fig58_assets/fig8_Urban100_img_092_b3_cluster.png, id=465, 1027.84pt x 694.595pt>
+<figures/fig58_assets/fig8_Urban100_img_092_b3_cluster.png, id=468, 1027.84pt x 694.595pt>
 File: figures/fig58_assets/fig8_Urban100_img_092_b3_cluster.png Graphic file (type png)
 <use figures/fig58_assets/fig8_Urban100_img_092_b3_cluster.png>
 Package pdftex.def Info: figures/fig58_assets/fig8_Urban100_img_092_b3_cluster.png  used on input line 38.
 (pdftex.def)             Requested size: 96.6151pt x 65.28769pt.
-<figures/fig58_assets/fig8_Urban100_img_092_b7_cluster.png, id=466, 1027.84pt x 694.595pt>
+<figures/fig58_assets/fig8_Urban100_img_092_b7_cluster.png, id=469, 1027.84pt x 694.595pt>
 File: figures/fig58_assets/fig8_Urban100_img_092_b7_cluster.png Graphic file (type png)
 <use figures/fig58_assets/fig8_Urban100_img_092_b7_cluster.png>
 Package pdftex.def Info: figures/fig58_assets/fig8_Urban100_img_092_b7_cluster.png  used on input line 38.
 (pdftex.def)             Requested size: 96.6151pt x 65.28769pt.
-<figures/fig58_assets/fig8_Urban100_img_024_lr.png, id=467, 1027.84pt x 662.475pt>
+<figures/fig58_assets/fig8_Urban100_img_024_lr.png, id=470, 1027.84pt x 662.475pt>
 File: figures/fig58_assets/fig8_Urban100_img_024_lr.png Graphic file (type png)
 <use figures/fig58_assets/fig8_Urban100_img_024_lr.png>
 Package pdftex.def Info: figures/fig58_assets/fig8_Urban100_img_024_lr.png  used on input line 41.
 (pdftex.def)             Requested size: 96.6151pt x 62.26862pt.
-<figures/fig58_assets/fig8_Urban100_img_024_b0_cluster.png, id=468, 1027.84pt x 662.475pt>
+<figures/fig58_assets/fig8_Urban100_img_024_b0_cluster.png, id=471, 1027.84pt x 662.475pt>
 File: figures/fig58_assets/fig8_Urban100_img_024_b0_cluster.png Graphic file (type png)
 <use figures/fig58_assets/fig8_Urban100_img_024_b0_cluster.png>
 Package pdftex.def Info: figures/fig58_assets/fig8_Urban100_img_024_b0_cluster.png  used on input line 41.
 (pdftex.def)             Requested size: 96.6151pt x 62.26862pt.
-<figures/fig58_assets/fig8_Urban100_img_024_b3_cluster.png, id=469, 1027.84pt x 662.475pt>
+<figures/fig58_assets/fig8_Urban100_img_024_b3_cluster.png, id=472, 1027.84pt x 662.475pt>
 File: figures/fig58_assets/fig8_Urban100_img_024_b3_cluster.png Graphic file (type png)
 <use figures/fig58_assets/fig8_Urban100_img_024_b3_cluster.png>
 Package pdftex.def Info: figures/fig58_assets/fig8_Urban100_img_024_b3_cluster.png  used on input line 41.
 (pdftex.def)             Requested size: 96.6151pt x 62.26862pt.
-<figures/fig58_assets/fig8_Urban100_img_024_b7_cluster.png, id=470, 1027.84pt x 662.475pt>
+<figures/fig58_assets/fig8_Urban100_img_024_b7_cluster.png, id=473, 1027.84pt x 662.475pt>
 File: figures/fig58_assets/fig8_Urban100_img_024_b7_cluster.png Graphic file (type png)
 <use figures/fig58_assets/fig8_Urban100_img_024_b7_cluster.png>
 Package pdftex.def Info: figures/fig58_assets/fig8_Urban100_img_024_b7_cluster.png  used on input line 41.
 (pdftex.def)             Requested size: 96.6151pt x 62.26862pt.
-<figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_lr.png, id=471, 827.09pt x 1172.38pt>
+<figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_lr.png, id=474, 827.09pt x 1172.38pt>
 File: figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_lr.png Graphic file (type png)
 <use figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_lr.png>
 Package pdftex.def Info: figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_lr.png  used on input line 44.
 (pdftex.def)             Requested size: 96.6151pt x 136.9407pt.
-<figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b0_cluster.png, id=472, 827.09pt x 1172.38pt>
+<figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b0_cluster.png, id=475, 827.09pt x 1172.38pt>
 File: figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b0_cluster.png Graphic file (type png)
 <use figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b0_cluster.png>
 Package pdftex.def Info: figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b0_cluster.png  used on input line 44.
 (pdftex.def)             Requested size: 96.6151pt x 136.9407pt.
-<figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b3_cluster.png, id=473, 827.09pt x 1172.38pt>
+<figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b3_cluster.png, id=476, 827.09pt x 1172.38pt>
 File: figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b3_cluster.png Graphic file (type png)
 <use figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b3_cluster.png>
 Package pdftex.def Info: figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b3_cluster.png  used on input line 44.
 (pdftex.def)             Requested size: 96.6151pt x 136.9407pt.
-<figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b7_cluster.png, id=474, 827.09pt x 1172.38pt>
+<figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b7_cluster.png, id=477, 827.09pt x 1172.38pt>
 File: figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b7_cluster.png Graphic file (type png)
 <use figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b7_cluster.png>
 Package pdftex.def Info: figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b7_cluster.png  used on input line 44.
@@ -1426,18 +1426,18 @@ Package rerunfilecheck Info: File `main_mdpi.out' has not changed.
 (rerunfilecheck)             Checksum: C116A577C7EFF37405085C77FB3DC8C9;2941.
  ) 
 Here is how much of TeX's memory you used:
- 47240 strings out of 469158
- 1060440 string characters out of 5459505
- 1653558 words of memory out of 5000000
+ 47222 strings out of 469158
+ 1060284 string characters out of 5459505
+ 1651419 words of memory out of 5000000
  74573 multiletter control sequences out of 15000+600000
- 723457 words of font info for 601 fonts, out of 8000000 for 9000
+ 722553 words of font info for 589 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  123i,22n,121p,1360b,2410s stack positions out of 10000i,1000n,20000p,200000b,200000s
  </Users/bytedance/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt0800.600pk> </Users/bytedance/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecit0800.525pk> </Users/bytedance/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1000.600pk> </Users/bytedance/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecss0800.375pk></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/mathpazo/fplmr.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/mathpazo/fplmri.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on main_mdpi.pdf (23 pages, 10712134 bytes).
+Output written on main_mdpi.pdf (23 pages, 10712186 bytes).
 PDF statistics:
- 771 PDF objects out of 1000 (max. 8388607)
- 612 compressed objects within 7 object streams
+ 774 PDF objects out of 1000 (max. 8388607)
+ 615 compressed objects within 7 object streams
  150 named destinations out of 1000 (max. 500000)
  109398 words of extra memory for PDF output out of 128383 (max. 10000000)
 

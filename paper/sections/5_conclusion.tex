@@ -3,7 +3,7 @@
 % Draft v1 (2026-06-27). Summarizes contributions and results, notes the
 %   transferability of DPR as a generic content-routing module, and future work.
 % Consistent with the honest framing of the body (matches/slightly surpasses
-%   CATANet at comparable compute; ablation is mechanism-level under shared init).
+%   CATANet with a comparable lightweight cost profile; ablation is mechanism-level under shared init).
 % No numeric claims beyond those established in Sec. 3.
 % =====================================================================
 \section{Conclusion}
@@ -17,13 +17,13 @@ query bank, matches tokens back with a learnable temperature, and propagates an
 explicit per-token confidence through ordering, gating, and a soft fallback, with a
 usage-balancing regularizer that keeps prototype use spread out. On five standard
 benchmarks at $\times2/\times3/\times4$, the resulting DPRNet matches or slightly
-surpasses the strongest content-routing baseline at a comparable parameter and
-computation budget. The routing diagnostics provide mechanism-level evidence that the
+surpasses the strongest content-routing baseline with a comparable lightweight cost
+profile. The routing diagnostics provide mechanism-level evidence that the
 temperature remains unsaturated and prototype usage becomes measurably more balanced
 across all blocks. Because DPR preserves the external interface of the routing block,
 it is not tied to this backbone and can serve as a confidence-aware content-routing
 module for other token-aggregation architectures. Future work includes separating the
 contribution of each design element through from-scratch retraining from a switch-neutral
-initialization and a multi-seed variance study, completing the unified efficiency
-comparison under a single measurement protocol, and extending DPR to larger training
+initialization and a multi-seed variance study, remeasuring all comparison models for
+cross-method runtime under a single implementation protocol, and extending DPR to larger training
 sets and real-world or arbitrary-scale degradations.

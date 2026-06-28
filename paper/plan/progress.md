@@ -853,3 +853,83 @@
   - `rg` 检查 `main_mdpi.log/main_mdpi.blg/main_mdpi.bbl`，无 `hyperref Warning`、
     `fancyhdr Warning`、`Overfull`、`Underfull`、undefined citation/reference、LaTeX error。
   - PDFKit 渲染第 13 页确认 Fig.4 布局在同页内，crop 已明显放大且无截断。
+
+### 2026-06-28 · Table 2 效率缺口处理与逐条 DOI 核验
+
+- 按用户要求处理 Table 2 的效率对比缺口，并对 `references.bib` 45 条参考文献逐条做
+  DOI/CrossRef 元数据核验。
+- 产出任务包：`paper/plan/task-packets/2026-06-28-efficiency-table-reference-doi-audit.md`。
+- 主要改动：
+  - `tables/table2_efficiency.tex` 将原来含大量 `-` 的 all-method 表改为 common-protocol
+    efficiency subset，仅保留 CATANet Tab.6 中与 DPRNet 共享固定 `256x256` LR 输入 MAC
+    协议的 CATANet、SwinIR-light、SRFormer-light 和 DPRNet。
+  - 移除 Table 2 的 cross-paper latency 列；DPRNet 自身 runtime 保留在 per-scale profile
+    Table 3，避免混用不同硬件/实现栈的 latency。
+  - `sections/3_experiments_comparison.tex`、`sections/3_experiments_efficiency.tex`、
+    `sections/4_discussion.tex` 和 `sections/5_conclusion.tex` 同步改为“可比效率子集/不做
+    cross-method latency claim”的表述。
+  - `main_mdpi.tex`、`sections/1_introduction.tex` 和 `sections/5_conclusion.tex` 将
+    “comparable parameter and computation budget” 收紧为 “comparable lightweight cost profile”。
+  - `references.bib` 修正 `dong2016fsrcnn` 的 DOI/页码：
+    `10.1007/978-3-319-46475-6_25`, `391--407`。
+  - `references.bib` 修正 `wang2021survey` 题名为 DOI 元数据题名：
+    `Deep Learning Algorithms for Single Image Super-Resolution: A Systematic Review`。
+  - `references.bib` 修正 `zeyde2010set14` 出版年份为 Springer/CrossRef 元数据年份 `2012`。
+- 参考文献核验报告：
+  - `paper/plan/review/reference-doi-audit-2026-06-28.md`
+  - 原始核验 JSON：`paper/plan/review/reference-doi-audit-raw-2026-06-28.json`
+
+### Capability-use audit（2026-06-28 Table 2 + DOI）
+
+- Required skills: using-research-writing, paper-orchestration, literature-review, verification, latex-output
+- Skills actually used: 已读取并使用 using-research-writing、paper-orchestration、literature-review、
+  verification、latex-output。
+- Inputs consumed: `paper/tables/table2_efficiency.tex`,
+  `paper/sections/3_experiments_comparison.tex`, `paper/sections/3_experiments_efficiency.tex`,
+  `paper/sections/4_discussion.tex`, `paper/sections/5_conclusion.tex`, `paper/main_mdpi.tex`,
+  `paper/references.bib`, `paper/plan/review/reference-final-verification.md`,
+  CrossRef API by DOI, DOI/title search for FSRCNN and survey mismatch.
+- Inputs not used and why: 未填补 CARN/IMDN/RFDN/RLFN/ELAN-light MACs 或 competitor latency；
+  当前没有统一协议测量，填入会破坏公平性。
+- Artifacts produced: 修订后的 `paper/main_mdpi.pdf`、`paper/main_mdpi.bbl`、效率表/效率段落、
+  `paper/plan/review/reference-doi-audit-2026-06-28.md`、原始 DOI 核验 JSON。
+- Verification run:
+  - CrossRef audit: 45 entries, 0 CrossRef errors, 0 low-title-match entries, 0 page mismatches。
+  - TinyTeX: `pdflatex -> bibtex -> pdflatex -> pdflatex`，输出 23 页 PDF。
+  - `rg` 检查 `main_mdpi.log/main_mdpi.blg/main_mdpi.bbl`，无 Warning、Overfull/Underfull、
+    undefined citation/reference、LaTeX error、重复 Proceedings。
+  - PDFKit 抽取文本并渲染第 11 页确认 Table 2/3 正确显示；PDF 文本确认 FSRCNN、survey、
+    Zeyde/Set14 修正已渲染。
+- Remaining risk: 仍未对所有 baseline 做同硬件 runtime 复测；稿件已明确不做 cross-method
+  latency claim。`martin2001bsd100` 的 CrossRef API 不暴露 issued year，但 DOI、题名和页码匹配，
+  本地保留 ICCV 2001 年份。
+
+### 2026-06-28 · 主稿 TODO 与科学边界自查
+
+- 按用户要求检查主稿源文件和 PDF 文本中是否仍有 TODO 标记或待确认的科学边界说明。
+- 产出任务包：`paper/plan/task-packets/2026-06-28-main-manuscript-todo-boundary-audit.md`。
+- 检查范围：
+  - `paper/main_mdpi.tex`
+  - `paper/sections/*.tex`
+  - `paper/tables/*.tex`
+  - `paper/figures/*.tex`
+  - `paper/references.bib`
+  - `paper/main_mdpi.bbl`
+  - `paper/main_mdpi.pdf` 抽取文本
+- 结果：
+  - PDF 正文未发现 `TODO`、`FIXME`、`TBD`、`PENDING`、`not yet`、`must not be asserted`
+    等投稿污染标记。
+  - 源文件注释中仍有一处 `PENDING`：`paper/tables/table5_ablation_a3.tex` 对 multi-seed
+    variance analysis 的内部说明；该注释不会进入 PDF，正文/表注已有正式表述。
+  - PDF 中仍有作者信息占位：`Author Name`、`author@example.edu`、
+    `Department, Institution, City, Country`；这是此前已知的投稿前替换项。
+  - 正文中的 scientific boundary statements 均为正式限制说明：ablation shared-init 协议、
+    single-seed variance 不主张、未重实现 EMA branch、效率表不做 cross-method latency claim。
+- Verification run:
+  - `rg` 全量扫描主稿源文件。
+  - `rg + awk` 过滤 LaTeX 全行注释后扫描可见源行。
+  - PDFKit 抽取 `paper/main_mdpi.pdf` 23 页文本并扫描同一关键词集合。
+  - `rg` 检查 `main_mdpi.log/main_mdpi.blg/main_mdpi.bbl`，无 undefined citation/reference、
+    LaTeX error 或 TODO-like 生成污染。
+- Remaining risk: 若投稿前希望源文件也完全无 `PENDING` 字样，可清理
+  `table5_ablation_a3.tex` 的注释；这不会影响 PDF 内容。

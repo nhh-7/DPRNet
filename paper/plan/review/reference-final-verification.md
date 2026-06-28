@@ -2,6 +2,11 @@
 
 日期：2026-06-28
 
+> Superseded note: 2026-06-28 晚些时候又执行了一轮逐条 CrossRef 核验，见
+> `paper/plan/review/reference-doi-audit-2026-06-28.md`。新一轮修正了
+> `dong2016fsrcnn` 的 DOI/页码、`wang2021survey` 的题名，以及
+> `zeyde2010set14` 的出版年份；以后者为准。
+
 ## 总览
 
 - `references.bib` 条目数：45。

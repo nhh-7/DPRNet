@@ -55,15 +55,15 @@ confidence-aware formulation analyzed in Sec.~\ref{sec:ablation} and
 Sec.~\ref{sec:routing_analysis}.
 
 \paragraph{Efficiency.}
-Table~\ref{tab:efficiency} reports the efficiency profile at $\times4$. DPRNet has
-$660$K parameters and $52.14$\,G Multi-Adds for a fixed $256{\times}256$ LR input,
-which keeps it within the lightweight bracket alongside the compared methods. Under
-the same input convention, it uses fewer Multi-Adds than the lightweight Transformer
-baselines SwinIR-light ($60.3$\,G) and SRFormer-light ($56.5$\,G), while delivering top-tier
+Table~\ref{tab:efficiency} reports the $\times4$ efficiency subset for methods whose
+Multi-Adds are available under the same fixed $256{\times}256$ LR-input convention.
+DPRNet has $660$K parameters and $52.14$\,G Multi-Adds, keeping it within the
+lightweight bracket. It uses fewer Multi-Adds than the lightweight Transformer baselines
+SwinIR-light ($60.3$\,G) and SRFormer-light ($56.5$\,G) while delivering top-tier
 accuracy. Both its parameter count and Multi-Adds are modestly higher than CATANet's
 ($660$K/$52.14$\,G vs.\ $535$K/$46.8$\,G at $\times4$), reflecting the learnable query
-bank and router projections of DPR, so no efficiency advantage over CATANet is claimed. The
-per-scale profile is given in Table~\ref{tab:efficiency_profile}. Since several
-competitor Multi-Adds and all competitor latencies are not available under a shared
-measurement protocol, those entries are intentionally left unreported rather than mixed
-across incompatible hardware or input conventions.
+bank and router projections of DPR, so no efficiency advantage over CATANet is claimed.
+The per-scale DPRNet profile, including measured latency on our hardware, is given in
+Table~\ref{tab:efficiency_profile}. Cross-paper latency and compute values reported under
+incompatible conventions are excluded from Table~\ref{tab:efficiency} rather than mixed
+into the same numeric comparison.

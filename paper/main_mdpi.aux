@@ -140,21 +140,21 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Model complexity and efficiency}{9}{subsection.3.3}\protected@file@percent }
 \newlabel{sec:efficiency}{{3.3}{9}{Model complexity and efficiency}{subsection.3.3}{}}
 \newlabel{sec:efficiency@cref}{{[subsection][3][3]3.3}{[1][9][]9}{}{}{}}
-\@writefile{toc}{\contentsline {paragraph}{\numberline {3.3.0.1}Parameters.}{9}{paragraph.3.3.0.1}\protected@file@percent }
 \def\@LN@column{1}
 \@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Quantitative comparison with state-of-the-art lightweight SR methods on five benchmarks (PSNR(dB)/SSIM on the Y channel). \textbf  {Best} and \underline  {second-best} results are highlighted. Competitor metrics are cited from the original papers (see notes). ``-'' denotes results not reported in the source.}}{10}{table.caption.3}\protected@file@percent }
 \newlabel{tab:main_comparison}{{1}{10}{Quantitative comparison with state-of-the-art lightweight SR methods on five benchmarks (PSNR(dB)/SSIM on the Y channel). \textbf {Best} and \underline {second-best} results are highlighted. Competitor metrics are cited from the original papers (see notes). ``-'' denotes results not reported in the source}{table.caption.3}{}}
 \newlabel{tab:main_comparison@cref}{{[table][1][]1}{[1][9][]10}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {3.3.0.1}Parameters.}{10}{paragraph.3.3.0.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{\numberline {3.3.0.2}Computation.}{10}{paragraph.3.3.0.2}\protected@file@percent }
 \def\@LN@column{1}
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Efficiency comparison on $\times 4$ SR. Multi-Adds are reported by thop (MACs) under a unified fixed LR input of $256\times 256$ ($\times 4$ output $1024\times 1024$); to compare against FLOPs-based papers, multiply by 2. ``-'' denotes values not available under this protocol. Representative PSNR is on Urban100 ($\times 4$).}}{11}{table.caption.4}\protected@file@percent }
-\newlabel{tab:efficiency}{{2}{11}{Efficiency comparison on $\times 4$ SR. Multi-Adds are reported by thop (MACs) under a unified fixed LR input of $256\times 256$ ($\times 4$ output $1024\times 1024$); to compare against FLOPs-based papers, multiply by 2. ``-'' denotes values not available under this protocol. Representative PSNR is on Urban100 ($\times 4$)}{table.caption.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Comparable efficiency subset on $\times 4$ SR. Multi-Adds are MACs under a unified fixed LR input of $256\times 256$ ($\times 4$ output $1024\times 1024$); to compare against FLOPs-based reports, multiply by 2. Representative PSNR is on Urban100 ($\times 4$).}}{11}{table.caption.4}\protected@file@percent }
+\newlabel{tab:efficiency}{{2}{11}{Comparable efficiency subset on $\times 4$ SR. Multi-Adds are MACs under a unified fixed LR input of $256\times 256$ ($\times 4$ output $1024\times 1024$); to compare against FLOPs-based reports, multiply by 2. Representative PSNR is on Urban100 ($\times 4$)}{table.caption.4}{}}
 \newlabel{tab:efficiency@cref}{{[table][2][]2}{[1][9][]11}{}{}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces DPRNet per-scale efficiency profile (measured). All scales use a fixed LR input of $256\times 256$; Multi-Adds are MACs (thop); latency averaged over $100$ runs after $20$ warm-ups on a single CUDA GPU.}}{11}{table.caption.5}\protected@file@percent }
 \newlabel{tab:efficiency_profile}{{3}{11}{DPRNet per-scale efficiency profile (measured). All scales use a fixed LR input of $256\times 256$; Multi-Adds are MACs (thop); latency averaged over $100$ runs after $20$ warm-ups on a single CUDA GPU}{table.caption.5}{}}
 \newlabel{tab:efficiency_profile@cref}{{[table][3][]3}{[1][9][]11}{}{}{}}
 \@writefile{toc}{\contentsline {paragraph}{\numberline {3.3.0.3}Per-scale behavior.}{11}{paragraph.3.3.0.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{\numberline {3.3.0.4}Pending measurements.}{11}{paragraph.3.3.0.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\numberline {3.3.0.4}Scope of the efficiency comparison.}{11}{paragraph.3.3.0.4}\protected@file@percent }
 \citation{liu2025catanet}
 \def\@LN@column{1}
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces PSNR vs.\ parameter count at $\times 4$ on Urban100 (numbers from Table~\ref {tab:efficiency}; competitor params cited from the original papers). DPRNet ($\star $) attains the highest PSNR among the compared lightweight methods while staying within the same parameter bracket ($660$K), trading a small parameter increase over its predecessor CATANet for the best reconstruction quality.}}{12}{figure.caption.6}\protected@file@percent }
@@ -176,6 +176,9 @@
 \@writefile{toc}{\contentsline {paragraph}{\numberline {3.5.0.3}A2: confidence-aware routing.}{14}{paragraph.3.5.0.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{\numberline {3.5.0.4}A3: prototype usage balancing.}{14}{paragraph.3.5.0.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{\numberline {3.5.0.5}Summary.}{14}{paragraph.3.5.0.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.6}Routing interpretability analysis}{14}{subsection.3.6}\protected@file@percent }
+\newlabel{sec:routing_analysis}{{3.6}{14}{Routing interpretability analysis}{subsection.3.6}{}}
+\newlabel{sec:routing_analysis@cref}{{[subsection][6][3]3.6}{[1][14][]14}{}{}{}}
 \def\@LN@column{1}
 \@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Ablation A1 ($\times 4$): prototype query refine. PSNR(dB)/SSIM (Y channel) at iter 80k and block-averaged normalized prototype-usage entropy on Urban100. Enabling refine gives the better reconstruction on both benchmarks under the short finetune protocol; it is retained as it improves (and does not degrade) quality while keeping slot assignment stable.}}{15}{table.caption.8}\protected@file@percent }
 \newlabel{tab:abl_a1}{{4}{15}{Ablation A1 ($\times 4$): prototype query refine. PSNR(dB)/SSIM (Y channel) at iter 80k and block-averaged normalized prototype-usage entropy on Urban100. Enabling refine gives the better reconstruction on both benchmarks under the short finetune protocol; it is retained as it improves (and does not degrade) quality while keeping slot assignment stable}{table.caption.8}{}}
@@ -183,9 +186,6 @@
 \@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Ablation A2 ($\times 4$): incremental confidence-aware routing components. PSNR(dB)/SSIM (Y channel) at iter 80k. The full configuration (v4) attains the best reconstruction, but the intermediate steps are not monotone; under the short finetune protocol the components are mutually compatible and quality-preserving rather than individually accuracy-additive.}}{15}{table.caption.9}\protected@file@percent }
 \newlabel{tab:abl_a2}{{5}{15}{Ablation A2 ($\times 4$): incremental confidence-aware routing components. PSNR(dB)/SSIM (Y channel) at iter 80k. The full configuration (v4) attains the best reconstruction, but the intermediate steps are not monotone; under the short finetune protocol the components are mutually compatible and quality-preserving rather than individually accuracy-additive}{table.caption.9}{}}
 \newlabel{tab:abl_a2@cref}{{[table][5][]5}{[1][14][]15}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.6}Routing interpretability analysis}{15}{subsection.3.6}\protected@file@percent }
-\newlabel{sec:routing_analysis}{{3.6}{15}{Routing interpretability analysis}{subsection.3.6}{}}
-\newlabel{sec:routing_analysis@cref}{{[subsection][6][3]3.6}{[1][14][]15}{}{}{}}
 \@writefile{toc}{\contentsline {paragraph}{\numberline {3.6.0.1}Balanced prototype usage (C4).}{15}{paragraph.3.6.0.1}\protected@file@percent }
 \def\@LN@column{1}
 \@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Ablation A3 ($\times 4$): prototype balance loss. Block-averaged normalized prototype-usage entropy on Urban100 (higher $=$ more balanced usage) and reconstruction quality at iter 80k. The balance loss yields consistently higher usage entropy across all eight TAB blocks while also slightly improving reconstruction quality.}}{16}{table.caption.10}\protected@file@percent }
@@ -232,9 +232,9 @@
 \bibcite{zhang2018rdn}{{8}{2018{}}{{Zhang et~al.}}{{Zhang, Tian, Kong, Zhong, and Fu}}}
 \bibcite{zhang2018rcan}{{9}{2018{}}{{Zhang et~al.}}{{Zhang, Li, Li, Wang, Zhong, and Fu}}}
 \bibcite{lim2017edsr}{{10}{2017}{{Lim et~al.}}{{Lim, Son, Kim, Nah, and Lee}}}
+\bibcite{wang2021survey}{{11}{2021}{{Wang et~al.}}{{Wang, Chen, and Hoi}}}
 \def\@LN@column{1}
 \@writefile{toc}{\contentsline {section}{\numberline {6}References}{20}{section.6}\protected@file@percent }
-\bibcite{wang2021survey}{{11}{2021}{{Wang et~al.}}{{Wang, Chen, and Hoi}}}
 \bibcite{dong2016fsrcnn}{{12}{2016}{{Dong et~al.}}{{Dong, Loy, and Tang}}}
 \bibcite{shi2016espcn}{{13}{2016}{{Shi et~al.}}{{Shi, Caballero, Huszar, Totz, Aitken, Bishop, Rueckert, and Wang}}}
 \bibcite{tai2017drrn}{{14}{2017{}}{{Tai et~al.}}{{Tai, Yang, and Liu}}}
@@ -265,9 +265,9 @@
 \bibcite{liu2025catanet}{{38}{2025}{{Liu et~al.}}{{Liu, Liu, Tang, and Wu}}}
 \bibcite{agustsson2017div2k}{{39}{2017}{{Agustsson and Timofte}}{{}}}
 \bibcite{bevilacqua2012set5}{{40}{2012}{{Bevilacqua et~al.}}{{Bevilacqua, Roumy, Guillemot, and Alberi-Morel}}}
-\bibcite{zeyde2010set14}{{41}{2010}{{Zeyde et~al.}}{{Zeyde, Elad, and Protter}}}
-\def\@LN@column{1}
+\bibcite{zeyde2010set14}{{41}{2012}{{Zeyde et~al.}}{{Zeyde, Elad, and Protter}}}
 \bibcite{martin2001bsd100}{{42}{2001}{{Martin et~al.}}{{Martin, Fowlkes, Tal, and Malik}}}
+\def\@LN@column{1}
 \bibcite{huang2015urban100}{{43}{2015}{{Huang et~al.}}{{Huang, Singh, and Ahuja}}}
 \bibcite{matsui2017manga109}{{44}{2017}{{Matsui et~al.}}{{Matsui, Ito, Aramaki, Fujimoto, Ogawa, Yamasaki, and Aizawa}}}
 \bibcite{wang2004ssim}{{45}{2004}{{Wang et~al.}}{{Wang, Bovik, Sheikh, and Simoncelli}}}

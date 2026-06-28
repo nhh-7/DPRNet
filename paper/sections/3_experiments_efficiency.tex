@@ -12,20 +12,24 @@
 %   do NOT claim any compute/param advantage over CATANet. The defensible compute
 %   statement is that DPRNet is markedly LIGHTER than the Transformer baselines
 %   SwinIR-light (60.3G) / SRFormer-light (56.5G) while attaining the best Urban100
-%   PSNR, i.e. it stays in the lightweight bracket. Other 5 competitors' Multi-Adds /
-%   all competitor latency are not available under this protocol -> defer.
+%   PSNR, i.e. it stays in the lightweight bracket. Other 5 competitors' Multi-Adds
+%   and all competitor latency are excluded from the table instead of shown as blanks.
 % =====================================================================
 \subsection{Model complexity and efficiency}
 \label{sec:efficiency}
 
-Table~\ref{tab:efficiency} compares model complexity at $\times4$, and
+Table~\ref{tab:efficiency} compares model complexity at $\times4$ for the subset of
+methods whose Multi-Adds are available under the same input convention, and
 Table~\ref{tab:efficiency_profile} gives DPRNet's per-scale profile. All DPRNet
 numbers are measured under the protocol of Sec.~\ref{sec:exp_setup} with a fixed
 $256{\times}256$ LR input ($\times4$ output $1024{\times}1024$), reporting thop
 MACs and latency over $100$ runs after $20$ warm-ups. We use this
 $256{\times}256$ input convention because it is the one under which the CATANet
 paper reports Multi-Adds for itself, SwinIR-light, and SRFormer-light; DPRNet's
-MACs are therefore directly comparable to those three cited figures.
+MACs are therefore directly comparable to those three cited figures. Methods whose
+published compute values use different conventions, or whose values are unavailable
+under this convention, are excluded from the efficiency subset rather than displayed
+as blank entries.
 
 \paragraph{Parameters.}
 DPRNet stays within the lightweight bracket at $660$K parameters ($\times4$),
@@ -63,12 +67,11 @@ factor---from $36.19$\,G ($\times2$) to $41.26$\,G ($\times3$) and $52.14$\,G
 parameter count is essentially scale-independent ($\approx0.60$--$0.67$\,M), as only the
 input projection and the upsampling tail change with scale.
 
-\paragraph{Pending measurements.}
-A complete Multi-Adds and latency comparison against all eight competitors under a
-single unified protocol is not yet available: the remaining competitors' published
-compute figures follow inconsistent parameter and measurement conventions, and
-latency is hardware-dependent and cannot be borrowed from other papers' devices. We
-therefore report only the quantities that can be stated consistently---DPRNet's full measured profile
-and the directly comparable CATANet, SwinIR-light and SRFormer-light Multi-Adds (all
-under the same $256{\times}256$ input). The remaining entries are marked as unavailable
-(``-'') in Table~\ref{tab:efficiency} to avoid mixing incompatible sources.
+\paragraph{Scope of the efficiency comparison.}
+The main accuracy table (Table~\ref{tab:main_comparison}) remains the full comparison
+against all eight baselines. The efficiency table is deliberately narrower: it reports
+only common-protocol MACs plus DPRNet's measured per-scale runtime. We do not mix
+latency values across different devices or implementation stacks, and we do not import
+compute numbers reported under incompatible input-size or FLOPs-counting conventions.
+This makes Table~\ref{tab:efficiency} a directly comparable efficiency subset rather
+than an all-method table with non-comparable entries.
