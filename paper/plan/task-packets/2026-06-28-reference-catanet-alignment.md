@@ -1,0 +1,39 @@
+## Task Packet
+
+- Scope: 参考 CATANet 原文引用风格，替换 arXiv-only 的 `shi2023eswt`，并判断/处理 `BasicSR` 是否应保留为正式参考文献。
+- Files to read:
+  - `paper/references.bib`
+  - `paper/sections/1_introduction.tex`
+  - `paper/sections/3_experiments_setup.tex`
+  - `paper/plan/review/reference-candidate-map.md`
+  - `paper/plan/review/reference-final-verification.md`
+  - CATANet 原文 arXiv HTML / CrossRef 元数据
+- Files allowed to edit:
+  - `paper/references.bib`
+  - `paper/sections/1_introduction.tex`
+  - `paper/sections/3_experiments_setup.tex`
+  - `paper/plan/review/reference-candidate-map.md`
+  - `paper/plan/review/reference-final-verification.md`
+  - `paper/plan/progress.md`
+- Required skills:
+  - `using-research-writing`
+  - `paper-orchestration`
+  - `literature-review`
+  - `verification`
+- Evidence/data inputs:
+  - CATANet 原文把 lightweight SR 背景放在正式 CVPR/ICCV/AAAI/TPAMI 等来源上，未把 BasicSR 软件仓库作为核心参考文献。
+  - CrossRef metadata for Omni-SR: DOI `10.1109/CVPR52729.2023.02143`, CVPR 2023, pages `22378--22387`.
+  - CrossRef metadata for NGswin: DOI `10.1109/CVPR52729.2023.00206`, CVPR 2023, pages `2071--2081`.
+- Required artifacts:
+  - `shi2023eswt` 不再作为唯一 arXiv-only 参考文献出现。
+  - `wang2020basicsr` 不再占正式参考文献名额；实验设置中仍说明使用 BasicSR 框架。
+  - 总参考文献数保持约 45，且全部为正文实引。
+- Rejection checks:
+  - 不编造 DOI、页码或 venue。
+  - 不删除正文实际需要的算法来源。
+  - 不引入未定义 citation key 或未引用 BibTeX。
+- Validation commands:
+  - citation/bib set diff.
+  - DOI/CrossRef spot check for new entries.
+  - `latexmk -pdf -bibtex -interaction=nonstopmode -halt-on-error main.tex`
+  - `latexmk -pdf -bibtex -shell-escape -interaction=nonstopmode -halt-on-error main_mdpi.tex`

@@ -1,0 +1,36 @@
+## 任务包
+
+- 范围：对 `paper/references.bib` 中 45 条参考文献做投稿前终稿核验，补齐可验证的正式 venue、DOI、页码或 arXiv 信息，并记录仍需人工确认的条目。
+- 需要阅读的文件：
+  - `paper/references.bib`
+  - `paper/sections/*.tex`
+  - `paper/plan/review/reference-candidate-map.md`
+  - `paper/plan/progress.md`
+- 允许编辑的文件：
+  - `paper/references.bib`
+  - `paper/plan/review/reference-final-verification.md`
+  - `paper/plan/progress.md`
+  - 本任务包
+- 必需技能：
+  - `using-research-writing`
+  - `paper-orchestration`
+  - `literature-review`
+  - `verification`
+- 核验来源优先级：
+  - DOI/CrossRef、DBLP、arXiv 官方 API、IEEE/CVF/OpenAccess、出版社页面。
+  - 无法可靠确认的条目不强行补 venue/DOI。
+- 必需产物：
+  - 更新后的 `references.bib`。
+  - `paper/plan/review/reference-final-verification.md`，逐条记录核验状态、来源类型、处理动作和剩余风险。
+  - `progress.md` capability-use audit。
+- 驳回检查：
+  - 不编造 DOI、页码、venue 或作者列表。
+  - 不把仍为 arXiv 的条目伪装成正式出版。
+  - 不删除正文实引文献。
+  - 不引入未定义 citation key 或 BibTeX 解析错误。
+- 验证命令：
+  - `rg '^@' paper/references.bib | wc -l`
+  - citation/bib set diff 检查。
+  - DOI/arXiv 元数据接口核验脚本。
+  - `latexmk -pdf -bibtex -interaction=nonstopmode -halt-on-error main.tex`
+  - `latexmk -pdf -bibtex -shell-escape -interaction=nonstopmode -halt-on-error main_mdpi.tex`

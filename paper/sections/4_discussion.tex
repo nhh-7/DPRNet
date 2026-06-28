@@ -20,12 +20,26 @@ routing helps most. On Urban100 and Manga109---images dominated by repetitive st
 and long-range self-similarity---DPRNet and CATANet, the two routing methods, clearly
 separate from the window- and distillation-based baselines, whereas on the more
 stochastic textures of BSD100 the margin between all top-tier methods narrows. This is
-consistent with the premise of content routing: grouping tokens by semantics is most
-beneficial when semantically related content is spatially scattered, and less so when
-local statistics already capture the signal. DPR does not discard spatial locality but
-complements it, since each TAB is paired with a local self-attention unit
+consistent with the premise of content routing and with earlier SR work that exploits
+internal self-similarity or cross-scale non-local
+correspondences~\cite{glasner2009single,huang2015urban100,mei2020csnln}: grouping tokens by semantics
+is most useful when semantically related content is spatially scattered, and less useful
+when local statistics already capture the signal. DPR does not discard spatial locality;
+it complements it, since each TAB is paired with a local self-attention unit
 (Sec.~\ref{sec:method_overview}); the routing module supplies the long-range, content-based
 interaction that a fixed spatial window cannot.
+
+\paragraph{Small margins and evidence strength.}
+The numerical margins over CATANet are deliberately framed as small. The value of DPR is
+therefore not a claim of large PSNR gain over its direct predecessor, but a combination of
+three evidence streams: a consistent top-tier position across five benchmarks and three
+scales (Sec.~\ref{sec:main_comparison}), a preserved lightweight profile relative to
+attention-heavy Transformer baselines (Sec.~\ref{sec:efficiency}), and explicit routing
+diagnostics showing meaningful confidence scores and more balanced prototype usage
+(Sec.~\ref{sec:routing_analysis}). This framing matters because modern lightweight
+SR methods are often separated by only a few hundredths of a dB under standard
+PSNR/SSIM evaluation; without mechanism-level analysis, such small differences would be
+weak evidence on their own.
 
 \paragraph{The risk of over-strong routing.}
 A confidence-aware router can, in principle, sharpen its assignments until tokens collapse
@@ -37,7 +51,7 @@ Sec.~\ref{sec:routing_analysis} show both mechanisms operating as intended---the
 temperature settles in a moderate, unsaturated range (block-mean $6.06$, below the clamp
 of $10$) and the balancing regularizer raises the prototype-usage entropy in all eight
 blocks ($0.6227\!\rightarrow\!0.6865$) while increasing the number of active prototypes.
-In other words, the gains of confidence-aware routing are obtained without letting the
+Thus, the benefits of confidence-aware routing are obtained without letting the
 router become degenerate.
 
 \paragraph{Prototype count and the cost trade-off.}
@@ -51,8 +65,8 @@ why DPRNet carries a modestly higher parameter count and Multi-Adds than CATANet
 as the added cost lives in the query bank and projections of DPR. Even so, DPRNet stays
 within the lightweight bracket and below the Transformer baselines SwinIR-light
 ($60.3$\,G) and SRFormer-light ($56.5$\,G) at higher accuracy (Sec.~\ref{sec:efficiency}).
-A systematic sweep of the prototype schedule is a
-natural extension but is orthogonal to the routing formulation studied here.
+A systematic sweep of the prototype schedule is a natural extension but is orthogonal
+to the routing formulation studied here.
 
 \paragraph{Limitations.}
 Several limitations bound the present study and frame our claims conservatively. First,

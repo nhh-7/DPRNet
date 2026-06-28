@@ -1,0 +1,37 @@
+## 任务包
+
+- 范围：对 `paper/sections/*.tex` 做全文逐句英文语言润色，保持 LaTeX 命令、引用、标签、数据和结论边界不变。
+- 需要阅读的文件：
+  - `paper/plan/project-overview.md`
+  - `paper/plan/outline.md`
+  - `paper/plan/progress.md`
+  - `paper/sections/*.tex`
+  - 必要时读取 `paper/tables/*.tex` 与 `paper/figures/*.tex` 以确认正文引用语境。
+- 允许编辑的文件：
+  - `paper/sections/*.tex`
+  - `paper/plan/progress.md`
+  - 本任务包
+- 必需技能：
+  - `using-research-writing`
+  - `paper-orchestration`
+  - `writing-chapters`
+  - `prompts-collection`
+  - `verification`
+- 编辑原则：
+  - 只润色语言、衔接、句法和冗余表达，不新增实验结论。
+  - 保留所有 `\cite{}`、`\ref{}`、`\label{}`、公式、表图编号和数值口径。
+  - 不把正文改成项目符号；贡献列表等现有必要列表可保留。
+  - 避免机械过渡词和空壳强调句，保留克制的学术语气。
+  - 对 CATANet、消融单 seed、效率对比等敏感 claim 继续使用保守表述。
+- 必需产物：
+  - 润色后的正文 `.tex` 文件。
+  - `progress.md` 中的 capability-use audit。
+- 驳回检查：
+  - 不改动真实实验数值或表格排名。
+  - 不新增未验证引用。
+  - 不把 limitations 改弱或删除。
+  - 不引入 undefined citation/ref。
+- 验证命令：
+  - `latexmk -pdf -bibtex -interaction=nonstopmode -halt-on-error main.tex`
+  - `latexmk -pdf -bibtex -shell-escape -interaction=nonstopmode -halt-on-error main_mdpi.tex`
+  - `rg -n "undefined|Undefined|Overfull|Underfull|Warning--|error|Error" main.log main.blg main_mdpi.log main_mdpi.blg`

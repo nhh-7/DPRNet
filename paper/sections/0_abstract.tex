@@ -10,23 +10,22 @@
 % =====================================================================
 \begin{abstract}
 Lightweight single image super-resolution (SR) seeks a favorable trade-off between
-reconstruction quality and model cost for resource-constrained platforms. Content-aware
-routing, which groups tokens by semantics rather than spatial position, has recently
-advanced this trade-off, but its prevailing realization---the Token Aggregation Block
-(TAB) of CATANet---relies on cross-batch exponential-moving-average routing centers,
-discards the confidence of each token-to-center assignment, and entangles prototype
-generation with confirmation. We propose \emph{Dynamic Prototype Routing} (DPR), a
-drop-in replacement for TAB that keeps the backbone, the tensor interface, and the
-lightweight budget unchanged. DPR generates semantic prototypes directly from the
-current tokens through a soft assignment, confirms them with a learnable query bank
-decoupled from generation, matches tokens back with a learnable temperature, and
-propagates an explicit per-token confidence through ordering, gating, and a soft
-fallback; a usage-balancing regularizer keeps prototype use spread out. The resulting
-network, DPRNet, is trained on DIV2K and evaluated on five standard benchmarks at
-$\times2/\times3/\times4$. DPRNet matches or slightly surpasses the strongest
+reconstruction quality and model cost on resource-constrained platforms. Content-aware
+routing improves this trade-off by grouping tokens according to semantics rather than
+spatial position, yet its prevailing realization---the Token Aggregation Block (TAB) in
+CATANet---uses cross-batch exponential-moving-average routing centers, discards the
+confidence of token-to-center assignments, and couples prototype generation with
+confirmation. We propose \emph{Dynamic Prototype Routing} (DPR), a drop-in replacement
+for TAB that preserves the backbone, tensor interface, and lightweight budget. DPR
+generates semantic prototypes from the current tokens through soft assignment, confirms
+them with a learnable query bank decoupled from generation, matches tokens back using a
+learnable temperature, and carries per-token confidence through ordering, gating, and a
+soft fallback. A usage-balancing regularizer further keeps prototype use spread out. The
+resulting network, DPRNet, is trained on DIV2K and evaluated on five standard benchmarks
+at $\times2/\times3/\times4$. DPRNet matches or slightly surpasses the strongest
 content-routing baseline across benchmarks at a comparable parameter and computation
-budget (e.g.\ $26.89$\,dB on Urban100 at $\times4$ with $52.14$\,G Multi-Adds, fewer than the
-lightweight Transformer baselines SwinIR-light and SRFormer-light), while exposing an
-interpretable, confidence-aware routing mechanism whose prototype usage is measurably more
-balanced.
+budget. At $\times4$, for example, it obtains $26.89$\,dB on Urban100 with
+$52.14$\,G Multi-Adds, fewer than the lightweight Transformer baselines SwinIR-light and
+SRFormer-light, while exposing an interpretable, confidence-aware routing mechanism with
+measurably more balanced prototype usage.
 \end{abstract}

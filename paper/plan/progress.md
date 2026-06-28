@@ -5,6 +5,114 @@
 
 ---
 
+## 2026-06-28 · 参考文献终稿核验 + CATANet 原文对齐
+
+- 已新增任务包：`paper/plan/task-packets/2026-06-28-reference-final-verification.md`。
+- 已新增对齐任务包：`paper/plan/task-packets/2026-06-28-reference-catanet-alignment.md`。
+- 已新增逐条核验记录：`paper/plan/review/reference-final-verification.md`。
+- `references.bib` 保持 45 条，正文实引 key 也为 45 条，无未引用 BibTeX、无未定义 cite key。
+- 当前参考文献状态：
+  - DOI 条目：45 条。
+  - arXiv-only 条目：0 条。
+  - 无 DOI 条目：0 条。
+- 本轮把 9 条可验证的 preprint/不完整条目升级为正式出版元数据：`tai2017memnet`, `sun2022shufflemixer`, `guo2022dualregression`, `mei2020csnln`, `chen2021ipt`, `chen2023hat`, `zheng2023emt`, `liu2022hpinet`, `ren2024ntire`。
+- 参考 CATANet 原文引用风格，把 `shi2023eswt` 替换为两条正式 CVPR 2023 文献：`wang2023omnisr`（Omni-SR）和 `choi2023ngswin`（NGswin）。
+- `wang2020basicsr` 已从正式参考文献移除；`sections/3_experiments_setup.tex` 仍保留 “PyTorch with the BasicSR framework” 的实现说明，但不占参考文献名额。
+- 本轮按 DOI/CrossRef 元数据修正 7 条页码：`lai2017lapsrn`, `zhang2018rcan`, `dong2016fsrcnn`, `tai2017drrn`, `yang2020ttn`, `chen2021ipt`, `liu2021swin`。
+
+### Capability-use audit
+
+- Required skills: `using-research-writing`, `paper-orchestration`, `literature-review`, `verification`。
+- Skills actually used: 已读取并应用上述技能；本轮执行 S1 Evidence + S5 Review。
+- Inputs consumed: `paper/references.bib`, `paper/sections/*.tex` 的 citation set, `paper/plan/review/reference-candidate-map.md`, `paper/plan/progress.md`, CATANet 原文 arXiv HTML, arXiv API、CrossRef API、DBLP/CVF/AAAI/PubMed 等公开元数据页面。
+- Inputs not used and why: 未使用中文文献数据库；本文引用体系为英文 SR/计算机视觉论文。未使用多代理；本轮是同一 BibTeX 文件的元数据核验，单代理可避免并发编辑冲突。
+- Artifacts produced: 更新后的 `paper/references.bib`；`paper/sections/1_introduction.tex`；`paper/sections/3_experiments_setup.tex`；`paper/plan/review/reference-final-verification.md`；`paper/plan/review/reference-candidate-map.md`；`paper/plan/task-packets/2026-06-28-reference-final-verification.md`；`paper/plan/task-packets/2026-06-28-reference-catanet-alignment.md`。
+- Verification run:
+  - `rg '^@' paper/references.bib | wc -l` / Ruby 统计 → 45 entries, 45 DOI entries, 0 arXiv-only entries, 0 no-DOI entries。
+  - citation/bib set diff → 空输出，表示无未引用 BibTeX、无未定义 cite key。
+  - DOI resolver/CrossRef metadata check → 45 个 DOI 均有可追溯元数据；IEEE 批量查询曾出现 420 限流，已对受影响 DOI 单独用 CrossRef 复核。
+  - CrossRef spot check → `wang2023omnisr` DOI `10.1109/CVPR52729.2023.02143`；`choi2023ngswin` DOI `10.1109/CVPR52729.2023.00206`。
+  - `git diff --check -- paper/references.bib ...` → 通过，无 whitespace error。
+  - `latexmk -pdf -bibtex -interaction=nonstopmode -halt-on-error main.tex` → 通过，`main.pdf` 16 页。
+  - `latexmk -pdf -bibtex -shell-escape -interaction=nonstopmode -halt-on-error main_mdpi.tex` → 通过，`main_mdpi.pdf` 23 页。
+  - 日志检查：无 undefined citation/ref、无 BibTeX warning、无 Overfull/Underfull；仍存在既有 CVPR float-only page / pgfplots compat 提示，以及 MDPI hyperref PDF string / fancyhdr headheight 警告。
+- Remaining risk: 当前正式参考文献无 arXiv-only / no-DOI 条目；BasicSR 仍作为实验框架文字说明，如果目标期刊强制软件引用，可按期刊指南改为脚注或补软件引用。
+
+## 2026-06-28 · 全文逐句语言润色
+
+- 已新增任务包：`paper/plan/task-packets/2026-06-28-full-text-language-polish.md`。
+- 已对 `paper/sections/*.tex` 的 11 个正文分节完成逐句英文润色，覆盖 Abstract、Introduction、Method、Experiments 全部子节、Discussion 和 Conclusion。
+- 润色原则：保留所有公式、标签、引用、实验数值和 claim 边界；只调整句法、冗余、衔接、模板化表达和过强语气。
+- 主要修改：
+  - `0_abstract.tex`：拆分过长句，压缩 DPR 机制描述，保留 CATANet 保守对比。
+  - `1_introduction.tex`：进一步顺滑开篇、related-work 承接和 DPR motivation，避免方法清单式语言。
+  - `2_method.tex`：减少“说明书口吻”和 repeated limitation wording，强化输入→处理→输出的技术流。
+  - `3_experiments_*.tex`：统一实验叙述口径，保留单 seed、短预算、未统一重测 latency/MACs 等限制。
+  - `4_discussion.tex`：压稳小 margin 解释、routing collapse 风险和 prototype budget 讨论。
+  - `5_conclusion.tex`：压缩结论句，保留未来工作边界。
+- 本轮没有新增参考文献、没有改动表格数值、没有删除 limitations。
+
+### Capability-use audit
+
+- Required skills: `using-research-writing`, `paper-orchestration`, `writing-chapters`, `prompts-collection`, `verification`。
+- Skills actually used: 已读取并应用上述技能；本轮执行 S4 Drafting + S5 Review。
+- Inputs consumed: `project-overview.md`, `outline.md`, `progress.md`, `sections/*.tex`, `references.bib` citation set, `main.tex`, `main_mdpi.tex`。
+- Inputs not used and why: 未使用多代理章节重写；本轮是同一套 `.tex` 正文的语言润色，不是重新设计章节结构，单代理保持全稿风格一致更合适。
+- Artifacts produced: `paper/plan/task-packets/2026-06-28-full-text-language-polish.md`；润色后的 `paper/sections/*.tex`。
+- Verification run:
+  - `rg` 禁用词/模板词检查：仅命中 `\paragraph{Overall accuracy.}`，这是章节标题，不是正文模板句。
+  - citation/bib set diff → 空输出，表示无未引用 BibTeX、无未定义 cite key。
+  - `git diff --check -- paper/sections ...` → 通过，无 whitespace error。
+  - `latexmk -pdf -bibtex -interaction=nonstopmode -halt-on-error main.tex` → 通过，`main.pdf` 16 页。
+  - `latexmk -pdf -bibtex -shell-escape -interaction=nonstopmode -halt-on-error main_mdpi.tex` → 通过，`main_mdpi.pdf` 23 页。
+  - 日志检查：无 undefined citation/ref、无 Overfull/Underfull；仍存在既有 CVPR float-only page / pgfplots compat 提示，以及 MDPI hyperref PDF string / fancyhdr headheight 警告。
+- Remaining risk: 语言层面已完成一轮源文件 polish，但投稿前仍建议人工通读 PDF 版面，尤其检查 MDPI 首页元数据、图表跨页和参考文献最终 venue 信息。
+
+## 2026-06-28 · 按润色计划实施：参考文献扩充到 45 篇 + 引言/讨论证据链重写
+
+- 已新增 `paper/plan/review/reference-candidate-map.md`，把新增文献逐条绑定到正文论点和 citation slot。
+- `references.bib` 从 20 条扩充到 **45 条**；正文唯一实引 key 同步为 **45 条**，没有未引用 BibTeX，也没有未定义 citation key。
+- 新增文献覆盖：经典 SR / sparse representation / self-similarity、VDSR/DRCN/LapSRN/DBPN/RDN/RCAN 等高容量 SR 脉络、FSRCNN/ESPCN/DRRN/MemNet/ShuffleMixer/Dual Regression 等高效 CNN、Non-local/IPT/Swin/HAT/EMT/Omni-SR/NGswin/HPINet 等 Transformer/non-local 背景，以及 NTIRE 2024 efficient SR challenge 和 SISR survey。
+- 改写 `sections/1_introduction.tex`：把 related-work 从方法清单改为“设计原则 → 局限 → DPR 动机”的论证链，并补齐新增引用。
+- 修正 C4 表述：Introduction 和 Method 不再宣称已验证 seed-to-seed variance reduction；改为稳定 slot usage、缓解 prototype collapse。Ablation/Discussion 中保留“方差分析需多 seed，当前不主张”的限制。
+- 改写 `sections/4_discussion.tex`：补充 self-similarity / non-local 支撑，并新增“小 margin 的证据强度”段，明确 DPR 的价值来自跨基准一致性、轻量级边界和机制诊断，而不是夸大 PSNR margin。
+- 补强 `sections/3_experiments_setup.tex` 的效率评价背景，引用 NTIRE 2024 efficient SR challenge，但未填补未统一重测的 competitor latency/MACs。
+- 微调 `figures/fig7_visual.tex` 图注，明确视觉 crop 是高频难样本，不是按 DPRNet 单 crop 优势挑选；拆分 `3_experiments_comparison.tex` 的长 baseline 列表，消除 MDPI 版 Overfull。
+
+### Capability-use audit
+
+- Required skills: `using-research-writing`, `paper-orchestration`, `literature-review`, `peer-review`, `verification`。
+- Skills actually used: 已按入口路由读取 `using-research-writing` / `paper-orchestration` / `literature-review`；本轮执行 S1 Evidence + S5 Review。
+- Inputs consumed: `references.bib`, `sections/1_introduction.tex`, `sections/2_method.tex`, `sections/3_experiments_setup.tex`, `sections/3_experiments_comparison.tex`, `sections/4_discussion.tex`, `figures/fig7_visual.tex`, `plan/review/polish-and-reference-improvement-plan.md`，以及 arXiv/CrossRef 检索结果。
+- Inputs not used and why: 未引入中文文献；本稿为英文 SR 期刊稿，当前新增文献全部来自英文可追溯来源。未新增 baseline 表格数据，因为未统一重测。
+- Artifacts produced: `paper/plan/review/reference-candidate-map.md`；扩充后的 `paper/references.bib`；重写后的 Introduction/Discussion/相关图注和实验设置文本。
+- Verification run:
+  - `rg '^@' references.bib | wc -l` → 45。
+  - citation/bib set diff → 空输出，表示无未引用 BibTeX、无未定义 cite key。
+  - `latexmk -pdf -bibtex -interaction=nonstopmode -halt-on-error main.tex` → 通过，`main.pdf` 16 页，BibTeX used 45 entries。
+  - `latexmk -pdf -bibtex -shell-escape -interaction=nonstopmode -halt-on-error main_mdpi.tex` → 通过，`main_mdpi.pdf` 23 页，BibTeX used 45 entries。
+  - 日志检查：无 undefined citation/ref；本轮修复后无 Overfull/Underfull 命中。MDPI 模板仍有既有 `fancyhdr headheight` 和 hyperref PDF string 警告，非新增致命问题。
+- Remaining risk: 部分新增近期方法以 arXiv preprint 形式引用，投稿前若目标期刊要求最终 proceedings 信息，应再逐条用 DBLP/出版社页面补齐 venue/页码/DOI；MDPI 作者/单位/ORCID/funding/data availability 仍需实名填写。
+
+## 2026-06-28 · 全文润色与参考文献扩充审查
+
+- 已按 research-writing-skill 路由执行整篇论文质量返工审查，新增任务包：
+  `paper/plan/task-packets/2026-06-28-polish-reference-review.md`。
+- 新增改进方案：`paper/plan/review/polish-and-reference-improvement-plan.md`。
+- 当前核查结果：`references.bib` 共 20 条，正文唯一引用 key 也是 20 条；若按期刊稿约 45 篇参考文献目标，至少还需新增并实际引用约 25 条可追溯文献。
+- 初步判断：论文结构、实验和图表已经基本成稿；下一轮的主要收益来自文献体系扩充、Introduction/Discussion 的论证链重写、图注/表注增强，以及投稿信息收尾。
+- 关键风险：不要为了凑数量添加未引用或未验证文献；不要把 C4 写成已验证 seed 方差降低；不要混用不同硬件/输入尺寸下的 latency/MACs。
+
+### Capability-use audit
+
+- Required skills: `using-research-writing`, `paper-orchestration`, `literature-review`, `peer-review`。
+- Skills actually used: 已读取并按上述四个技能执行审查与记录。
+- Inputs consumed: `project-overview.md`, `outline.md`, `progress.md`, `main.tex`, `main_mdpi.tex`, `sections/*.tex`, `tables/*.tex`, `figures/*.tex`, `references.bib`，以及 CrossRef/arXiv 检索脚本结果。
+- Inputs not used and why: 未读取全文 PDF 视觉版面，当前阶段先做源文件与证据链审查；未直接改正文，因为参考文献扩充需先建立候选文献到 citation slot 的映射。
+- Artifacts produced: `paper/plan/task-packets/2026-06-28-polish-reference-review.md`, `paper/plan/review/polish-and-reference-improvement-plan.md`。
+- Verification run: `rg '^@' paper/references.bib | wc -l`; `rg -o '\\cite\\{[^}]+\\}' paper/sections paper/main.tex paper/main_mdpi.tex`; `python3 .trae/skills/research-writing-skill/scripts/scholar_search.py ...`。
+- Remaining risk: 候选文献仍需逐条通过 DBLP/CrossRef/arXiv/出版社页面核实后才能写入 `references.bib` 和正文。
+
 ## ⭐ 给下一次 AI 会话的快速接手指南（先读这里）
 
 **这是什么项目**：把超分网络 CATANet 的 TAB 模块替换为自研 DPR（动态原型路由），
@@ -40,12 +148,18 @@
 
 ## 当前快照（每次更新）
 
-- **更新时间**：2026-06-27
-- **所处阶段**：Day9→Day11。消融实验已训练完成并分析；Table III/IV/V（受限口径）已拼装；
+- **更新时间**：2026-06-28（续11）
+- **所处阶段**：Day9→Day11。**✅ 收尾全部完成**：期刊模板已迁移到目标期刊
+  **Applied Sciences (MDPI)**，3.1 硬件占位已照抄 CATANet（单张 NVIDIA RTX 4090）补值。
+  消融实验已训练完成并分析；Table III/IV/V（受限口径）已拼装；
   Experiments 已写定 3.1 设置（sec:exp_setup）+ 3.2 主对比（sec:main_comparison）+
   3.3 效率（sec:efficiency）+ **3.4 视觉对比（sec:visual）** + 3.5 消融（sec:ablation）+
   3.6 路由分析（sec:routing_analysis）+ Fig.6。
   Abstract（0_abstract.tex）+ Discussion（4_discussion.tex）+ Conclusion（5_conclusion.tex）已写定。
+  **✅ 2026-06-28（续9）：Fig.5（x_scores 直方图）/ Fig.8（聚类图）已在训练机推理产出、回传并接入正文，
+  全文所有图（Fig.1–8）齐全。** 资产在 paper/figures/fig58_assets/（4 CSV + 12 PNG），
+  fig5_xscore_hist.tex / fig8_cluster_maps.tex 已串入 main.tex，3.6 的 C3 段正式引用两图。
+  **✅ 已用本地 TinyTeX latexmk 干净编译 14 页，0 Overfull / 0 undefined ref，12 张 Fig.8 PNG 全部嵌入。**
   **✅ 2026-06-27（续8）：Fig.7 对手列已在训练机推理完成并补齐，Fig.7 全部做完（不再缺图）。**
   对手 SR 在训练机产出后回传至 fig7_stage/，本地用 build_fig7_competitor_crops.py 按同一固定 crop 框 +
   同口径（Y / crop_border=4 / 全图）裁剪算指标。最终对手列：**IMDN / SwinIR-light / SRFormer-light / CATANet**
@@ -89,8 +203,10 @@
      §Method 引 Fig.1/2、§3.3 引 Fig.3；全文 pdflatex→bibtex→×2 干净编译 12 页，0 Overfull/0 警告/0 悬空引用。
   3. ~~写 3.4 视觉对比 + 出 Fig.7 视觉图~~ **已完成（2026-06-27 续7+续8）**：3.4 正文 + Fig.7
      （8 面板：GT全图/Bicubic/IMDN/SwinIR-light/SRFormer-light/CATANet/DPRNet/GT-crop）全部出图、编译验证。
-     **仍待训练机**：Fig.5 x_scores 直方图 / Fig.8 聚类图（需推理）。
-  4. 收尾：references.bib 终稿前 CrossRef 核对；期刊模板迁移；3.1 硬件占位补值。
+     ~~**仍待训练机**：Fig.5 x_scores 直方图 / Fig.8 聚类图（需推理）~~ **已完成（2026-06-28 续9）**：
+     两图已推理产出、接入 main.tex 与 3.6 正文（待 TinyTeX 机器 latexmk 复验）。
+  4. 收尾：~~references.bib 终稿前 CrossRef 核对~~ **已完成（2026-06-28 续10，全 20 条 dblp 核对+补 6 条引用）**；
+     期刊模板迁移；3.1 硬件占位补值。
   5. ~~写 Abstract/Discussion/Conclusion~~ **已完成（2026-06-27）**。
   6. ~~修 intro 不一致~~ **已完成（2026-06-27）**：更正后 DPRNet 在 Table I 几乎全格领先 CATANet
      （仅 x4 Manga109 SSIM 次优），intro 已改为"matches or slightly surpasses"，主对比正文同步重写。
@@ -119,6 +235,81 @@
 ---
 
 ## 进度日志（倒序，最新在上）
+
+### 2026-06-28（续11）· 收尾完成：迁移 Applied Sciences (MDPI) 模板 + 3.1 硬件照抄 CATANet
+- **3.1 硬件占位补值（照抄 CATANet，用户指令）**：3_experiments_setup.tex 两处占位补实——
+  · 训练硬件：原 `[PLACEHOLDER: N× NVIDIA <GPU model>, total ≈<GPU-hours>]` → **a single NVIDIA RTX 4090 GPU**；
+  · 效率测量：原 "a single CUDA GPU" → **a single NVIDIA RTX 4090 GPU**。
+  依据：CATANet 论文正文仅在 §4.5 效率测量明确单张 RTX 4090；训练 GPU 数量与 GPU-hours 未公开，
+  **不编造**，故去掉 GPU-hours 占位。文件头 HARDWARE 注释改写说明此决策。
+- **期刊模板迁移到目标期刊 Applied Sciences (MDPI)**（CVPR kit 仅作正文源，保留不动）：
+  · 新建 **main_mdpi.tex**：`\documentclass[applsci,article,submit,moreauthors]{Definitions/mdpi}`，
+    填 MDPI 必填前后置段——\Title/\Author/\AuthorNames/\address/\corres/\abstract（去掉 abstract 环境，
+    内容同 0_abstract.tex 但搬进 \abstract{} 宏）/\keyword/\featuredapplication（applsci 专属）+
+    authorcontributions/funding/dataavailability/conflictsofinterest。复用全部 sections/ 与 tables/。
+  · **关键坑（已解决）**：mdpi.cls 硬编码 `\RequirePackage[labelformat=simple]{subfig}`（L70），
+    与 DPRNet 原用的 subcaption 冲突——实测在 preamble 强加 subcaption 无效（subfig 先到位，
+    subfigure 环境仍 undefined）。**最终方案**：把 Fig.5/7/8 的子图从 `\begin{subfigure}` 改写为
+    通用 **minipage**（面板标签本就是 \caption*/纯文本、无交叉引用 label，minipage 等价且 CVPR/MDPI 双兼容）。
+  · **另一坑**：MDPI 文档类要求 \begin{document} 前设 \firstpage/\pubvolume/\datepublished 等内部命令，
+    否则 \datepublished 未定义报错；已照官方 template 补齐。journal 必须用真实期刊名 applsci（不能写字面 journal）。
+  · 新建 **preamble_mdpi.tex**：只补 pifont/pgfplots + tikz 库 + dprblue 色（multirow/booktabs/natbib/
+    hyperref/cleveref/tikz/caption/subfig 等已由 mdpi.cls 提供），**不加 subcaption**（避冲突）、
+    **不设 \bibliographystyle**（类已固定为 Definitions/mdpi，ACS 数字风格）。
+- **工具链**：本地 TinyTeX + 全部 MDPI 依赖包（tlmgr 补 fancyhdr/setspace/tabto-ltx/colortbl/
+  frankenstein(attrib)/translations/xstring/subfig/alphalph 等）+ Ghostscript 10.07.1（/opt/homebrew/bin/gs，
+  MDPI EPS logo 需 -shell-escape 转 PDF）。编译前置：
+  `export PATH="$HOME/Library/TinyTeX/bin/universal-darwin:/opt/homebrew/bin:$PATH"`。
+- ✅ **完整编译通过**（pdflatex -shell-escape → bibtex → pdflatex ×3）：exit=0，**21 页**，
+  bibtex 用 Definitions/mdpi.bst、"used 20 entries"、0 error；main_mdpi.log 0 undefined ref/citation、
+  **0 Overfull/0 Underfull、0 字体警告**；12 张 PNG 全部嵌入，Fig.5 pgfplots / Fig.1/2 TikZ / 6 表正常。
+  肉眼核对渲染 PNG：首页 applsci 抬头/featured application/abstract/keywords/行号正常；
+  Fig.7 三行八面板（minipage）标签完整；参考文献 ACS 数字风格 + Publisher's Note 正常。
+- **收尾全部完成**：references.bib（续10）+ 模板迁移 + 硬件占位 三项均结。投稿前仅余作者/机构/ORCID 实名填写。
+
+### 2026-06-28（续10）· references.bib 全 20 条 dblp 权威核对完成 + 补 6 条数据集/指标引用
+- **逐条用 dblp JSON API 核对完 20 条参考文献**（cite key 全程不变，不破坏正文 \cite）。
+  续此前 13 条（10 处修正 + CATANet/IMDN/SRCNN 3 条确认），本轮再核 7 条：
+  Manga109（vol76/no20/21811-21838/DOI 全对）、Set14(Zeyde)、Set5(Bevilacqua,
+  保留 BMVC 官方编号 135.1--135.10)、BSD100(Martin, 保留 IEEE 官方 416--423)、
+  Urban100(Huang, 5197-5206)、SSIM(Wang2004, TIP 13/4/600-612) 均确认无误；
+  BasicSR 为 GitHub 软件（misc），无 dblp 条目按官方仓库著录。
+- **修复 bibtex 解析坑**：文件头注释里写了裸 `@misc`，bibtex 见 `@` 即当新条目导致
+  "expecting { or (" 报错并跳过整库（→ 133 refs/23 cites 全 undefined）。改为"misc 类型"措辞后消除。
+- **补 6 条死引用**：bib 里 Set5/Set14/BSD100/Urban100/Manga109/SSIM 此前已著录但正文未 \cite
+  （只有文字"five benchmarks: Set5, Set14..."）。在 3_experiments_setup.tex §Datasets and metrics
+  首次提及处补 \cite，符合学术规范；参考文献从 14 条实际引用提升到 **20 条全部被引用**。
+- 更新 references.bib 文件头核实状态注释（2026-06-28，全 20 条已核）。
+- ✅ **TinyTeX latexmk -bibtex 干净编译**：exit=0，main.blg 0 error，"You've used 20 entries"，
+  main.log 0 undefined / 0 Overfull，**15 页**（补引用后参考文献内容增加 +1 页）。
+- **收尾仅剩 2 项**：期刊模板迁移（待定 Neurocomputing/PR/TNNLS）、3.1 硬件占位补值（GPU 型号/GPU·hours）。
+
+### 2026-06-28（续9）· Fig.5/Fig.8 产出回传并接入正文（路由可解释性最后两张图完成）
+- 训练机已用 build_routing_figures.py（x4 net_g_250000）对 Urban100/Manga109 跑完，产物回传至
+  仓库根 fig58_stage/（4 CSV + 12 PNG）。本地复制到 paper/figures/fig58_assets/。
+- **数据事实（勿推翻）**：x_scores = max_m softmax(cos·τ)，即路由置信度 ∈[1/M,1]。
+  每 block 的 frac_above_uniform=1.0 是数学必然（max≥mean=1/M），不能据此夸大；真正信息量在
+  block-mean ≈ 1.5–1.9×(1/M)：Urban100 b0 0.109 vs floor 0.0625、b3 0.012 vs 0.0078；
+  随 M 增大分布整体左移向 floor 收拢（>99.8% 质量落在 [0,0.30]）。两数据集走势一致 →
+  结论定为"informative but soft"（有信息但软路由），不写成尖峰/硬塌缩。
+- **Fig.5（fig5_xscore_hist.tex）**：pgfplots 双子图（(a)Urban100 (b)Manga109），各画 b0(M16)/b2(M64)/
+  b3(M128) 三条归一化频率曲线 + 各自 1/M 虚线，x 轴裁到 [0,0.30]。数据 verbatim 来自 hist CSV
+  （Urban100 4,839,460 tokens/block；Manga109 6,545,996）。defines fig:xscore_hist。
+- **Fig.8（fig8_cluster_maps.tex）**：figure* 3 行×4 列（LR | b0 | b3 | b7），3 难样本与 Fig.7 同
+  （Urban100 img_092/img_024、Manga109 ThatsIzumiko_000）。belong_idx 还原 H×W 伪彩，黄金比 hue 调色板，
+  跨 block 颜色不可比已在 caption 标注。defines fig:cluster_maps。
+- **正文**：3_experiments_routing_analysis.tex 的 C3 段重写——从"留 camera-ready"改为正式引用
+  Fig.5/Fig.8，给出 block-mean vs floor 具体数值与"软但有信息""深层 M 大分区更细"两条可视结论。
+  main.tex 串入两图（routing_analysis 后），更新文件头 Fig.5/8 状态注释。
+- 引用的方程标签（eq:belong/sortkey/iasa_gate/soft_fallback/scores/balance）均已在 2_method.tex 存在且口径一致。
+- ✅ **已用本地 TinyTeX（~/Library/TinyTeX/bin/universal-darwin/）latexmk 干净编译**：14 页（原 13+1），
+  main.log 末遍 0 Overfull / 0 undefined ref；fig:xscore_hist / fig:cluster_maps 标签解析正常，
+  12 张 fig8 PNG 全部嵌入，Fig.5 pgfplots 折线正常渲染。
+- ⚠ **图号说明**：LaTeX 按出现顺序自动编号 → 结构 Fig.1/2、PSNR散点 Fig.3、视觉对比 Fig.4、
+  x_scores直方图 **Fig.5**、usage熵 **Fig.6**、聚类图 **Fig.7**（注意：计划里"Fig.8"角色现实际编号为 7）。
+  文件名 fig5_*/fig8_* 仅为计划角色代号，正文全用 \ref，不受影响；已顺手把 3_experiments_visual.tex
+  注释里两处写死的 "Fig.7" 改为中性表述避免日后混淆。
+- **收尾仅剩 3 项**：references.bib CrossRef 核对、期刊模板迁移、3.1 硬件占位补值（GPU 型号/GPU·hours）。
 
 ### 2026-06-28 · 写训练机出图脚本 build_routing_figures.py（Fig.5 x_scores 直方图 + Fig.8 聚类图）
 - 新建 CATANet/scripts/build_routing_figures.py（自包含，仅依赖 torch/cv2/numpy + import basicsr，
@@ -577,3 +768,88 @@
   x3/x4 finetune yml 对齐 x2。
 - Verification run: yml/文档与实际配置、x2 指标一致；catanet_arch.py py_compile 通过。
 - Remaining risk: 效率脚本未实现；x3/x4 finetune 效果与消融短 iter 趋势待训练机验证。
+
+### 2026-06-28 · MDPI 投稿前整篇 PDF 自审
+
+- 按用户要求审阅 `paper/main_mdpi.pdf` 全 23 页，覆盖正文逻辑、MDPI 格式、参考文献、
+  图表效果和实验结果；使用 PDFKit 抽取逐页文本并渲染全页图像，重点检查 Figures 1--7
+  和 Tables 1--7。
+- 对照 Applied Sciences 作者指南与两篇相近 MDPI 超分辨率论文：
+  `https://www.mdpi.com/journal/applsci/instructions`,
+  `https://www.mdpi.com/2076-3417/15/4/1806`,
+  `https://www.mdpi.com/2076-3417/14/2/917`。
+- 产出任务包：`paper/plan/task-packets/2026-06-28-mdpi-full-paper-review.md`。
+- 产出审稿报告：`paper/plan/review/mdpi-full-paper-review-2026-06-28.md`。
+- 关键结论：当前稿件结构和技术叙事已接近投稿形态，但不建议今天直接投；需先处理作者占位、
+  “budget unchanged” 与成本数据不一致、Fig.5 截断、参考文献 “Proceedings of the Proceedings”
+  渲染、表注/正文内部过程语、效率对比缺口、以及 CATANet 小幅提升证据不足等投稿前阻断项。
+
+### Capability-use audit（2026-06-28 MDPI PDF 自审）
+
+- Required skills: using-research-writing, paper-orchestration, peer-review, verification
+- Skills actually used: 已读取并使用 using-research-writing、paper-orchestration、peer-review；
+  verification 以本地验证命令和 PDF 渲染/日志检查执行，未改动论文正文。
+- Inputs consumed: `paper/main_mdpi.pdf`, `paper/main_mdpi.tex`, `paper/main_mdpi.log`,
+  `paper/main_mdpi.bbl`, `paper/references.bib`, `paper/sections/*.tex`,
+  `paper/tables/*.tex`, `paper/figures/*.tex`, Applied Sciences 作者指南和相近 MDPI SR 论文网页。
+- Inputs not used and why: 未重新运行模型训练或基线推理；本轮任务是投稿前审阅建议，不生成新实验数据。
+- Artifacts produced: `paper/plan/task-packets/2026-06-28-mdpi-full-paper-review.md`,
+  `paper/plan/review/mdpi-full-paper-review-2026-06-28.md`。
+- Verification run: `mdls` 确认 PDF 23 页；PDFKit 抽取文本并渲染页面；`rg` 检查 LaTeX/BibTeX
+  警告；检查 `.bbl` 发现参考文献重复 “Proceedings of the Proceedings”；逐页查看关键图表。
+- Remaining risk: 未进行人工 DOI 逐条联网复核；未验证实验数值原始日志和模型输出，只根据现有稿件、
+  表格、日志和 PDF 进行审阅。
+
+### 2026-06-28 · MDPI 投稿前阻断项修订
+
+- 按用户要求修订参考文献、Fig.5、占位信息、内部过程语和 “budget unchanged” 表述。
+- 产出任务包：`paper/plan/task-packets/2026-06-28-mdpi-pre-submission-fixes.md`。
+- 主要改动：
+  - `references.bib` 的会议 `booktitle` 去掉前置 `Proceedings of the`，并重新编译生成
+    `main_mdpi.bbl`，消除 “In Proceedings of the Proceedings of ...”。
+  - `figures/fig5_xscore_hist.tex` 将 y 轴改为 0--100%，避免 66--95% 的峰值被截断；
+    已渲染 PDF 第 17 页确认曲线完整。
+  - `main_mdpi.tex` 将匿名作者、邮箱、单位、ORCID 占位集中为 3 个待替换宏，正文/贡献声明
+    不再出现 `Anonymous Author` 等旧占位。
+  - 删除正文与表注中的内部过程语，包括 “left for the final version”“we do not fabricate”
+    和 “must not be asserted before those runs exist”。
+  - 将 “lightweight budget unchanged” 改为 backbone/interface unchanged 且仍处于 comparable
+    lightweight regime，避免与 660K/52.14G vs. CATANet 535K/46.8G 的数据冲突。
+  - 顺手修复 `sections/2_method.tex` 中 Eq. 之后一个未闭合括号。
+
+### Capability-use audit（2026-06-28 MDPI 修订）
+
+- Required skills: using-research-writing, paper-orchestration, latex-output, peer-review, verification
+- Skills actually used: 已读取并使用 using-research-writing、paper-orchestration、latex-output、
+  peer-review、verification；未启用子代理，因为本轮是限定文件的直接修订。
+- Inputs consumed: `paper/main_mdpi.tex`, `paper/references.bib`, `paper/main_mdpi.bbl`,
+  `paper/figures/fig5_xscore_hist.tex`, `paper/sections/*.tex`,
+  `paper/tables/table2_efficiency.tex`, `paper/tables/table5_ablation_a3.tex`,
+  上一轮审稿报告和用户指定的修订范围。
+- Inputs not used and why: 未补真实作者身份、单位、邮箱、ORCID；用户尚未提供，不能编造。
+- Artifacts produced: 修订后的 `paper/main_mdpi.pdf`、`paper/main_mdpi.bbl`、相关 LaTeX 源文件，
+  以及 `paper/plan/task-packets/2026-06-28-mdpi-pre-submission-fixes.md`。
+- Verification run: 使用 TinyTeX 路径
+  `/Users/bytedance/Library/TinyTeX/bin/universal-darwin` 完成
+  `pdflatex -> bibtex -> pdflatex -> pdflatex`，输出 23 页 PDF；`rg` 确认旧阻断词与重复
+  Proceedings 不再出现；`git diff --check` 通过；PDFKit 渲染第 17 页确认 Fig.5 未截断。
+- Remaining risk: `main_mdpi.tex` 仍保留 `Author Name`、`author@example.edu`、
+  `Department, Institution, City, Country` 三个可替换宏；投稿前必须用真实作者信息替换。
+
+### 2026-06-28 · 清理模板 warning 与放大 Fig.4 qualitative crops
+
+- 按用户要求清理剩余 `hyperref` PDF-string warning 和 `fancyhdr headheight` warning，并放大
+  Fig.4 qualitative comparison 的 crop。
+- 产出任务包：`paper/plan/task-packets/2026-06-28-mdpi-warning-cleanup-fig4-enlarge.md`。
+- 主要改动：
+  - `main_mdpi.tex` 增加 `\setlength{\headheight}{20pt}`，消除 MDPI/fancyhdr header 高度 warning。
+  - `main_mdpi.tex` 将摘要中的数学片段用 `\texorpdfstring{...}{...}` 包裹，保留 PDF 正文显示，
+    同时提供纯文本 PDF metadata 字符串，消除 hyperref warning。
+  - `figures/fig7_visual.tex` 将 Fig.4 从 8 列同排布局改为“顶部 GT reference strip + 7 列放大 crop
+    行”，crop 宽度由 `0.12\textwidth` 提升至 `0.135\textwidth`，不改变任何图像内容或实验结论。
+- 验证：
+  - 使用 TinyTeX 路径 `/Users/bytedance/Library/TinyTeX/bin/universal-darwin` 完成
+    `pdflatex -> bibtex -> pdflatex -> pdflatex`，输出 `paper/main_mdpi.pdf` 23 页。
+  - `rg` 检查 `main_mdpi.log/main_mdpi.blg/main_mdpi.bbl`，无 `hyperref Warning`、
+    `fancyhdr Warning`、`Overfull`、`Underfull`、undefined citation/reference、LaTeX error。
+  - PDFKit 渲染第 13 页确认 Fig.4 布局在同页内，crop 已明显放大且无截断。

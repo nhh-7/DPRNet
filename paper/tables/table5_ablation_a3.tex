@@ -7,7 +7,7 @@
 % SUPPORTED CLAIM: balance loss raises usage entropy in ALL 8 blocks (mean 0.6227 -> 0.6865), i.e. more
 %   balanced prototype usage -- a mechanistic effect that survives the shared-init short finetune.
 % PENDING: the multi-seed variance analysis (2 extra seeds) is NOT yet available (single seed 3407);
-%   the "lower seed variance" sub-claim of C4 must remain pending until those runs exist. Do NOT fabricate.
+%   the "lower seed variance" sub-claim of C4 must remain pending until those runs exist.
 \begin{table}[t]
 \centering
 \caption{Ablation A3 ($\times 4$): prototype balance loss. Block-averaged normalized prototype-usage
@@ -51,5 +51,5 @@ w/\ \ balance & 0.7181 & 0.5845 & 0.7227 & 0.6810 & 0.8466 & 0.6352 & 0.6848 & 0
 read at iter 80k on Urban100. The balance loss consistently increases prototype-usage entropy (more
 balanced usage) across all blocks, supporting C4's balancing mechanism, and the PSNR/SSIM is slightly
 higher with it enabled. The seed-variance reduction sub-claim of C4 requires multi-seed runs (currently a
-single seed, 3407) and is left as future work; it must not be asserted before those runs exist.}
+single seed, 3407) and is therefore left outside the present claims.}
 \end{table}

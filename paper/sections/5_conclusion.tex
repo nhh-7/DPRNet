@@ -10,20 +10,20 @@
 \label{sec:conclusion}
 
 We presented Dynamic Prototype Routing (DPR), a drop-in replacement for the
-center-based Token Aggregation Block of CATANet that keeps the backbone, the tensor
-interface, and the lightweight budget unchanged. DPR generates semantic prototypes
+center-based Token Aggregation Block of CATANet that keeps the backbone and tensor
+interface unchanged while remaining in a comparable lightweight operating regime. DPR generates semantic prototypes
 directly from the current tokens, decouples their confirmation through a learnable
 query bank, matches tokens back with a learnable temperature, and propagates an
 explicit per-token confidence through ordering, gating, and a soft fallback, with a
 usage-balancing regularizer that keeps prototype use spread out. On five standard
 benchmarks at $\times2/\times3/\times4$, the resulting DPRNet matches or slightly
 surpasses the strongest content-routing baseline at a comparable parameter and
-computation budget, while the routing diagnostics give mechanism-level evidence that
-the temperature stays unsaturated and the prototype usage becomes measurably more
-balanced across all blocks. Because DPR preserves the external interface of the routing
-block, it is not tied to this particular backbone and can serve as a generic,
-confidence-aware content-routing module for other token-aggregation architectures.
-Future work includes separating the contribution of each design element through
-from-scratch retraining from a switch-neutral initialization and a multi-seed variance
-study, completing the unified efficiency comparison under a single measurement protocol,
-and extending DPR to larger training sets and real-world or arbitrary-scale degradations.
+computation budget. The routing diagnostics provide mechanism-level evidence that the
+temperature remains unsaturated and prototype usage becomes measurably more balanced
+across all blocks. Because DPR preserves the external interface of the routing block,
+it is not tied to this backbone and can serve as a confidence-aware content-routing
+module for other token-aggregation architectures. Future work includes separating the
+contribution of each design element through from-scratch retraining from a switch-neutral
+initialization and a multi-seed variance study, completing the unified efficiency
+comparison under a single measurement protocol, and extending DPR to larger training
+sets and real-world or arbitrary-scale degradations.

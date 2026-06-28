@@ -1,0 +1,21 @@
+%% DPRNet preamble for the MDPI (Applied Sciences) build.
+%% The MDPI class (Definitions/mdpi.cls) already loads: graphicx, amsmath,
+%% amssymb, booktabs, multirow, natbib, hyperref, cleveref, tikz, caption,
+%% subfig, tabularx, xcolor, etc. We only add what the figures/tables still need.
+%% NOTE: we deliberately do NOT load subcaption -- mdpi.cls already loads subfig,
+%% and the two clash. The DPRNet sub-panels were rewritten with minipage, which
+%% needs no extra package and renders identically under both kits.
+
+\usepackage{pifont}     % Table IV (\ding{51}/\ding{55} switches)
+\usepackage{pgfplots}   % Fig.6 (per-block usage entropy), Fig.3 (PSNR-vs-Params), Fig.5
+\pgfplotsset{compat=1.16}
+\usetikzlibrary{positioning,arrows.meta,calc,fit,backgrounds,shapes.geometric} % Fig.1/Fig.2 structure diagrams
+
+%% Highlight color for the DPR/TAB contribution in structure figures.
+\providecommand{\dprhl}{}
+\definecolor{dprblue}{rgb}{0.21,0.49,0.74}
+
+%% Inline annotation helpers (disable for camera-ready).
+\newcommand{\red}[1]{{\color{red}#1}}
+\newcommand{\todo}[1]{{\color{red}#1}}
+\newcommand{\TODO}[1]{\textbf{\color{red}[TODO: #1]}}

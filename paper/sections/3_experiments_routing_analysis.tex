@@ -14,8 +14,8 @@
 \subsection{Routing interpretability analysis}
 \label{sec:routing_analysis}
 
-To inspect what DPR actually does at routing time---rather than its effect on
-PSNR---we analyze the routing diagnostics logged during validation at $\times4$
+To inspect DPR's routing behavior independently of its effect on PSNR, we analyze
+the diagnostics logged during validation at $\times4$
 (iter $80$k, Urban100). For each of the $L{=}8$ TAB blocks we record the per-token
 routing confidence $x^{\mathrm{s}}=\max_m S_{n,m}$ (Eq.~\eqref{eq:belong}), the
 number of \emph{active} prototypes (slots receiving at least one token), the
@@ -29,11 +29,11 @@ and without the balancing regularizer. With balancing enabled (the full model) t
 entropy is higher in \emph{all eight} blocks, raising the block-mean from $0.6227$
 to $0.6865$; the effect is largest in the high-frequency-oriented block $b_4$
 ($0.7088\!\rightarrow\!0.8466$). Consistently, the average number of active
-prototypes increases from $47.5$ to $52.3$ across blocks, i.e.\ fewer slots are
+prototypes increases from $47.5$ to $52.3$ across blocks, meaning that fewer slots are
 left unused. Because a learnable temperature can otherwise sharpen the assignment
 distribution and concentrate tokens on a handful of prototypes, these two
 measurements together show that the regularizer keeps prototype usage spread out
-and prevents slot collapse, which is exactly the stabilizing role claimed for C4.
+and prevents slot collapse, matching the stabilizing role claimed for C4.
 
 \paragraph{Bounded routing temperature (C4).}
 The learnable temperature is clamped by $\tau_{\max}{=}10$ for stability
@@ -47,23 +47,25 @@ hitting their safety bound.
 \paragraph{Confidence-aware routing signal (C3).}
 The per-token confidence $x^{\mathrm{s}}$ that drives the ordering key
 (Eq.~\eqref{eq:sortkey}), the IASA gate (Eq.~\eqref{eq:iasa_gate}) and the soft
-fallback (Eq.~\eqref{eq:soft_fallback}) is logged as a non-degenerate signal in
-every block (block-mean $x^{\mathrm{s}}$ on the order of $10^{-2}$, well above the
-uniform-assignment floor $1/M$ for the large-$M$ blocks), confirming that the
-softmax assignment is informative rather than flat and that the confidence used by
-the C3 components is meaningful. A finer-grained, per-token view of this signal
-(the $x^{\mathrm{s}}$ histogram before vs.\ after the learnable temperature, and
-the routing cluster maps obtained by reshaping the original-order labels $b_n$ to
-$H\times W$) requires a forward pass over the test images; the model already caches
-the original-order routing map and confidences for this purpose
-(\texttt{last\_routing\_map}, \texttt{last\_x\_scores}), and we present these
-qualitative visualizations together with the visual comparison in the camera-ready,
-keeping the quantitative interpretability claims in this section grounded in the
-logged statistics.
+fallback (Eq.~\eqref{eq:soft_fallback}) is a non-degenerate signal in every block.
+Fig.~\ref{fig:xscore_hist} shows its distribution accumulated over \emph{all} test
+images of Urban100 and Manga109 with the final model: in each block the mass lies
+clearly to the right of the uniform-assignment floor $1/M$ (block-mean
+$x^{\mathrm{s}}\approx 1.5$--$1.9\times 1/M$, e.g.\ $0.109$ vs.\ $0.0625$ for $b_0$
+and $0.012$ vs.\ $0.0078$ for $b_3$ on Urban100) yet stays far from $1$. The
+softmax assignment is therefore informative but soft rather than collapsed onto a
+single prototype, and its mode shifts toward the lower floor as $M$ grows. Reshaping the
+original-order labels $b_n=\arg\max_m S_{n,m}$ to $H\times W$ yields the routing
+cluster maps in Fig.~\ref{fig:cluster_maps}: the partitions track image content
+(repetitive building facades, high-contrast strokes) instead of a fixed spatial
+grid and become finer in the deeper, larger-$M$ blocks. Both views are produced by
+a single forward pass with the cached routing state
+(\texttt{last\_routing\_map}, \texttt{last\_x\_scores}) and together confirm that
+the confidence used by the C3 components is meaningful.
 
 \paragraph{Summary.}
-The logged diagnostics give direct, mechanism-level evidence for the routing
-design: the balancing regularizer produces a block-consistent increase in usage
+The logged diagnostics provide mechanism-level evidence for the routing design:
+the balancing regularizer produces a block-consistent increase in usage
 entropy and active-prototype count (C4), the learnable temperature stays in a
 stable, unsaturated range (C4), and the retained confidence signal is informative
 across all blocks (C3). These observations characterize the behavior of DPR

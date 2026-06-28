@@ -1,0 +1,26 @@
+## Task Packet
+
+- Scope: Clean remaining MDPI/TinyTeX template warnings and enlarge the qualitative crops in Fig. 4.
+- Files to read:
+  - `paper/main_mdpi.tex`
+  - `paper/main_mdpi.log`
+  - `paper/figures/fig7_visual.tex`
+  - `paper/preamble_mdpi.tex`
+- Files allowed to edit:
+  - `paper/main_mdpi.tex`
+  - `paper/figures/fig7_visual.tex`
+  - `paper/plan/progress.md`
+- Required skills: using-research-writing, paper-orchestration, latex-output, peer-review, verification.
+- Required fixes:
+  - Remove `hyperref` PDF-string warnings from front matter.
+  - Remove `fancyhdr` `headheight` warnings.
+  - Enlarge Fig. 4 qualitative crops without changing image content or experimental claims.
+- Rejection checks:
+  - Do not alter reported metrics or claims.
+  - Do not replace generated crops with untracked images.
+  - Keep figure caption accurate after layout change.
+  - Rebuild the MDPI PDF and verify warning cleanup.
+- Validation commands:
+  - TinyTeX build: `pdflatex -> bibtex -> pdflatex -> pdflatex`
+  - `rg -n "hyperref Warning|fancyhdr Warning|Overfull|Underfull|undefined references|Citation .* undefined|Reference .* undefined|! LaTeX Error|Emergency stop" paper/main_mdpi.log paper/main_mdpi.blg`
+  - Render the Fig. 4 PDF page and inspect the enlarged crop layout.

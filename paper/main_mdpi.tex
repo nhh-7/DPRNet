@@ -1,0 +1,151 @@
+% =====================================================================
+% DPRNet -- MDPI (Applied Sciences) manuscript file.
+% Built 2026-06-28. Migrated from the CVPR build (main.tex) to the MDPI
+% Applied Sciences author kit (Definitions/mdpi.cls, ACS numeric references).
+%
+% Migration notes (see plan/progress.md, entry 11):
+%   - Document class: applsci, article, submit (review line numbers on), moreauthors.
+%   - Title/authors/abstract/keywords use the MDPI front-matter macros; the class
+%     prints \maketitle and the abstract automatically (AfterEndPreamble), so we
+%     do NOT call \maketitle and do NOT use the abstract environment here.
+%   - Bibliography style is fixed by the class to Definitions/mdpi (ACS numeric);
+%     we only call \bibliography{references}, never \bibliographystyle.
+%   - Sub-panel figures (Fig.5/7/8) were rewritten from subcaption's subfigure to
+%     minipage, because mdpi.cls hardcodes the conflicting subfig package.
+%   - Extra packages live in preamble_mdpi.tex (pifont, pgfplots, tikz libs).
+%
+% Compile with shell-escape (MDPI EPS logos need Ghostscript):
+%   pdflatex -shell-escape main_mdpi ; bibtex main_mdpi ; pdflatex ... (x2)
+% =====================================================================
+\documentclass[applsci,article,submit,moreauthors]{Definitions/mdpi}
+
+%%%%%%%%% MDPI internal commands -- do not modify (from the official template)
+\firstpage{1}
+\makeatletter
+\setcounter{page}{\@firstpage}
+\makeatother
+\pubvolume{1}
+\issuenum{1}
+\articlenumber{0}
+\pubyear{2026}
+\copyrightyear{2026}
+\datereceived{ }
+\daterevised{ }
+\dateaccepted{ }
+\datepublished{ }
+\setlength{\headheight}{20pt}
+
+%%%%%%%%% Extra packages / macros for the DPRNet figures and tables
+\input{preamble_mdpi}
+
+%%%%%%%%% TITLE
+\Title{Dynamic Prototype Routing for Lightweight Image Super-Resolution}
+
+% Submission metadata. Replace these values with the final author information
+% before the production submission; they are centralized here to avoid leaking
+% anonymous placeholders into the manuscript body.
+\newcommand{\dprAuthorA}{Author Name}
+\newcommand{\dprAuthorAEmail}{author@example.edu}
+\newcommand{\dprAffiliationA}{Department, Institution, City, Country}
+\newcommand{\orcidauthorA}{}
+
+%%%%%%%%% AUTHORS
+\Author{\dprAuthorA{} $^{1,}$*}
+
+% Authors for PDF metadata
+\AuthorNames{\dprAuthorA}
+
+%%%%%%%%% AFFILIATIONS
+\address{%
+$^{1}$ \quad \dprAffiliationA; \dprAuthorAEmail}
+
+%%%%%%%%% CORRESPONDING AUTHOR
+\corres{Correspondence: \dprAuthorAEmail}
+
+%%%%%%%%% ABSTRACT (no blank lines / no \\ allowed inside \abstract{})
+\abstract{Lightweight single image super-resolution (SR) seeks a favorable trade-off
+between reconstruction quality and model cost for resource-constrained platforms.
+Content-aware routing, which groups tokens by semantics rather than spatial position,
+has recently advanced this trade-off, but its prevailing realization---the Token
+Aggregation Block (TAB) of CATANet---relies on cross-batch exponential-moving-average
+routing centers, discards the confidence of each token-to-center assignment, and
+entangles prototype generation with confirmation. We propose \emph{Dynamic Prototype
+Routing} (DPR), a drop-in replacement for TAB that keeps the backbone and tensor
+interface unchanged while remaining in a comparable lightweight design regime. DPR generates semantic prototypes
+directly from the current tokens through a soft assignment, confirms them with a
+learnable query bank decoupled from generation, matches tokens back with a learnable
+temperature, and propagates an explicit per-token confidence through ordering, gating,
+and a soft fallback; a usage-balancing regularizer keeps prototype use spread out. The
+resulting network, DPRNet, is trained on DIV2K and evaluated on five standard benchmarks
+at \texorpdfstring{$\times2/\times3/\times4$}{x2/x3/x4}. DPRNet matches or slightly surpasses the strongest
+content-routing baseline across benchmarks at a comparable parameter and computation
+budget (e.g.\ \texorpdfstring{$26.89$\,dB}{26.89 dB} on Urban100 at
+\texorpdfstring{$\times4$}{x4} with \texorpdfstring{$52.14$\,G}{52.14 G} Multi-Adds, fewer
+than the lightweight Transformer baselines SwinIR-light and SRFormer-light), while
+exposing an interpretable, confidence-aware routing mechanism whose prototype usage is
+measurably more balanced.}
+
+%%%%%%%%% KEYWORDS
+\keyword{image super-resolution; lightweight super-resolution; content-aware routing;
+dynamic prototype routing; self-attention; vision transformer; deep learning}
+
+%%%%%%%%% Applied Sciences featured application (optional)
+\featuredapplication{Confidence-aware content routing for efficient single-image
+super-resolution on resource-constrained platforms such as mobile and edge devices.}
+
+\begin{document}
+
+% NOTE: \maketitle and the abstract are printed automatically by mdpi.cls.
+
+\input{sections/1_introduction}
+\input{sections/2_method}
+\input{figures/fig1_architecture}         % defines fig:arch
+\input{figures/fig2_dpr}                  % defines fig:dpr
+
+% ---- Experiments ----
+\input{sections/3_experiments_setup}      % opens \section{Experiments}
+
+\input{sections/3_experiments_comparison} % Table I + Table II
+\input{tables/table1_main_comparison}
+\input{tables/table2_efficiency}          % defines tab:efficiency + tab:efficiency_profile
+
+\input{sections/3_experiments_efficiency}
+\input{figures/fig3_psnr_params}          % defines fig:psnr_params
+
+\input{sections/3_experiments_visual}     % qualitative comparison
+\input{figures/fig7_visual}               % defines fig:visual
+
+\input{sections/3_experiments_ablation}   % Tables III/IV/V
+\input{tables/table3_ablation_a1}
+\input{tables/table4_ablation_a2}
+\input{tables/table5_ablation_a3}
+
+\input{sections/3_experiments_routing_analysis}
+\input{figures/fig5_xscore_hist}          % defines fig:xscore_hist
+\input{figures/fig6_usage_entropy}        % defines fig:usage_entropy
+\input{figures/fig8_cluster_maps}         % defines fig:cluster_maps
+
+\input{sections/4_discussion}
+\input{sections/5_conclusion}
+
+%%%%%%%%% BACK MATTER (MDPI required statements; fill before submission)
+\vspace{6pt}
+
+\authorcontributions{Conceptualization, methodology, software, validation, and
+writing---original draft preparation: \dprAuthorA. All authors have read and
+agreed to the published version of the manuscript.}
+
+\funding{This research received no external funding.}
+
+\dataavailability{The DIV2K training set and the Set5, Set14, BSD100, Urban100, and
+Manga109 benchmarks used in this study are publicly available. Code and trained models
+will be released upon publication.}
+
+\conflictsofinterest{The authors declare no conflicts of interest.}
+
+%%%%%%%%% REFERENCES (style fixed by the class to Definitions/mdpi, ACS numeric)
+\reftitle{References}
+\bibliography{references}
+
+\PublishersNote{}
+\end{document}

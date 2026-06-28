@@ -1,0 +1,797 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex)
+ \write18 enabled.
+entering extended mode
+(./main_mdpi.tex
+LaTeX2e <2026-06-01>
+L3 programming layer <2026-06-18>
+(./Definitions/mdpi.cls
+Document Class: Definitions/mdpi 23/06/2026 MDPI paper class
+(/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2025/01/22 v1.4n Standard LaTeX document class
+(/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/base/size10.clo)) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/base/fontenc.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/base/inputenc.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/tools/calc.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/tools/indentfirst.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/graphics/graphicx.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/graphics/keyval.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/graphics/graphics.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/graphics/trig.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/graphics-cfg/graphics.cfg) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/graphics-def/pdftex.def))) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/lastpage/lastpage.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/lastpage/lastpage2e.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/lastpage/lastpagemodern.sty) 
+)) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/base/ifthen.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/float/float.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amstext.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsgen.sty)) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsbsy.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsopn.sty)) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/amssymb.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/amsfonts.sty)) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/lineno/lineno.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/kvoptions/kvoptions.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty))) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/setspace/setspace.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/enumitem/enumitem.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/psnfss/mathpazo.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/booktabs/booktabs.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/titlesec/titlesec.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/tabto-ltx/tabto.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/xcolor/xcolor.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/graphics-cfg/color.cfg) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/graphics/mathcolor.ltx)) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/colortbl/colortbl.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/tools/array.sty)
+new hooks used!!
+) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/soul/soul.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/soul/soul-ori.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/infwarerr/infwarerr.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/etexcmds/etexcmds.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty))) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/multirow/multirow.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/microtype/microtype.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/microtype/microtype-pdftex.def) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/microtype/microtype.cfg)) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/pgf.revision.tex))) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfkeyslibraryfiltered.code.tex)) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-pdftex.def (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-pdf.def))) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.tex)) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigonometric.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.random.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.comparison.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerarithmetics.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex)) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfint.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconstruct.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransformations.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathprocessing.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransparency.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorerdf.code.tex))) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-0-65.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-1-18.sty)) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/pgf/utilities/pgffor.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex)) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/pgf/math/pgfmath.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex)) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex)) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarytopaths.code.tex))) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/refcount/refcount.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/changepage/changepage.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/frankenstein/attrib.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/frankenstein/moredefs.sty)) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/was/upgreek.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/tools/tabularx.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/pbox/pbox.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/ragged2e/ragged2e.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/tocloft/tocloft.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/marginnote/marginnote.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/marginfix/marginfix.sty)
+==> First Aid for marginfix.sty applied!
+(/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/enotez/enotez.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/l3kernel/expl3.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/l3packages/xparse/xparse.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/l3packages/l3keys2e/l3keys2e.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/l3packages/xtemplate/xtemplate.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/translations/translations.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty))) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/xstring/xstring.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/xstring/xstring.tex)) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/subfig/subfig.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/caption/caption.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/caption/caption3.sty))) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/alphalph/alphalph.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/intcalc/intcalc.sty)) (./Definitions/journalnames.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/amscls/amsthm.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/natbib/natbib.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/koma-script/scrextend.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/koma-script/scrkbase.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/koma-script/scrbase.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/koma-script/scrlfile.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/koma-script/scrlfile-hook.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/koma-script/scrlogo.sty)))))) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/geometry/geometry.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/iftex/ifvtex.sty)) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/newfloat/newfloat.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/seqsplit/seqsplit.sty)) (./preamble_mdpi.tex (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/psnfss/pifont.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/psnfss/upzd.fd) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/psnfss/upsy.fd)) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/pgfplots/pgfplots.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/pgfplots.revision.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/pgfplots.code.tex (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/pgfplotscore.code.tex (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/sys/pgfplotssysgeneric.code.tex)) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/libs/pgfplotslibrary.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplotsoldpgfsupp_loader.code.tex (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/libraries/pgflibraryfpu.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplotsoldpgfsupp_pgfutil-common-lists.tex)) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/util/pgfplotsutil.code.tex (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsliststructure.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsliststructureext.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsarray.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsmatrix.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/numtable/pgfplotstableshared.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsdeque.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/util/pgfplotsbinary.code.tex (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/util/pgfplotsbinary.data.code.tex)) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/util/pgfplotsutil.verb.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/libs/pgflibrarypgfplots.surfshading.code.tex (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/sys/pgflibrarypgfplots.surfshading.pgfsys-pdftex.def))) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/util/pgfplotscolormap.code.tex (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/util/pgfplotscolor.code.tex)) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/pgfplotsstackedplots.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/pgfplotsplothandlers.code.tex (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/pgfplotsmeshplothandler.code.tex (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/pgfplotsmeshplotimage.code.tex))) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/pgfplots.scaling.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/pgfplotscoordprocessing.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/pgfplots.errorbars.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/pgfplots.markers.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/pgfplotsticks.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/pgfplots.paths.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarydecorations.code.tex (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/modules/pgfmoduledecorations.code.tex)) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarydecorations.pathmorphing.code.tex (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrarydecorations.pathmorphing.code.tex)) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarydecorations.pathreplacing.code.tex (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrarydecorations.pathreplacing.code.tex)) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/libs/tikzlibrarypgfplots.contourlua.code.tex)) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryplotmarks.code.tex (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/libraries/pgflibraryplotmarks.code.tex))) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarypositioning.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.meta.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarycalc.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryfit.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarybackgrounds.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshapes.geometric.code.tex (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshapes.geometric.code.tex))) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pdfescape/pdfescape.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/hycolor/hycolor.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty)) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/stringenc/stringenc.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.def) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/hyperref/puenc.def) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/url/url.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/bitset/bitset.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hpdftex.def (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty))) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/cleveref/cleveref.sty)
+==> First Aid for cleveref.sty applied!
+(/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/psnfss/t1ppl.fd)
+No file main_mdpi.aux.
+(/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/grfext/grfext.sty) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg)) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/microtype/mt-ppl.cfg) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/translations/translations-basic-dictionary-english.trsl)
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+Package pgfplots notification 'compat/show suggested version=true': you might benefit from \pgfplotsset{compat=1.18} (current compat level: 1.16).
+
+(/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/psnfss/ts1ppl.fd) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/psnfss/ot1ppl.fd) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/psnfss/omlzplm.fd) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/psnfss/omszplm.fd) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/psnfss/omxzplm.fd) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/microtype/mt-msa.cfg) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/microtype/mt-msb.cfg) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/psnfss/ot1zplm.fd) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/microtype/mt-eur.cfg)
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 89.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\times' on input line 89.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\times' on input line 89.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\times' on input line 89.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 89.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 89.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 89.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\leavevmode@ifvmode' on input line 89.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                \kern 1.66702pt
+(hyperref)                removed on input line 89.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 89.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\times' on input line 89.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 89.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 89.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 89.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\leavevmode@ifvmode' on input line 89.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                \kern 1.66702pt
+(hyperref)                removed on input line 89.
+
+(./sections/1_introduction.tex
+
+Package natbib Warning: Citation `dong2014srcnn' on page 1 undefined on input line 16.
+
+
+Package natbib Warning: Citation `lim2017edsr' on page 1 undefined on input line 17.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 20.0pt, for example:
+(fancyhdr)                \setlength{\headheight}{20.0pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-8.0pt}.
+
+[1{/Users/bytedance/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/enc/dvips/base/8r.enc} <./Definitions/logo-mdpi-eps-converted-to.pdf>]
+
+Package natbib Warning: Citation `ahn2018carn' on page 2 undefined on input line 27.
+
+
+Package natbib Warning: Citation `hui2019imdn' on page 2 undefined on input line 28.
+
+
+Package natbib Warning: Citation `liu2020rfdn' on page 2 undefined on input line 30.
+
+
+Package natbib Warning: Citation `kong2022rlfn' on page 2 undefined on input line 32.
+
+
+Package natbib Warning: Citation `liang2021swinir' on page 2 undefined on input line 40.
+
+
+Package natbib Warning: Citation `zhang2022elan' on page 2 undefined on input line 41.
+
+
+Package natbib Warning: Citation `zhou2023srformer' on page 2 undefined on input line 42.
+
+
+Package natbib Warning: Citation `zhang2024atd' on page 2 undefined on input line 44.
+
+
+Package natbib Warning: Citation `zhang2024spin' on page 2 undefined on input line 53.
+
+
+Package natbib Warning: Citation `liu2025catanet' on page 2 undefined on input line 57.
+
+
+LaTeX Warning: Reference `LastPage' on page 2 undefined on input line 90.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 18.18796pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.18796pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-6.18796pt}.
+
+[2]
+
+LaTeX Warning: Reference `sec:method_dpr' on page 3 undefined on input line 97.
+
+
+LaTeX Warning: Reference `eq:assign' on page 3 undefined on input line 97.
+
+
+LaTeX Warning: Reference `eq:proto_content' on page 3 undefined on input line 97.
+
+
+LaTeX Warning: Reference `eq:proto_refine' on page 3 undefined on input line 102.
+
+
+LaTeX Warning: Reference `eq:sortkey' on page 3 undefined on input line 107.
+
+
+LaTeX Warning: Reference `eq:iasa_gate' on page 3 undefined on input line 107.
+
+
+LaTeX Warning: Reference `eq:soft_fallback' on page 3 undefined on input line 107.
+
+
+LaTeX Warning: Reference `eq:scores' on page 3 undefined on input line 111.
+
+
+LaTeX Warning: Reference `eq:balance' on page 3 undefined on input line 111.
+
+
+LaTeX Warning: Reference `sec:ablation' on page 3 undefined on input line 116.
+
+) (./sections/2_method.tex
+
+LaTeX Warning: Reference `fig:arch' on page 3 undefined on input line 17.
+
+
+LaTeX Warning: Reference `sec:method_dpr' on page 3 undefined on input line 38.
+
+
+LaTeX Warning: Reference `sec:method_iasa' on page 3 undefined on input line 39.
+
+
+LaTeX Warning: Reference `LastPage' on page 3 undefined on input line 42.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 18.18796pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.18796pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-6.18796pt}.
+
+[3]
+
+LaTeX Warning: Reference `fig:dpr' on page 4 undefined on input line 72.
+
+
+LaTeX Warning: Reference `LastPage' on page 4 undefined on input line 110.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 18.18796pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.18796pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-6.18796pt}.
+
+[4]
+
+LaTeX Warning: Reference `eq:sortkey' on page 5 undefined on input line 156.
+
+
+LaTeX Warning: Reference `eq:iasa_gate' on page 5 undefined on input line 180.
+
+
+LaTeX Warning: Reference `LastPage' on page 5 undefined on input line 183.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 18.18796pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.18796pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-6.18796pt}.
+
+[5]
+
+LaTeX Warning: Reference `eq:soft_fallback' on page 6 undefined on input line 193.
+
+
+LaTeX Warning: Reference `eq:sortkey' on page 6 undefined on input line 194.
+
+
+LaTeX Warning: Reference `eq:iasa_gate' on page 6 undefined on input line 194.
+
+
+LaTeX Warning: Reference `eq:soft_fallback' on page 6 undefined on input line 195.
+
+
+LaTeX Warning: Reference `eq:assign' on page 6 undefined on input line 221.
+
+
+LaTeX Warning: Reference `eq:proto_content' on page 6 undefined on input line 222.
+
+
+LaTeX Warning: Reference `eq:proto_refine' on page 6 undefined on input line 223.
+
+
+LaTeX Warning: Reference `eq:scores' on page 6 undefined on input line 224.
+
+
+LaTeX Warning: Reference `eq:sortkey' on page 6 undefined on input line 224.
+
+
+LaTeX Warning: Reference `eq:iasa_gate' on page 6 undefined on input line 224.
+
+
+LaTeX Warning: Reference `eq:soft_fallback' on page 6 undefined on input line 224.
+
+
+LaTeX Warning: Reference `eq:scores' on page 6 undefined on input line 225.
+
+
+LaTeX Warning: Reference `eq:balance' on page 6 undefined on input line 226.
+
+
+LaTeX Warning: Reference `sec:ablation' on page 6 undefined on input line 229.
+
+) (./figures/fig1_architecture.tex
+
+LaTeX Warning: Reference `fig:dpr' on page 6 undefined on input line 116.
+
+
+LaTeX Warning: Reference `fig:dpr' on page 6 undefined on input line 116.
+
+
+LaTeX Warning: Reference `eq:assign' on page 6 undefined on input line 127.
+
+
+LaTeX Warning: Reference `fig:dpr' on page 6 undefined on input line 127.
+
+) (./figures/fig2_dpr.tex
+
+LaTeX Warning: Reference `eq:assign' on page 6 undefined on input line 136.
+
+
+LaTeX Warning: Reference `eq:proto_content' on page 6 undefined on input line 136.
+
+
+LaTeX Warning: Reference `eq:proto_refine' on page 6 undefined on input line 136.
+
+
+LaTeX Warning: Reference `eq:scores' on page 6 undefined on input line 136.
+
+
+LaTeX Warning: Reference `eq:belong' on page 6 undefined on input line 136.
+
+
+LaTeX Warning: Reference `eq:sortkey' on page 6 undefined on input line 136.
+
+
+LaTeX Warning: Reference `eq:iasa_gate' on page 6 undefined on input line 136.
+
+
+LaTeX Warning: Reference `eq:soft_fallback' on page 6 undefined on input line 136.
+
+
+LaTeX Warning: Reference `eq:balance' on page 6 undefined on input line 136.
+
+
+LaTeX Warning: Reference `tab:abl_a1' on page 6 undefined on input line 136.
+
+
+LaTeX Warning: Reference `tab:abl_a3' on page 6 undefined on input line 136.
+
+) (./sections/3_experiments_setup.tex
+
+Package natbib Warning: Citation `agustsson2017div2k' on page 6 undefined on input line 22.
+
+
+Package natbib Warning: Citation `bevilacqua2012set5' on page 6 undefined on input line 23.
+
+
+Package natbib Warning: Citation `zeyde2010set14' on page 6 undefined on input line 23.
+
+
+Package natbib Warning: Citation `martin2001bsd100' on page 6 undefined on input line 24.
+
+
+Package natbib Warning: Citation `huang2015urban100' on page 6 undefined on input line 24.
+
+
+Package natbib Warning: Citation `matsui2017manga109' on page 6 undefined on input line 25.
+
+
+Package natbib Warning: Citation `wang2004ssim' on page 6 undefined on input line 27.
+
+
+LaTeX Warning: Reference `sec:method' on page 6 undefined on input line 33.
+
+
+LaTeX Warning: Reference `eq:scores' on page 6 undefined on input line 38.
+
+
+LaTeX Warning: Reference `eq:balance' on page 6 undefined on input line 40.
+
+
+LaTeX Warning: Reference `tab:efficiency' on page 6 undefined on input line 41.
+
+
+LaTeX Warning: Reference `LastPage' on page 6 undefined on input line 42.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 18.18796pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.18796pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-6.18796pt}.
+
+[6]
+
+LaTeX Warning: Reference `eq:balance' on page 7 undefined on input line 50.
+
+
+Package natbib Warning: Citation `wang2020basicsr' on page 7 undefined on input line 59.
+
+) (./sections/3_experiments_comparison.tex
+
+LaTeX Warning: Reference `LastPage' on page 7 undefined on input line 16.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 18.18796pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.18796pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-6.18796pt}.
+
+[7]
+
+Package natbib Warning: Citation `ahn2018carn' on page 8 undefined on input line 20.
+
+
+Package natbib Warning: Citation `hui2019imdn' on page 8 undefined on input line 20.
+
+
+Package natbib Warning: Citation `liu2020rfdn' on page 8 undefined on input line 21.
+
+
+Package natbib Warning: Citation `kong2022rlfn' on page 8 undefined on input line 21.
+
+
+Package natbib Warning: Citation `liang2021swinir' on page 8 undefined on input line 22.
+
+
+Package natbib Warning: Citation `zhang2022elan' on page 8 undefined on input line 22.
+
+
+Package natbib Warning: Citation `zhou2023srformer' on page 8 undefined on input line 23.
+
+
+Package natbib Warning: Citation `liu2025catanet' on page 8 undefined on input line 24.
+
+
+LaTeX Warning: Reference `tab:main_comparison' on page 8 undefined on input line 25.
+
+
+LaTeX Warning: Reference `tab:main_comparison' on page 8 undefined on input line 30.
+
+
+LaTeX Warning: Reference `sec:ablation' on page 8 undefined on input line 54.
+
+
+LaTeX Warning: Reference `sec:routing_analysis' on page 8 undefined on input line 55.
+
+
+LaTeX Warning: Reference `LastPage' on page 8 undefined on input line 56.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 18.18796pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.18796pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-6.18796pt}.
+
+[8]
+
+LaTeX Warning: Reference `tab:efficiency' on page 9 undefined on input line 58.
+
+
+LaTeX Warning: Reference `tab:efficiency_profile' on page 9 undefined on input line 66.
+
+) (./tables/table1_main_comparison.tex) (./tables/table2_efficiency.tex) (./sections/3_experiments_efficiency.tex
+
+LaTeX Warning: Reference `tab:efficiency' on page 9 undefined on input line 21.
+
+
+LaTeX Warning: Reference `tab:efficiency_profile' on page 9 undefined on input line 22.
+
+
+LaTeX Warning: Reference `sec:exp_setup' on page 9 undefined on input line 23.
+
+
+LaTeX Warning: Reference `LastPage' on page 9 undefined on input line 29.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 18.18796pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.18796pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-6.18796pt}.
+
+[9]
+
+LaTeX Warning: Reference `sec:ablation' on page 10 undefined on input line 39.
+
+
+LaTeX Warning: Reference `fig:psnr_params' on page 10 undefined on input line 39.
+
+
+LaTeX Warning: Reference `LastPage' on page 10 undefined on input line 42.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 18.18796pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.18796pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-6.18796pt}.
+
+[10]
+
+LaTeX Warning: Reference `sec:ablation' on page 11 undefined on input line 49.
+
+
+LaTeX Warning: Reference `tab:efficiency' on page 11 undefined on input line 52.
+
+
+LaTeX Warning: Reference `tab:efficiency_profile' on page 11 undefined on input line 58.
+
+
+LaTeX Warning: Reference `tab:efficiency' on page 11 undefined on input line 76.
+
+) (./figures/fig3_psnr_params.tex
+
+LaTeX Warning: Reference `tab:efficiency' on page 11 undefined on input line 66.
+
+) (./sections/3_experiments_visual.tex
+
+LaTeX Warning: Reference `fig:visual' on page 11 undefined on input line 18.
+
+
+LaTeX Warning: Reference `sec:routing_analysis' on page 11 undefined on input line 36.
+
+
+LaTeX Warning: Reference `fig:visual' on page 11 undefined on input line 38.
+
+
+LaTeX Warning: Reference `tab:main_comparison' on page 11 undefined on input line 40.
+
+) (./figures/fig7_visual.tex
+
+LaTeX Warning: Reference `LastPage' on page 11 undefined on input line 58.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 18.18796pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.18796pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-6.18796pt}.
+
+[11]) (./sections/3_experiments_ablation.tex
+
+LaTeX Warning: Reference `sec:method' on page 12 undefined on input line 20.
+
+
+Package natbib Warning: Citation `liu2025catanet' on page 12 undefined on input line 21.
+
+
+LaTeX Warning: Reference `eq:balance' on page 12 undefined on input line 28.
+
+
+LaTeX Warning: Reference `LastPage' on page 12 undefined on input line 46.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 18.18796pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.18796pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-6.18796pt}.
+
+[12]
+
+LaTeX Warning: Reference `tab:abl_a1' on page 13 undefined on input line 48.
+
+
+LaTeX Warning: Reference `eq:proto_refine' on page 13 undefined on input line 49.
+
+
+LaTeX Warning: Reference `eq:proto_refine' on page 13 undefined on input line 53.
+
+
+LaTeX Warning: Reference `tab:abl_a2' on page 13 undefined on input line 61.
+
+
+LaTeX Warning: Reference `eq:sortkey' on page 13 undefined on input line 62.
+
+
+LaTeX Warning: Reference `eq:iasa_gate' on page 13 undefined on input line 63.
+
+
+LaTeX Warning: Reference `eq:soft_fallback' on page 13 undefined on input line 64.
+
+
+LaTeX Warning: Reference `sec:routing_analysis' on page 13 undefined on input line 74.
+
+
+LaTeX Warning: Reference `LastPage' on page 13 undefined on input line 76.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 18.18796pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.18796pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-6.18796pt}.
+
+[13 <./figures/fig7_assets/Urban100_img_092_GT_full_box.png (PNG copy)> <./figures/fig7_assets/Urban100_img_092_Bicubic_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_092_IMDN_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_092_SwinIR-light_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_092_SRFormer-light_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_092_CATANet_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_092_DPRNet_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_092_GT_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_024_GT_full_box.png (PNG copy)> <./figures/fig7_assets/Urban100_img_024_Bicubic_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_024_IMDN_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_024_SwinIR-light_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_024_SRFormer-light_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_024_CATANet_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_024_DPRNet_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_024_GT_crop.png (PNG copy)> <./figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_full_box.png (PNG copy)> <./figures/fig7_assets/Manga109_ThatsIzumiko_000_Bicubic_crop.png (PNG copy)> <./figures/fig7_assets/Manga109_ThatsIzumiko_000_IMDN_crop.png (PNG copy)> <./figures/fig7_assets/Manga109_ThatsIzumiko_000_SwinIR-light_crop.png (PNG copy)> <./figures/fig7_assets/Manga109_ThatsIzumiko_000_SRFormer-light_crop.png (PNG copy)> <./figures/fig7_assets/Manga109_ThatsIzumiko_000_CATANet_crop.png (PNG copy)> <./figures/fig7_assets/Manga109_ThatsIzumiko_000_DPRNet_crop.png (PNG copy)> <./figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_crop.png (PNG copy)>]
+
+LaTeX Warning: Reference `tab:abl_a3' on page 14 undefined on input line 77.
+
+
+LaTeX Warning: Reference `eq:balance' on page 14 undefined on input line 78.
+
+
+LaTeX Warning: Reference `tab:abl_a3_perblock' on page 14 undefined on input line 80.
+
+) (./tables/table3_ablation_a1.tex) (./tables/table4_ablation_a2.tex) (./tables/table5_ablation_a3.tex) (./sections/3_experiments_routing_analysis.tex
+
+LaTeX Warning: Reference `eq:belong' on page 14 undefined on input line 20.
+
+
+LaTeX Warning: Reference `eq:balance' on page 14 undefined on input line 22.
+
+
+LaTeX Warning: Reference `eq:scores' on page 14 undefined on input line 23.
+
+
+LaTeX Warning: Reference `fig:usage_entropy' on page 14 undefined on input line 27.
+
+
+LaTeX Warning: Reference `LastPage' on page 14 undefined on input line 37.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 18.18796pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.18796pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-6.18796pt}.
+
+[14]
+
+LaTeX Warning: Reference `eq:scores' on page 15 undefined on input line 40.
+
+
+LaTeX Warning: Reference `eq:sortkey' on page 15 undefined on input line 49.
+
+
+LaTeX Warning: Reference `eq:iasa_gate' on page 15 undefined on input line 49.
+
+
+LaTeX Warning: Reference `eq:soft_fallback' on page 15 undefined on input line 50.
+
+
+LaTeX Warning: Reference `fig:xscore_hist' on page 15 undefined on input line 51.
+
+
+LaTeX Warning: Reference `fig:cluster_maps' on page 15 undefined on input line 59.
+
+
+LaTeX Warning: Reference `sec:ablation' on page 15 undefined on input line 73.
+
+) (./figures/fig5_xscore_hist.tex
+
+LaTeX Warning: Reference `eq:belong' on page 15 undefined on input line 92.
+
+) (./figures/fig6_usage_entropy.tex
+
+LaTeX Warning: Reference `eq:balance' on page 15 undefined on input line 47.
+
+) (./figures/fig8_cluster_maps.tex
+
+LaTeX Warning: Reference `LastPage' on page 15 undefined on input line 35.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 18.18796pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.18796pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-6.18796pt}.
+
+[15]
+
+LaTeX Warning: Reference `eq:belong' on page 16 undefined on input line 55.
+
+
+LaTeX Warning: Reference `fig:xscore_hist' on page 16 undefined on input line 55.
+
+) (./sections/4_discussion.tex
+
+LaTeX Warning: Reference `sec:main_comparison' on page 16 undefined on input line 18.
+
+
+LaTeX Warning: Reference `sec:method_overview' on page 16 undefined on input line 27.
+
+
+LaTeX Warning: Reference `eq:scores' on page 16 undefined on input line 34.
+
+
+LaTeX Warning: Reference `eq:balance' on page 16 undefined on input line 35.
+
+
+LaTeX Warning: Reference `sec:routing_analysis' on page 16 undefined on input line 36.
+
+
+LaTeX Warning: Reference `LastPage' on page 16 undefined on input line 43.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 18.18796pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.18796pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-6.18796pt}.
+
+[16]
+
+LaTeX Warning: Reference `sec:efficiency' on page 17 undefined on input line 53.
+
+
+LaTeX Warning: Reference `sec:ablation' on page 17 undefined on input line 59.
+
+
+LaTeX Warning: Reference `sec:efficiency' on page 17 undefined on input line 70.
+
+) (./sections/5_conclusion.tex
+
+LaTeX Warning: Reference `LastPage' on page 17 undefined on input line 9.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 18.18796pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.18796pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-6.18796pt}.
+
+[17])
+No file main_mdpi.bbl.
+
+LaTeX Warning: Reference `LastPage' on page 18 undefined on input line 144.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 18.18796pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.18796pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-6.18796pt}.
+
+[18]
+
+Package natbib Warning: There were undefined citations.
+
+
+LaTeX Warning: Reference `LastPage' on page 19 undefined on input line 144.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 18.18796pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.18796pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-6.18796pt}.
+
+[19 <./figures/fig58_assets/fig8_Urban100_img_092_lr.png (PNG copy)> <./figures/fig58_assets/fig8_Urban100_img_092_b0_cluster.png (PNG copy)> <./figures/fig58_assets/fig8_Urban100_img_092_b3_cluster.png (PNG copy)> <./figures/fig58_assets/fig8_Urban100_img_092_b7_cluster.png (PNG copy)> <./figures/fig58_assets/fig8_Urban100_img_024_lr.png (PNG copy)> <./figures/fig58_assets/fig8_Urban100_img_024_b0_cluster.png (PNG copy)> <./figures/fig58_assets/fig8_Urban100_img_024_b3_cluster.png (PNG copy)> <./figures/fig58_assets/fig8_Urban100_img_024_b7_cluster.png (PNG copy)> <./figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_lr.png (PNG copy)> <./figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b0_cluster.png (PNG copy)> <./figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b3_cluster.png (PNG copy)> <./figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b7_cluster.png (PNG copy)>] 
+enddocument/afterlastpage (AED): lastpage setting LastPage.
+(./main_mdpi.aux)
+kpathsea: Running mktexpk --mfmode / --bdpi 600 --mag 1+0/600 --dpi 600 ectt0800
+mktexpk: Running mf-nowin -progname=mf \mode:=ljfour; mag:=1+0/600; nonstopmode; input ectt0800
+This is METAFONT, Version 2.71828182 (TeX Live 2026) (preloaded base=mf)
+
+(/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/ectt0800.mf (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/exbase.mf) (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/ectt.mf (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/exroman.mf
+ Ok (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/exaccess.mf
+ Ok) (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/expseudo.mf
+ Ok) (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/exruwest.mf
+ Ok [192] [193] [194] [195] [196] [197] [198] [199] [200] [201] [202] [203] [204] [205] [206] [207] [208] [209] [210] [211] [212] [213] [214] [215] [216] [217] [218] [219] [220] [221] [222] [223]) (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/exrlwest.mf
+ Ok [224] [225] [226] [227] [228] [229] [230] [231] [232] [233] [234] [235] [236] [237] [238] [239] [240] [241] [242] [243] [244] [245] [246] [247] [248] [249] [250] [251] [252] [253] [254] [255]) (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/exrueast.mf
+ Ok [128] [129] [130] [131] [132] [133] [134] [135] [136] [137] [138] [139] [140] [141] [142] [143] [144] [145] [146] [147] [148] [149] [150] [151] [152] [153] [154] [155] [156] [157]) (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/exrleast.mf
+ Ok [158] [160] [161] [162] [163] [164] [165] [166] [167] [168] [169] [170] [171] [172] [173] [174] [175] [176] [177] [178] [179] [180] [181] [182] [183] [184] [185] [186] [187] [188]) (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/exbraces.mf
+ Ok [94] [126] [23] [40] [41] [60] [124] [62] [91] [93] [92] [123] [125] [95] [127] [32]) (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/expunct.mf
+ Ok [14] [15] [19] [20] [13] [18] [33] [39] [42] [43] [44] [46] [47] [58] [59] [61] [96] [189] [17] [45] [16] [21] [22]) (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/exaccent.mf
+ Ok [0] [1] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [12]) (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/exsign.mf
+ Ok [24] [34] [35] [36] [37] [64] [191] [159]) (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/exrlig.mf
+ Ok [25] [26] [28] [27] [29] [30] [31]) (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/exromp.mf
+ Ok [38] [63] [190]) (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/exrulett.mf
+ Ok [65] [66] [67] [68] [69] [70] [71] [72] [73] [74] [75] [76] [77] [78] [79] [80] [81] [82] [83] [84] [85] [86] [87] [88] [89] [90]) (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/exrllett.mf
+ Ok [97] [98] [99] [100] [101] [102] [103] [104] [105] [106] [107] [108] [109] [110] [111] [112] [113] [114] [115] [116] [117] [118] [119] [120] [121] [122]) (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/exrdigit.mf
+ Ok [48] [49] [50] [51] [52] [53] [54] [55] [56] [57]) (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/exmligtb.mf
+ Ok) ) ) )
+Font metrics written on ectt0800.tfm.
+Output written on ectt0800.600gf (256 characters, 35488 bytes).
+Transcript written on ectt0800.log.
+mktexpk: /Users/bytedance/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt0800.600pk: successfully generated.
+
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `main_mdpi.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+
+Package lastpage Warning: Rerun to get the references right on input line 144.
+
+ ) </Users/bytedance/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt0800.600pk>
+kpathsea: Running mktexpk --mfmode / --bdpi 600 --mag 0+525/600 --dpi 525 ecit0800
+mktexpk: Running mf-nowin -progname=mf \mode:=ljfour; mag:=0+525/600; nonstopmode; input ecit0800
+This is METAFONT, Version 2.71828182 (TeX Live 2026) (preloaded base=mf)
+
+(/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/ecit0800.mf (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/exbase.mf) (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/ecit.mf (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/extextit.mf
+ Ok (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/exaccess.mf
+ Ok) (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/expseudo.mf
+ Ok) (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/exileast.mf
+ Ok [158] [160] [161] [162] [163] [164] [165] [166] [167] [168] [169] [170] [171] [172] [173] [174] [175] [176] [177] [178] [179] [180] [181] [182] [183] [184] [185] [186] [187] [188]) (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/exilwest.mf
+ Ok [224] [225] [226] [227] [228] [229] [230] [231] [232] [233] [234] [235] [236] [237] [238] [239] [240] [241] [242] [243] [244] [245] [246] [247] [248] [249] [250] [251] [252] [253] [254] [255]) (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/exruwest.mf
+ Ok [192] [193] [194] [195] [196] [197] [198] [199] [200] [201] [202] [203] [204] [205] [206] [207] [208] [209] [210] [211] [212] [213] [214] [215] [216] [217] [218] [219] [220] [221] [222] [223]) (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/exrueast.mf
+ Ok [128] [129] [130] [131] [132] [133] [134] [135] [136] [137] [138] [139] [140] [141] [142] [143] [144] [145] [146] [147] [148] [149] [150] [151] [152] [153] [154] [155] [156] [157]) (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/exbraces.mf
+ Ok [94] [126] [23] [40] [41] [60] [124] [62] [91] [93] [92] [123] [125] [95] [127] [32]) (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/expunct.mf
+ Ok [14] [15] [19] [20] [13] [18] [33] [39] [42] [43] [44] [46] [47] [58] [59] [61] [96] [189] [17] [45] [16] [21] [22]) (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/exaccent.mf
+ Ok [0] [1] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [12]) (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/exsign.mf
+ Ok [24] [34] [35] [36] [37] [64] [191] [159]) (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/exilig.mf
+ Ok [25] [26] [27] [28] [29] [30] [31]) (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/exitalp.mf
+ Ok [38] [63] [190]) (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/exrulett.mf
+ Ok [65] [66] [67] [68] [69] [70] [71] [72] [73] [74] [75] [76] [77] [78] [79] [80] [81] [82] [83] [84] [85] [86] [87] [88] [89] [90]) (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/exillett.mf
+ Ok [97] [98] [99] [100] [101] [102] [103] [104] [105] [106] [107] [108] [109] [110] [111] [112] [113] [114] [115] [116] [117] [118] [119] [120] [121] [122]) (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/exidigit.mf
+ Ok [48] [49] [50] [51] [52] [53] [54] [55] [56] [57]) (/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/source/jknappen/ec/exmligtb.mf
+ Ok) ) ) )
+Font metrics written on ecit0800.tfm.
+Output written on ecit0800.525gf (256 characters, 32624 bytes).
+Transcript written on ecit0800.log.
+mktexpk: /Users/bytedance/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecit0800.525pk: successfully generated.
+ </Users/bytedance/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecit0800.525pk> </Users/bytedance/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1000.600pk> </Users/bytedance/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecss0800.375pk></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/mathpazo/fplmr.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/mathpazo/fplmri.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb>
+Output written on main_mdpi.pdf (19 pages, 10683735 bytes).
+Transcript written on main_mdpi.log.

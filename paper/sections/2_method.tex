@@ -34,7 +34,7 @@ I_{SR} = \mathrm{Up}\big(F_0 + F_L\big) + \mathrm{Bilinear}_{\uparrow s}(I_{LR})
 where $s\in\{2,3,4\}$ is the scale factor. The contribution of this work is
 entirely inside TAB: we keep its external interface
 $\mathbb{R}^{C\times H\times W}\!\to\!\mathbb{R}^{C\times H\times W}$ unchanged and
-substitute the original means-based center iteration and hard-label sorting with
+replace the original means-based center iteration and hard-label sorting with
 the DPR pipeline (Sec.~\ref{sec:method_dpr}), while reusing the subsequent
 intra/inter-group aggregation operator (IASA, Sec.~\ref{sec:method_iasa}). This
 keeps the rest of the backbone untouched and isolates the effect of the routing
@@ -55,21 +55,21 @@ The original TAB performs content-aware reordering by maintaining a set of routi
 centers via a $k$-means--style iteration with an exponential moving average (EMA)
 buffer, assigning each token to its nearest center by an \texttt{argmax} hard
 label, sorting tokens by that label, and aggregating the sorted sequence. This
-design has four limitations that motivate DPR: (i) the centers are driven by a
+design motivates DPR for four reasons. (i) The centers are driven by a
 cross-batch historical buffer rather than strictly by the current input, so they
-adapt slowly to per-image semantics; (ii) the token-to-center relation is a hard
-label that discards the assignment confidence; (iii) the ordering only clusters by
-label, with no intra-cluster purity constraint; and (iv) prototype generation and
-prototype confirmation are entangled, weakening interpretability. DPR addresses
-these points by generating prototypes from the current tokens, decoupling
+adapt slowly to per-image semantics. (ii) The token-to-center relation is a hard
+label and discards assignment confidence. (iii) The ordering clusters by label
+only, with no intra-cluster purity constraint. (iv) Prototype generation and
+prototype confirmation are entangled, which weakens interpretability. DPR responds
+by generating prototypes from the current tokens, decoupling
 generation from confirmation, and propagating an explicit assignment confidence
 through routing and aggregation.
 
 \subsection{Dynamic Prototype Routing}
 \label{sec:method_dpr}
 DPR maps a token sequence $X\in\mathbb{R}^{B\times N\times C}$ to a content-reordered
-sequence together with a set of $M$ dynamic prototypes and routing meta-information.
-We describe its four stages (Fig.~\ref{fig:dpr}).
+sequence, $M$ dynamic prototypes, and routing metadata. The pipeline contains four
+stages (Fig.~\ref{fig:dpr}).
 
 \paragraph{(1) Dynamic prototype generation.}
 We first embed tokens with a lightweight head
@@ -90,11 +90,11 @@ P^{\mathrm{c}} = \mathrm{normalize}\big(\mathrm{LN}(P^{\mathrm{c}})\big),
 \end{equation}
 with $\ell_2$ normalization along the channel dimension. Unlike the EMA centers of
 the baseline, $P^{\mathrm{c}}$ depends only on the current input and carries no
-cross-batch state (addressing limitation~(i)).
+cross-batch state.
 
 \paragraph{(2) Prototype confirmation by query refinement.}
-To decouple prototype \emph{generation} from \emph{confirmation}
-(limitation~(iv)), we refine $P^{\mathrm{c}}$ with a learnable query bank
+To separate prototype \emph{generation} from \emph{confirmation}, we refine
+$P^{\mathrm{c}}$ with a learnable query bank
 $Q\in\mathbb{R}^{M\times C}$ via a single cross-attention over the tokens. With
 query seed $\tilde{P}=P^{\mathrm{c}}+Q$, queries from the seed, and keys/values
 from the embedded/raw tokens,
@@ -109,7 +109,7 @@ P = \mathrm{normalize}\big(\mathrm{LN}(P^{\mathrm{c}} + \gamma\,P^{\mathrm{r}})\
 \label{eq:proto_refine}
 \end{equation}
 Initializing $g_r$ to a small value keeps the refinement a residual perturbation at
-the start of training, so the prototype identities remain stable across samples.
+the start of training, which helps keep prototype identities stable across samples.
 This stage can be disabled (ablation A1) by setting
 \texttt{use\_prototype\_query\_refine}$=$false, which falls back to
 $P=P^{\mathrm{c}}$.
@@ -136,12 +136,12 @@ b_n = \arg\max_m S_{n,m},
 \label{eq:belong}
 \end{equation}
 and \emph{explicitly retain} the confidence $x^{\mathrm{s}}_n$ (addressing
-limitation~(ii)).
+the hard-label confidence discarded by TAB).
 
 \paragraph{(4) Confidence-aware ordering.}
 Instead of sorting only by the cluster label, we use a composite key that keeps the
 inter-cluster order while ordering high-confidence tokens first \emph{within} each
-cluster (addressing limitation~(iii)):
+cluster:
 \begin{equation}
 k_n = b_n + 0.5\,\big(1 - x^{\mathrm{s}}_n\big),
 \qquad
@@ -150,7 +150,7 @@ k_n = b_n + 0.5\,\big(1 - x^{\mathrm{s}}_n\big),
 \end{equation}
 Since $x^{\mathrm{s}}_n\in(0,1)$, the additive term lies in $(0,0.5)$ and never
 crosses an integer label boundary, so clusters stay contiguous while their members
-are purity-ordered. The token sequence, the labels, and the confidences are
+are ordered by confidence. The token sequence, labels, and confidences are
 gathered by $\pi$ into $X^{\pi},\,b^{\pi},\,x^{\mathrm{s},\pi}$, and the inverse
 permutation $\pi^{-1}$ is recorded for scatter-back. Setting
 \texttt{use\_conf\_sort}$=$false reduces Eq.~\eqref{eq:sortkey} to a pure
@@ -164,7 +164,7 @@ the aggregator below.
 \label{sec:method_iasa}
 The aggregation operator is retained from the backbone but is made
 confidence-aware. On the reordered sequence $X^{\pi}$ it computes (a) intra-group
-local attention over overlapping groups of size $g$, capturing fine local
+local attention over overlapping groups of size $g$, which captures fine local
 structure within each contiguous, semantically coherent segment; and (b) a global
 branch that attends to the dynamic prototypes $P$ projected to keys/values. Let
 $O_{\mathrm{loc}}$ and $O_{\mathrm{glb}}$ denote the two branch outputs. They are
@@ -181,15 +181,15 @@ Eq.~\eqref{eq:iasa_gate} ($O = O_{\mathrm{loc}} + \beta\,O_{\mathrm{glb}}$;
 ablation A2).
 
 \paragraph{Soft prototype fallback.}
-To stabilize tokens whose hard assignment is uncertain, TAB adds a soft, confidence-
-weighted prototype context to the aggregated output. With a soft summary
+To stabilize tokens whose hard assignment is uncertain, DPR adds a soft,
+confidence-weighted prototype context to the aggregated output. With a soft summary
 $\bar{X}=S P$ projected by $W_s$ and a learnable gate $\alpha=\sigma(g_s)$,
 \begin{equation}
 Y = O + \alpha\,\big(1 - x^{\mathrm{s}}\big)\,\big(\bar{X}W_s\big),
 \label{eq:soft_fallback}
 \end{equation}
 where $(1-x^{\mathrm{s}})$ emphasizes low-confidence tokens. The result $Y$ passes
-through the $1\times1$ convolution, the residual connection, and the ConvFFN.
+through the $1\times1$ convolution, residual connection, and ConvFFN.
 Setting \texttt{use\_soft\_fallback}$=$false reduces Eq.~\eqref{eq:soft_fallback}
 to $Y=O$ (ablation A2). Equations~\eqref{eq:sortkey}, \eqref{eq:iasa_gate} and
 \eqref{eq:soft_fallback} together form the confidence-aware routing path, and the
@@ -197,9 +197,9 @@ three switches are independent and default to the full model.
 
 \subsection{Prototype usage balancing}
 \label{sec:method_balance}
-A learnable temperature can collapse routing onto a few prototypes. To encourage a
-balanced use of slots and reduce seed-to-seed variance, we add a usage-entropy
-regularizer. Let $u_m=\frac{1}{N}\sum_n S_{n,m}$ be the mean usage of prototype $m$;
+A learnable temperature can concentrate routing on a few prototypes. We therefore
+add a usage-entropy regularizer that encourages balanced slot use. Let
+$u_m=\frac{1}{N}\sum_n S_{n,m}$ be the mean usage of prototype $m$;
 its normalized entropy and the auxiliary loss are
 \begin{equation}
 \mathcal{H}(u) = -\frac{1}{\log M}\sum_{m} u_m\log u_m,
@@ -216,14 +216,14 @@ Setting the per-block weight $\lambda{=}0$ disables balancing (ablation A3).
 
 \subsection{Discussion of design}
 \label{sec:method_design}
-DPR keeps the backbone's interface and parameter budget in the lightweight regime
-while changing only how tokens are organized for aggregation. The four stages map
+DPR keeps the backbone interface and parameter budget in the lightweight regime
+while changing only how tokens are organized before aggregation. The four stages map
 directly to the contributions: dynamic generation (Eqs.~\ref{eq:assign}--%
 \ref{eq:proto_content}) for C1, generation/confirmation decoupling
 (Eq.~\ref{eq:proto_refine}) for C2, confidence-aware routing
 (Eqs.~\ref{eq:scores}--\ref{eq:sortkey}, \ref{eq:iasa_gate}--\ref{eq:soft_fallback})
 for C3, and the learnable temperature with usage balancing (Eqs.~\ref{eq:scores},
 \ref{eq:balance}) for C4. Because each design element is exposed as an independent
-switch that defaults to the full model and is exactly equivalent to its disabled
+switch that defaults to the full model and reduces to its disabled
 form when turned off, the contributions can be isolated cleanly in the ablation
 study (Sec.~\ref{sec:ablation}).

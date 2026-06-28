@@ -1,0 +1,57 @@
+% =====================================================================
+% Fig.8 -- Routing cluster maps: original-order belong_idx reshaped to HxW.
+% outline.md §3.6 (routing interpretability) / traceability C3 ("cluster maps").
+% Two-column figure (figure*); \input into the paper after Fig.6.
+%
+% ASSET PROVENANCE (paper/figures/fig58_assets/, generated on the training
+%   machine by CATANet/scripts/build_routing_figures.py with the x4 model
+%   net_g_250000): for each hard sample we forward the LR image once and color
+%   each LR pixel by its prototype index b_n=argmax_m S_{n,m} at three TAB
+%   blocks (b0: M=16, b3: M=128, b7: M=128). Colors are a fixed golden-ratio
+%   hue palette (distinct hue per prototype); the same palette indexes all
+%   panels but prototype identities are per-block (not comparable across blocks).
+%   "LR" is the nearest-neighbor-magnified input for reference. Hard samples are
+%   the same as Fig.7 (Urban100 img_092/img_024 dense grids; Manga109 line art).
+% =====================================================================
+\newcommand{\figeightrow}[2]{%
+  % #1 = asset tag   #2 = row caption (shown under the LR panel)
+  \begin{minipage}{0.245\textwidth}\centering
+    \includegraphics[width=\linewidth]{figures/fig58_assets/fig8_#1_lr.png}\\[1pt]
+    {\tiny #2}
+  \end{minipage}\hfill
+  \begin{minipage}{0.245\textwidth}\centering
+    \includegraphics[width=\linewidth]{figures/fig58_assets/fig8_#1_b0_cluster.png}\\[1pt]
+    {\tiny $b_0$ ($M{=}16$)}
+  \end{minipage}\hfill
+  \begin{minipage}{0.245\textwidth}\centering
+    \includegraphics[width=\linewidth]{figures/fig58_assets/fig8_#1_b3_cluster.png}\\[1pt]
+    {\tiny $b_3$ ($M{=}128$)}
+  \end{minipage}\hfill
+  \begin{minipage}{0.245\textwidth}\centering
+    \includegraphics[width=\linewidth]{figures/fig58_assets/fig8_#1_b7_cluster.png}\\[1pt]
+    {\tiny $b_7$ ($M{=}128$)}
+  \end{minipage}%
+}
+
+\begin{figure*}[t]
+\centering
+\figeightrow{Urban100_img_092}{Urban100: img\_092 (LR)}
+
+\vspace{2pt}
+\figeightrow{Urban100_img_024}{Urban100: img\_024 (LR)}
+
+\vspace{2pt}
+\figeightrow{Manga109_ThatsIzumiko_000}{Manga109: ThatsIzumiko (LR)}
+
+\caption{Routing cluster maps at $\times4$. Each pixel of the LR input is colored
+by its assigned prototype index $b_n=\arg\max_m S_{n,m}$ (Eq.~\eqref{eq:belong}),
+reshaped from the original token order to $H\times W$, for three TAB blocks
+($b_0,b_3,b_7$); the leftmost panel is the nearest-neighbor-magnified LR image for
+reference. The maps follow image content rather than a fixed spatial grid:
+repetitive building facades in Urban100 and high-contrast strokes in Manga109 are
+grouped into coherent prototypes, and the partition becomes finer in the deeper,
+larger-$M$ blocks. Colors encode prototype identity within a block and are not
+comparable across blocks. This visualizes the same routing signal whose confidence
+$x^{\mathrm{s}}$ is quantified in Fig.~\ref{fig:xscore_hist}.}
+\label{fig:cluster_maps}
+\end{figure*}

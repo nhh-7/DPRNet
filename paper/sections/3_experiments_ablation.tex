@@ -19,7 +19,7 @@
 We ablate the four design elements of DPR using the independent switches exposed in
 Sec.~\ref{sec:method}. All ablations are conducted at scale $\times4$, following
 CATANet~\cite{liu2025catanet} whose ablations are likewise performed at $\times4$, the
-setting in which content routing on high-frequency texture is most exercised. To keep
+setting in which content routing over high-frequency texture is most stressed. To keep
 the compute budget tractable, each variant is \emph{finetuned} from the converged
 full-model checkpoint and trained for a short $80$k-iteration budget, with validation
 on Set5 and Urban100 (Y channel, matched \texttt{crop\_border}) every $10$k iterations;
@@ -42,14 +42,14 @@ configuration is never worse and is consistently the best, while no single switc
 be credited with an isolated gain under this protocol---and we substantiate the
 routing-level effects through the diagnostics. A fully separated attribution of each
 switch would require retraining every variant from a switch-neutral initialization to
-the CATANet $\times4$ from-scratch budget, which we leave to future work.
+the CATANet $\times4$ from-scratch budget; this remains future work.
 
 \paragraph{A1: decoupled prototype confirmation.}
 Table~\ref{tab:abl_a1} compares DPR with and without the query-refinement stage
 (Eq.~\eqref{eq:proto_refine}). Enabling refine gives the better result on both
 benchmarks (Set5 $32.59$ vs.\ $32.55$\,dB; Urban100 $26.89$ vs.\ $26.84$\,dB),
-confirming that adding the learnable query bank improves---and certainly does not
-perturb---reconstruction. As the refinement is gated by a small-initialized scalar
+showing that the learnable query bank improves reconstruction under this protocol.
+As the refinement is gated by a small-initialized scalar
 (Eq.~\eqref{eq:proto_refine}), it acts as a residual confirmation step that keeps the
 prototype slots stable while decoupling generation from confirmation (C2); we therefore
 retain it by default. The motivation for dynamic, per-image prototypes over the
@@ -67,8 +67,8 @@ ordering and gate alone slightly lowers PSNR before the complete set recovers an
 surpasses the hard-routing baseline. Given the shared-initialization protocol above,
 this indicates that the three switches are mutually compatible and that the complete
 confidence-aware path is quality-preserving-to-mildly-positive, rather than each switch
-being individually accuracy-additive on top of a converged backbone. The components are
-kept because they make the routing path interpretable and confidence-driven: the
+being individually accuracy-additive on top of a converged backbone. We keep the
+components because they make the routing path interpretable and confidence-driven: the
 retained per-token confidence $x^{\mathrm{s}}$ modulates ordering, the global gate, and
 the fallback (C3), which we visualize through the $x^{\mathrm{s}}$ distributions in
 Sec.~\ref{sec:routing_analysis}.
@@ -83,7 +83,7 @@ learnable temperature would otherwise encourage (C4). The reconstruction quality
 slightly higher with the regularizer enabled (Set5 $32.59$ vs.\ $32.57$\,dB; Urban100
 $26.89$ vs.\ $26.83$\,dB), so the balancing does not trade accuracy for a flatter usage
 distribution. The entropy effect is visible even under the short finetune protocol
-because it concerns the usage \emph{distribution} rather than absolute reconstruction.
+because it concerns the usage \emph{distribution}, not absolute reconstruction quality.
 The complementary part of C4---a reduction of seed-to-seed variance---requires repeating
 the runs over multiple seeds; with a single seed available we report the balancing
 mechanism here and leave the variance analysis as future work, and we do not claim a
@@ -94,5 +94,5 @@ The ablations show that DPR's design elements are quality-neutral-to-mildly-posi
 mutually compatible under a shared-initialization finetune---the full model is the best
 variant in every group---and that the balancing regularizer produces a measurable,
 block-consistent increase in prototype-usage entropy. Stronger, fully separated accuracy
-attributions are deferred to from-scratch retraining; the present study supports the
+attributions require from-scratch retraining; the present study supports the
 mechanism of each component without overstating its isolated contribution to PSNR.

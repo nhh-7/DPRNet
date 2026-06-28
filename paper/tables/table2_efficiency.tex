@@ -12,7 +12,7 @@
 %   - Representative PSNR: Urban100 x4 from Table I.
 % NOTE (data gap): CARN/IMDN/RFDN/RLFN/ELAN-light Multi-Adds are NOT in CATANet Tab.6 and are not filled.
 %   Competitor LATENCY is device-dependent and cannot be cited from other papers' hardware; left "-".
-%   Do NOT fabricate.
+%   Keep missing entries explicitly unavailable unless remeasured under one protocol.
 % HONEST FRAMING: under the unified 256x256 protocol DPRNet (52.14G) needs MORE Multi-Adds than
 %   CATANet (46.8G) -- do NOT claim a compute win over CATANet -- but it is clearly LOWER than the
 %   Transformer baselines SwinIR-light (60.3G) and SRFormer-light (56.5G) while achieving the best
@@ -52,8 +52,7 @@ needs more Multi-Adds than its direct predecessor CATANet ($52.14$ vs.\ $46.8$\,
 than the Transformer baselines SwinIR-light ($60.3$\,G) and SRFormer-light ($56.5$\,G), while attaining
 the best Urban100 PSNR. DPRNet latency is averaged over $100$ runs after $20$ warm-ups on a single CUDA
 GPU. Remaining competitors' Multi-Adds (CARN/IMDN/RFDN/RLFN/ELAN-light, absent from a common source) and
-all competitor latencies (device-dependent) are not available under this protocol (``-''); we do not
-fabricate them.}
+all competitor latencies (device-dependent) are not available under this protocol (``-'').}
 \end{table}
 
 % --- DPRNet per-scale efficiency profile (all measured; mode=A_fixed_lr_256) ---

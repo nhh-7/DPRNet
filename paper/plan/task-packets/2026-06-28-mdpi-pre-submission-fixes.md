@@ -1,0 +1,32 @@
+## Task Packet
+
+- Scope: Apply targeted MDPI pre-submission fixes requested after the full-paper review.
+- Files to read:
+  - `paper/main_mdpi.tex`
+  - `paper/references.bib`
+  - `paper/figures/fig5_xscore_hist.tex`
+  - `paper/sections/1_introduction.tex`
+  - `paper/sections/3_experiments_comparison.tex`
+  - `paper/sections/3_experiments_efficiency.tex`
+  - `paper/sections/5_conclusion.tex`
+  - `paper/tables/table2_efficiency.tex`
+  - `paper/tables/table5_ablation_a3.tex`
+- Files allowed to edit:
+  - The files above.
+  - `paper/plan/progress.md`
+- Required skills: using-research-writing, paper-orchestration, latex-output, peer-review, verification.
+- Required fixes:
+  - Remove repeated "Proceedings of the Proceedings of" rendering source in BibTeX conference `booktitle` fields.
+  - Fix Fig. 5 y-axis clipping.
+  - Replace anonymous/front-matter placeholders with a single clearly marked metadata block that can be filled before submission without manuscript text pollution.
+  - Remove internal process wording from prose and table notes.
+  - Replace "budget unchanged" claims with accurate "backbone/interface unchanged; lightweight regime/comparable budget" claims.
+- Rejection checks:
+  - Do not fabricate real author identity, affiliation, ORCID, or email.
+  - Do not invent missing competitor measurements.
+  - Keep all numerical claims consistent with the existing tables.
+  - Rebuild LaTeX and verify no unresolved citations/references remain.
+- Validation commands:
+  - `rg -n "Proceedings of the Proceedings|left for the final version|we do not fabricate|must not be asserted|budget unchanged|lightweight budget unchanged|Anonymous Author|anonymous@example.com|Affiliation 1|0000-0000" paper`
+  - `pdflatex -shell-escape main_mdpi && bibtex main_mdpi && pdflatex -shell-escape main_mdpi && pdflatex -shell-escape main_mdpi`
+  - PDFKit render check for Fig. 5 page.

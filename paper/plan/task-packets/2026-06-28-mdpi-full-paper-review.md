@@ -1,0 +1,37 @@
+## Task Packet
+
+- Scope: Review `paper/main_mdpi.pdf` end to end for MDPI Applied Sciences submission readiness, covering content logic, format, references, figures/tables, and experimental evidence.
+- Files to read:
+  - `paper/main_mdpi.pdf`
+  - `paper/main_mdpi.tex`
+  - `paper/main_mdpi.log`
+  - `paper/main_mdpi.bbl`
+  - `paper/references.bib`
+  - `paper/sections/*.tex`
+  - `paper/tables/*.tex`
+  - `paper/figures/*.tex`
+- Files allowed to edit:
+  - `paper/plan/review/mdpi-full-paper-review-2026-06-28.md`
+  - `paper/plan/progress.md`
+  - This task packet.
+- Required skills: using-research-writing, paper-orchestration, peer-review, verification.
+- Evidence/data inputs:
+  - PDF page count and text extracted with macOS PDFKit.
+  - Rendered page images for all 23 pages, with detailed visual inspection of pages containing Figures 1--7 and Tables 1--7.
+  - LaTeX compile log warnings and generated bibliography.
+  - MDPI Applied Sciences author instructions and two similar MDPI SR articles:
+    - https://www.mdpi.com/journal/applsci/instructions
+    - https://www.mdpi.com/2076-3417/15/4/1806
+    - https://www.mdpi.com/2076-3417/14/2/917
+- Required artifacts:
+  - A review report with submission readiness verdict and prioritized fixes.
+  - Capability-use audit entry in `paper/plan/progress.md`.
+- Rejection checks:
+  - Do not fabricate references or experimental results.
+  - Separate evidence-backed problems from optional polish.
+  - Do not edit manuscript content during this review task.
+- Validation commands:
+  - `mdls -name kMDItemNumberOfPages -name kMDItemTitle paper/main_mdpi.pdf`
+  - PDFKit text extraction and page rendering with Swift.
+  - `rg -n "Warning|Overfull|Underfull|Undefined|Citation|Reference|Error|Emergency|multiply defined" paper/main_mdpi.log paper/main_mdpi.blg`
+  - `rg -n "booktitle\\s*=\\s*\\{Proceedings|journal\\s*=\\s*\\{Proceedings" paper/references.bib`

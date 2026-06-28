@@ -1,0 +1,39 @@
+## 任务包
+
+- 范围：对现有 DPRNet 论文做全文润色审查，重点检查文字表达、图表、参考文献覆盖、引用位置和投稿前风险。
+- 需要阅读的文件：
+  - `paper/main.tex`
+  - `paper/main_mdpi.tex`
+  - `paper/sections/*.tex`
+  - `paper/tables/*.tex`
+  - `paper/figures/*.tex`
+  - `paper/references.bib`
+  - `paper/plan/project-overview.md`
+  - `paper/plan/outline.md`
+  - `paper/plan/progress.md`
+- 允许编辑的文件：
+  - `paper/plan/` 下的计划与审查记录。
+  - 正文文件需在用户确认具体润色轮次后再改。
+- 必需技能：
+  - `using-research-writing`
+  - `paper-orchestration`
+  - `literature-review`
+  - `peer-review`
+- 证据与数据输入：
+  - 当前 `references.bib` 有 20 条文献，正文唯一引用 key 也是 20 条。
+  - 现有计划明确要求参考文献真实、可追溯。
+  - 已用技能脚本对 lightweight SR、Transformer SR、SISR survey 等主题做 CrossRef/arXiv 检索探测。
+- 必需产物：
+  - 按优先级排序的改进计划。
+  - 面向约 45 篇可追溯参考文献的扩充策略。
+  - 新增参考文献应进入哪些正文位置的 citation-slot 映射。
+  - `progress.md` 中的能力使用审计记录。
+- 驳回检查：
+  - 不编造参考文献。
+  - 不为了凑数量添加正文未引用的 BibTeX。
+  - 不在现有证据外宣称单个消融项的独立增益或 seed 方差降低。
+  - 不混用不同硬件、输入尺寸或协议下的计算量/时延数字。
+- 验证命令：
+  - `rg '^@' paper/references.bib | wc -l`
+  - `rg -o '\\cite\\{[^}]+\\}' paper/sections paper/main.tex paper/main_mdpi.tex`
+  - 正文修改后：`latexmk -pdf -bibtex main.tex`，或使用 `paper/plan/progress.md` 记录的 TinyTeX/MDPI 编译命令。

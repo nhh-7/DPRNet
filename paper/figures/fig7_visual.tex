@@ -20,58 +20,70 @@
 % NOTE: per-image PSNR/SSIM intentionally NOT printed on the crops -- this is a
 %   purely qualitative comparison; quantitative numbers live in the main table.
 % =====================================================================
-\newcommand{\figsevenrow}[2]{%
-  % #1 = asset tag   #2 = row caption (shown under the GT full image)
-  \begin{subfigure}{0.12\textwidth}
-    \includegraphics[width=\linewidth]{figures/fig7_assets/#1_GT_full_box.png}
-    \caption*{\tiny #2}
-  \end{subfigure}\hfill
-  \begin{subfigure}{0.12\textwidth}
-    \includegraphics[width=\linewidth]{figures/fig7_assets/#1_Bicubic_crop.png}
-    \caption*{\tiny Bicubic}
-  \end{subfigure}\hfill
-  \begin{subfigure}{0.12\textwidth}
-    \includegraphics[width=\linewidth]{figures/fig7_assets/#1_IMDN_crop.png}
-    \caption*{\tiny IMDN}
-  \end{subfigure}\hfill
-  \begin{subfigure}{0.12\textwidth}
-    \includegraphics[width=\linewidth]{figures/fig7_assets/#1_SwinIR-light_crop.png}
-    \caption*{\tiny SwinIR-light}
-  \end{subfigure}\hfill
-  \begin{subfigure}{0.12\textwidth}
-    \includegraphics[width=\linewidth]{figures/fig7_assets/#1_SRFormer-light_crop.png}
-    \caption*{\tiny SRFormer-light}
-  \end{subfigure}\hfill
-  \begin{subfigure}{0.12\textwidth}
-    \includegraphics[width=\linewidth]{figures/fig7_assets/#1_CATANet_crop.png}
-    \caption*{\tiny CATANet}
-  \end{subfigure}\hfill
-  \begin{subfigure}{0.12\textwidth}
-    \includegraphics[width=\linewidth]{figures/fig7_assets/#1_DPRNet_crop.png}
-    \caption*{\tiny DPRNet (ours)}
-  \end{subfigure}\hfill
-  \begin{subfigure}{0.12\textwidth}
-    \includegraphics[width=\linewidth]{figures/fig7_assets/#1_GT_crop.png}
-    \caption*{\tiny GT}
-  \end{subfigure}%
+\newcommand{\figsevenref}[2]{%
+  % #1 = asset tag   #2 = reference caption
+  \begin{minipage}{0.30\textwidth}\centering
+    \includegraphics[height=0.085\textheight,keepaspectratio]{figures/fig7_assets/#1_GT_full_box.png}\\[1pt]
+    {\tiny #2}
+  \end{minipage}%
+}
+
+\newcommand{\figsevencrops}[2]{%
+  % #1 = asset tag   #2 = row caption
+  {\scriptsize #2}\par\vspace{1pt}
+  \begin{minipage}{0.135\textwidth}\centering
+    \includegraphics[width=\linewidth]{figures/fig7_assets/#1_Bicubic_crop.png}\\[1pt]
+    {\tiny Bicubic}
+  \end{minipage}\hfill
+  \begin{minipage}{0.135\textwidth}\centering
+    \includegraphics[width=\linewidth]{figures/fig7_assets/#1_IMDN_crop.png}\\[1pt]
+    {\tiny IMDN}
+  \end{minipage}\hfill
+  \begin{minipage}{0.135\textwidth}\centering
+    \includegraphics[width=\linewidth]{figures/fig7_assets/#1_SwinIR-light_crop.png}\\[1pt]
+    {\tiny SwinIR-light}
+  \end{minipage}\hfill
+  \begin{minipage}{0.135\textwidth}\centering
+    \includegraphics[width=\linewidth]{figures/fig7_assets/#1_SRFormer-light_crop.png}\\[1pt]
+    {\tiny SRFormer-light}
+  \end{minipage}\hfill
+  \begin{minipage}{0.135\textwidth}\centering
+    \includegraphics[width=\linewidth]{figures/fig7_assets/#1_CATANet_crop.png}\\[1pt]
+    {\tiny CATANet}
+  \end{minipage}\hfill
+  \begin{minipage}{0.135\textwidth}\centering
+    \includegraphics[width=\linewidth]{figures/fig7_assets/#1_DPRNet_crop.png}\\[1pt]
+    {\tiny DPRNet (ours)}
+  \end{minipage}\hfill
+  \begin{minipage}{0.135\textwidth}\centering
+    \includegraphics[width=\linewidth]{figures/fig7_assets/#1_GT_crop.png}\\[1pt]
+    {\tiny GT}
+  \end{minipage}%
 }
 
 \begin{figure*}[t]
 \centering
-\figsevenrow{Urban100_img_092}{Urban100: img\_092}
+\figsevenref{Urban100_img_092}{Urban100: img\_092}\hfill
+\figsevenref{Urban100_img_024}{Urban100: img\_024}\hfill
+\figsevenref{Manga109_ThatsIzumiko_000}{Manga109: ThatsIzumiko}
 
-\vspace{2pt}
-\figsevenrow{Urban100_img_024}{Urban100: img\_024}
+\vspace{3pt}
+\figsevencrops{Urban100_img_092}{Urban100: img\_092}
 
-\vspace{2pt}
-\figsevenrow{Manga109_ThatsIzumiko_000}{Manga109: ThatsIzumiko}
+\vspace{3pt}
+\figsevencrops{Urban100_img_024}{Urban100: img\_024}
+
+\vspace{3pt}
+\figsevencrops{Manga109_ThatsIzumiko_000}{Manga109: ThatsIzumiko}
 
 \caption{Qualitative comparison at $\times4$ on texture-dense hard samples. The
-leftmost panel shows the ground-truth image with the (red) crop region; the
-remaining panels magnify that region for Bicubic, IMDN, SwinIR-light,
+top reference strip shows the ground-truth images with the (red) crop regions;
+the rows below magnify those regions for Bicubic, IMDN, SwinIR-light,
 SRFormer-light, CATANet, DPRNet (ours), and the ground truth. DPRNet restores
 repetitive building grids and high-contrast line art with sharper, less aliased
 structure, on par with the strongest competitors. This is a qualitative
-comparison; quantitative PSNR/SSIM are reported in the main table.}
+comparison; the crops are hard examples chosen by high-frequency content rather
+than by per-crop DPRNet advantage, and quantitative PSNR/SSIM are reported in the
+main table.}
 \label{fig:visual}
 \end{figure*}
