@@ -74,19 +74,24 @@
 > （3 行 = 三尺度 Params/MACs(thop)/时延，带 `source` 溯源到 efficiency.md；已逐格核对）。
 > 本节表格仅作口径说明，精确数值取 CSV，不再翻原始日志。
 - 工具：scripts/measure_efficiency.py（已实现并在训练机 cuda 上运行）。
-- 来源：results/CATANet/efficiency.md（device=cuda，固定 HR≈720×1280 反推 LR；FLOPs 后端 thop，报 MACs，
-  对比 FLOPs-based 论文需 ×2；时延 warmup=20、repeat=100，单位 ms）。
+- **口径已统一（2026-06-27 续5）**：原 720×1280 反推口径与 CATANet 论文 Tab.6 的 256×256 不可直接比，
+  已用统一协议（固定 LR 输入 256×256，--lr-h/--lr-w）在训练机重测，结果存 efficiency_new.md。
+- 来源：efficiency_new.md（device=cuda；FLOPs 后端 thop，报 MACs，对比 FLOPs-based 论文需 ×2；
+  时延 warmup、repeat，单位 ms）。
 - [x] Params（总参数量）：x2=601,947（601.95K）/ x3=674,147（674.15K）/ x4=659,707（659.71K）
-- [x] FLOPs / Multi-Adds（thop MACs，固定 HR≈720×1280 输出）：
+- [x] FLOPs / Multi-Adds（thop MACs，**统一 256×256 输入**）：
 
     | 尺度 | LR 输入 | Params | MACs(thop) | 时延 (ms, mean±std) |
     |---|---|---|---|---|
-    | x2 | 360×640 | 601.95K | 126.52 G | 712.16 ± 23.47 |
-    | x3 | 240×426 | 674.15K | 64.28 G  | 285.39 ± 5.66 |
-    | x4 | 180×320 | 659.71K | 45.77 G  | 196.77 ± 10.02 |
+    | x2 | 256×256 | 601.95K | 36.19 G | 183.57 ± 7.70 |
+    | x3 | 256×256 | 674.15K | 41.26 G | 185.88 ± 6.33 |
+    | x4 | 256×256 | 659.71K | 52.14 G | 198.16 ± 9.43 |
 
-- [x] 推理时延（ms，单 GPU cuda，warmup=20，repeat=100）：见上表。
-- 口径说明：thop 报告 MACs，若与以 FLOPs 计的论文对比需 ×2；x3 HR 不整除按有效输出 720×1278。
+- [x] 推理时延（ms，单 GPU cuda）：见上表。
+- **关键事实（续5，勿推翻）**：256×256 同口径下 DPRNet x4=52.14G **高于** CATANet 46.8G（原"算量更低"主张已推翻），
+  但**显著低于** SwinIR-light 60.3G / SRFormer-light 56.5G，仍稳处轻量档。固定输入下 MACs 随 scale 增大
+  （36.19→41.26→52.14G，上采样尾部主导）。旧 720×1280 反推数据（126.52/64.28/45.77G）已废弃，仅留作历史记录。
+- 口径说明：thop 报告 MACs，若与以 FLOPs 计的论文对比需 ×2。
 
 ## B. 从他人论文摘录的对比数据（标注来源，绝不编造）
 
@@ -189,13 +194,12 @@
 
 - [x] Table I 主对比：方法 × (尺度×数据集) PSNR/SSIM，本文加粗、次优下划线
       → paper/tables/table1_main_comparison.tex（三尺度齐，逐列加粗/下划线已核对，RLFN 缺格填 "-"）
-- [~] Table II 效率：方法 | Params | FLOPs | 时延 | 代表 PSNR
+- [x] Table II 效率：方法 | Params | FLOPs | 时延 | 代表 PSNR
       → paper/tables/table2_efficiency.tex（DPRNet 三尺度 Params/MACs/时延已填 + 对手 Params 已填；
-      CATANet 46.8G / SwinIR-light 60.3G / SRFormer-light 56.5G 已补（统一带 ‡，均引自 CATANet CVPR'25 Tab.6，
-      input 3×256×256 口径）；CARN/IMDN/RFDN/RLFN/ELAN-light 论文无 Multi-Adds，留 "-"；对手时延依赖硬件不可引，留 "-"。
-      ⚠ 口径风险：CATANet Tab.6 为 input 256×256，DPRNet 为 ≈720×1280 输出反推，二者不可直接比，
-      表注已用 ‡ 注明仅供参考；待训练机用统一协议（input 256×256）重测 DPRNet/CATANet 后再定正文表述
-      （见 progress 日志 2026-06-27 续2）。禁编造。正文已写于 §3.3 sec:efficiency）
+      CATANet 46.8G / SwinIR-light 60.3G / SRFormer-light 56.5G 已补，均 input 256×256 口径；
+      CARN/IMDN/RFDN/RLFN/ELAN-light 论文无 Multi-Adds，留 "-"；对手时延依赖硬件不可引，留 "-"。
+      **口径风险已解除（续5）**：DPRNet 已用统一协议（input 256×256）在训练机重测到 52.14G，与上述对手直接可比，
+      原 ‡ 脚注已删。正文已写于 §3.3 sec:efficiency）
 - [x] Table III 消融 A1：refine on/off（受限口径：质量中性偏正）
       → paper/tables/table3_ablation_a1.tex（80k 真实数据：w/o refine Set5 32.5494 / Urban100 26.8358；
       w/ refine 32.5878 / 26.8905；full 更正后略优，margin 约 0.04–0.05dB，因共享初始化+短预算不主张单开关独立增益）
@@ -231,17 +235,18 @@
       balance on vs off，数据 verbatim 自 ablation_perblock_urban100_80k.csv；正文引于 §3.6）
 
 ### D3 可视化图（需跑模型输出）
-- [~] Fig.7 视觉对比（Urban100/Manga109 难样本，GT/Bicubic/对手/本文 crop）
+- [x] Fig.7 视觉对比（Urban100/Manga109 难样本，GT/Bicubic/对手/本文 crop）**已完成（续7+续8）**
   - **难样本已选定（2026-06-27，3 行方案）**：Urban100 `img_092`、`img_024`；Manga109 `ThatsIzumiko_000`。
     选点依据：对 DPRNet x4 SR 输出（test_CATANet_x4-250000/visualization）算高频能量（Laplacian 方差）排序，
     三者均居各集前列（脚本 paper/scripts/rank_hf_samples.py），且 img_092/img_024 为 SR 文献常用密集建筑栅格难样本、
     ThatsIzumiko_000 为高对比线稿。备选：Urban100 img_072、Manga109 HighschoolKimengumi_vol01。
-  - **已有素材**：DPRNet 自测 x4 SR 全图已在 results/CATANet/test_CATANet_x4-250000/visualization/{Urban100,Manga109}/
-    （`<name>_x4_CATANet.png`，注意 `_CATANet` 仅为 arch 注册名，实为 DPRNet 输出）。
-  - **缺口（需训练机/原始数据，禁本地编造）**：(a) GT 高清原图（本地 datasets/ 仅 README，需取 /hy-tmp/TestDataSR/HR）；
-    (b) Bicubic 上采基线（从 LR /hy-tmp/TestDataSR/LR/LRBI 双三次得到）；(c) 对手 SR 输出（至少原版 CATANet，
-    建议加 SRFormer-light，用各自权重在训练机推理）。当前先用 DPRNet+GT 出占位图，对手列留占位。
-  - **裁剪口径**：每行选同一 crop patch（红框标在全图缩略，右侧放大 crop），各列标 PSNR/SSIM；x4。
+  - **GT/Bicubic/DPRNet 三列本地出真图**（fig7_assets/，12 crop + metrics.csv，已对照官方日志验证）。
+  - **对手列已在训练机推理回传并补齐（续8）**：最终 **IMDN / SwinIR-light / SRFormer-light / CATANet**
+    （**RFDN 弃用**：其 AIM ×4 权重在我们 LRBI 口径下产出低于 bicubic 的异常结果）。对手 SR 全图回传至
+    fig7_stage/，本地 build_fig7_competitor_crops.py 按同一固定 crop 框 + 同口径裁剪算指标（competitor_metrics.csv）。
+  - **裁剪口径**：每行选同一 crop patch（红框标在全图缩略，右侧放大 crop）；x4。
+    **决策：Fig.7 不标任何 PSNR/SSIM，纯定性视觉对比**（难 crop 上 DPRNet 与 CATANet 持平、个别略低，
+    逐图标数会显劣势；定量留主表）。7 列 8 面板 fig7_visual.tex，全文 latexmk 干净编译 13 页。
 - [ ] Fig.8 路由聚类图（原始顺序 belong_idx → H×W 上色）
 - [ ] Fig.9 排序前后 token 邻域语义一致性
 

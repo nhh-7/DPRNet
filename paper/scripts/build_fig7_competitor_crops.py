@@ -1,8 +1,9 @@
 """Build Fig.7 competitor crops + metrics from staged competitor SR full images.
 
-Run this AFTER you have produced each competitor's SR output for the three
-Fig.7 hard samples and staged them under STAGE/<Method>/<dataset>_<sample>.png
-(see paper/plan/fig7-competitor-inference-guide.md, step 3).
+Runs LOCALLY (not on the training machine). The training machine only produces
+each competitor's SR full image for the three Fig.7 hard samples; you scp those
+back into STAGE (see paper/plan/fig7-competitor-inference-guide.md, step 3), then
+run this here.
 
 For each (Method, sample) it:
   1. loads the GT full image and the competitor SR full image,
@@ -13,7 +14,7 @@ For each (Method, sample) it:
      column) and magnifies x3 with NEAREST, matching the existing crops,
   4. writes figures/fig7_assets/<tag>_<Method>_crop.png and a competitor CSV.
 
-Only depends on numpy + PIL. Safe to run on the training machine or locally.
+Only depends on numpy + PIL.
 """
 from pathlib import Path
 import csv
@@ -21,21 +22,25 @@ import numpy as np
 from PIL import Image
 
 # ---------------------------------------------------------------------------
-# CONFIG -- edit these three paths for the machine you run on.
+# CONFIG -- local paths.
 # ---------------------------------------------------------------------------
-# Where you staged competitor SR full images: STAGE/<Method>/<dataset>_<sample>.png
-STAGE = Path("/hy-tmp/fig7_stage")
-# GT (HR) root, e.g. <HR>/<dataset>/x4/<sample>_x4.png
-HR = Path("/hy-tmp/TestDataSR/HR")
-# Output dir for crops + competitor metrics CSV (copy these back to the repo).
-OUT = Path("/hy-tmp/fig7_out")
+REPO = Path("/Users/bytedance/WorkSpace/DPRNet")
+# Competitor SR full images scp'd back from the training machine:
+#   STAGE/<Method>/<dataset>_<sample>.png
+STAGE = REPO / "fig7_stage"
+# Local GT (HR) root, e.g. <HR>/<dataset>/x4/<sample>_x4.png
+HR = REPO / "CATANet/datasets/TestDataSR/HR"
+# Crops + competitor_metrics.csv land directly in the figure assets dir.
+OUT = REPO / "paper/figures/fig7_assets"
 
 SCALE = 4
 BORDER = SCALE
 MAG = 3  # NEAREST magnification of the crop (matches build_fig7_assets.py)
 
 # Competitor display tags -> staging sub-folder name. Order = figure column order.
-METHODS = ["IMDN", "RFDN", "SwinIR-light", "SRFormer-light", "CATANet"]
+# RFDN dropped: its AIM x4 weights produce sub-bicubic results under our LRBI
+# protocol, so it is excluded from Fig.7.
+METHODS = ["IMDN", "SwinIR-light", "SRFormer-light", "CATANet"]
 
 # (dataset, sample, crop_top, crop_left, crop_side) -- copied from metrics.csv.
 # These MUST stay identical to the Bicubic/DPRNet/GT crops already in the figure.

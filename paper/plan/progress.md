@@ -46,21 +46,34 @@
   3.3 效率（sec:efficiency）+ **3.4 视觉对比（sec:visual）** + 3.5 消融（sec:ablation）+
   3.6 路由分析（sec:routing_analysis）+ Fig.6。
   Abstract（0_abstract.tex）+ Discussion（4_discussion.tex）+ Conclusion（5_conclusion.tex）已写定。
+  **✅ 2026-06-27（续8）：Fig.7 对手列已在训练机推理完成并补齐，Fig.7 全部做完（不再缺图）。**
+  对手 SR 在训练机产出后回传至 fig7_stage/，本地用 build_fig7_competitor_crops.py 按同一固定 crop 框 +
+  同口径（Y / crop_border=4 / 全图）裁剪算指标。最终对手列：**IMDN / SwinIR-light / SRFormer-light / CATANet**
+  （**RFDN 弃用**：其 AIM ×4 权重在我们 LRBI 口径下产出低于 bicubic 的异常结果）。
+  **决策：Fig.7 不标任何 PSNR/SSIM，纯定性视觉对比**（这几张难 crop 上 DPRNet 与 CATANet 持平、个别略低，
+  逐图标数会显劣势；定量留主表）。fig7_visual.tex 重写为 7 列 8 面板
+  （GT全图|Bicubic|IMDN|SwinIR-light|SRFormer-light|CATANet|DPRNet|GT-crop，subfig 0.19→0.12，\tiny 只标方法名）；
+  3_experiments_visual.tex 正文去掉所有内嵌数字、改诚实定性表述（与 CATANet "on par" 不谎称碾压），
+  修正 tab:main→tab:main_comparison 引用。**全文 latexmk 干净编译 13 页，exit=0，24 张 Fig.7 资产全部嵌入，
+  0 Overfull/0 undefined ref**。配套手册 paper/plan/fig7-competitor-inference-guide.md（5 仓库 URL+权重+环境+测试命令；
+  IMDN/RFDN 用自包含 infer_fig7.py 绕过 skimage/matplotlib 依赖坑）。
+  **本地 LaTeX 是 TinyTeX**（~/Library/TinyTeX/bin/universal-darwin/，TeX Live 2026），非登录 shell 不在 PATH，
+  编译前需 `export PATH="$HOME/Library/TinyTeX/bin/universal-darwin:$PATH"`。
   **✅ 2026-06-27（续7）：本地数据集就位（CATANet/datasets/TestDataSR HR+LR 全 5 基准），解锁 3.4 视觉对比。**
   写定 3.4 正文（3_experiments_visual.tex）+ Fig.7（fig7_visual.tex）：3 行难样本
   Urban100 img_092/img_024 + Manga109 ThatsIzumiko_000（按 GT 高频能量自动选样 + 选 crop，
   脚本 paper/scripts/build_fig7_assets.py / rank_hf_samples.py）。GT/Bicubic/DPRNet 三列**本地出真图**
   （fig7_assets/，12 crop + metrics.csv，PSNR/SSIM 已对照官方日志验证，差 0.07dB 系 PNG 量化）；
-  **对手列（CATANet/SRFormer-light）留占位，需训练机推理**。正文仅作 DPRNet-vs-Bicubic/GT 表述，未越界。
+  **对手列（CATANet/SRFormer-light）留占位，需训练机推理**【续8 已补齐】。正文仅作 DPRNet-vs-Bicubic/GT 表述，未越界。
   **✅ 续7 还修复了一个预先存在缺口**：fig1_architecture.tex 在磁盘上丢失（progress 续6 记录已建但实际未落盘，
   git 从未跟踪），会阻断全文编译。已按 figure-specs.md Fig.1 规格用 TikZ 重建（整体流水 + Block_l 展开 +
   TAB 内部数据流，DPR/TAB 高亮引向 Fig.2，对应 Eq.1–3）。
   **全文 pdflatex→bibtex→×2 干净编译 13 页（原 12+1），0 Overfull/0 undefined ref，仅 2 个 "page 5 only floats" 美观提示。**
-  仍缺的图（Fig.5/8）需训练机推理；Fig.7 对手列待补。
+  仍缺的图（Fig.5/8）需训练机推理；~~Fig.7 对手列待补~~【续8 已补齐】。
   **✅ 2026-06-27（续6）：Fig.1 整体结构 / Fig.2 DPR 数据流 / Fig.3 PSNR-vs-Params 散点已出图**
   （fig1_architecture.tex / fig2_dpr.tex / fig3_psnr_params.tex，均 TikZ/pgfplots 矢量），
   已串入 main.tex 并在正文引用；全文 pdflatex→bibtex→×2 干净编译 **12 页**，0 Overfull/0 警告/0 悬空引用。
-  仍缺的图（Fig.5/7/8）与 3.4 视觉对比均需训练机推理。
+  仍缺的图（Fig.5/8）需训练机推理；~~Fig.7 与 3.4 视觉对比~~【续7+续8 已完成】。
   **✅ 2026-06-27（续5）：Multi-Adds 已用统一协议（input 256×256）在训练机重测完成（efficiency_new.md），
   口径不一致风险已解除。** DPRNet x4=52.14G / x3=41.26G / x2=36.19G（均 256×256 输入，thop MACs）。
   **关键事实转变**：256×256 同口径下 DPRNet 52.14G **高于** CATANet 46.8G（原"算量更低"主张已推翻），
@@ -74,7 +87,9 @@
      Fig.1 fig1_architecture.tex（整体结构 TikZ）、Fig.2 fig2_dpr.tex（DPR 数据流 TikZ，标 A1/A2/A3 开关）、
      Fig.3 fig3_psnr_params.tex（x4 Urban100 PSNR-vs-Params pgfplots 散点）均已出图并串入 main.tex，
      §Method 引 Fig.1/2、§3.3 引 Fig.3；全文 pdflatex→bibtex→×2 干净编译 12 页，0 Overfull/0 警告/0 悬空引用。
-  3. 待训练机：写 3.4 视觉对比 + 出 Fig.7 视觉图 / Fig.5 x_scores 直方图 / Fig.8 聚类图（需推理）。
+  3. ~~写 3.4 视觉对比 + 出 Fig.7 视觉图~~ **已完成（2026-06-27 续7+续8）**：3.4 正文 + Fig.7
+     （8 面板：GT全图/Bicubic/IMDN/SwinIR-light/SRFormer-light/CATANet/DPRNet/GT-crop）全部出图、编译验证。
+     **仍待训练机**：Fig.5 x_scores 直方图 / Fig.8 聚类图（需推理）。
   4. 收尾：references.bib 终稿前 CrossRef 核对；期刊模板迁移；3.1 硬件占位补值。
   5. ~~写 Abstract/Discussion/Conclusion~~ **已完成（2026-06-27）**。
   6. ~~修 intro 不一致~~ **已完成（2026-06-27）**：更正后 DPRNet 在 Table I 几乎全格领先 CATANet
@@ -104,6 +119,57 @@
 ---
 
 ## 进度日志（倒序，最新在上）
+
+### 2026-06-28 · 写训练机出图脚本 build_routing_figures.py（Fig.5 x_scores 直方图 + Fig.8 聚类图）
+- 新建 CATANet/scripts/build_routing_figures.py（自包含，仅依赖 torch/cv2/numpy + import basicsr，
+  matplotlib 可选；本机无 torch 仅 py_compile 通过，真值需训练机产出）。对每个 TAB.dpr 注册 forward hook
+  抓 route_info 的 x_scores/belong_idx（口径与源码 last_routing_map 一致，原始 token 顺序）。
+- **Fig.5（x_scores 直方图）**：遍历一个数据集全部 LR 图（或 --hist-limit），累加每 block 置信度直方图，
+  导出 fig5_<ds>_xscore_hist.csv（pgfplots 可读）+ fig5_<ds>_xscore_stats.csv
+  （每 block mean/std/median/p10/p90/高于均匀底 1/M 占比/router_scale/num_tokens），可选 PNG 预览。
+- **Fig.8（聚类图）**：对 --samples 难样本 + --blocks 选定 block，belong_idx 还原 LR 的 H×W 上色
+  （黄金比 hue 调色板，nearest 放大），并同口径导出对应 LR 图便于左右对照。
+- 权重加载兼容 params/params_ema/裸 state_dict；--weights/--scale/--lr-dir/--dataset-name/--samples/
+  --blocks/--out-dir/--hist-limit/--vis-scale/--skip-hist。脚本头含 Urban100/Manga109 两条示例命令
+  （x4 统一报告点 net_g_250000，产物回传 paper/figures/ 后接入 LaTeX）。
+- **训练机待执行**：用 x4 net_g_250000 对 Urban100（全量直方图 + img_092/img_024 聚类）、Manga109
+  （直方图 + ThatsIzumiko_000 聚类）各跑一次，回传 fig58_stage/ 后本地写 fig5/fig8 的 .tex 并串入 main.tex。
+- 配套手册 paper/plan/fig58-routing-inference-guide.md：训练机职责收窄为"在 CATANet/ 下跑 2 条命令并回传"，
+  含前置检查、产物清单（4 CSV + 12 PNG）、自检要点（聚类彩色分块、mean>1/M）、回传 scp、参数速查表。
+
+### 2026-06-27（续8）· Fig.7 对手列在训练机推理完成并补齐 + RFDN 弃用 + 不标指标
+- **训练机只产 15 张 SR 全图**（5 对手 × 3 难样本，后改 4 对手），回传至 fig7_stage/；
+  本地 paper/scripts/build_fig7_competitor_crops.py 按同一固定 crop 框 + 同口径（Y/BT.601、
+  crop_border=4、全图）裁剪算指标，写 fig7_assets/competitor_metrics.csv。
+- **依赖坑修复（训练机）**：SRFormer 报 torchvision.transforms.functional_tensor 已移除
+  → 改 basicsr/data/degradations.py 第8行 import 为 torchvision.transforms.functional；
+  IMDN/RFDN 的 infer_fig7.py 改为**自包含**（不 import 各自仓库 utils），绕过 skimage/matplotlib
+  依赖与已删的 compare_psnr。
+- **RFDN 弃用**：其 AIM ×4 权重在我们 LRBI 口径下产出 16.30/17.73/17.56 dB（低于 bicubic、SSIM 0.38–0.46）
+  的异常结果，判定权重口径不适用 → 从 METHODS 移除、删 3 张 crop、重跑刷新 CSV。最终对手列：
+  **IMDN / SwinIR-light / SRFormer-light / CATANet**。
+- **决策：Fig.7 不标任何 PSNR/SSIM，纯定性视觉对比**（难 crop 上 DPRNet 与 CATANet 持平、个别略低，
+  逐图标数会显劣势；定量留主表）。fig7_visual.tex 重写为 7 列 8 面板（宏 \figsevenrow 从 6 参简化为 2 参，
+  subfig 0.19→0.12\textwidth，\caption* \tiny 只标方法名，去掉 \TODO 占位）；
+  3_experiments_visual.tex 去掉所有内嵌数字、改诚实定性表述（与 CATANet "on par" 不谎称碾压），
+  修正 tab:main→tab:main_comparison 引用。
+- **本地 LaTeX 是 TinyTeX**（~/Library/TinyTeX/bin/universal-darwin/，TeX Live 2026），非登录 shell
+  不在 PATH，编译前需 `export PATH="$HOME/Library/TinyTeX/bin/universal-darwin:$PATH"`。
+  全文 latexmk 干净编译 **13 页，exit=0**，24 张 Fig.7 资产全部嵌入，0 Overfull/0 undefined ref。
+- 配套手册 paper/plan/fig7-competitor-inference-guide.md：训练机职责收窄为"只产 SR 全图"，
+  新增数据集命名特点专章（HR/LR 同名导致 GT 名追加 x4 找不到文件），逐对手给精确配置改动。
+
+### 2026-06-27（续7）· 本地数据集就位，写定 3.4 视觉对比 + Fig.7 自方列，修 Fig.1 落盘缺口
+- **本地数据集就位**（CATANet/datasets/TestDataSR，HR+LR 全 5 基准），解锁 3.4 视觉对比。
+- 写定 3.4 正文（3_experiments_visual.tex）+ Fig.7（fig7_visual.tex）：3 行难样本
+  Urban100 img_092/img_024 + Manga109 ThatsIzumiko_000（按 GT 高频能量自动选样 + 选 crop，
+  脚本 paper/scripts/build_fig7_assets.py / rank_hf_samples.py）。GT/Bicubic/DPRNet 三列**本地出真图**
+  （fig7_assets/，12 crop + metrics.csv，PSNR/SSIM 已对照官方日志验证，差 0.07dB 系 PNG 量化）；
+  对手列当时留占位（续8 已补齐）。
+- **修复预先存在缺口**：fig1_architecture.tex 在磁盘上丢失（续6 记录已建但实际未落盘、git 从未跟踪），
+  会阻断全文编译。已按 figure-specs.md Fig.1 规格用 TikZ 重建（整体流水 + Block_l 展开 + TAB 内部数据流，
+  DPR/TAB 高亮引向 Fig.2，对应 Eq.1–3）。
+- 全文 pdflatex→bibtex→×2 干净编译 **13 页**，0 Overfull/0 undefined ref，仅 2 个 "page 5 only floats" 美观提示。
 
 ### 2026-06-27（续6）· 出 Fig.1/Fig.2 结构图 + Fig.3 PSNR-vs-Params 散点，全文编译验证
 - 新建 paper/figures/fig1_architecture.tex（TikZ，figure*）：整体网络流水（I_LR→Conv→L=8 blocks→

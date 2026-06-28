@@ -163,6 +163,8 @@ DPR 内容路由在高频纹理上的收益最易显现）。统一从 x4 net_g_
       不能从全功能 x3/x4 权重直接关 flag 测（参数已适配全功能，关掉会失配，结论不可信）。
 
 ### 效率脚本（A3 数据 / Table II）
-- [x] Params 已在 test 日志打印（601,947）；FLOPs / 时延脚本已实现：
-      scripts/measure_efficiency.py（固定 HR 输出 1280x720 反推 LR 输入，warmup 后多次平均，
-      FLOPs 后端 thop→fvcore 回退，统一口径）。待训练机运行 `--scale {2,3,4}` 得真值并回填。
+- [x] Params / FLOPs / 时延已在训练机测完（efficiency_new.md）：
+      scripts/measure_efficiency.py 支持两套口径——口径 A（固定 LR 输入 --lr-h/--lr-w，**推荐对齐 CATANet 论文 Tab.6 的 256×256**）、
+      口径 B（固定 HR 输出反推 LR）。**续5 已用统一口径 A（256×256）重测三尺度**，
+      DPRNet x4=52.14G / x3=41.26G / x2=36.19G，与 CATANet 46.8G / SwinIR-light 60.3G / SRFormer-light 56.5G 直接可比。
+      旧 1280×720 反推数据（45.77G 等）已废弃。

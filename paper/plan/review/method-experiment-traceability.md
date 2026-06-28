@@ -9,7 +9,7 @@
 | C2 原型生成与确认解耦（refine） | prototype query refine (2.3) | A1 refine on/off（use_prototype_query_refine） | Table III | "refine 不损质量、保持槽位稳定，且更正数据下略优（Set5 +0.04/Urban100 +0.05dB）"；因共享初始化+短预算不主张单开关独立增益 | 已训练（受限） |
 | C3 置信度感知路由（排序+门控+fallback） | 2.4-2.6 | A2 逐项加法（三 flag 已实现）+ 路由诊断（§3.6 sec:routing_analysis） | Table IV + x_scores 直方图 Fig.5（待推理出图） | "各组件相互兼容、质量中性偏正（v4 全开为四者最高）"（A2）；"置信度信号在各 block 非退化、可用"（§3.6 已有日志统计支撑）；中间步非单调，不主张逐项 PSNR 单调增益 | 已训练（受限）；§3.6 机制分析已写 |
 | C4 路由稳定化（路由温度+balance loss） | router scale (2.4) + balance loss (2.7) | A3 单 seed（多 seed 待补）+ 路由诊断（§3.6） | Table V + usage 熵图 Fig.6（已出，fig6_usage_entropy.tex） | balance loss 使 prototype 使用更均衡（8 block 熵全升 0.6227→0.6865、active 槽 47.5→52.3）；温度稳定未饱和（τ≈6.06<10）；"多 seed 方差下降"待多 seed 重训，暂不得主张 | 部分已训练（均衡/温度机制已有，§3.6+Fig.6；方差待补） |
-| 整体有效性 | 全 DPR | 主对比 | Table I/II + 视觉图 Fig.7 | DPRNet 在轻量设定下达到有竞争力的 PSNR/SSIM 与效率 | 自测数据已全(x2/x3/x4 主表+效率)；对手指标已摘录(B节,8方法)；Table I/II 已拼装(paper/tables/，Table II 对手 FLOPs/时延待补)；待视觉图 Fig.7 |
+| 整体有效性 | 全 DPR | 主对比 | Table I/II + 视觉图 Fig.7 | DPRNet 在轻量设定下达到有竞争力的 PSNR/SSIM 与效率 | 自测数据已全(x2/x3/x4 主表+效率)；对手指标已摘录(B节,8方法)；Table I/II 已拼装(paper/tables/)；**视觉图 Fig.7 已完成**(GT/Bicubic/IMDN/SwinIR-light/SRFormer-light/CATANet/DPRNet/GT crop，纯定性不标指标，续7+续8) |
 
 ## 证据状态图例
 - 已有：x2/x3/x4 主结果均已产出，统一报告点 x2=net_g_792500 / x3=net_g_250000 /
@@ -20,8 +20,9 @@
     Urban100 29.0551/0.8689, Manga109 34.4133/0.9499。
   · x4（crop_border=4）：Set5 32.5896/0.9002, Set14 28.9146/0.7883, B100 27.7648/0.7434,
     Urban100 26.8925/0.8089, Manga109 31.3240/0.9181。
-  · 效率（cuda, thop MACs, 固定 HR≈720×1280）：Params 601.95K/674.15K/659.71K，
-    MACs 126.52/64.28/45.77 G，时延 712.16/285.39/196.77 ms。详见 data-collection-checklist A3。
+  · 效率（cuda, thop MACs, **统一 256×256 输入**，续5 重测，efficiency_new.md）：Params 601.95K/674.15K/659.71K，
+    MACs x2/x3/x4 = 36.19/41.26/52.14 G，时延 183.57/185.88/198.16 ms。详见 data-collection-checklist A3。
+    （旧 720×1280 反推数据 126.52/64.28/45.77G 已废弃。x4 52.14G 高于 CATANet 46.8G 但低于 SwinIR-light 60.3G/SRFormer-light 56.5G。）
   注：均为自测数据；baseline 对手指标（B 节）已摘录回填（8 方法三尺度，标注来源 A/B/C/D），
   可与本文自测数据拼装 Table I/II 对比列。
 - 待训练：消融变体（A1/A2/A3）训练完成后回填 C1–C4。

@@ -11,60 +11,67 @@
 % ASSET PROVENANCE (paper/figures/fig7_assets/, generated locally):
 %   - GT, LR  : CATANet/datasets/TestDataSR/{HR,LR/LRBI}/.../x4  (local datasets)
 %   - Bicubic : LR upscaled x4 (PIL BICUBIC) -- real, computed locally
-%   - DPRNet  : CATANet/results/.../test_CATANet_x4-250000/visualization (our SR output;
-%               "_CATANet" is only the arch registry name -- these ARE DPRNet outputs)
-%   - PSNR/SSIM (Y, crop_border=4) in fig7_assets/metrics.csv:
-%       img_092           Bicubic 16.58/0.4377  DPRNet 19.62/0.6922
-%       img_024           Bicubic 18.14/0.4593  DPRNet 21.05/0.7071
-%       ThatsIzumiko_000  Bicubic 18.00/0.5118  DPRNet 21.42/0.7597
-%     (Recomputed from published 8-bit PNGs; ~0.07 dB below the logged float means
-%      due to PNG quantization. Relative Bicubic-vs-DPRNet gaps are exact.)
+%   - DPRNet  : our SR output ("_CATANet" is only the arch registry name).
+%   - Competitors (IMDN, SwinIR-light, SRFormer-light, CATANet): real SR outputs
+%     produced on the training machine, cropped to the SAME fixed box by
+%     paper/scripts/build_fig7_competitor_crops.py. (RFDN dropped: its AIM x4
+%     weights gave sub-bicubic results under our LRBI protocol.)
 %
-% TODO (training machine): competitor SR outputs (original CATANet, SRFormer-light)
-%   are NOT available locally. The 4th column is a PLACEHOLDER; replace
-%   "fig7_assets/<tag>_Competitor_crop.png" + its PSNR/SSIM once inference is run.
+% NOTE: per-image PSNR/SSIM intentionally NOT printed on the crops -- this is a
+%   purely qualitative comparison; quantitative numbers live in the main table.
 % =====================================================================
-\newcommand{\figsevenrow}[6]{%
-  % #1=asset tag  #2=row caption  #3..#5 = Bicubic/DPRNet metric strings  #6=GT label
-  \begin{subfigure}{0.19\textwidth}
+\newcommand{\figsevenrow}[2]{%
+  % #1 = asset tag   #2 = row caption (shown under the GT full image)
+  \begin{subfigure}{0.12\textwidth}
     \includegraphics[width=\linewidth]{figures/fig7_assets/#1_GT_full_box.png}
-    \caption*{\scriptsize #2}
+    \caption*{\tiny #2}
   \end{subfigure}\hfill
-  \begin{subfigure}{0.19\textwidth}
+  \begin{subfigure}{0.12\textwidth}
     \includegraphics[width=\linewidth]{figures/fig7_assets/#1_Bicubic_crop.png}
-    \caption*{\scriptsize Bicubic\\#3}
+    \caption*{\tiny Bicubic}
   \end{subfigure}\hfill
-  \begin{subfigure}{0.19\textwidth}
-    % PLACEHOLDER competitor crop -- replace with real CATANet/SRFormer-light output.
-    \includegraphics[width=\linewidth]{figures/fig7_assets/#1_Bicubic_crop.png}
-    \caption*{\scriptsize \TODO{CATANet}\\\textcolor{red}{--/--}}
+  \begin{subfigure}{0.12\textwidth}
+    \includegraphics[width=\linewidth]{figures/fig7_assets/#1_IMDN_crop.png}
+    \caption*{\tiny IMDN}
   \end{subfigure}\hfill
-  \begin{subfigure}{0.19\textwidth}
+  \begin{subfigure}{0.12\textwidth}
+    \includegraphics[width=\linewidth]{figures/fig7_assets/#1_SwinIR-light_crop.png}
+    \caption*{\tiny SwinIR-light}
+  \end{subfigure}\hfill
+  \begin{subfigure}{0.12\textwidth}
+    \includegraphics[width=\linewidth]{figures/fig7_assets/#1_SRFormer-light_crop.png}
+    \caption*{\tiny SRFormer-light}
+  \end{subfigure}\hfill
+  \begin{subfigure}{0.12\textwidth}
+    \includegraphics[width=\linewidth]{figures/fig7_assets/#1_CATANet_crop.png}
+    \caption*{\tiny CATANet}
+  \end{subfigure}\hfill
+  \begin{subfigure}{0.12\textwidth}
     \includegraphics[width=\linewidth]{figures/fig7_assets/#1_DPRNet_crop.png}
-    \caption*{\scriptsize DPRNet (ours)\\#4}
+    \caption*{\tiny DPRNet (ours)}
   \end{subfigure}\hfill
-  \begin{subfigure}{0.19\textwidth}
+  \begin{subfigure}{0.12\textwidth}
     \includegraphics[width=\linewidth]{figures/fig7_assets/#1_GT_crop.png}
-    \caption*{\scriptsize GT\\#5}
+    \caption*{\tiny GT}
   \end{subfigure}%
 }
 
 \begin{figure*}[t]
 \centering
-\figsevenrow{Urban100_img_092}{Urban100: img\_092}{16.58/0.4377}{\textbf{19.62/0.6922}}{PSNR/SSIM}{}
+\figsevenrow{Urban100_img_092}{Urban100: img\_092}
 
 \vspace{2pt}
-\figsevenrow{Urban100_img_024}{Urban100: img\_024}{18.14/0.4593}{\textbf{21.05/0.7071}}{PSNR/SSIM}{}
+\figsevenrow{Urban100_img_024}{Urban100: img\_024}
 
 \vspace{2pt}
-\figsevenrow{Manga109_ThatsIzumiko_000}{Manga109: ThatsIzumiko}{18.00/0.5118}{\textbf{21.42/0.7597}}{PSNR/SSIM}{}
+\figsevenrow{Manga109_ThatsIzumiko_000}{Manga109: ThatsIzumiko}
 
 \caption{Qualitative comparison at $\times4$ on texture-dense hard samples. The
 leftmost panel shows the ground-truth image with the (red) crop region; the
-remaining panels magnify that region. DPRNet restores repetitive building grids
-and high-contrast line art with sharper, less aliased structure than Bicubic, and
-PSNR/SSIM (Y channel, computed on the full image) are reported under the crops.
-\TODO{The third column (competitor SR: original CATANet / SRFormer-light) is a
-placeholder pending inference on the training machine.}}
+remaining panels magnify that region for Bicubic, IMDN, SwinIR-light,
+SRFormer-light, CATANet, DPRNet (ours), and the ground truth. DPRNet restores
+repetitive building grids and high-contrast line art with sharper, less aliased
+structure, on par with the strongest competitors. This is a qualitative
+comparison; quantitative PSNR/SSIM are reported in the main table.}
 \label{fig:visual}
 \end{figure*}
