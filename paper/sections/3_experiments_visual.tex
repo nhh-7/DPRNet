@@ -5,9 +5,9 @@
 %   SR-literature convention (paper/scripts/build_fig7_assets.py).
 % This is a PURELY QUALITATIVE comparison: per-image PSNR/SSIM are intentionally
 %   NOT printed in the figure nor quoted here; the quantitative results live in the
-%   main comparison table (Table~\ref{tab:main}). Competitor crops (IMDN,
-%   SwinIR-light, SRFormer-light, CATANet) are real SR outputs cropped to the
-%   same fixed box by paper/scripts/build_fig7_competitor_crops.py.
+%   main comparison table (Table~\ref{tab:main_comparison}). Competitor crops
+%   (IMDN, SwinIR-light, SRFormer-light, CATANet) are real SR outputs cropped to
+%   the same fixed box by paper/scripts/build_fig7_competitor_crops.py.
 % HONEST BOUNDARY: on these particular hard crops DPRNet is on par with -- not
 %   visibly ahead of -- CATANet, so the text claims comparability, not superiority,
 %   against the strongest competitors.
@@ -29,13 +29,13 @@ window edges into blurred, aliased bands, and the lightweight CNN IMDN only
 partially recovers them. The transformer-based methods (SwinIR-light,
 SRFormer-light, CATANet) progressively sharpen the grid structure, and DPRNet
 reconstructs the window spacing with clean, well-separated boundaries on par
-with the strongest competitor, CATANet. On the Manga109 line art, where thin
-strokes are easily broken by upsampling, DPRNet keeps the contours continuous
-and avoids obvious ringing, matching the visual quality of the best transformer
-baselines. These observations are consistent with the routing diagnostics of
-Sec.~\ref{sec:routing_analysis}: confidence-aware aggregation concentrates on
-the structured, high-frequency regions that local-window methods resolve less
+with the strongest content-routing baseline, CATANet. On the Manga109 line art,
+where thin strokes are easily broken by upsampling, DPRNet keeps the contours
+continuous and avoids obvious ringing, matching the visual quality of the best
+transformer baselines. These observations are consistent with the routing
+diagnostics of Sec.~\ref{sec:routing_analysis}: confidence-aware aggregation
+tracks structured, high-frequency regions that local-window methods resolve less
 faithfully. We stress that Fig.~\ref{fig:visual} is a qualitative comparison;
-the corresponding quantitative results are reported in
-Table~\ref{tab:main_comparison}, where DPRNet attains the best overall accuracy at a
+the corresponding quantitative results for all baselines are reported in
+Table~\ref{tab:main_comparison}, where DPRNet remains in the top tier at a
 comparable parameter budget.

@@ -1,0 +1,49 @@
+## Task Packet
+
+- Scope: Finish two remaining submission-readiness items: visually inspect the updated routing cluster-map page in the compiled PDF, and polish over-strong wording in the abstract and Table 1/result discussion.
+- Stage: S5 review plus small S4 wording revision.
+- Files to read:
+  - `paper/main_mdpi.tex`
+  - `paper/sections/0_abstract.tex`
+  - `paper/sections/1_introduction.tex`
+  - `paper/sections/3_experiments_comparison.tex`
+  - `paper/sections/3_experiments_visual.tex`
+  - `paper/sections/4_discussion.tex`
+  - `paper/sections/5_conclusion.tex`
+  - `paper/sections/3_experiments_routing_analysis.tex`
+  - `paper/figures/fig8_cluster_maps.tex`
+  - `paper/main_mdpi.pdf`
+  - `paper/main_mdpi.log`
+- Files allowed to edit:
+  - `paper/main_mdpi.tex`
+  - `paper/sections/0_abstract.tex`
+  - `paper/sections/1_introduction.tex`
+  - `paper/sections/3_experiments_comparison.tex`
+  - `paper/sections/3_experiments_visual.tex`
+  - `paper/sections/4_discussion.tex`
+  - `paper/sections/5_conclusion.tex`
+  - `paper/plan/progress.md`
+- Required skills:
+  - research-writing-assistant
+  - paper-orchestration
+  - peer-review
+  - verification
+- Evidence/data inputs:
+  - Existing quantitative comparison table values
+  - Rendered PDF page containing the cluster-map figure
+  - Existing LaTeX build log
+- Required artifacts:
+  - Polished abstract wording if dense/over-specific
+  - More conservative Table 1/result discussion wording
+  - TinyTeX-compiled `main_mdpi.pdf`
+  - Capability-use audit in `plan/progress.md`
+- Rejection checks:
+  - Do not weaken true claims into vague claims that hide results.
+  - Do not introduce new experimental claims.
+  - Do not change numeric results.
+  - Do not leave over-strong phrasing such as "clearly ahead" where margins are only a few hundredths of a dB.
+- Validation commands:
+  - `export PATH="/Users/bytedance/Library/TinyTeX/bin/universal-darwin:$PATH"`
+  - `latexmk -pdf -bibtex -shell-escape -interaction=nonstopmode -halt-on-error main_mdpi.tex`
+  - Search `main_mdpi.log` for unresolved references/citations and serious LaTeX warnings.
+  - Render and inspect the cluster-map page from `main_mdpi.pdf`.

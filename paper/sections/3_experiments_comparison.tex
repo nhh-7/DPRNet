@@ -7,8 +7,8 @@
 %   rows cited from original papers per the table notes). Bold/underline status in
 %   the table is the basis for "best/second-best" wording.
 % HONEST FRAMING (matches corrected data): against the strongest baseline CATANet,
-%   DPRNet attains the best result on nearly every benchmark/scale cell, slightly
-%   surpassing CATANet (margins ~0.01-0.07 dB) while CATANet is consistently second.
+%   DPRNet ranks first or tied first on nearly every benchmark/scale cell, with
+%   CATANet usually second and margins ~0.01-0.07 dB.
 %   The ONLY metric where CATANet still leads is x4 Manga109 SSIM (0.9183 vs 0.9181).
 %   Margins are small -- frame as "matches or slightly surpasses", not a large gain.
 %   DPRNet also carries a modestly higher parameter count than CATANet (660K vs 535K).
@@ -28,19 +28,19 @@ selection.
 
 \paragraph{Overall accuracy.}
 Table~\ref{tab:main_comparison} shows that DPRNet and CATANet form the top tier at
-all three scales, both clearly ahead of the remaining seven methods. For example,
-at $\times4$ DPRNet reaches $32.59$/$0.9002$\,dB on Set5 and $27.76$/$0.7434$ on
-BSD100, exceeding the strongest non-routing competitor SRFormer-light
-($32.51$/$0.8988$ and $27.73$/$0.7422$) while using a comparable parameter budget.
-The consistent advantage of the two content-routing methods over window-based and
-distillation-based baselines supports the value of content-aware token
-aggregation in the lightweight regime.
+all three scales, with the clearest separation on Urban100 and Manga109 and
+smaller margins on Set5, Set14, and BSD100. For example, at $\times4$ DPRNet
+reaches $32.59$\,dB/$0.9002$ on Set5 and $27.76$\,dB/$0.7434$ on BSD100, compared with
+SRFormer-light at $32.51$/$0.8988$ and $27.73$/$0.7422$ under a comparable
+parameter budget. The pattern suggests that content-aware token aggregation is
+particularly useful in the lightweight regime when repeated or semantically related
+structures occur across distant positions.
 
 \paragraph{Comparison with CATANet.}
 Against CATANet---the strongest baseline and the method from which DPRNet differs
-only in the routing module---DPRNet attains the best result on nearly every
-benchmark/scale cell, with CATANet consistently ranked second. The margins are small but
-consistent: at $\times4$ DPRNet improves Urban100 from $26.87$/$0.8081$ to
+only in the routing module---DPRNet ranks first or tied first on nearly every
+benchmark/scale cell, with CATANet usually second. The margins are small but
+directionally consistent: at $\times4$ DPRNet improves Urban100 from $26.87$/$0.8081$ to
 $26.89$/$0.8089$, Set5 from $32.58$/$0.8998$ to $32.59$/$0.9002$, Set14 from
 $28.90$/$0.7880$ to $28.91$/$0.7883$, and Manga109 PSNR from $31.31$ to $31.32$;
 at $\times2$ it reaches the best Set14 ($34.06$/$0.9220$), Urban100 PSNR ($33.15$),
@@ -49,7 +49,7 @@ benchmark (e.g.\ BSD100 $29.29$/$0.8103$ and Urban100 $29.06$/$0.8689$). The sin
 metric on which CATANet remains ahead is Manga109 SSIM at $\times4$
 ($0.9183$ vs.\ $0.9181$). These gaps are within a few hundredths of a dB. The
 result therefore supports a conservative conclusion: replacing the EMA-center routing of TAB with the dynamic
-prototype routing of DPR matches and slightly surpasses CATANet-level
+prototype routing of DPR preserves CATANet-level
 reconstruction quality while changing the routing mechanism to the interpretable,
 confidence-aware formulation analyzed in Sec.~\ref{sec:ablation} and
 Sec.~\ref{sec:routing_analysis}.
@@ -59,8 +59,8 @@ Table~\ref{tab:efficiency} reports the $\times4$ efficiency subset for methods w
 Multi-Adds are available under the same fixed $256{\times}256$ LR-input convention.
 DPRNet has $660$K parameters and $52.14$\,G Multi-Adds, keeping it within the
 lightweight bracket. It uses fewer Multi-Adds than the lightweight Transformer baselines
-SwinIR-light ($60.3$\,G) and SRFormer-light ($56.5$\,G) while delivering top-tier
-accuracy. Both its parameter count and Multi-Adds are modestly higher than CATANet's
+SwinIR-light ($60.3$\,G) and SRFormer-light ($56.5$\,G) while delivering competitive
+top-tier accuracy. Both its parameter count and Multi-Adds are modestly higher than CATANet's
 ($660$K/$52.14$\,G vs.\ $535$K/$46.8$\,G at $\times4$), reflecting the learnable query
 bank and router projections of DPR, so no efficiency advantage over CATANet is claimed.
 The per-scale DPRNet profile, including measured latency on our hardware, is given in

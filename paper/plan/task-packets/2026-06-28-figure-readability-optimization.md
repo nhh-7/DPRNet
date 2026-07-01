@@ -1,0 +1,44 @@
+## Task Packet
+
+- Scope: Improve manuscript figure readability and evidence strength for Fig. 2, Fig. 4, and Fig. 7/cluster-map figure in `main_mdpi.pdf`.
+- Stage: S3/S5, experiment figure presentation plus submission-readiness cleanup.
+- Files to read:
+  - `paper/figures/fig2_dpr.tex`
+  - `paper/figures/fig7_visual.tex`
+  - `paper/figures/fig8_cluster_maps.tex`
+  - `paper/sections/3_experiments_visual.tex`
+  - `paper/sections/3_experiments_routing_analysis.tex`
+  - `paper/figures/fig7_assets/metrics.csv`
+  - `paper/figures/fig7_assets/competitor_metrics.csv`
+  - `paper/figures/fig58_assets/*`
+- Files allowed to edit:
+  - `paper/figures/fig2_dpr.tex`
+  - `paper/figures/fig7_visual.tex`
+  - `paper/figures/fig8_cluster_maps.tex`
+  - `paper/sections/3_experiments_visual.tex`
+  - `paper/sections/3_experiments_routing_analysis.tex`
+  - `paper/plan/progress.md`
+- Required skills:
+  - research-writing-assistant
+  - paper-orchestration
+  - figures-diagram
+  - figures-python
+  - verification
+- Evidence/data inputs:
+  - Existing qualitative crops and GT locator panels
+  - Existing competitor crop metrics
+  - Existing routing cluster maps and x-score diagnostics
+  - Rendered PDF pages for visual inspection
+- Required artifacts:
+  - Updated figure source for Fig. 2, Fig. 4, and routing cluster-map figure
+  - Updated prose/caption wording if the visual evidence is reframed
+  - Capability-use audit in `plan/progress.md`
+- Rejection checks:
+  - Do not claim DPRNet is visually superior to CATANet when the current crop metrics do not support it.
+  - Preserve all figure labels and references used by the manuscript.
+  - Keep figure numbering stable unless a numbering change is unavoidable.
+  - Do not introduce mock or synthetic visual data.
+- Validation commands:
+  - Compile `main_mdpi.tex`.
+  - Search `main_mdpi.log` for unresolved references/citations and layout warnings.
+  - Render PDF pages containing Fig. 2, Fig. 4, and cluster maps, then visually inspect readability.

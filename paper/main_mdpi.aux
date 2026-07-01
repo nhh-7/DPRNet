@@ -44,17 +44,17 @@
 \@writefile{toc}{\contentsline {paragraph}{\numberline {1.0.0.1}Lightweight CNN-based SR.}{2}{paragraph.1.0.0.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{\numberline {1.0.0.2}Lightweight Transformer-based SR.}{2}{paragraph.1.0.0.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{\numberline {1.0.0.3}Content-aware / cluster-based routing.}{2}{paragraph.1.0.0.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\numberline {1.0.0.4}Limitations of center-based routing.}{2}{paragraph.1.0.0.4}\protected@file@percent }
 \def\@LN@column{1}
-\@writefile{toc}{\contentsline {paragraph}{\numberline {1.0.0.4}Limitations of center-based routing.}{3}{paragraph.1.0.0.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{\numberline {1.0.0.5}Our approach.}{3}{paragraph.1.0.0.5}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{\numberline {1.0.0.6}Contributions.}{3}{paragraph.1.0.0.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}Method}{3}{section.2}\protected@file@percent }
+\newlabel{sec:method}{{2}{3}{Method}{section.2}{}}
+\newlabel{sec:method@cref}{{[section][2][]2}{[1][3][]3}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Overview}{3}{subsection.2.1}\protected@file@percent }
+\newlabel{sec:method_overview}{{2.1}{3}{Overview}{subsection.2.1}{}}
+\newlabel{sec:method_overview@cref}{{[subsection][1][2]2.1}{[1][3][]3}{}{}{}}
 \def\@LN@column{1}
-\@writefile{toc}{\contentsline {section}{\numberline {2}Method}{4}{section.2}\protected@file@percent }
-\newlabel{sec:method}{{2}{4}{Method}{section.2}{}}
-\newlabel{sec:method@cref}{{[section][2][]2}{[1][3][]4}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Overview}{4}{subsection.2.1}\protected@file@percent }
-\newlabel{sec:method_overview}{{2.1}{4}{Overview}{subsection.2.1}{}}
-\newlabel{sec:method_overview@cref}{{[subsection][1][2]2.1}{[1][3][]4}{}{}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Motivation: limitations of center-based routing}{4}{subsection.2.2}\protected@file@percent }
 \newlabel{sec:method_motivation}{{2.2}{4}{Motivation: limitations of center-based routing}{subsection.2.2}{}}
 \newlabel{sec:method_motivation@cref}{{[subsection][2][2]2.2}{[1][4][]4}{}{}{}}
@@ -64,9 +64,9 @@
 \@writefile{toc}{\contentsline {paragraph}{\numberline {2.3.0.1}(1) Dynamic prototype generation.}{4}{paragraph.2.3.0.1}\protected@file@percent }
 \newlabel{eq:assign}{{4}{4}{(1) Dynamic prototype generation}{equation.4}{}}
 \newlabel{eq:assign@cref}{{[equation][4][]4}{[1][4][]4}{}{}{}}
+\newlabel{eq:proto_content}{{5}{4}{(1) Dynamic prototype generation}{equation.5}{}}
+\newlabel{eq:proto_content@cref}{{[equation][5][]5}{[1][4][]4}{}{}{}}
 \def\@LN@column{1}
-\newlabel{eq:proto_content}{{5}{5}{(1) Dynamic prototype generation}{equation.5}{}}
-\newlabel{eq:proto_content@cref}{{[equation][5][]5}{[1][4][]5}{}{}{}}
 \@writefile{toc}{\contentsline {paragraph}{\numberline {2.3.0.2}(2) Prototype confirmation by query refinement.}{5}{paragraph.2.3.0.2}\protected@file@percent }
 \newlabel{eq:proto_refine}{{7}{5}{(2) Prototype confirmation by query refinement}{equation.7}{}}
 \newlabel{eq:proto_refine@cref}{{[equation][7][]7}{[1][5][]5}{}{}{}}
@@ -78,12 +78,19 @@
 \@writefile{toc}{\contentsline {paragraph}{\numberline {2.3.0.4}(4) Confidence-aware ordering.}{5}{paragraph.2.3.0.4}\protected@file@percent }
 \newlabel{eq:sortkey}{{10}{5}{(4) Confidence-aware ordering}{equation.10}{}}
 \newlabel{eq:sortkey@cref}{{[equation][10][]10}{[1][5][]5}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Confidence-aware aggregation (IASA)}{5}{subsection.2.4}\protected@file@percent }
+\newlabel{sec:method_iasa}{{2.4}{5}{Confidence-aware aggregation (IASA)}{subsection.2.4}{}}
+\newlabel{sec:method_iasa@cref}{{[subsection][4][2]2.4}{[1][5][]5}{}{}{}}
+\citation{agustsson2017div2k}
+\citation{bevilacqua2012set5}
+\citation{zeyde2010set14}
+\citation{martin2001bsd100}
+\citation{huang2015urban100}
+\citation{matsui2017manga109}
+\citation{wang2004ssim}
 \def\@LN@column{1}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Confidence-aware aggregation (IASA)}{6}{subsection.2.4}\protected@file@percent }
-\newlabel{sec:method_iasa}{{2.4}{6}{Confidence-aware aggregation (IASA)}{subsection.2.4}{}}
-\newlabel{sec:method_iasa@cref}{{[subsection][4][2]2.4}{[1][6][]6}{}{}{}}
 \newlabel{eq:iasa_gate}{{11}{6}{Confidence-aware aggregation (IASA)}{equation.11}{}}
-\newlabel{eq:iasa_gate@cref}{{[equation][11][]11}{[1][6][]6}{}{}{}}
+\newlabel{eq:iasa_gate@cref}{{[equation][11][]11}{[1][5][]6}{}{}{}}
 \@writefile{toc}{\contentsline {paragraph}{\numberline {2.4.0.1}Soft prototype fallback.}{6}{paragraph.2.4.0.1}\protected@file@percent }
 \newlabel{eq:soft_fallback}{{12}{6}{Soft prototype fallback}{equation.12}{}}
 \newlabel{eq:soft_fallback@cref}{{[equation][12][]12}{[1][6][]6}{}{}{}}
@@ -95,24 +102,17 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.6}Discussion of design}{6}{subsection.2.6}\protected@file@percent }
 \newlabel{sec:method_design}{{2.6}{6}{Discussion of design}{subsection.2.6}{}}
 \newlabel{sec:method_design@cref}{{[subsection][6][2]2.6}{[1][6][]6}{}{}{}}
-\citation{agustsson2017div2k}
-\citation{bevilacqua2012set5}
-\citation{zeyde2010set14}
-\citation{martin2001bsd100}
-\citation{huang2015urban100}
-\citation{matsui2017manga109}
-\citation{wang2004ssim}
 \def\@LN@column{1}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Overall architecture of DPRNet. A $3{\times }3$ convolution extracts shallow features $F_0$ ($C{=}40$); a stack of $L{=}8$ blocks, each coupling a Token Aggregation Block (TAB) with local self-attention (LRSA) and a fusion convolution under a residual connection (Eq.~\eqref  {eq:assign} context, Eqs.~(1)--(3)), produces $F_L$; a global residual, a pixel-shuffle upsampler and a bilinear bypass reconstruct $I_{SR}$. The contribution is confined to the DPR module inside each TAB (highlighted), whose data flow $X\to \mathrm  {LN}\to \mathrm  {DPR}\to \mathrm  {IASA} \to \mathrm  {Conv}_{1\times 1}\to \mathrm  {ConvFFN}$ keeps the TAB interface $\mathbb  {R}^{C\times H\times W}\!\to \!\mathbb  {R}^{C\times H\times W}$ unchanged, so the rest of the CATANet backbone is a drop-in host; DPR is detailed in Fig.~\ref {fig:dpr}.}}{7}{figure.caption.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Overall architecture of DPRNet, following the lightweight-SR backbone of CATANet. \textbf  {(a)}~A $3{\times }3$ convolution extracts shallow features $F_0$, which pass through a stack of $L{=}8$ DPRNet blocks; the deep features are added back through a global residual and reconstructed by a pixel-shuffle upsampler that is summed with a bilinearly upsampled base image. \textbf  {(b)}~Each block keeps the TAB--LRSA--fusion structure under a residual connection. \textbf  {(c)}~Inside a TAB, the only modified component is the routing module: DPR replaces center-based routing while preserving the input/output interface, and is expanded in Fig.~\ref {fig:dpr}.}}{7}{figure.caption.1}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:arch}{{1}{7}{Overall architecture of DPRNet. A $3{\times }3$ convolution extracts shallow features $F_0$ ($C{=}40$); a stack of $L{=}8$ blocks, each coupling a Token Aggregation Block (TAB) with local self-attention (LRSA) and a fusion convolution under a residual connection (Eq.~\eqref {eq:assign} context, Eqs.~(1)--(3)), produces $F_L$; a global residual, a pixel-shuffle upsampler and a bilinear bypass reconstruct $I_{SR}$. The contribution is confined to the DPR module inside each TAB (highlighted), whose data flow $X\to \mathrm {LN}\to \mathrm {DPR}\to \mathrm {IASA} \to \mathrm {Conv}_{1\times 1}\to \mathrm {ConvFFN}$ keeps the TAB interface $\mathbb {R}^{C\times H\times W}\!\to \!\mathbb {R}^{C\times H\times W}$ unchanged, so the rest of the CATANet backbone is a drop-in host; DPR is detailed in Fig.~\ref {fig:dpr}}{figure.caption.1}{}}
+\newlabel{fig:arch}{{1}{7}{Overall architecture of DPRNet, following the lightweight-SR backbone of CATANet. \textbf {(a)}~A $3{\times }3$ convolution extracts shallow features $F_0$, which pass through a stack of $L{=}8$ DPRNet blocks; the deep features are added back through a global residual and reconstructed by a pixel-shuffle upsampler that is summed with a bilinearly upsampled base image. \textbf {(b)}~Each block keeps the TAB--LRSA--fusion structure under a residual connection. \textbf {(c)}~Inside a TAB, the only modified component is the routing module: DPR replaces center-based routing while preserving the input/output interface, and is expanded in Fig.~\ref {fig:dpr}}{figure.caption.1}{}}
 \newlabel{fig:arch@cref}{{[figure][1][]1}{[1][6][]7}{}{}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {3}Experiments}{7}{section.3}\protected@file@percent }
 \newlabel{sec:experiments}{{3}{7}{Experiments}{section.3}{}}
-\newlabel{sec:experiments@cref}{{[section][3][]3}{[1][7][]7}{}{}{}}
+\newlabel{sec:experiments@cref}{{[section][3][]3}{[1][6][]7}{}{}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Datasets and implementation details}{7}{subsection.3.1}\protected@file@percent }
 \newlabel{sec:exp_setup}{{3.1}{7}{Datasets and implementation details}{subsection.3.1}{}}
-\newlabel{sec:exp_setup@cref}{{[subsection][1][3]3.1}{[1][7][]7}{}{}{}}
+\newlabel{sec:exp_setup@cref}{{[subsection][1][3]3.1}{[1][6][]7}{}{}{}}
 \@writefile{toc}{\contentsline {paragraph}{\numberline {3.1.0.1}Datasets and metrics.}{7}{paragraph.3.1.0.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{\numberline {3.1.0.2}Network configuration.}{7}{paragraph.3.1.0.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{\numberline {3.1.0.3}Training.}{7}{paragraph.3.1.0.3}\protected@file@percent }
@@ -126,25 +126,25 @@
 \citation{zhou2023srformer}
 \citation{liu2025catanet}
 \def\@LN@column{1}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Dynamic Prototype Routing (DPR). \textbf  {(1)} Tokens generate dynamic prototypes $P^{\mathrm  {c}}$ from the current input by soft assignment (Eqs.~\eqref  {eq:assign}--\eqref  {eq:proto_content}, C1); \textbf  {(2)} a learnable query bank refines them through a gate $\gamma $ into the confirmed prototypes $P$ (Eq.~\eqref  {eq:proto_refine}, C2); \textbf  {(3)} tokens are matched back with a learnable temperature $\tau $, yielding scores $S$, confidence $x^{\mathrm  {s}}$ and labels $b$ (Eqs.~\eqref  {eq:scores}--\eqref  {eq:belong}, C3/C4); \textbf  {(4)} a confidence-aware key orders tokens (Eq.~\eqref  {eq:sortkey}, C3); \textbf  {(5)} IASA aggregates the reordered tokens with a confidence-modulated global gate $\beta $ and a soft prototype fallback $\alpha $ (Eqs.~\eqref  {eq:iasa_gate}--\eqref  {eq:soft_fallback}, C3); and \textbf  {(6)} a usage-entropy regularizer balances prototype usage (Eq.~\eqref  {eq:balance}, C4). Solid arrows denote tensor flow, dashed arrows denote gating/regularization. The yellow tags mark the ablation switches A1/A2/A3 (Tables~\ref {tab:abl_a1}--\ref {tab:abl_a3}); each switch defaults to the full model and is exactly equivalent to its disabled form.}}{8}{figure.caption.2}\protected@file@percent }
-\newlabel{fig:dpr}{{2}{8}{Dynamic Prototype Routing (DPR). \textbf {(1)} Tokens generate dynamic prototypes $P^{\mathrm {c}}$ from the current input by soft assignment (Eqs.~\eqref {eq:assign}--\eqref {eq:proto_content}, C1); \textbf {(2)} a learnable query bank refines them through a gate $\gamma $ into the confirmed prototypes $P$ (Eq.~\eqref {eq:proto_refine}, C2); \textbf {(3)} tokens are matched back with a learnable temperature $\tau $, yielding scores $S$, confidence $x^{\mathrm {s}}$ and labels $b$ (Eqs.~\eqref {eq:scores}--\eqref {eq:belong}, C3/C4); \textbf {(4)} a confidence-aware key orders tokens (Eq.~\eqref {eq:sortkey}, C3); \textbf {(5)} IASA aggregates the reordered tokens with a confidence-modulated global gate $\beta $ and a soft prototype fallback $\alpha $ (Eqs.~\eqref {eq:iasa_gate}--\eqref {eq:soft_fallback}, C3); and \textbf {(6)} a usage-entropy regularizer balances prototype usage (Eq.~\eqref {eq:balance}, C4). Solid arrows denote tensor flow, dashed arrows denote gating/regularization. The yellow tags mark the ablation switches A1/A2/A3 (Tables~\ref {tab:abl_a1}--\ref {tab:abl_a3}); each switch defaults to the full model and is exactly equivalent to its disabled form}{figure.caption.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Dynamic Prototype Routing (DPR). \textbf  {(a)}~The router runs in a single pass: it embeds the tokens, forms content prototypes $P^{\mathrm  {c}}$ from the current tokens, confirms them with a learnable query bank through a gated refinement ($\gamma $), and matches the tokens back to the confirmed prototypes $P$ with a bounded temperature $\tau $, yielding the ordered sequence $X^{\pi }$, the confidence $x^{\mathrm  {s}}$, and the label $b$ (Eqs.~\eqref  {eq:assign}--\eqref  {eq:sortkey}); the usage-balancing term acts on the score map $S$ (Eq.~\eqref  {eq:balance}). \textbf  {(b)}~IASA consumes $X^{\pi }$, $P$, and $x^{\mathrm  {s}}$: a local branch and a prototype global branch are combined under a confidence-modulated gate $\beta $, and a soft prototype fallback gated by $\alpha $ stabilizes low-confidence tokens before the output is scattered back via $\pi ^{-1}$ (Eqs.~\eqref  {eq:iasa_gate}--\eqref  {eq:soft_fallback}).}}{8}{figure.caption.2}\protected@file@percent }
+\newlabel{fig:dpr}{{2}{8}{Dynamic Prototype Routing (DPR). \textbf {(a)}~The router runs in a single pass: it embeds the tokens, forms content prototypes $P^{\mathrm {c}}$ from the current tokens, confirms them with a learnable query bank through a gated refinement ($\gamma $), and matches the tokens back to the confirmed prototypes $P$ with a bounded temperature $\tau $, yielding the ordered sequence $X^{\pi }$, the confidence $x^{\mathrm {s}}$, and the label $b$ (Eqs.~\eqref {eq:assign}--\eqref {eq:sortkey}); the usage-balancing term acts on the score map $S$ (Eq.~\eqref {eq:balance}). \textbf {(b)}~IASA consumes $X^{\pi }$, $P$, and $x^{\mathrm {s}}$: a local branch and a prototype global branch are combined under a confidence-modulated gate $\beta $, and a soft prototype fallback gated by $\alpha $ stabilizes low-confidence tokens before the output is scattered back via $\pi ^{-1}$ (Eqs.~\eqref {eq:iasa_gate}--\eqref {eq:soft_fallback})}{figure.caption.2}{}}
 \newlabel{fig:dpr@cref}{{[figure][2][]2}{[1][6][]8}{}{}{}}
 \@writefile{toc}{\contentsline {paragraph}{\numberline {3.1.0.4}Efficiency measurement.}{8}{paragraph.3.1.0.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Comparison with state-of-the-art}{8}{subsection.3.2}\protected@file@percent }
 \newlabel{sec:main_comparison}{{3.2}{8}{Comparison with state-of-the-art}{subsection.3.2}{}}
 \newlabel{sec:main_comparison@cref}{{[subsection][2][3]3.2}{[1][8][]8}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {3.2.0.1}Overall accuracy.}{8}{paragraph.3.2.0.1}\protected@file@percent }
 \def\@LN@column{1}
-\@writefile{toc}{\contentsline {paragraph}{\numberline {3.2.0.1}Overall accuracy.}{9}{paragraph.3.2.0.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{\numberline {3.2.0.2}Comparison with CATANet.}{9}{paragraph.3.2.0.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{\numberline {3.2.0.3}Efficiency.}{9}{paragraph.3.2.0.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Model complexity and efficiency}{9}{subsection.3.3}\protected@file@percent }
 \newlabel{sec:efficiency}{{3.3}{9}{Model complexity and efficiency}{subsection.3.3}{}}
 \newlabel{sec:efficiency@cref}{{[subsection][3][3]3.3}{[1][9][]9}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {3.3.0.1}Parameters.}{9}{paragraph.3.3.0.1}\protected@file@percent }
 \def\@LN@column{1}
 \@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Quantitative comparison with state-of-the-art lightweight SR methods on five benchmarks (PSNR(dB)/SSIM on the Y channel). \textbf  {Best} and \underline  {second-best} results are highlighted. Competitor metrics are cited from the original papers (see notes). ``-'' denotes results not reported in the source.}}{10}{table.caption.3}\protected@file@percent }
 \newlabel{tab:main_comparison}{{1}{10}{Quantitative comparison with state-of-the-art lightweight SR methods on five benchmarks (PSNR(dB)/SSIM on the Y channel). \textbf {Best} and \underline {second-best} results are highlighted. Competitor metrics are cited from the original papers (see notes). ``-'' denotes results not reported in the source}{table.caption.3}{}}
 \newlabel{tab:main_comparison@cref}{{[table][1][]1}{[1][9][]10}{}{}{}}
-\@writefile{toc}{\contentsline {paragraph}{\numberline {3.3.0.1}Parameters.}{10}{paragraph.3.3.0.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{\numberline {3.3.0.2}Computation.}{10}{paragraph.3.3.0.2}\protected@file@percent }
 \def\@LN@column{1}
 \@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Comparable efficiency subset on $\times 4$ SR. Multi-Adds are MACs under a unified fixed LR input of $256\times 256$ ($\times 4$ output $1024\times 1024$); to compare against FLOPs-based reports, multiply by 2. Representative PSNR is on Urban100 ($\times 4$).}}{11}{table.caption.4}\protected@file@percent }
@@ -155,24 +155,24 @@
 \newlabel{tab:efficiency_profile@cref}{{[table][3][]3}{[1][9][]11}{}{}{}}
 \@writefile{toc}{\contentsline {paragraph}{\numberline {3.3.0.3}Per-scale behavior.}{11}{paragraph.3.3.0.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{\numberline {3.3.0.4}Scope of the efficiency comparison.}{11}{paragraph.3.3.0.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Qualitative comparison}{11}{subsection.3.4}\protected@file@percent }
+\newlabel{sec:visual}{{3.4}{11}{Qualitative comparison}{subsection.3.4}{}}
+\newlabel{sec:visual@cref}{{[subsection][4][3]3.4}{[1][11][]11}{}{}{}}
 \citation{liu2025catanet}
 \def\@LN@column{1}
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces PSNR vs.\ parameter count at $\times 4$ on Urban100 (numbers from Table~\ref {tab:efficiency}; competitor params cited from the original papers). DPRNet ($\star $) attains the highest PSNR among the compared lightweight methods while staying within the same parameter bracket ($660$K), trading a small parameter increase over its predecessor CATANet for the best reconstruction quality.}}{12}{figure.caption.6}\protected@file@percent }
 \newlabel{fig:psnr_params}{{3}{12}{PSNR vs.\ parameter count at $\times 4$ on Urban100 (numbers from Table~\ref {tab:efficiency}; competitor params cited from the original papers). DPRNet ($\star $) attains the highest PSNR among the compared lightweight methods while staying within the same parameter bracket ($660$K), trading a small parameter increase over its predecessor CATANet for the best reconstruction quality}{figure.caption.6}{}}
 \newlabel{fig:psnr_params@cref}{{[figure][3][]3}{[1][11][]12}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Qualitative comparison}{12}{subsection.3.4}\protected@file@percent }
-\newlabel{sec:visual}{{3.4}{12}{Qualitative comparison}{subsection.3.4}{}}
-\newlabel{sec:visual@cref}{{[subsection][4][3]3.4}{[1][12][]12}{}{}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.5}Ablation study}{12}{subsection.3.5}\protected@file@percent }
 \newlabel{sec:ablation}{{3.5}{12}{Ablation study}{subsection.3.5}{}}
 \newlabel{sec:ablation@cref}{{[subsection][5][3]3.5}{[1][12][]12}{}{}{}}
 \def\@LN@column{1}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Qualitative comparison at $\times 4$ on texture-dense hard samples. The top reference strip shows the ground-truth images with the (red) crop regions; the rows below magnify those regions for Bicubic, IMDN, SwinIR-light, SRFormer-light, CATANet, DPRNet (ours), and the ground truth. DPRNet restores repetitive building grids and high-contrast line art with sharper, less aliased structure, on par with the strongest competitors. This is a qualitative comparison; the crops are hard examples chosen by high-frequency content rather than by per-crop DPRNet advantage, and quantitative PSNR/SSIM are reported in the main table.}}{13}{figure.caption.7}\protected@file@percent }
-\newlabel{fig:visual}{{4}{13}{Qualitative comparison at $\times 4$ on texture-dense hard samples. The top reference strip shows the ground-truth images with the (red) crop regions; the rows below magnify those regions for Bicubic, IMDN, SwinIR-light, SRFormer-light, CATANet, DPRNet (ours), and the ground truth. DPRNet restores repetitive building grids and high-contrast line art with sharper, less aliased structure, on par with the strongest competitors. This is a qualitative comparison; the crops are hard examples chosen by high-frequency content rather than by per-crop DPRNet advantage, and quantitative PSNR/SSIM are reported in the main table}{figure.caption.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Qualitative comparison at $\times 4$ on texture-dense hard samples. The top reference strip shows the ground-truth images with the crop regions; the rows below magnify those regions for Bicubic, IMDN, SwinIR-light, SRFormer-light, CATANet, DPRNet (ours), and the ground truth. DPRNet restores repetitive building grids and high-contrast line art with clear structure, visually comparable to the strongest content-routing baseline on these challenging crops. The samples are chosen by high-frequency content rather than by per-crop DPRNet advantage, and quantitative PSNR/SSIM are reported in Table~\ref {tab:main_comparison}.}}{13}{figure.caption.7}\protected@file@percent }
+\newlabel{fig:visual}{{4}{13}{Qualitative comparison at $\times 4$ on texture-dense hard samples. The top reference strip shows the ground-truth images with the crop regions; the rows below magnify those regions for Bicubic, IMDN, SwinIR-light, SRFormer-light, CATANet, DPRNet (ours), and the ground truth. DPRNet restores repetitive building grids and high-contrast line art with clear structure, visually comparable to the strongest content-routing baseline on these challenging crops. The samples are chosen by high-frequency content rather than by per-crop DPRNet advantage, and quantitative PSNR/SSIM are reported in Table~\ref {tab:main_comparison}}{figure.caption.7}{}}
 \newlabel{fig:visual@cref}{{[figure][4][]4}{[1][12][]13}{}{}{}}
 \@writefile{toc}{\contentsline {paragraph}{\numberline {3.5.0.1}Protocol caveat.}{13}{paragraph.3.5.0.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\numberline {3.5.0.2}A1: decoupled prototype confirmation.}{13}{paragraph.3.5.0.2}\protected@file@percent }
 \def\@LN@column{1}
-\@writefile{toc}{\contentsline {paragraph}{\numberline {3.5.0.2}A1: decoupled prototype confirmation.}{14}{paragraph.3.5.0.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{\numberline {3.5.0.3}A2: confidence-aware routing.}{14}{paragraph.3.5.0.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{\numberline {3.5.0.4}A3: prototype usage balancing.}{14}{paragraph.3.5.0.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{\numberline {3.5.0.5}Summary.}{14}{paragraph.3.5.0.5}\protected@file@percent }
@@ -187,6 +187,8 @@
 \newlabel{tab:abl_a2}{{5}{15}{Ablation A2 ($\times 4$): incremental confidence-aware routing components. PSNR(dB)/SSIM (Y channel) at iter 80k. The full configuration (v4) attains the best reconstruction, but the intermediate steps are not monotone; under the short finetune protocol the components are mutually compatible and quality-preserving rather than individually accuracy-additive}{table.caption.9}{}}
 \newlabel{tab:abl_a2@cref}{{[table][5][]5}{[1][14][]15}{}{}{}}
 \@writefile{toc}{\contentsline {paragraph}{\numberline {3.6.0.1}Balanced prototype usage (C4).}{15}{paragraph.3.6.0.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\numberline {3.6.0.2}Bounded routing temperature (C4).}{15}{paragraph.3.6.0.2}\protected@file@percent }
+\citation{glasner2009single,huang2015urban100,mei2020csnln}
 \def\@LN@column{1}
 \@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Ablation A3 ($\times 4$): prototype balance loss. Block-averaged normalized prototype-usage entropy on Urban100 (higher $=$ more balanced usage) and reconstruction quality at iter 80k. The balance loss yields consistently higher usage entropy across all eight TAB blocks while also slightly improving reconstruction quality.}}{16}{table.caption.10}\protected@file@percent }
 \newlabel{tab:abl_a3}{{6}{16}{Ablation A3 ($\times 4$): prototype balance loss. Block-averaged normalized prototype-usage entropy on Urban100 (higher $=$ more balanced usage) and reconstruction quality at iter 80k. The balance loss yields consistently higher usage entropy across all eight TAB blocks while also slightly improving reconstruction quality}{table.caption.10}{}}
@@ -194,17 +196,15 @@
 \@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Per-block normalized prototype-usage entropy (Urban100, iter 80k). The balance loss increases usage entropy in every TAB block ($b_0$--$b_7$).}}{16}{table.caption.10}\protected@file@percent }
 \newlabel{tab:abl_a3_perblock}{{7}{16}{Per-block normalized prototype-usage entropy (Urban100, iter 80k). The balance loss increases usage entropy in every TAB block ($b_0$--$b_7$)}{table.caption.10}{}}
 \newlabel{tab:abl_a3_perblock@cref}{{[table][7][]7}{[1][14][]16}{}{}{}}
-\@writefile{toc}{\contentsline {paragraph}{\numberline {3.6.0.2}Bounded routing temperature (C4).}{16}{paragraph.3.6.0.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{\numberline {3.6.0.3}Confidence-aware routing signal (C3).}{16}{paragraph.3.6.0.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{\numberline {3.6.0.4}Summary.}{16}{paragraph.3.6.0.4}\protected@file@percent }
-\citation{glasner2009single,huang2015urban100,mei2020csnln}
 \def\@LN@column{1}
 \@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Distribution of the per-token routing confidence $x^{\mathrm  {s}}=\max _m S_{n,m}$ (Eq.~\eqref  {eq:belong}) at $\times 4$, accumulated over \emph  {all} test images of (a)~Urban100 and (b)~Manga109 with the final model. Curves are shown for three representative TAB blocks with increasing prototype count $M$; dotted vertical lines mark the uniform-assignment floor $1/M$. In every block the distribution sits clearly to the right of its floor (block-mean $\approx 1.5$--$1.9\times \,1/M$) yet stays far from $1$, confirming that the softmax assignment is \emph  {informative but soft}: tokens commit to a prototype more than chance while retaining the graded confidence that the C3 components (ordering key, IASA gate, soft fallback) rely on. As $M$ grows the mode shifts toward the (lower) floor, consistent with confidence being spread over more slots.}}{17}{figure.caption.11}\protected@file@percent }
 \newlabel{fig:xscore_hist}{{5}{17}{Distribution of the per-token routing confidence $x^{\mathrm {s}}=\max _m S_{n,m}$ (Eq.~\eqref {eq:belong}) at $\times 4$, accumulated over \emph {all} test images of (a)~Urban100 and (b)~Manga109 with the final model. Curves are shown for three representative TAB blocks with increasing prototype count $M$; dotted vertical lines mark the uniform-assignment floor $1/M$. In every block the distribution sits clearly to the right of its floor (block-mean $\approx 1.5$--$1.9\times \,1/M$) yet stays far from $1$, confirming that the softmax assignment is \emph {informative but soft}: tokens commit to a prototype more than chance while retaining the graded confidence that the C3 components (ordering key, IASA gate, soft fallback) rely on. As $M$ grows the mode shifts toward the (lower) floor, consistent with confidence being spread over more slots}{figure.caption.11}{}}
 \newlabel{fig:xscore_hist@cref}{{[figure][5][]5}{[1][16][]17}{}{}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {4}Discussion}{17}{section.4}\protected@file@percent }
 \newlabel{sec:discussion}{{4}{17}{Discussion}{section.4}{}}
-\newlabel{sec:discussion@cref}{{[section][4][]4}{[1][17][]17}{}{}{}}
+\newlabel{sec:discussion@cref}{{[section][4][]4}{[1][16][]17}{}{}{}}
 \@writefile{toc}{\contentsline {paragraph}{\numberline {4.0.0.1}Content routing vs.\ spatial locality.}{17}{paragraph.4.0.0.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{\numberline {4.0.0.2}Small margins and evidence strength.}{17}{paragraph.4.0.0.2}\protected@file@percent }
 \def\@LN@column{1}
@@ -215,9 +215,9 @@
 \@writefile{toc}{\contentsline {paragraph}{\numberline {4.0.0.4}Prototype count and the cost trade-off.}{18}{paragraph.4.0.0.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{\numberline {4.0.0.5}Limitations.}{18}{paragraph.4.0.0.5}\protected@file@percent }
 \def\@LN@column{1}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Routing cluster maps at $\times 4$. Each pixel of the LR input is colored by its assigned prototype index $b_n=\arg \max _m S_{n,m}$ (Eq.~\eqref  {eq:belong}), reshaped from the original token order to $H\times W$, for three TAB blocks ($b_0,b_3,b_7$); the leftmost panel is the nearest-neighbor-magnified LR image for reference. The maps follow image content rather than a fixed spatial grid: repetitive building facades in Urban100 and high-contrast strokes in Manga109 are grouped into coherent prototypes, and the partition becomes finer in the deeper, larger-$M$ blocks. Colors encode prototype identity within a block and are not comparable across blocks. This visualizes the same routing signal whose confidence $x^{\mathrm  {s}}$ is quantified in Fig.~\ref {fig:xscore_hist}.}}{19}{figure.caption.13}\protected@file@percent }
-\newlabel{fig:cluster_maps}{{7}{19}{Routing cluster maps at $\times 4$. Each pixel of the LR input is colored by its assigned prototype index $b_n=\arg \max _m S_{n,m}$ (Eq.~\eqref {eq:belong}), reshaped from the original token order to $H\times W$, for three TAB blocks ($b_0,b_3,b_7$); the leftmost panel is the nearest-neighbor-magnified LR image for reference. The maps follow image content rather than a fixed spatial grid: repetitive building facades in Urban100 and high-contrast strokes in Manga109 are grouped into coherent prototypes, and the partition becomes finer in the deeper, larger-$M$ blocks. Colors encode prototype identity within a block and are not comparable across blocks. This visualizes the same routing signal whose confidence $x^{\mathrm {s}}$ is quantified in Fig.~\ref {fig:xscore_hist}}{figure.caption.13}{}}
-\newlabel{fig:cluster_maps@cref}{{[figure][7][]7}{[1][17][]19}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Routing cluster maps at $\times 4$. Each LR pixel is colored by its assigned prototype index $b_n=\arg \max _m S_{n,m}$ (Eq.~\eqref  {eq:belong}) and reshaped from the original token order to $H\times W$. Read each row by comparing the cluster boundaries with the reference LR image: the early block forms coarse content groups, while the deeper blocks split repeated facade elements and high-contrast strokes into finer partitions. Colors encode prototype identity within a block and are not comparable across blocks, so the meaningful cue is region continuity rather than a specific hue. This visualizes the same routing signal whose confidence $x^{\mathrm  {s}}$ is quantified in Fig.~\ref {fig:xscore_hist}.}}{19}{figure.caption.13}\protected@file@percent }
+\newlabel{fig:cluster_maps}{{7}{19}{Routing cluster maps at $\times 4$. Each LR pixel is colored by its assigned prototype index $b_n=\arg \max _m S_{n,m}$ (Eq.~\eqref {eq:belong}) and reshaped from the original token order to $H\times W$. Read each row by comparing the cluster boundaries with the reference LR image: the early block forms coarse content groups, while the deeper blocks split repeated facade elements and high-contrast strokes into finer partitions. Colors encode prototype identity within a block and are not comparable across blocks, so the meaningful cue is region continuity rather than a specific hue. This visualizes the same routing signal whose confidence $x^{\mathrm {s}}$ is quantified in Fig.~\ref {fig:xscore_hist}}{figure.caption.13}{}}
+\newlabel{fig:cluster_maps@cref}{{[figure][7][]7}{[1][16][]19}{}{}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {5}Conclusion}{19}{section.5}\protected@file@percent }
 \newlabel{sec:conclusion}{{5}{19}{Conclusion}{section.5}{}}
 \newlabel{sec:conclusion@cref}{{[section][5][]5}{[1][19][]19}{}{}{}}
@@ -233,9 +233,9 @@
 \bibcite{zhang2018rcan}{{9}{2018{}}{{Zhang et~al.}}{{Zhang, Li, Li, Wang, Zhong, and Fu}}}
 \bibcite{lim2017edsr}{{10}{2017}{{Lim et~al.}}{{Lim, Son, Kim, Nah, and Lee}}}
 \bibcite{wang2021survey}{{11}{2021}{{Wang et~al.}}{{Wang, Chen, and Hoi}}}
+\bibcite{dong2016fsrcnn}{{12}{2016}{{Dong et~al.}}{{Dong, Loy, and Tang}}}
 \def\@LN@column{1}
 \@writefile{toc}{\contentsline {section}{\numberline {6}References}{20}{section.6}\protected@file@percent }
-\bibcite{dong2016fsrcnn}{{12}{2016}{{Dong et~al.}}{{Dong, Loy, and Tang}}}
 \bibcite{shi2016espcn}{{13}{2016}{{Shi et~al.}}{{Shi, Caballero, Huszar, Totz, Aitken, Bishop, Rueckert, and Wang}}}
 \bibcite{tai2017drrn}{{14}{2017{}}{{Tai et~al.}}{{Tai, Yang, and Liu}}}
 \bibcite{tai2017memnet}{{15}{2017{}}{{Tai et~al.}}{{Tai, Yang, Liu, and Xu}}}
@@ -250,8 +250,8 @@
 \bibcite{chen2021ipt}{{24}{2021}{{Chen et~al.}}{{Chen, Wang, Guo, Xu, Deng, Liu, Ma, Xu, Xu, and Gao}}}
 \bibcite{liu2021swin}{{25}{2021}{{Liu et~al.}}{{Liu, Lin, Cao, Hu, Wei, Zhang, Lin, and Guo}}}
 \bibcite{liang2021swinir}{{26}{2021}{{Liang et~al.}}{{Liang, Cao, Sun, Zhang, Van~Gool, and Timofte}}}
-\def\@LN@column{1}
 \bibcite{zhang2022elan}{{27}{2022}{{Zhang et~al.}}{{Zhang, Zeng, Guo, and Zhang}}}
+\def\@LN@column{1}
 \bibcite{zhou2023srformer}{{28}{2023}{{Zhou et~al.}}{{Zhou, Li, Guo, Bai, Cheng, and Hou}}}
 \bibcite{chen2023hat}{{29}{2023}{{Chen et~al.}}{{Chen, Wang, Zhou, Qiao, and Dong}}}
 \bibcite{zheng2023emt}{{30}{2024}{{Zheng et~al.}}{{Zheng, Zhu, Shi, and Weng}}}

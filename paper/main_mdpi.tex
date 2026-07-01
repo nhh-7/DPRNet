@@ -63,27 +63,24 @@ $^{1}$ \quad \dprAffiliationA; \dprAuthorAEmail}
 \corres{Correspondence: \dprAuthorAEmail}
 
 %%%%%%%%% ABSTRACT (no blank lines / no \\ allowed inside \abstract{})
-\abstract{Lightweight single image super-resolution (SR) seeks a favorable trade-off
-between reconstruction quality and model cost for resource-constrained platforms.
-Content-aware routing, which groups tokens by semantics rather than spatial position,
-has recently advanced this trade-off, but its prevailing realization---the Token
-Aggregation Block (TAB) of CATANet---relies on cross-batch exponential-moving-average
-routing centers, discards the confidence of each token-to-center assignment, and
-entangles prototype generation with confirmation. We propose \emph{Dynamic Prototype
-Routing} (DPR), a drop-in replacement for TAB that keeps the backbone and tensor
-interface unchanged while remaining in a comparable lightweight design regime. DPR generates semantic prototypes
-directly from the current tokens through a soft assignment, confirms them with a
-learnable query bank decoupled from generation, matches tokens back with a learnable
-temperature, and propagates an explicit per-token confidence through ordering, gating,
-and a soft fallback; a usage-balancing regularizer keeps prototype use spread out. The
-resulting network, DPRNet, is trained on DIV2K and evaluated on five standard benchmarks
-at \texorpdfstring{$\times2/\times3/\times4$}{x2/x3/x4}. DPRNet matches or slightly surpasses the strongest
-content-routing baseline across benchmarks with a comparable lightweight cost profile
+\abstract{Lightweight single image super-resolution (SR) must balance reconstruction
+quality with model cost on resource-constrained platforms. Content-aware routing improves
+this balance by grouping semantically related tokens, but the Token Aggregation Block
+(TAB) of CATANet uses cross-batch exponential-moving-average centers, hard assignment
+labels, and a coupled prototype update/confirmation step. We propose \emph{Dynamic
+Prototype Routing} (DPR), a drop-in TAB replacement that keeps the CATANet backbone and
+tensor interface unchanged. DPR forms per-image prototypes from the current tokens,
+refines them with a learnable query bank, matches tokens with a bounded learnable
+temperature, and carries assignment confidence into token ordering, global gating, and a
+soft fallback; a balancing loss discourages prototype-slot collapse. Trained on DIV2K and
+evaluated on five standard benchmarks at
+\texorpdfstring{$\times2/\times3/\times4$}{x2/x3/x4}, DPRNet stays in the lightweight
+regime and matches CATANet-level accuracy, with small gains on most benchmark cells
 (e.g.\ \texorpdfstring{$26.89$\,dB}{26.89 dB} on Urban100 at
-\texorpdfstring{$\times4$}{x4} with \texorpdfstring{$52.14$\,G}{52.14 G} Multi-Adds, fewer
-than the lightweight Transformer baselines SwinIR-light and SRFormer-light), while
-exposing an interpretable, confidence-aware routing mechanism whose prototype usage is
-measurably more balanced.}
+\texorpdfstring{$\times4$}{x4} with \texorpdfstring{$52.14$\,G}{52.14 G} Multi-Adds).
+It uses fewer Multi-Adds than the lightweight Transformer baselines SwinIR-light and
+SRFormer-light under the same input convention, while providing interpretable routing
+diagnostics in which confidence remains soft and prototype usage becomes more balanced.}
 
 %%%%%%%%% KEYWORDS
 \keyword{image super-resolution; lightweight super-resolution; content-aware routing;

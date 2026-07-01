@@ -16,9 +16,9 @@ directly from the current tokens, decouples their confirmation through a learnab
 query bank, matches tokens back with a learnable temperature, and propagates an
 explicit per-token confidence through ordering, gating, and a soft fallback, with a
 usage-balancing regularizer that keeps prototype use spread out. On five standard
-benchmarks at $\times2/\times3/\times4$, the resulting DPRNet matches or slightly
-surpasses the strongest content-routing baseline with a comparable lightweight cost
-profile. The routing diagnostics provide mechanism-level evidence that the
+benchmarks at $\times2/\times3/\times4$, the resulting DPRNet maintains
+CATANet-level reconstruction quality with small gains on most benchmark cells and a
+comparable lightweight cost profile. The routing diagnostics provide mechanism-level evidence that the
 temperature remains unsaturated and prototype usage becomes measurably more balanced
 across all blocks. Because DPR preserves the external interface of the routing block,
 it is not tied to this backbone and can serve as a confidence-aware content-routing

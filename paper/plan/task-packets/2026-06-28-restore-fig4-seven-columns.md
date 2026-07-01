@@ -1,0 +1,35 @@
+## Task Packet
+
+- Scope: Restore Fig. 4/Fig. 7 qualitative comparison to seven displayed method columns after the five-column readability revision was rejected as too sparse.
+- Stage: S3/S5, experiment figure presentation and PDF verification.
+- Files to read:
+  - `paper/figures/fig7_visual.tex`
+  - `paper/sections/3_experiments_visual.tex`
+  - `paper/figures/fig7_assets/competitor_metrics.csv`
+  - `paper/figures/fig7_assets/metrics.csv`
+- Files allowed to edit:
+  - `paper/figures/fig7_visual.tex`
+  - `paper/sections/3_experiments_visual.tex`
+  - `paper/plan/progress.md`
+- Required skills:
+  - research-writing-assistant
+  - paper-orchestration
+  - figures-python
+  - verification
+- Evidence/data inputs:
+  - Existing qualitative crop assets for Bicubic, IMDN, SwinIR-light, SRFormer-light, CATANet, DPRNet, and GT
+  - Existing crop metric CSVs, used only to keep claims bounded
+- Required artifacts:
+  - Seven-column qualitative figure source
+  - Synchronized figure caption/prose
+  - TinyTeX-compiled `main_mdpi.pdf`
+  - Capability-use audit in `plan/progress.md`
+- Rejection checks:
+  - Do not remove competitor columns from the visual comparison.
+  - Do not claim local DPRNet superiority over CATANet unless the displayed sample metrics support it.
+  - Do not introduce new or synthetic visual assets.
+  - Keep `fig:visual` and `tab:main_comparison` references valid.
+- Validation commands:
+  - `export PATH="/Users/bytedance/Library/TinyTeX/bin/universal-darwin:$PATH"`
+  - `latexmk -pdf -bibtex -shell-escape -interaction=nonstopmode -halt-on-error main_mdpi.tex`
+  - Search `main_mdpi.log` for unresolved references/citations and serious LaTeX warnings.

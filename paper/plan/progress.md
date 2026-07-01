@@ -933,3 +933,307 @@
     LaTeX error 或 TODO-like 生成污染。
 - Remaining risk: 若投稿前希望源文件也完全无 `PENDING` 字样，可清理
   `table5_ablation_a3.tex` 的注释；这不会影响 PDF 内容。
+
+### 2026-06-28 · main_mdpi 投稿就绪度通篇审阅
+
+- 按用户要求通篇阅读 `paper/main_mdpi.pdf`，同时核对 MDPI LaTeX 源文件、图表、数据 CSV、
+  编译日志、参考文献输出和 CATANet 实现/配置中的关键实验设置。
+- 使用 `research-writing-assistant` 的 review 流程：入口路由、整篇任务编排、自审清单和验证要求。
+- 产出任务包：
+  `paper/plan/task-packets/2026-06-28-main-mdpi-submission-readiness-review.md`。
+- 产出审阅报告：
+  `paper/plan/review/main-mdpi-submission-readiness-review-2026-06-28.md`。
+- 核心结论：
+  - 稿件主线和 MDPI 结构基本成立，但不建议直接投稿。
+  - 投稿前必须处理作者/单位/邮箱占位、MDPI back matter、routing temperature 初始化表述错误。
+  - Fig.2 和 Fig.4 可读性不足，Fig.7 聚类图解释力还可增强。
+  - CATANet 提升幅度很小且 direct evidence 仍偏弱；稿件应继续以“可解释、置信感知路由替代，
+    保持/略优于 CATANet 级准确率”为主叙事，避免把 0.01--0.07 dB 写成强准确率突破。
+
+### Capability-use audit（2026-06-28 main_mdpi readiness review）
+
+- Required skills: research-writing-assistant, using-research-writing, paper-orchestration,
+  peer-review, verification.
+- Skills actually used: 已读取并使用 research-writing-assistant 入口说明、using-research-writing、
+  paper-orchestration、peer-review；按 verification 思路做日志、PDF 渲染、数据和源码交叉核验。
+- Inputs consumed: `paper/main_mdpi.pdf`, `paper/main_mdpi.tex`, `paper/sections/*.tex`,
+  `paper/tables/*.tex`, `paper/figures/*.tex`, `paper/data/*.csv`,
+  `paper/figures/fig7_assets/*.csv`, `paper/figures/fig58_assets/*_xscore_stats.csv`,
+  `paper/references.bib`, `paper/main_mdpi.bbl`, `paper/main_mdpi.log`,
+  `CATANet/basicsr/archs/catanet_arch.py`, `CATANet/options/train/*.yml`,
+  MDPI similar-paper web pages.
+- Inputs not used and why: 未重新跑训练/测试或重编译全文；本轮任务是审阅，不改稿、不生成新实验。
+- Artifacts produced:
+  `paper/plan/review/main-mdpi-submission-readiness-review-2026-06-28.md`,
+  `paper/plan/task-packets/2026-06-28-main-mdpi-submission-readiness-review.md`。
+- Verification run:
+  - macOS metadata confirmed `main_mdpi.pdf` has 23 pages.
+  - Ghostscript rendered all 23 pages for visual inspection.
+  - `rg` checked final `main_mdpi.log`: no unresolved citation/reference, LaTeX error, Overfull/Underfull warning.
+  - `rg` checked visible manuscript/source markers; only author metadata placeholders remain manuscript-visible.
+  - CSV/source cross-check found one experiment wording error: temperature should be initialized to `6.0`
+    (`theta=log 6`), not `e^6`.
+- Remaining risk: 没有新增同协议 CATANet/TAB 复现实验或 multi-seed 结果；报告已将其列为最可能的
+  reviewer attack point。
+
+### 2026-06-28 · Fig.2/Fig.4/聚类图可读性优化
+
+- 按用户要求优化三处图件问题：Fig.2 方法图过密、Fig.4 效果图太小且 DPRNet 对 CATANet
+  视觉优势不明显、路由聚类图解释力不足。
+- 使用 `research-writing-assistant` 图表修改流程，并创建任务包：
+  `paper/plan/task-packets/2026-06-28-figure-readability-optimization.md`。
+- 修改内容：
+  - `paper/figures/fig2_dpr.tex`：将 DPR 图从单个密集流程图改为上下两段，
+    上半部分展示 router 产生 prototypes/confidence/order，下半部分展示 IASA 如何消费这些路由元数据；
+    将框内长公式移到 caption/正文解释，提升可读性。
+  - `paper/figures/fig7_visual.tex`：保留三组 hard samples，但从七列缩减到五列
+    （Bicubic、SRFormer-light、CATANet、DPRNet、GT），显著放大裁剪图；caption 明确这是代表性可视化，
+    完整 baseline 对比见 Table 1。
+  - `paper/sections/3_experiments_visual.tex`：同步改为“DPRNet 与 CATANet 视觉相当，
+    明显优于非路由/较弱基线”的叙述，避免在当前 crop metrics 不支持时声称 DPRNet 局部优于 CATANet。
+  - `paper/figures/fig8_cluster_maps.tex`：增加 header reading guide、面板边框和
+    coarse/finer/fine 标签；caption 强调应看 cluster boundary continuity，而不是跨 block 比较颜色。
+  - `paper/sections/3_experiments_routing_analysis.tex`：同步聚类图阅读方式，并修正
+    confidence ratio 的过窄表述，改为可由 CSV 直接支撑的示例数值。
+
+### Capability-use audit（2026-06-28 figure readability optimization）
+
+- Required skills: research-writing-assistant, paper-orchestration, figures-diagram,
+  figures-python, verification.
+- Skills actually used: 已读取并使用 using-research-writing、paper-orchestration、
+  figures-diagram、figures-python 的相关约束；按 verification 做静态 LaTeX、资源和引用检查。
+- Inputs consumed: `paper/figures/fig2_dpr.tex`, `paper/figures/fig7_visual.tex`,
+  `paper/figures/fig8_cluster_maps.tex`, `paper/sections/3_experiments_visual.tex`,
+  `paper/sections/3_experiments_routing_analysis.tex`,
+  `paper/figures/fig7_assets/metrics.csv`,
+  `paper/figures/fig7_assets/competitor_metrics.csv`,
+  `paper/figures/fig58_assets/fig5_*_xscore_stats.csv`,
+  existing `main_mdpi.log` and figure asset directories.
+- Inputs not used and why: 未新增/替换 hard samples；当前本机没有训练环境和完整竞品输出链，
+  且现有 crop metrics 不支持挑选“DPRNet 局部明显优于 CATANet”的样例后再强行声称优势。
+- Artifacts produced:
+  `paper/figures/fig2_dpr.tex`, `paper/figures/fig7_visual.tex`,
+  `paper/figures/fig8_cluster_maps.tex`,
+  `paper/sections/3_experiments_visual.tex`,
+  `paper/sections/3_experiments_routing_analysis.tex`,
+  `paper/plan/task-packets/2026-06-28-figure-readability-optimization.md`。
+- Verification run:
+  - `rg -F` 检查 `fig:dpr`、`fig:visual`、`fig:cluster_maps` 引用与 `tab:main_comparison` 标签。
+  - 逐项检查 Fig.4/Fig.7 实例化后的 PNG 资源文件均存在。
+  - `perl` 检查三个 figure files 的 `figure*` begin/end 配对均为 1/1。
+  - `git diff --check` 通过，无空白错误。
+  - 当前 shell 未找到 `latexmk`、`pdflatex`、`xelatex`、`tectonic` 或系统 TeX 二进制；
+    因此本轮未能重新编译 `main_mdpi.pdf` 或做新版 PDF 页面渲染。
+- Remaining risk: 需要在有 TeX 的环境下重新编译并目视检查新版 Fig.2/Fig.4/聚类图在 MDPI 页面中的实际浮动位置和大小。
+
+### 2026-06-28 · 按用户反馈恢复 Fig.4 七列并用 TinyTeX 编译
+
+- 用户反馈五列 Fig.4 信息量太少，要求“改回去”并使用 TinyTeX 编译。
+- 创建任务包：`paper/plan/task-packets/2026-06-28-restore-fig4-seven-columns.md`。
+- 修改内容：
+  - `paper/figures/fig7_visual.tex`：恢复七列完整方法对比：
+    Bicubic / IMDN / SwinIR-light / SRFormer-light / CATANet / DPRNet / GT。
+  - `paper/sections/3_experiments_visual.tex`：恢复包含 IMDN 与 SwinIR-light 的视觉讨论；
+    仍保持“DPRNet 与 CATANet on par / visually comparable”的边界，不声称当前 crop 上局部优于 CATANet。
+  - `paper/figures/fig2_dpr.tex`：TinyTeX 编译时发现 TikZ 样式名 `out` 与 TikZ 自带
+    `out=<angle>` 键冲突，改名为 `outbox`，消除编译错误。
+- 编译结果：
+  - 使用 TinyTeX 路径 `/Users/bytedance/Library/TinyTeX/bin/universal-darwin`。
+  - 首次 `latexmk -pdf -bibtex -shell-escape -interaction=nonstopmode -halt-on-error main_mdpi.tex`
+    因 Fig.2 TikZ `out` key 冲突失败；修复后重跑通过。
+  - 输出 `paper/main_mdpi.pdf`，23 页，约 10.7 MB。
+  - `rg` 检查 `main_mdpi.log`：无 fatal/error、未定义引用/引用文献、Overfull/Underfull。
+  - Ghostscript 渲染检查 Fig.2 页面与 Fig.4 页面；Fig.4 已恢复七列，24 张裁剪资产均嵌入。
+
+### Capability-use audit（2026-06-28 restore Fig.4 seven columns）
+
+- Required skills: research-writing-assistant, paper-orchestration, figures-python, verification.
+- Skills actually used: 已读取 using-research-writing 与 paper-orchestration；
+  按图件修改/验证流程执行，未新增实验或生成新图像数据。
+- Inputs consumed: `paper/figures/fig7_visual.tex`,
+  `paper/sections/3_experiments_visual.tex`, `paper/figures/fig2_dpr.tex`,
+  `paper/figures/fig7_assets/*.png`, `paper/main_mdpi.log`, `paper/main_mdpi.pdf`。
+- Inputs not used and why: 未更换 hard samples；本次用户明确要求恢复列数，不要求重新选图或跑实验。
+- Artifacts produced: 更新后的 Fig.4 源码、视觉结果正文、修复后的 Fig.2 TikZ 样式、
+  重新编译的 `paper/main_mdpi.pdf`、任务包。
+- Verification run:
+  - `export PATH="/Users/bytedance/Library/TinyTeX/bin/universal-darwin:$PATH"`
+  - `latexmk -pdf -bibtex -shell-escape -interaction=nonstopmode -halt-on-error main_mdpi.tex`
+  - `rg -n "(^!|Fatal|Error|Undefined|undefined|Citation|Reference|Overfull|Underfull|Rerun|Warning|Package .* Warning|Output written)" main_mdpi.log`
+  - `mdls -name kMDItemNumberOfPages -name kMDItemFSSize main_mdpi.pdf`
+  - Ghostscript 渲染 Fig.2/Fig.4 所在页面并目视检查。
+- Remaining risk: 七列恢复后单个 crop 尺寸回到较紧凑状态；优点是方法对比完整，
+  但如果投稿前还想同时兼顾“大图”和“全方法”，可考虑把 Fig.4 拆成两个 full-width 子图。
+
+### 2026-06-28 · 聚类图页面复查与结果措辞收敛
+
+- 用户要求完成两个剩余项：单独目视复查修改后的聚类图 PDF 页面；收敛 abstract 和
+  Table 1/result discussion 中对小幅性能差距的过强措辞。
+- 创建任务包：`paper/plan/task-packets/2026-06-28-cluster-visual-and-wording-polish.md`。
+- 聚类图复查：
+  - 从重新编译后的 `paper/main_mdpi.pdf` 渲染第 19 页。
+  - Fig.7/cluster maps 的四列表头、coarse/finer/fine 阶段标签、面板边框和 caption 均可读。
+  - 结论：图仍然色彩密集，但作为路由分区/边界连续性可视化可用；本轮不再修改图源。
+- 文字修改：
+  - `paper/main_mdpi.tex`：重写 MDPI 摘要，使其从密集模块罗列改成更顺的动机-方法-结果-诊断链；
+    将 “matches or slightly surpasses the strongest content-routing baseline” 收敛为
+    “matches CATANet-level accuracy, with small gains on most benchmark cells”。
+  - `paper/sections/0_abstract.tex`：同步 CVPR 备用摘要。
+  - `paper/sections/1_introduction.tex` 与 `paper/sections/5_conclusion.tex`：
+    同步贡献/结论口径为 CATANet-level accuracy + small gains，不再强调强 baseline 超越。
+  - `paper/sections/3_experiments_comparison.tex`：删除 “clearly ahead”，改为按数据集区分
+    Urban100/Manga109 的分离更明显，Set5/Set14/BSD100 的差距更小；CATANet 对比改成
+    “ranks first or tied first” 和 “directionally consistent”。
+  - `paper/sections/3_experiments_visual.tex`：将 “best overall accuracy” 改为 “remains in the top tier”。
+  - `paper/sections/4_discussion.tex`：将 “clearly separate” 改为 “separate more noticeably”。
+- 编译结果：
+  - 使用 TinyTeX 路径 `/Users/bytedance/Library/TinyTeX/bin/universal-darwin`。
+  - `latexmk -pdf -bibtex -shell-escape -interaction=nonstopmode -halt-on-error main_mdpi.tex` 通过。
+  - 输出 `paper/main_mdpi.pdf`，23 页，10,706,195 bytes。
+  - `rg` 检查 `main_mdpi.log`：无 fatal/error、未定义引用/引用文献、Overfull/Underfull；
+    仅保留 `rerunfilecheck` 包信息和正常 output line。
+  - Ghostscript 渲染检查摘要页和聚类图页；摘要版面正常，聚类图页位置和可读性正常。
+
+### Capability-use audit（2026-06-28 cluster visual and wording polish）
+
+- Required skills: research-writing-assistant, paper-orchestration, peer-review, verification.
+- Skills actually used: 已读取 using-research-writing、paper-orchestration、peer-review；
+  按 S5 review + S4 wording revision 执行。
+- Inputs consumed: `paper/main_mdpi.tex`, `paper/sections/0_abstract.tex`,
+  `paper/sections/1_introduction.tex`, `paper/sections/3_experiments_comparison.tex`,
+  `paper/sections/3_experiments_visual.tex`, `paper/sections/4_discussion.tex`,
+  `paper/sections/5_conclusion.tex`, `paper/figures/fig8_cluster_maps.tex`,
+  `paper/main_mdpi.pdf`, `paper/main_mdpi.log`。
+- Inputs not used and why: 未重新生成聚类图资产；目视复查确认现有图在 PDF 页面中可读，
+  用户本轮也未要求更换样例或颜色映射。
+- Artifacts produced: 更新后的 MDPI 摘要、备用摘要、Introduction/Comparison/Visual/Discussion/Conclusion
+  的保守措辞版本、重新编译的 `paper/main_mdpi.pdf`、任务包。
+- Verification run:
+  - `rg` 搜索 `clearly ahead|best overall|surpasses the strongest|attains the best result` 等过强措辞。
+  - `export PATH="/Users/bytedance/Library/TinyTeX/bin/universal-darwin:$PATH"`
+  - `latexmk -pdf -bibtex -shell-escape -interaction=nonstopmode -halt-on-error main_mdpi.tex`
+  - `rg -n "(^!|Fatal|Error|Undefined|undefined|Citation|Reference|Overfull|Underfull|Rerun|Warning|Package .* Warning|Output written)" main_mdpi.log`
+  - `mdls -name kMDItemNumberOfPages -name kMDItemFSSize main_mdpi.pdf`
+  - Ghostscript 渲染第 1 页和第 19 页并目视检查。
+  - `git diff --check` 通过。
+- Remaining risk: 聚类图颜色仍较密，适合作为机制可视化但不是审稿人快速读数图；
+  若继续提高可读性，可在后续版本中减少样例数或把三组样例拆成两幅图。
+
+### 2026-06-28 · Fig.1/Fig.2 样式复查与统一重绘
+
+- 用户反馈 Fig.1、Fig.2 图样式有问题，要求使用 research-writing-skill 处理。
+- 创建任务包：`paper/plan/task-packets/2026-06-28-fig1-fig2-style-review.md`。
+- 诊断：
+  - Fig.1 原图把 network、block、TAB 内部流程和长公式压在一个小图中，局部文字过小，
+    蓝色 fit 叠框和多条虚线使结构像调试草图而不是论文结构图。
+  - Fig.2 原图由两个独立缩放的 TikZ 图拼接，视觉尺度不一致；黄色 ablation 标签突兀且过小，
+    绿色输出框与 Fig.1 的蓝/灰风格不统一。
+- 修改内容：
+  - `paper/figures/fig1_architecture.tex`：重画为三层结构：
+    (a) Network、(b) One block、(c) Inside TAB。移除图内长公式和过细接口说明；
+    用灰色普通模块、蓝色 DPR/TAB 高亮、黑色实线 tensor flow、灰色虚线 residual、
+    蓝色虚线 zoom linkage 统一样式。
+  - `paper/figures/fig2_dpr.tex`：重画为单个统一尺度 TikZ 图，分为
+    (a) DPR router 和 (b) IASA consumption 两个 panel；去除黄色标签，
+    将 A1/A2/A3 改成小型灰色 switch marker；统一数据流、confidence gate 和 learnable
+    gate/temperature 的图例。
+  - 两张图的 caption 均压缩为高层解释，不再在图注里重复过密公式链。
+- 编译与检查：
+  - 使用 TinyTeX 路径 `/Users/bytedance/Library/TinyTeX/bin/universal-darwin`。
+  - `latexmk -pdf -bibtex -shell-escape -interaction=nonstopmode -halt-on-error main_mdpi.tex` 通过。
+  - 输出 `paper/main_mdpi.pdf`，23 页，10,705,155 bytes。
+  - `rg` 检查 `main_mdpi.log`：无 fatal/error、未定义引用/引用文献、Overfull/Underfull。
+  - Ghostscript 渲染第 7 页和第 8 页并目视检查：Fig.1/Fig.2 页面位置正常，
+    图内文字、panel 标题、箭头和图例可读；`fig:arch` 和 `fig:dpr` 标签仍分别解析到第 7/8 页。
+
+### Capability-use audit（2026-06-28 Fig.1/Fig.2 style review）
+
+- Required skills: research-writing-assistant, paper-orchestration, figures-diagram, verification.
+- Skills actually used: 已读取 using-research-writing、paper-orchestration、figures-diagram、verification；
+  按 S5 figure review + diagram revision 执行。
+- Inputs consumed: `paper/figures/fig1_architecture.tex`, `paper/figures/fig2_dpr.tex`,
+  `paper/sections/2_method.tex`, `paper/main_mdpi.pdf`, `paper/main_mdpi.log`,
+  rendered pages for Fig.1/Fig.2.
+- Inputs not used and why: 未查阅外部论文图样式；本轮问题集中在本稿 TikZ 样式和页面可读性，
+  不涉及新方法表述或实验数据。
+- Artifacts produced: 更新后的 Fig.1/Fig.2 TikZ 源码、重新编译的 `paper/main_mdpi.pdf`、
+  任务包与本审计记录。
+- Verification run:
+  - `export PATH="/Users/bytedance/Library/TinyTeX/bin/universal-darwin:$PATH"`
+  - `latexmk -pdf -bibtex -shell-escape -interaction=nonstopmode -halt-on-error main_mdpi.tex`
+  - `rg -n "(^!|Fatal|Error|Undefined|undefined|Citation|Reference|Overfull|Underfull|Rerun|Warning|Package .* Warning|Output written)" main_mdpi.log`
+  - `mdls -name kMDItemNumberOfPages -name kMDItemFSSize main_mdpi.pdf`
+  - Ghostscript 渲染第 7/8 页并目视检查。
+  - `git diff --check` 通过。
+- Remaining risk: Fig.1/Fig.2 现在是更清晰的投稿版 schematic，但仍是 TikZ 矢量图；
+  如果后续要做更强视觉设计，可基于这版结构导出为专业矢量插图再回填。
+
+### 2026-06-29 · Fig.1/Fig.2 按同类论文惯例二次重绘
+
+- 用户进一步反馈：上一版 Fig.1/Fig.2 仍“不像论文中该有的样式”，要求参考其他论文这种图的画法。
+- 调研同类 SR/Transformer 论文画法（CATANet CVPR'25、SwinIR、SRFormer）：
+  - 数据通路用 feature-map 立体 slab 表示（LR→shallow→deep→upsample→SR），不是清一色圆角框。
+  - 重复的深层模块画成偏移堆叠的 slab + “×N”，让“stack of blocks”一眼可读。
+  - 子模块用阴影楔形 inset 展开，而不是发丝级斜虚线。
+  - novel module 用单一强调色，其余模块灰底；整图保持单向数据流。
+- 与用户确认方向：保留 TikZ 矢量（不用图像 AI 生成，避免 MDPI 投稿中数学/标签糊化）；
+  ablation 开关只留在消融表，不画进结构图。
+- 修改内容：
+  - `paper/figures/fig1_architecture.tex`：新增 `\fmslab` 宏绘制 3D feature-map slab；
+    (a) backbone 用 slab 表示张量、深层提取器用堆叠 slab + “DPRNet block ×L”；
+    (b) one block、(c) inside TAB 用阴影楔形 inset 从上一层展开；
+    删除图内冗余说明（“Only the routing module is replaced…”），统一箭头/残差/legend；
+    背景 panel 用额外 fit 坐标包住 slab 顶面，避免裁切。修正坐标名 `out`→`sr` 防止与 TikZ `out` 键冲突。
+  - `paper/figures/fig2_dpr.tex`：每个 panel 改为单向不折返的左→右流（消除原 boustrophedon 折返）；
+    移除 A1/A2/A3 标签；统一 gate/temperature 视觉语法（蓝色小圆 + 蓝色虚线 modulation）；
+    修复原 `τ` gate 箭头渲染成 “?” 的问题；usage balancing 作用在 score map S 上单独引出。
+  - 两图 caption 同步更新为单向流程的高层描述。
+- 编译与检查：
+  - 使用 TinyTeX 路径 `/Users/bytedance/Library/TinyTeX/bin/universal-darwin`。
+  - `latexmk -pdf -interaction=nonstopmode -halt-on-error main_mdpi.tex` 两次通过，23 页。
+  - `rg` 检查 `main_mdpi.log`：无 fatal/error、未定义引用、Overfull/Underfull。
+  - Ghostscript 在 150/300 DPI 渲染第 7/8 页并目视复查：feature-map slab、堆叠块、
+    inset 楔形、单向数据流、gate legend 均清晰；`fig:arch`/`fig:dpr` 仍解析到第 7/8 页。
+  - `git diff --check` 通过。
+
+### Capability-use audit（2026-06-29 Fig.1/Fig.2 paper-style redraw）
+
+- Required skills: research-writing-assistant, paper-orchestration, figures-diagram, verification.
+- Skills actually used: 已读取并应用 figures-diagram（架构图惯例）与 verification（编译+目视证据）；
+  按 S5 figure review + diagram revision 执行。
+- Inputs consumed: `paper/figures/fig1_architecture.tex`, `paper/figures/fig2_dpr.tex`,
+  `paper/sections/2_method.tex`, `paper/preamble_mdpi.tex`, `paper/main_mdpi.aux`,
+  CATANet (CVPR'25)/SwinIR/SRFormer 公开论文的图样式描述, rendered pages 7/8。
+- Inputs not used and why: 未使用图像 AI 生成（会糊化数学/标签，且非矢量，不适合期刊投稿）；
+  未改动方法表述或实验数据（本轮仅图样式）。
+- Artifacts produced: 重绘后的 Fig.1/Fig.2 TikZ 源码、重新编译的 `paper/main_mdpi.pdf`、本审计记录。
+- Verification run:
+  - `export PATH="/Users/bytedance/Library/TinyTeX/bin/universal-darwin:$PATH"`
+  - `latexmk -pdf -interaction=nonstopmode -halt-on-error main_mdpi.tex`
+  - `rg -n "Overfull|Underfull|undefined|Undefined|! " main_mdpi.log`
+  - Ghostscript 渲染第 7/8 页（150/300 DPI）并目视复查。
+  - `git diff --check` 通过。
+- Remaining risk: 仍为单栏宽的 schematic；若审稿人希望看到更接近 CATANet 的“整图+模块并排”单行排版，
+  可在后续把 (a)/(b)/(c) 压成一行，但当前两行布局在 MDPI 双栏宽 figure* 下更易读。
+
+### 2026-06-30 · Fig.1/Fig.2 双色配色 + 提高对比度
+
+- 用户反馈：上一版蓝色色调没问题，但整体偏浅、对比度低，发白发飘；并选择“给数据节点引入第二种柔和色”。
+- 调研同类论文（CATANet/SwinIR/Restormer/SRFormer）：多用 2–3 种低饱和柔和色按功能分组
+  （数据张量 / 通用计算 / 创新模块），白底。据此采用双色惯例。
+- 配色定义：在 `paper/preamble_mdpi.tex` 与 `paper/preamble.tex` 新增
+  `\definecolor{dpramber}{rgb}{0.83,0.55,0.20}` 作为数据/张量节点的第二柔和色（两套 build 同步，避免 main.pdf 编译失败）。
+- 角色映射：amber=数据张量（$I_{LR}$/$I_{SR}$/$F_0$/$F_L$ feature-map slab、$F_{l-1}$/$F_l$/$X$/out、
+  $X$/$X^{\pi}$/$x^{\mathrm{s}}$/to-Conv 等），grey=通用计算模块（Conv/LN/LRSA/attn 等），
+  blue=DPR 相关模块（DPRNet block、TAB、DPR、prototype 相关 meta、gate/temperature）。
+- 提高对比度：框线 black!60→black!75/82，slab 边线 black!50→black!65，
+  dprbox 填充 14→22 且线宽 0.9→1pt，meta/gate 加深并加描边，panel 底色 black!1→纯白。
+- Fig.2 图例改为四项并加上双色块说明：data tensor（amber）/ DPR module（blue）/ tensor flow / gate·τ modulation / learnable gate。
+- 编译与检查：
+  - TinyTeX `latexmk -pdf -interaction=nonstopmode -halt-on-error main_mdpi.tex` 通过，23 页。
+  - `rg` 检查 `main_mdpi.log`：无 fatal/error、未定义引用、Overfull/Underfull。
+  - Ghostscript 300 DPI 渲染第 7/8 页目视复查：amber/blue/grey 三类区分清晰、白底高对比；
+    γ 与 τ gate 在高分辨率下正常显示（此前“?”为低分辨率渲染伪影，非源码问题）。
+  - `git diff --check` 通过。
+- Remaining risk: amber 与 blue 在灰度打印下区分度尚可（亮度差异足够），但若目标渠道为纯黑白印刷，
+  可再为两色补充不同描边/纹理；当前彩色与多数 MDPI 在线 PDF 渠道一致。

@@ -1,0 +1,43 @@
+## Task Packet
+
+- Scope: Review `paper/main_mdpi.pdf` and manuscript-facing LaTeX sources for submission readiness, focusing on content logic, MDPI style, references, figures/tables, visual results, and experiment-data claims.
+- Files to read:
+  - `paper/main_mdpi.pdf`
+  - `paper/main_mdpi.tex`
+  - `paper/sections/*.tex`
+  - `paper/tables/*.tex`
+  - `paper/figures/*.tex`
+  - `paper/figures/fig7_assets/*.csv`
+  - `paper/figures/fig58_assets/*_xscore_stats.csv`
+  - `paper/data/*.csv`
+  - `paper/references.bib`
+  - `paper/main_mdpi.bbl`
+  - `paper/main_mdpi.log`
+  - relevant CATANet config/source lines for experiment-protocol consistency checks
+- Files allowed to edit:
+  - `paper/plan/review/main-mdpi-submission-readiness-review-2026-06-28.md`
+  - `paper/plan/progress.md`
+- Required skills:
+  - research-writing-assistant
+  - using-research-writing
+  - paper-orchestration
+  - peer-review
+  - verification
+- Evidence/data inputs:
+  - Rendered PDF pages from `main_mdpi.pdf`
+  - LaTeX source line references
+  - CSV metrics for main results, ablations, efficiency, Fig.5, and Fig.7 crops
+  - CATANet implementation/config values for routing temperature initialization
+  - MDPI similar-paper spot check from Applied Sciences/Electronics SR articles
+- Required artifacts:
+  - Submission-readiness review report
+  - Capability-use audit in `plan/progress.md`
+- Rejection checks:
+  - Do not claim a problem without source, PDF, data, or log evidence.
+  - Separate manuscript-visible blockers from source-only comments.
+  - Do not invent reference or MDPI requirements beyond checked template/articles.
+  - Keep recommendations actionable and prioritized.
+- Validation commands:
+  - Search final build logs for unresolved references/citations and LaTeX warnings.
+  - Render PDF pages and visually inspect pages containing figures/tables/back matter.
+  - Compare key numeric statements against CSV/source values.

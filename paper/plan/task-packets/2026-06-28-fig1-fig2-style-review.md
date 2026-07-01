@@ -1,0 +1,39 @@
+## Task Packet
+
+- Scope: Recheck and polish Fig. 1 and Fig. 2 style in the MDPI manuscript after user feedback that the diagram style has problems.
+- Stage: S5 review plus small figure-source revision.
+- Files to read:
+  - `paper/figures/fig1_architecture.tex`
+  - `paper/figures/fig2_dpr.tex`
+  - `paper/sections/2_method.tex`
+  - `paper/main_mdpi.tex`
+  - `paper/main_mdpi.pdf`
+  - `paper/main_mdpi.log`
+- Files allowed to edit:
+  - `paper/figures/fig1_architecture.tex`
+  - `paper/figures/fig2_dpr.tex`
+  - `paper/sections/2_method.tex` only if figure references/caption prose require it
+  - `paper/plan/progress.md`
+- Required skills:
+  - research-writing-assistant
+  - paper-orchestration
+  - figures-diagram
+  - verification
+- Evidence/data inputs:
+  - Existing method description and equations
+  - Rendered Fig. 1/Fig. 2 pages from the compiled PDF
+- Required artifacts:
+  - Polished Fig. 1/Fig. 2 LaTeX/TikZ source
+  - TinyTeX-compiled `main_mdpi.pdf`
+  - Rendered-page inspection evidence
+  - Capability-use audit in `plan/progress.md`
+- Rejection checks:
+  - Do not change the model semantics or equations.
+  - Do not introduce unverified architecture claims.
+  - Do not make the diagrams visually denser than the current version.
+  - Keep `fig:arch` and `fig:dpr` references valid.
+- Validation commands:
+  - `export PATH="/Users/bytedance/Library/TinyTeX/bin/universal-darwin:$PATH"`
+  - `latexmk -pdf -bibtex -shell-escape -interaction=nonstopmode -halt-on-error main_mdpi.tex`
+  - Search `main_mdpi.log` for unresolved references/citations and serious LaTeX warnings.
+  - Render and inspect the pages containing Fig. 1 and Fig. 2.
