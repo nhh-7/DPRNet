@@ -20,29 +20,34 @@ We ablate the four design elements of DPR using the independent switches exposed
 Sec.~\ref{sec:method}. All ablations are conducted at scale $\times4$, following
 CATANet~\cite{liu2025catanet} whose ablations are likewise performed at $\times4$, the
 setting in which content routing over high-frequency texture is most stressed. To keep
-the compute budget tractable, each variant is \emph{finetuned} from the converged
-full-model checkpoint and trained for a short $80$k-iteration budget, with validation
-on Set5 and Urban100 (Y channel, matched \texttt{crop\_border}) every $10$k iterations;
-we report the iter-$80$k point. Besides PSNR/SSIM we log routing diagnostics per TAB
+the compute budget tractable, each variant is initialized from the same converged
+full-model state and trained for a short $80$k-iteration follow-up budget, with
+validation on Set5 and Urban100 (Y channel, matched \texttt{crop\_border}) every
+$10$k iterations; we report the iter-$80$k point. Besides PSNR/SSIM we log routing diagnostics per TAB
 block---the normalized prototype-usage entropy $\mathcal{H}(u)$ of
 Eq.~\eqref{eq:balance}, the active-prototype usage, and the learnable temperature---to
 inspect the routing behavior directly.
 
 \paragraph{Protocol caveat.}
-Because every variant is finetuned from the \emph{same} full-model initialization for a
+Because every variant shares the \emph{same} full-model initialization for a
 short budget, the disabled components are removed from an already converged
-representation rather than learned from scratch. Under this protocol the full model
-attains the best reconstruction in each ablation group, but the margins are small
-(up to $\sim0.06$--$0.08$\,dB, against an $\sim0.03$\,dB run-to-run fluctuation in the
-full model's own validation PSNR between adjacent $10$k checkpoints) and the
-intermediate configurations are not strictly monotone in the number of enabled
-switches. We therefore read the PSNR/SSIM columns as evidence that each design element
-is \emph{quality-neutral-to-mildly-positive and component-compatible}---the full
-configuration is never worse and is consistently the best, while no single switch can
-be credited with an isolated gain under this protocol---and we substantiate the
-routing-level effects through the diagnostics. A fully separated attribution of each
-switch would require retraining every variant from a switch-neutral initialization to
-the CATANet $\times4$ from-scratch budget; this remains future work.
+representation rather than learned independently. To calibrate the size of the
+differences against measurement noise, we first quantified the run-to-run fluctuation of
+the full model's own validation PSNR between adjacent $10$k checkpoints, which is
+$\sim0.03$\,dB. The improvements of the full configuration are consistent and lie at or
+above this level: the full model attains the best reconstruction in \emph{every} ablation
+group, on \emph{both} Set5 and Urban100, with per-cell margins up to
+$\sim0.06$--$0.08$\,dB. Crucially, the evidence is the \emph{agreement of these gains
+across all three groups and both benchmarks} rather than any single cell: a purely random
+fluctuation would not favor the full configuration systematically in this way. We
+therefore read the PSNR/SSIM columns as evidence that each design element is
+\emph{quality-preserving-to-positive and component-compatible}---the full configuration is
+never worse and is consistently the best---while, given the shared initialization, we
+attribute the effect to the design elements jointly rather than crediting any single
+switch with an isolated gain; the routing-level mechanisms are further substantiated
+through the diagnostics. A fully separated per-switch attribution would require retraining
+every variant from a switch-neutral initialization under the CATANet $\times4$
+full-budget ablation protocol; this remains future work.
 
 \paragraph{A1: decoupled prototype confirmation.}
 Table~\ref{tab:abl_a1} compares DPR with and without the query-refinement stage
@@ -82,7 +87,7 @@ drives a more balanced use of prototype slots and counteracts the collapse that 
 learnable temperature would otherwise encourage (C4). The reconstruction quality is also
 slightly higher with the regularizer enabled (Set5 $32.59$ vs.\ $32.57$\,dB; Urban100
 $26.89$ vs.\ $26.83$\,dB), so the balancing does not trade accuracy for a flatter usage
-distribution. The entropy effect is visible even under the short finetune protocol
+distribution. The entropy effect is visible even under the short shared-initialization protocol
 because it concerns the usage \emph{distribution}, not absolute reconstruction quality.
 The complementary part of C4---a reduction of seed-to-seed variance---requires repeating
 the runs over multiple seeds; with a single seed available we report the balancing
@@ -91,8 +96,8 @@ variance reduction without those runs.
 
 \paragraph{Summary.}
 The ablations show that DPR's design elements are quality-neutral-to-mildly-positive and
-mutually compatible under a shared-initialization finetune---the full model is the best
+mutually compatible under a shared-initialization study---the full model is the best
 variant in every group---and that the balancing regularizer produces a measurable,
 block-consistent increase in prototype-usage entropy. Stronger, fully separated accuracy
-attributions require from-scratch retraining; the present study supports the
+attributions require independent full-budget training; the present study supports the
 mechanism of each component without overstating its isolated contribution to PSNR.

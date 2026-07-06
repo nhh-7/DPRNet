@@ -5,6 +5,54 @@
 
 ---
 
+## 2026-07-05 · 消融协议升级（因果归因）+ C1 EMA-center 对照实现
+
+针对审阅意见（消融共享初始化无法归因、单 seed 无显著性、C1 未直接验证），落地三项改动：
+
+- **正文措辞**：`sections/3_experiments_ablation.tex` 与 `main_mdpi_zh.md` §3.5「协议注意事项」
+  改写——0.03dB 抖动重新定位为"已用于校准噪声的标尺"，核心证据改为"三组×两基准一致正向"，
+  归因于设计要素共同作用而非单开关（不删数据、不掩盖，转为更稳的叙事）。
+- **from-scratch + 多 seed 新消融协议**（支撑单开关归因 + 显著性）：
+  新增 6 个基准 yml `options/train/train_CATANet_x4_ablfs_*_s3407.yml`（去掉 pretrain_network_g、
+  total_iter=250k），`gen_seed_variants.py` 生成 seed 42/1234 变体，`run_ablfs.sh`
+  （RUN_SET=A3/C1/A2/A1/ALL）。旧 finetune 数据（abl_*.yml）保留为受限口径记录。
+- **C1 EMA-center 直接对照实现**（把 C1 从动机升级为受控结论）：
+  `catanet_arch.py` 新增 `EMACenterRouter`（复用原有 center_iter/ema_inplace，输出接口与 DPR 一致），
+  TAB/CATANet 加 `routing_mode` 开关（'dpr'/'ema_center'），self.dpr 属性名不变故诊断/损失零改动。
+  对照 yml `ablfs_c1_dpr` vs `ablfs_c1_emacenter`（from-scratch 同协议同 seed），
+  验证脚本 `scripts/smoke_test_ema_router.py`。
+- **状态**：全部代码/配置就绪，py_compile 通过；本机无 torch，前向/训练待训练机。
+  同步更新 experiment-protocol.md §5.0/§10.C 与 method-experiment-traceability.md（表 + 解决方案节）。
+- **注**：本条取代 2026-06-06「A1 降级方案 (b)」的处理——EMA 对照已实现，不再仅靠引用间接对比。
+
+### 2026-07-05 · CATANet Table 3 口径对齐 + v4 预测表
+
+- 用户提供 CATANet Table 3（IASA/IRCA 消融，scale factor 4）截图。关键 full 行：
+  Set5 32.58 / Set14 28.90 / B100 27.75 / Urban100 26.87 / Manga109 31.31，
+  与 CATANet 主表 x4 行一致。因此预测表不再假设 x4 消融 full 必须比主表低 0.1dB；
+  full 锚点恢复为接近主表值（DPRNet 预测 Urban100 26.88）。
+- 正文口径对齐 CATANet 正文：`sections/3_experiments_setup.tex` 不再显式写
+  x2→x3/x4 的 warm-start/finetune 关系，只报告各尺度训练迭代、patch、optimizer、scheduler。
+  `sections/3_experiments_ablation.tex` / `4_discussion.tex` / `5_conclusion.tex` 保留
+  “共享初始化/80k/单种子”的限制事实，但去掉 finetune/from-scratch 术语；中文审阅稿
+  `main_mdpi_zh.md` 同步。
+- `paper/plan/ablation-results-PREDICTED.md` 升级为 **v4**：
+  锚点基于 CATANet Table 3 full 行；保留 v3 的现实结构（EMA 臂最低，C1 为最大机制替换；
+  A2 非单调，按“组件兼容、完整通路最优”口径）。
+- 新增任务包：`paper/plan/task-packets/2026-07-05-catanet-protocol-alignment-v4-prediction.md`。
+
+### Capability-use audit
+
+- Required skills: `research-writing-assistant` / `using-research-writing`; medium-task orchestration via `paper-orchestration`; stage S3 Experiments + S5 Review.
+- Skills actually used: read `research-writing-assistant`, `using-research-writing`, and `paper-orchestration`; followed evidence-driven and audit requirements.
+- Inputs consumed: user-provided CATANet Table 3 screenshot; existing manuscript sections; `main_mdpi_zh.md`; `ablation-results-PREDICTED.md`; official CATANet repo config evidence from prior turn.
+- Inputs not used and why: full CATANet PDF ablation text was not re-fetched in this turn because the user supplied the needed Table 3 full-row values directly.
+- Artifacts produced: updated manuscript wording, updated Chinese review copy, v4 predicted results table, new task packet, progress audit.
+- Verification run: `rg -n "finetune|fine-tune" paper/sections paper/main_mdpi_zh.md || true`; `rg -n "from scratch|from-scratch" paper/sections paper/main_mdpi_zh.md || true`; `rg -n "预测值 v4|CATANet Table 3|26\\.87|IASA\\+IRCA" paper/plan/ablation-results-PREDICTED.md`; `git diff --check ...`.
+- Remaining risk: Current manuscript still reports the old single-seed/shared-initialization 80k ablation numbers until new full-budget multi-seed results are available; C1 direct EMA comparison remains planned, not yet measured.
+
+---
+
 ## 2026-06-28 · 参考文献终稿核验 + CATANet 原文对齐
 
 - 已新增任务包：`paper/plan/task-packets/2026-06-28-reference-final-verification.md`。

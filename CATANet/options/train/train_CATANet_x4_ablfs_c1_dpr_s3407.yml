@@ -1,0 +1,100 @@
+# C1 comparison -- DPR arm (dynamic per-image prototypes). FROM SCRATCH, 250k, x4.
+# Pairs with train_CATANet_x4_ablfs_c1_emacenter_s3407.yml, which is byte-for-byte
+# identical except `routing_mode: ema_center`. Training both under the SAME protocol and
+# seeds isolates the prototype-GENERATION mechanism (dynamic prototypes vs. cross-batch
+# EMA centers), turning C1 from an indirectly-supported motivation into a controlled
+# result. All other DPR components (refine/conf-sort/gate/soft-fallback/balance) stay ON
+# in BOTH arms, so only the generation mechanism differs.
+name: train_CATANet_x4_ablfs_c1_dpr_s3407
+model_type: CATANetModel
+scale: 4
+num_gpu: auto
+manual_seed: 3407
+datasets:
+  train:
+    task: SR
+    name: DIV2K
+    type: PairedImageDataset
+    dataroot_gt: /hy-tmp/DIV2K_train_HR
+    dataroot_lq: /hy-tmp/DIV2K_train_LR_bicubic/X4
+    filename_tmpl: '{}x4'
+    io_backend:
+      type: disk
+    gt_size: 256
+    use_hflip: true
+    use_rot: true
+    use_shuffle: true
+    num_worker_per_gpu: 8
+    batch_size_per_gpu: 16
+    dataset_enlarge_ratio: 100
+    prefetch_mode: 'cuda'
+    pin_memory: true
+  val_0:
+    name: Set5
+    type: PairedImageDataset
+    dataroot_gt: /hy-tmp/TestDataSR/HR/Set5/x4
+    dataroot_lq: /hy-tmp/TestDataSR/LR/LRBI/Set5/x4
+    filename_tmpl: '{}'
+    io_backend:
+      type: disk
+  val_1:
+    name: Urban100
+    type: PairedImageDataset
+    dataroot_gt: /hy-tmp/TestDataSR/HR/Urban100/x4
+    dataroot_lq: /hy-tmp/TestDataSR/LR/LRBI/Urban100/x4
+    filename_tmpl: '{}'
+    io_backend:
+      type: disk
+network_g:
+  type: CATANet
+  upscale: 4
+  routing_mode: dpr                   # <-- C1: dynamic per-image prototypes
+  router_scale_init: 6.0
+  max_router_logit_scale: 10.0
+  route_balance_weight: [0.0005, 0.0005, 0.0005, 0.0005, 0.0005, 0.0005, 0.0007, 0.0007]
+  use_prototype_query_refine: true
+  use_conf_sort: true
+  use_iasa_score_gate: true
+  use_soft_fallback: true
+path:
+  pretrain_network_g: ~
+  strict_load_g: true
+  resume_state: ~
+train:
+  router_scale_lr_mult: 0.1
+  optim_g:
+    type: Adam
+    lr: !!float 2e-4
+    weight_decay: 0
+    betas: [0.9, 0.99]
+  scheduler:
+    type: MultiStepLR
+    milestones: [125000, 200000, 225000, 237500]
+    gamma: 0.5
+  total_iter: 250000
+  pixel_opt:
+    type: L1Loss
+    loss_weight: 1.0
+    reduction: mean
+val:
+  val_freq: !!float 10000
+  save_img: false
+  metrics:
+    psnr:
+      type: calculate_psnr_pt
+      crop_border: 4
+      test_y_channel: true
+    ssim:
+      type: calculate_ssim_pt
+      crop_border: 4
+      test_y_channel: true
+logger:
+  print_freq: 200
+  save_checkpoint_freq: !!float 10000
+  use_tb_logger: true
+  wandb:
+    project: ~
+    resume_id: ~
+dist_params:
+  backend: nccl
+  port: 29500

@@ -1,0 +1,95 @@
+# Ablation (FROM-SCRATCH) A2 v1: all three confidence switches OFF (hard routing).
+# Trained from scratch 250k (no shared init) -> baseline for the confidence-aware path (C3).
+name: train_CATANet_x4_ablfs_A2_v1_hardsort_s1234
+model_type: CATANetModel
+scale: 4
+num_gpu: auto
+manual_seed: 1234
+datasets:
+  train:
+    task: SR
+    name: DIV2K
+    type: PairedImageDataset
+    dataroot_gt: /hy-tmp/DIV2K_train_HR
+    dataroot_lq: /hy-tmp/DIV2K_train_LR_bicubic/X4
+    filename_tmpl: '{}x4'
+    io_backend:
+      type: disk
+    gt_size: 256
+    use_hflip: true
+    use_rot: true
+    use_shuffle: true
+    num_worker_per_gpu: 8
+    batch_size_per_gpu: 16
+    dataset_enlarge_ratio: 100
+    prefetch_mode: 'cuda'
+    pin_memory: true
+  val_0:
+    name: Set5
+    type: PairedImageDataset
+    dataroot_gt: /hy-tmp/TestDataSR/HR/Set5/x4
+    dataroot_lq: /hy-tmp/TestDataSR/LR/LRBI/Set5/x4
+    filename_tmpl: '{}'
+    io_backend:
+      type: disk
+  val_1:
+    name: Urban100
+    type: PairedImageDataset
+    dataroot_gt: /hy-tmp/TestDataSR/HR/Urban100/x4
+    dataroot_lq: /hy-tmp/TestDataSR/LR/LRBI/Urban100/x4
+    filename_tmpl: '{}'
+    io_backend:
+      type: disk
+network_g:
+  type: CATANet
+  upscale: 4
+  router_scale_init: 6.0
+  max_router_logit_scale: 10.0
+  route_balance_weight: [0.0005, 0.0005, 0.0005, 0.0005, 0.0005, 0.0005, 0.0007, 0.0007]
+  # --- ablation switches (A2 v1: all confidence flags OFF) ---
+  use_prototype_query_refine: true
+  use_conf_sort: false
+  use_iasa_score_gate: false
+  use_soft_fallback: false
+path:
+  pretrain_network_g: ~
+  strict_load_g: true
+  resume_state: ~
+train:
+  router_scale_lr_mult: 0.1
+  optim_g:
+    type: Adam
+    lr: !!float 2e-4
+    weight_decay: 0
+    betas: [0.9, 0.99]
+  scheduler:
+    type: MultiStepLR
+    milestones: [125000, 200000, 225000, 237500]
+    gamma: 0.5
+  total_iter: 250000
+  pixel_opt:
+    type: L1Loss
+    loss_weight: 1.0
+    reduction: mean
+val:
+  val_freq: !!float 10000
+  save_img: false
+  metrics:
+    psnr:
+      type: calculate_psnr_pt
+      crop_border: 4
+      test_y_channel: true
+    ssim:
+      type: calculate_ssim_pt
+      crop_border: 4
+      test_y_channel: true
+logger:
+  print_freq: 200
+  save_checkpoint_freq: !!float 10000
+  use_tb_logger: true
+  wandb:
+    project: ~
+    resume_id: ~
+dist_params:
+  backend: nccl
+  port: 29500

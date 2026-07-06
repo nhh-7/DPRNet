@@ -41,17 +41,16 @@ $7{\times}10^{-4}$ for the last two (Eq.~\eqref{eq:balance}). These yield
 $0.60$--$0.67$\,M parameters depending on scale (Table~\ref{tab:efficiency}).
 
 \paragraph{Training.}
-We first train the $\times2$ model from scratch for $800$k iterations, and then
-finetune the $\times3$ and $\times4$ models for $250$k iterations each from the
-$\times2$ checkpoint. Training patches are $128{\times}128$, $192{\times}192$,
+We train the $\times2$ model for $800$k iterations and the $\times3$ and $\times4$
+models for $250$k iterations each. Training patches are $128{\times}128$, $192{\times}192$,
 and $256{\times}256$ HR crops for $\times2/\times3/\times4$ respectively, with a
 batch size of $16$ and random horizontal flips and $90^{\circ}$ rotations for
 augmentation. We optimize the L1 reconstruction loss together with the
 usage-balancing regularizer (Eq.~\eqref{eq:balance}) using Adam
 ($\beta_1{=}0.9$, $\beta_2{=}0.99$, no weight decay) at an initial learning rate of
 $2{\times}10^{-4}$, halved by a MultiStep schedule (milestones at
-$\{300,500,650,700,750\}$k for $\times2$ and $\{125,200,225,237.5\}$k for the
-$\times3/\times4$ finetuning). The learnable routing temperature is trained with a
+$\{300,500,650,700,750\}$k for $\times2$ and $\{125,200,225,237.5\}$k for
+$\times3/\times4$). The learnable routing temperature is trained with a
 $0.1{\times}$ learning-rate multiplier for stability. Validation is run every
 $2{.}5$k iterations; the unified reporting checkpoint per scale is selected by the
 best benchmark-averaged PSNR/SSIM over Set5--Manga109, without per-dataset

@@ -14,7 +14,8 @@
 
 - crop_border：x2=2, x3=3, x4=4；test_y_channel=true（与 SR 惯例一致）。
 - 训练 patch：x2 gt_size=128 等（按现有 yml），x3 gt_size=192，x4 gt_size=256。
-- 随机种子：manual_seed=3407（主结果）；C4 方差分析需额外 2 个 seed。
+- 随机种子：manual_seed=3407（主结果）；from-scratch 消融与 C4 方差分析用 seed∈{3407,42,1234}
+  （见 §5.0 新协议）。
 
 ## 2. 基线方法 (Baselines)
 
@@ -54,17 +55,48 @@
 期望结果形态（来自优化方案文档）：Urban100/Manga109 明显提升，Set5/Set14 持平，
 B100 不降或微升。若仅 Urban100 升而 B100 明显降，说明内容路由过强，需调 gate。
 
-## 5. 消融实验 (Ablation) — 核心 3 组
+## 5. 消融实验 (Ablation) — 核心 3 组 + C1 直接对照
 
 全部在 x4 上做（对齐 CATANet 原论文：其消融均在 scale=4 进行；且 x4 退化最重，
-DPR 内容路由在高频纹理上的收益最易显现）。统一从 x4 net_g_250000 finetune、相同 iter
-（80k），训练中每 10k 验证/存档一次，报 Set5+Urban100（+ B100 抽查）。
-注：CATANet 原论文消融为 x4 from scratch 250k；本文为节省算力采用 x4 finetune 短 iter，
-论文中需注明此口径差异（趋势性结论，非绝对 PSNR 对齐）。
+DPR 内容路由在高频纹理上的收益最易显现）。
 
-### A1 DPR 原型设计 (验证 C1) — 降级方案 (b)
-说明：历史中心+EMA 对照不在本文重实现，改用引用 CATANet 原论文表格作间接动机对比。
-本文实测消融聚焦 DPR 内部设计（prototype query refine）：
+### 5.0 协议演进（2026-07-05 修订）
+
+**旧协议（finetune，已有数据，受限口径）**：统一从 x4 net_g_250000 finetune、相同 iter
+（80k），每 10k 验证/存档，报 Set5+Urban100。局限：所有变体共享同一全功能收敛权重，
+"关某开关"是从已适配该开关的表示上退火，参数失配，**无法归因单开关增益、无方差**
+（详见 method-experiment-traceability.md「消融实验的已知局限」）。对应 yml：
+`options/train/train_CATANet_x4_abl_*.yml`。此数据保留，正文按"质量中性偏正、组件兼容"
+写，不主张单开关独立增益。
+
+**新协议（from-scratch + 多 seed，支撑因果归因）**：为分离每个开关的真实贡献并给出
+显著性，每个变体**从头训练**满 250k（去掉共享初始化），并在 **≥3 个 seed（3407/42/1234）**
+上重复，报 mean±std。对齐 CATANet 原论文 x4 from-scratch 250k 口径。对应 yml：
+`options/train/train_CATANet_x4_ablfs_*_s{seed}.yml`（`ablfs` = ABLation-From-Scratch）。
+生成与运行：
+```bash
+python options/train/gen_seed_variants.py          # 由 _s3407 基准克隆出 _s42/_s1234
+RUN_SET=A3 bash options/train/run_ablfs.sh         # 优先 A3（C4 方差子主张必须多 seed）
+RUN_SET=C1 bash options/train/run_ablfs.sh         # C1 EMA 对照
+RUN_SET=ALL bash options/train/run_ablfs.sh        # 全量 6 变体 × 3 seed = 18 次 250k
+```
+算力代价：全量 18 次 from-scratch x4 训练；受限时按 A3 → C1 → A2 → A1 优先级分批。
+每个变体训完必须：测 5 基准 → 存指标；导出逐 block 路由诊断 CSV（tee 到日志再解析）。
+
+### C1 动态原型 vs 历史中心+EMA (验证 C1) — 直接对照（2026-07-05 升级）
+说明：EMA-center 分支**已在本文代码库实现**（catanet_arch.py `EMACenterRouter`，
+复用原 center_iter/ema_inplace，输出接口与 DPR 完全一致，IASA/门控/诊断无需改动），
+由 `network_g.routing_mode` 切换（`dpr` / `ema_center`）。两臂 from-scratch 同协议同
+seed，仅原型生成机制不同，从而把 C1 从"引用间接动机"升级为**受控结论**。
+| 变体 | 配置（yml network_g） | 期望 |
+|---|---|---|
+| DPR 动态原型 | routing_mode=dpr（默认） | PSNR/路由质量 ≥ EMA 臂 |
+| EMA 历史中心 | routing_mode=ema_center | 参照（原 CATANet TAB 路由机制） |
+- 先跑 `python scripts/smoke_test_ema_router.py` 验证两模式建图/前向/EMA 更新/接口对齐。
+- 备注：ema_center 模式下 DPR 专属开关（refine/conf_sort/score_gate/soft_fallback/balance）
+  按构造失效，两臂公平性以"仅生成机制不同"为准，参数量差异在正文说明。
+
+### A1 DPR 内部设计：prototype query refine (验证 C2)
 | 变体 | 配置（yml network_g） | 期望 |
 |---|---|---|
 | baseline | use_prototype_query_refine=false | 参照 |
@@ -82,7 +114,8 @@ DPR 内容路由在高频纹理上的收益最易显现）。统一从 x4 net_g_
 | 变体 | route_balance_weight | 报告 |
 |---|---|---|
 | 无 | 0.0 | usage 分布 + 多 seed 方差 |
-| 弱 | 0.001 | usage 更均衡 + 方差下降 |
+| 弱 | 默认（[5e-4]×6,[7e-4]×2） | usage 更均衡 + 方差下降 |
+- C4「方差下降」子主张仅在新协议多 seed 下成立；旧 finetune 单 seed 只报均衡机制。
 
 可选超参研究（时间允许）：num_prototypes ∈ {8,16,32}，router_dim 扫描。
 
@@ -138,28 +171,33 @@ DPR 内容路由在高频纹理上的收益最易显现）。统一从 x4 net_g_
 ### C. 各消融变体需要的开关（开始对应消融前改，改完即训）
 - 核查结论（已读 catanet_arch.py 全部路由/原型/IASA 实现，2026-06-06）：
 
-- [x] A1 动态原型 vs 历史中心：【降级方案 (b)，已定】不做完整 EMA 对照分支
-      （重实现工作量大、风险高）。改为：
-      · 主张 C1 用「引用 CATANet 原论文表格」作间接对比（同尺度同基准，标注来源），
-        说明 DPR 动态原型 vs 原 TAB 历史中心+EMA 的差异为设计动机，不作为本文新增消融；
-      · 本文 A1 实测消融改为「DPR 内部设计」开关：use_prototype_query_refine
-        （refine 开/关，arch DPR 已有该参数 L139/L188），验证 refine 对路由质量的贡献。
-      → ✅ 已完成（2026-06-10）：use_prototype_query_refine 已贯通 CATANet→TAB→DPR
-        （catanet_arch.py：CATANet __init__ L511/存 L541/传 L561，TAB __init__ L244/传 L262，DPR L139）。
-        默认 True 严格等价原行为，可由 yml 配置；py_compile 通过（运行时前向验证需训练机）。
-        消融 yml 已建（x4）：train_CATANet_x4_abl_A1_refine_off.yml（refine=off）vs
-        train_CATANet_x4_abl_full.yml（refine=on，全功能参照）。
+- [x] C1 动态原型 vs 历史中心+EMA：【2026-07-05 升级：降级方案 (b) 已被直接对照取代】
+      EMA-center 对照分支已在本文代码库实现，不再仅靠引用间接对比。
+      → ✅ catanet_arch.py 新增 `EMACenterRouter`（复用文件内原有 center_iter/ema_inplace/
+        dists_and_buckets，输出 (sorted_x, idx_last, prototypes, route_info) 接口与 DPR 完全
+        一致；持久 means buffer 做跨批次 EMA 更新、硬 argmax 标签排序）。
+        TAB/CATANet 新增 `routing_mode` 开关（'dpr'/'ema_center'），`self.dpr` 属性名在两
+        模式下不变，故 catanet_model.py 的损失聚合(aux_loss)与诊断收集(tab.dpr.router_logit_
+        scale 等)无需改动。py_compile 通过；前向验证用 scripts/smoke_test_ema_router.py（训练机）。
+        对照 yml：train_CATANet_x4_ablfs_c1_dpr_s{seed}.yml vs _c1_emacenter_s{seed}.yml
+        （from-scratch 同协议同 seed，仅 routing_mode 不同）。
+- [x] A1 DPR 内部设计（验证 C2）：use_prototype_query_refine 已贯通 CATANet→TAB→DPR
+      （catanet_arch.py：CATANet __init__/存/传，TAB __init__/传，DPR L139）。
+      默认 True 严格等价原行为，可由 yml 配置。
+      消融 yml：finetune 口径 train_CATANet_x4_abl_A1_refine_off.yml（旧，受限）；
+      from-scratch 口径 train_CATANet_x4_ablfs_A1_refine_off_s{seed}.yml（新，可归因）。
 - [x] A2 逐项加法：✅ 三个独立 flag 已实现（catanet_arch.py 2026-06-06）：
-      · use_conf_sort（DPR）：关闭→sort_key=belong_idx（去掉 +0.5(1-score)），arch L214-217
-      · use_iasa_score_gate（TAB）：关闭→IASA 传 sorted_scores=None（退化分支 L119-129），arch L280-282
-      · use_soft_fallback（TAB）：关闭→y=hard_y（去掉 soft 项），arch L283-289
-      · 三 flag 默认 True，全开严格等价于改动前行为；已贯通 CATANet→TAB→DPR，可由 yml 配置；
-        py_compile 通过（运行时前向验证需在装 torch 的训练机执行）。
+      · use_conf_sort（DPR）：关闭→sort_key=belong_idx（去掉 +0.5(1-score)）
+      · use_iasa_score_gate（TAB）：关闭→IASA 传 sorted_scores=None（退化分支）
+      · use_soft_fallback（TAB）：关闭→y=hard_y（去掉 soft 项）
+      · 三 flag 默认 True，全开严格等价于改动前行为；已贯通 CATANet→TAB→DPR，可由 yml 配置。
       逐项加法 yml 序列：全关 → +conf_sort → +score_gate → +soft_fallback（全开=完整模型）。
 - [x] A3 balance loss：✅ route_balance_weight 设 0.0（无）vs 当前值（弱），多 seed
       （改 yml 即可，无需改码）
 - 注1：C 类每加一个开关都要保证"关闭时严格等价于原行为"，否则消融不干净。
-- 注2：A1/A2 各变体改变网络结构/参数，必须各自单独训练（短 iter），
+- 注2（2026-07-05 修订）：因果归因用 **from-scratch 多 seed** 新协议（ablfs_*_s{seed}.yml）：
+      各变体去掉 pretrain_network_g、训满 250k、seed∈{3407,42,1234}，报 mean±std。
+      旧 finetune 短 iter 数据（abl_*.yml）保留但仅作"组件兼容/质量中性偏正"口径，
       不能从全功能 x3/x4 权重直接关 flag 测（参数已适配全功能，关掉会失配，结论不可信）。
 
 ### 效率脚本（A3 数据 / Table II）

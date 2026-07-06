@@ -5,10 +5,10 @@
 
 | Contribution | Method 模块 | 实验 | 表/图 | 允许的 claim | 证据状态 |
 |---|---|---|---|---|---|
-| C1 动态语义原型（替代历史中心+EMA） | DPR soft assignment (2.2) | A1（降级方案 b）：本文实测 refine 开关消融；动态原型 vs 历史中心改用引用 CATANet 原论文间接对比 | Table III + 聚类图 Fig.8 | 仅动机层面（动态原型贴合当前输入）；不得主张 PSNR 增益 | 已训练（受限，见下） |
-| C2 原型生成与确认解耦（refine） | prototype query refine (2.3) | A1 refine on/off（use_prototype_query_refine） | Table III | "refine 不损质量、保持槽位稳定，且更正数据下略优（Set5 +0.04/Urban100 +0.05dB）"；因共享初始化+短预算不主张单开关独立增益 | 已训练（受限） |
-| C3 置信度感知路由（排序+门控+fallback） | 2.4-2.6 | A2 逐项加法（三 flag 已实现）+ 路由诊断（§3.6 sec:routing_analysis） | Table IV + x_scores 直方图 Fig.5（待推理出图） | "各组件相互兼容、质量中性偏正（v4 全开为四者最高）"（A2）；"置信度信号在各 block 非退化、可用"（§3.6 已有日志统计支撑）；中间步非单调，不主张逐项 PSNR 单调增益 | 已训练（受限）；§3.6 机制分析已写 |
-| C4 路由稳定化（路由温度+balance loss） | router scale (2.4) + balance loss (2.7) | A3 单 seed（多 seed 待补）+ 路由诊断（§3.6） | Table V + usage 熵图 Fig.6（已出，fig6_usage_entropy.tex） | balance loss 使 prototype 使用更均衡（8 block 熵全升 0.6227→0.6865、active 槽 47.5→52.3）；温度稳定未饱和（τ≈6.06<10）；"多 seed 方差下降"待多 seed 重训，暂不得主张 | 部分已训练（均衡/温度机制已有，§3.6+Fig.6；方差待补） |
+| C1 动态语义原型（替代历史中心+EMA） | DPR soft assignment (2.2) | **C1 直接对照（2026-07-05 升级）**：routing_mode=dpr vs ema_center，from-scratch 同协议同 seed（EMACenterRouter 已实现）。旧：refine 开关消融 + 引用 CATANet 间接对比 | Table III + 聚类图 Fig.8 | 待新实验完成后可主张"动态原型 ≥ 历史中心+EMA"的受控结论；在此之前仅动机层面，不主张 PSNR 增益 | **代码就绪，待跑新实验**（ablfs_c1_dpr vs c1_emacenter × 3 seed）；旧受限数据见下 |
+| C2 原型生成与确认解耦（refine） | prototype query refine (2.3) | A1 refine on/off（use_prototype_query_refine）；新协议 ablfs_A1_refine_off × 3 seed | Table III | 旧口径："refine 不损质量、保持槽位稳定，更正数据下略优（Set5 +0.04/Urban100 +0.05dB）"，因共享初始化+短预算不主张单开关独立增益；新协议完成后可给 mean±std 归因 | 已训练（受限）；新协议待跑 |
+| C3 置信度感知路由（排序+门控+fallback） | 2.4-2.6 | A2 逐项加法（三 flag 已实现）+ 路由诊断（§3.6 sec:routing_analysis）；新协议 ablfs_A2_v1-v3 × 3 seed | Table IV + x_scores 直方图 Fig.5（待推理出图） | "各组件相互兼容、质量中性偏正（v4 全开为四者最高）"（A2）；"置信度信号在各 block 非退化、可用"（§3.6 已有日志统计支撑）；中间步非单调，不主张逐项 PSNR 单调增益；新协议完成后可给 mean±std | 已训练（受限）；§3.6 机制分析已写；新协议待跑 |
+| C4 路由稳定化（路由温度+balance loss） | router scale (2.4) + balance loss (2.7) | A3（新协议 ablfs_A3_balance_off × 3 seed，**优先跑**）+ 路由诊断（§3.6）；旧 A3 单 seed | Table V + usage 熵图 Fig.6（已出，fig6_usage_entropy.tex） | balance loss 使 prototype 使用更均衡（8 block 熵全升 0.6227→0.6865、active 槽 47.5→52.3）；温度稳定未饱和（τ≈6.06<10）；**"多 seed 方差下降"待 3-seed from-scratch 完成后方可主张** | 部分已训练（均衡/温度机制已有，§3.6+Fig.6）；方差待新协议 3 seed |
 | 整体有效性 | 全 DPR | 主对比 | Table I/II + 视觉图 Fig.7 | DPRNet 在轻量设定下达到有竞争力的 PSNR/SSIM 与效率 | 自测数据已全(x2/x3/x4 主表+效率)；对手指标已摘录(B节,8方法)；Table I/II 已拼装(paper/tables/)；**视觉图 Fig.7 已完成**(GT/Bicubic/IMDN/SwinIR-light/SRFormer-light/CATANet/DPRNet/GT crop，纯定性不标指标，续7+续8) |
 
 ## 证据状态图例
@@ -50,3 +50,27 @@ Set5 32.5878/0.9001、Urban100 26.8905/0.8086。仍存在一处方法学局限�
   方差下降待多 seed。
 - **若日后重训**：正确做法是各变体从开关中性初始化（x2 基座或 from-scratch）训足够 iter，对齐 CATANet
   原论文 x4 from-scratch 250k 口径，方能分离开关的真实增益。本次保留现有数据，按上述受限口径写作。
+
+## 局限的解决方案（2026-07-05 落地）
+
+上节「若日后重训」的建议已落地为可执行协议与代码；旧 finetune 数据保留为受限口径记录，
+新数据产出后据此升级各 claim。
+
+- **from-scratch + 多 seed 新协议**：新增 `train_CATANet_x4_ablfs_*_s{seed}.yml`
+  （`ablfs`=ABLation-From-Scratch），每变体去掉 pretrain_network_g、训满 250k、
+  seed∈{3407,42,1234} 报 mean±std。生成 `options/train/gen_seed_variants.py`，
+  运行 `options/train/run_ablfs.sh`（RUN_SET=A3/C1/A2/A1/ALL）。这直接消除"共享全功能初始化"
+  失配，使 A1/A2/A3 可做单开关归因，A3 可主张 C4 方差下降。详见 experiment-protocol.md §5.0。
+- **C1 EMA-center 直接对照（代码已实现）**：catanet_arch.py 新增 `EMACenterRouter`
+  （复用文件内原有 center_iter/ema_inplace/dists_and_buckets，持久 means buffer 跨批次 EMA 更新、
+  硬 argmax 排序；输出接口与 DPR 完全一致，IASA/门控/soft-fallback/诊断无需改动）。
+  TAB/CATANet 新增 `routing_mode` 开关（'dpr'/'ema_center'），self.dpr 属性名不变，
+  故 catanet_model.py 损失聚合与诊断收集零改动。对照 yml：
+  `ablfs_c1_dpr_s{seed}` vs `ablfs_c1_emacenter_s{seed}`（from-scratch 同协议同 seed，仅生成机制不同）。
+  跑前用 `scripts/smoke_test_ema_router.py` 验证建图/前向/EMA 更新/接口对齐。
+  → C1 从"引用 CATANet 间接动机"升级为**受控对照**；新数据达标后可删去正文中"未直接验证"的声明。
+- **正文措辞已同步（2026-07-05）**：3_experiments_ablation.tex / main_mdpi_zh.md §3.5「协议注意事项」
+  已改写——0.03dB 抖动重新定位为"已用于校准噪声的标尺"，核心证据改为"三组×两基准一致正向"
+  （随机波动不会系统性偏向 full），归因于设计要素共同作用而非单开关。
+- **状态**：以上均为**代码/配置就绪、待在训练机跑新实验**；py_compile 通过，本机无 torch 未做前向。
+  实验产出后：回填 Table III/IV/V 为 mean±std、新增 C1 对照表、更新上表各 claim 与证据状态。

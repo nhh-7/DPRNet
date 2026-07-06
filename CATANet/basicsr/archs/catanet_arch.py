@@ -239,15 +239,101 @@ class DPR(nn.Module):
         }
 
         return sorted_x, idx_last, prototypes, route_info
-    
-    
+
+
+class EMACenterRouter(nn.Module):
+    """Cross-batch EMA-center routing, provided as a controlled comparison arm for C1.
+
+    This reproduces the original CATANet TAB routing that DPR replaced: it maintains a
+    small set of routing centers as a persistent buffer, refines them with a k-means-style
+    iteration under an exponential-moving-average (EMA) update, assigns each token to its
+    nearest center by a hard argmax, and sorts tokens by that label. It deliberately
+    exposes the SAME output interface as :class:`DPR` -- ``(sorted_x, idx_last, prototypes,
+    route_info)`` with identical ``route_info`` keys -- so the downstream IASA aggregation,
+    the confidence gate/soft fallback, and the routing diagnostics are shared unchanged.
+    Swapping DPR -> EMACenterRouter therefore isolates the prototype-generation mechanism
+    (dynamic per-image prototypes vs. cross-batch EMA centers) for the C1 ablation.
+    """
+
+    def __init__(self, dim, router_dim, num_prototypes, n_iter=3, ema_decay=0.999,
+                 router_scale_init=6.0, max_router_logit_scale=10.0):
+        super().__init__()
+        self.dim = dim
+        self.num_prototypes = num_prototypes
+        self.n_iter = n_iter
+        self.ema_decay = ema_decay
+        # Interface parity with DPR (read by the model's loss/diagnostics collectors).
+        self.aux_loss = None            # EMA routing has no usage-balancing loss
+        self.last_usage = None
+        self.balance_loss_weight = 0.0
+
+        self.embed = nn.Sequential(
+            nn.LayerNorm(dim),
+            nn.Linear(dim, dim),
+            nn.GELU(),
+        )
+        # Persistent, cross-batch routing centers in the normalized token-feature space.
+        means = F.normalize(torch.randn(num_prototypes, dim), dim=-1)
+        self.register_buffer('means', means)
+        # Fixed "temperature" kept only so the diagnostics that read router_logit_scale
+        # (via tab.dpr.*) still work; EMA routing has no learnable temperature.
+        self.register_buffer('router_logit_scale',
+                             torch.log(torch.tensor(float(router_scale_init))))
+        self.max_router_logit_scale = float(max_router_logit_scale)
+
+    def forward(self, x):
+        b, n, c = x.shape
+        embed = self.embed(x)
+        xn = F.normalize(embed, dim=-1)
+        means = self.means
+
+        # k-means-style center refinement with cross-batch EMA update (train only).
+        if self.training:
+            with torch.no_grad():
+                new_means = means
+                for _ in range(self.n_iter):
+                    new_means = center_iter(xn, new_means)
+                ema_inplace(self.means, new_means, self.ema_decay)
+                means = self.means
+
+        sims = torch.einsum('bnc,mc->bnm', xn, means)
+        scores = F.softmax(sims, dim=-1)
+        usage = scores.mean(dim=1).clamp_min(1e-8)
+        self.last_usage = usage.detach().mean(dim=0)
+
+        x_scores, belong_idx = torch.max(scores, dim=-1)
+        # Original TAB sorts by the hard label only (no confidence term).
+        sort_key = belong_idx.to(scores.dtype)
+        sorted_idx = torch.argsort(sort_key, dim=-1)
+
+        gather_idx = sorted_idx.unsqueeze(-1).expand(b, n, c)
+        sorted_x = torch.gather(x, dim=1, index=gather_idx)
+        sorted_belong_idx = torch.gather(belong_idx, dim=1, index=sorted_idx)
+        sorted_scores = torch.gather(x_scores, dim=1, index=sorted_idx)
+        idx_last = sorted_idx.unsqueeze(-1)
+
+        prototypes = means.unsqueeze(0).expand(b, -1, -1)
+
+        route_info = {
+            'belong_idx': belong_idx,
+            'x_scores': x_scores,
+            'scores': scores,
+            'sorted_belong_idx': sorted_belong_idx,
+            'sorted_scores': sorted_scores,
+            'sorted_idx': sorted_idx,
+        }
+
+        return sorted_x, idx_last, prototypes, route_info
+
+
 class TAB(nn.Module):
     def __init__(self, dim, qk_dim, mlp_dim, heads, n_iter=3,
                  num_tokens=8, group_size=128,
                  ema_decay=0.999, router_scale_init=6.0,
                  max_router_logit_scale=10.0, route_balance_weight=0.0,
                  use_conf_sort=True, use_iasa_score_gate=True,
-                 use_soft_fallback=True, use_prototype_query_refine=True):
+                 use_soft_fallback=True, use_prototype_query_refine=True,
+                 routing_mode='dpr'):
         super().__init__()
 
         self.n_iter = n_iter
@@ -255,17 +341,29 @@ class TAB(nn.Module):
         self.num_tokens = num_tokens
         self.use_iasa_score_gate = use_iasa_score_gate
         self.use_soft_fallback = use_soft_fallback
-        
-        
+        self.routing_mode = routing_mode
+
+
         self.norm = nn.LayerNorm(dim)
         self.mlp = PreNorm(dim, ConvFFN(dim,mlp_dim))
-        self.dpr = DPR(
-            dim, qk_dim, num_tokens,
-            router_scale_init=router_scale_init,
-            max_router_logit_scale=max_router_logit_scale,
-            balance_loss_weight=route_balance_weight,
-            use_conf_sort=use_conf_sort,
-            use_prototype_query_refine=use_prototype_query_refine)
+        # Routing module. `self.dpr` is the attribute name in both modes so the model's
+        # loss aggregation and routing diagnostics (which read tab.dpr.*) are unchanged.
+        if routing_mode == 'dpr':
+            self.dpr = DPR(
+                dim, qk_dim, num_tokens,
+                router_scale_init=router_scale_init,
+                max_router_logit_scale=max_router_logit_scale,
+                balance_loss_weight=route_balance_weight,
+                use_conf_sort=use_conf_sort,
+                use_prototype_query_refine=use_prototype_query_refine)
+        elif routing_mode == 'ema_center':
+            self.dpr = EMACenterRouter(
+                dim, qk_dim, num_tokens,
+                n_iter=n_iter, ema_decay=ema_decay,
+                router_scale_init=router_scale_init,
+                max_router_logit_scale=max_router_logit_scale)
+        else:
+            raise ValueError(f"Unknown routing_mode: {routing_mode!r} (expected 'dpr' or 'ema_center')")
         self.iasa_attn = IASA(dim,qk_dim,heads,group_size)
         self.soft_context_proj = nn.Linear(dim, dim, bias=False)
         self.soft_fallback_gate = nn.Parameter(torch.tensor(-2.0))
@@ -519,6 +617,7 @@ class CATANet(nn.Module):
                  route_balance_weight=0.0,
                  use_conf_sort=True, use_iasa_score_gate=True,
                  use_soft_fallback=True, use_prototype_query_refine=True,
+                 routing_mode='dpr',
                  upscale: int = 4):
         super().__init__()
         
@@ -549,6 +648,7 @@ class CATANet(nn.Module):
         self.use_iasa_score_gate = use_iasa_score_gate
         self.use_soft_fallback = use_soft_fallback
         self.use_prototype_query_refine = use_prototype_query_refine
+        self.routing_mode = routing_mode
     
         #-----------1 shallow--------------
         self.first_conv = nn.Conv2d(in_chans, self.dim, 3, 1, 1)
@@ -568,7 +668,8 @@ class CATANet(nn.Module):
                                                                  use_conf_sort=self.use_conf_sort,
                                                                  use_iasa_score_gate=self.use_iasa_score_gate,
                                                                  use_soft_fallback=self.use_soft_fallback,
-                                                                 use_prototype_query_refine=self.use_prototype_query_refine), 
+                                                                 use_prototype_query_refine=self.use_prototype_query_refine,
+                                                                 routing_mode=self.routing_mode), 
                                               LRSA(self.dim, self.qk_dim, 
                                                              self.mlp_dim,self.heads)]))
             self.mid_convs.append(nn.Conv2d(self.dim, self.dim,3,1,1))
