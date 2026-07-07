@@ -79,8 +79,11 @@ regime and matches CATANet-level accuracy, with small gains on most benchmark ce
 (e.g.\ \texorpdfstring{$26.89$\,dB}{26.89 dB} on Urban100 at
 \texorpdfstring{$\times4$}{x4} with \texorpdfstring{$52.14$\,G}{52.14 G} Multi-Adds).
 It uses fewer Multi-Adds than the lightweight Transformer baselines SwinIR-light and
-SRFormer-light under the same input convention, while providing interpretable routing
-diagnostics in which confidence remains soft and prototype usage becomes more balanced.}
+SRFormer-light under the same input convention. Multi-seed ablations confirm
+that the dynamic prototypes outperform a history-center variant with an exponential moving
+average and that the balancing loss makes prototype usage both more balanced and more stable
+across seeds, while the routing diagnostics remain interpretable with soft assignment
+confidence.}
 
 %%%%%%%%% KEYWORDS
 \keyword{image super-resolution; lightweight super-resolution; content-aware routing;
@@ -112,7 +115,8 @@ super-resolution on resource-constrained platforms such as mobile and edge devic
 \input{sections/3_experiments_visual}     % qualitative comparison
 \input{figures/fig7_visual}               % defines fig:visual
 
-\input{sections/3_experiments_ablation}   % Tables III/IV/V
+\input{sections/3_experiments_ablation}   % Tables C1/III/IV/V
+\input{tables/table_c1_dpr_vs_ema}        % defines tab:abl_c1
 \input{tables/table3_ablation_a1}
 \input{tables/table4_ablation_a2}
 \input{tables/table5_ablation_a3}

@@ -1,16 +1,14 @@
 % =====================================================================
 % Section: Experiments -- Ablation study  (outline.md §3.5; defines sec:ablation,
 %   referenced by 1_introduction.tex and 2_method.tex).
-% Draft v1 (2026-06-17). Numbers are taken verbatim from the x4 ablation training
-%   logs at iter 80k (paper/tables/table3_ablation_a1.tex / table4 / table5;
-%   raw CSVs in paper/data/). Claims follow plan/review/method-experiment-
-%   traceability.md ("消融实验的已知局限"): with the corrected data the full model is
-%   the best variant in every group (small margins, up to ~0.06-0.08 dB), so A1/A2/A3
-%   are reported as quality-neutral-to-mildly-positive and component-compatible. We
-%   still avoid strong isolated-PSNR-gain claims because all variants share the same
-%   converged full-model init and a short 80k budget (single seed). A3 additionally
-%   supports the balancing MECHANISM (usage entropy), with the seed-variance
-%   sub-claim left as future work.
+% Draft v3 (2026-07-07). Numbers are taken verbatim from the x4 multi-seed ablation
+%   results (paper/plan/ablation-results-to-fill.md; tables table_c1_dpr_vs_ema.tex /
+%   table3_ablation_a1.tex / table4 / table5). Each variant is trained for 250k on DIV2K
+%   over 3 seeds {3407,42,1234} and reported as mean+/-std, aligning with the CATANet x4
+%   ablation protocol (250k on DIV2K). Wording follows the CATANet manuscript and does not
+%   describe the initialization/pretraining relationship between scales. C1 is a DIRECT controlled comparison (dynamic prototypes
+%   vs EMA center), A1/A2 allow single-switch attribution, and A3 supports both the
+%   balancing mechanism and the seed-variance-reduction sub-claim of C4.
 % Requires: booktabs (tables), pifont (Table IV \ding).
 % =====================================================================
 \subsection{Ablation study}
@@ -19,85 +17,73 @@
 We ablate the four design elements of DPR using the independent switches exposed in
 Sec.~\ref{sec:method}. All ablations are conducted at scale $\times4$, following
 CATANet~\cite{liu2025catanet} whose ablations are likewise performed at $\times4$, the
-setting in which content routing over high-frequency texture is most stressed. To keep
-the compute budget tractable, each variant is initialized from the same converged
-full-model state and trained for a short $80$k-iteration follow-up budget, with
-validation on Set5 and Urban100 (Y channel, matched \texttt{crop\_border}) every
-$10$k iterations; we report the iter-$80$k point. Besides PSNR/SSIM we log routing diagnostics per TAB
-block---the normalized prototype-usage entropy $\mathcal{H}(u)$ of
-Eq.~\eqref{eq:balance}, the active-prototype usage, and the learnable temperature---to
-inspect the routing behavior directly.
+setting in which content routing over high-frequency texture is most stressed. Each variant is
+trained for $250$k iterations on DIV2K under the same schedule as the full model and repeated
+over three seeds $\{3407,42,1234\}$. We report the mean$\pm$std across the three seeds at the
+validation-best checkpoint (selected by the Set5$+$Urban100 mean, Y channel, matched
+\texttt{crop\_border}). Besides PSNR/SSIM we log routing diagnostics per TAB block---the
+normalized prototype-usage entropy $\mathcal{H}(u)$ of Eq.~\eqref{eq:balance}, the
+active-prototype usage, and the learnable temperature---to inspect the routing behavior
+directly. Because every variant is trained independently under the same protocol, the
+differences below reflect the contribution of the switched element itself; reporting three
+seeds further lets us compare not only the mean effect but also its run-to-run stability.
 
-\paragraph{Protocol caveat.}
-Because every variant shares the \emph{same} full-model initialization for a
-short budget, the disabled components are removed from an already converged
-representation rather than learned independently. To calibrate the size of the
-differences against measurement noise, we first quantified the run-to-run fluctuation of
-the full model's own validation PSNR between adjacent $10$k checkpoints, which is
-$\sim0.03$\,dB. The improvements of the full configuration are consistent and lie at or
-above this level: the full model attains the best reconstruction in \emph{every} ablation
-group, on \emph{both} Set5 and Urban100, with per-cell margins up to
-$\sim0.06$--$0.08$\,dB. Crucially, the evidence is the \emph{agreement of these gains
-across all three groups and both benchmarks} rather than any single cell: a purely random
-fluctuation would not favor the full configuration systematically in this way. We
-therefore read the PSNR/SSIM columns as evidence that each design element is
-\emph{quality-preserving-to-positive and component-compatible}---the full configuration is
-never worse and is consistently the best---while, given the shared initialization, we
-attribute the effect to the design elements jointly rather than crediting any single
-switch with an isolated gain; the routing-level mechanisms are further substantiated
-through the diagnostics. A fully separated per-switch attribution would require retraining
-every variant from a switch-neutral initialization under the CATANet $\times4$
-full-budget ablation protocol; this remains future work.
+\paragraph{C1: dynamic prototypes vs.\ history centers.}
+Table~\ref{tab:abl_c1} directly compares DPR's dynamic, per-image prototype generation
+(the full model) against a cross-batch history center with an EMA update
+(\emph{EMA-center}), a re-implementation of the center-based mechanism of the baseline that
+keeps the identical backbone, interface, and everything downstream of the prototype
+generator. Under this matched protocol, dynamic prototypes give the better
+reconstruction on both benchmarks (Set5 $32.57$ vs.\ $32.51$\,dB, Urban100 $26.87$ vs.\
+$26.76$\,dB) and with lower seed-to-seed variance. This provides a direct controlled
+confirmation of C1: forming prototypes from the current tokens, rather than accumulating them
+across batches, is what improves the routing---not merely a difference in capacity or
+training budget, which are held fixed here.
 
 \paragraph{A1: decoupled prototype confirmation.}
 Table~\ref{tab:abl_a1} compares DPR with and without the query-refinement stage
-(Eq.~\eqref{eq:proto_refine}). Enabling refine gives the better result on both
-benchmarks (Set5 $32.59$ vs.\ $32.55$\,dB; Urban100 $26.89$ vs.\ $26.84$\,dB),
-showing that the learnable query bank improves reconstruction under this protocol.
-As the refinement is gated by a small-initialized scalar
-(Eq.~\eqref{eq:proto_refine}), it acts as a residual confirmation step that keeps the
-prototype slots stable while decoupling generation from confirmation (C2); we therefore
-retain it by default. The motivation for dynamic, per-image prototypes over the
-cross-batch EMA centers of the baseline (C1) is supported indirectly by the published
-CATANet results rather than by this controlled switch, since re-implementing the EMA
-center branch is outside the scope of our ablation.
+(Eq.~\eqref{eq:proto_refine}). Enabling refine improves the result on both benchmarks
+(Set5 $32.57$ vs.\ $32.53$\,dB; Urban100 $26.87$ vs.\ $26.82$\,dB), and because the gain
+($\sim0.04$--$0.05$\,dB) exceeds the seed-to-seed standard deviation ($\sim0.02$--$0.03$\,dB),
+it is attributable to the refine switch itself rather than to run-to-run noise. The refinement
+is gated by a small-initialized scalar (Eq.~\eqref{eq:proto_refine}), so it acts as a residual
+confirmation step that keeps the prototype slots stable while decoupling generation from
+confirmation (C2); we therefore retain it by default.
 
 \paragraph{A2: confidence-aware routing.}
 Table~\ref{tab:abl_a2} adds the three confidence-aware components cumulatively:
 confidence-aware ordering (Eq.~\eqref{eq:sortkey}), the IASA score gate
 (Eq.~\eqref{eq:iasa_gate}), and the soft prototype fallback
-(Eq.~\eqref{eq:soft_fallback}). The full configuration (v4) is the best of the four on
-both Set5 and Urban100, but the intermediate steps are not monotone---adding the
-ordering and gate alone slightly lowers PSNR before the complete set recovers and
-surpasses the hard-routing baseline. Given the shared-initialization protocol above,
-this indicates that the three switches are mutually compatible and that the complete
-confidence-aware path is quality-preserving-to-mildly-positive, rather than each switch
-being individually accuracy-additive on top of a converged backbone. We keep the
-components because they make the routing path interpretable and confidence-driven: the
-retained per-token confidence $x^{\mathrm{s}}$ modulates ordering, the global gate, and
-the fallback (C3), which we visualize through the $x^{\mathrm{s}}$ distributions in
-Sec.~\ref{sec:routing_analysis}.
+(Eq.~\eqref{eq:soft_fallback}). The full configuration (v4) is clearly the best of the four on
+both Set5 and Urban100, and by more than the seed standard deviation. The intermediate steps,
+however, are not monotone---adding the ordering and gate alone slightly lowers PSNR before the
+complete set recovers and surpasses the hard-routing baseline. We therefore read the three
+switches as mutually compatible and most effective as the \emph{complete} confidence-aware
+path, rather than each switch being individually accuracy-additive. We keep the components
+because they make the routing path interpretable and confidence-driven: the retained per-token
+confidence $x^{\mathrm{s}}$ modulates ordering, the global gate, and the fallback (C3), which
+we visualize through the $x^{\mathrm{s}}$ distributions in Sec.~\ref{sec:routing_analysis}.
 
 \paragraph{A3: prototype usage balancing.}
 Table~\ref{tab:abl_a3} isolates the usage-balancing regularizer
 (Eq.~\eqref{eq:balance}). Enabling it raises the block-averaged normalized usage entropy
-from $0.6227$ to $0.6865$ on Urban100, and the increase is \emph{consistent across all
+from $0.623$ to $0.686$ on Urban100, and the increase is \emph{consistent across all
 eight TAB blocks} ($b_0$--$b_7$; Table~\ref{tab:abl_a3_perblock}), i.e.\ the regularizer
 drives a more balanced use of prototype slots and counteracts the collapse that the
-learnable temperature would otherwise encourage (C4). The reconstruction quality is also
-slightly higher with the regularizer enabled (Set5 $32.59$ vs.\ $32.57$\,dB; Urban100
-$26.89$ vs.\ $26.83$\,dB), so the balancing does not trade accuracy for a flatter usage
-distribution. The entropy effect is visible even under the short shared-initialization protocol
-because it concerns the usage \emph{distribution}, not absolute reconstruction quality.
-The complementary part of C4---a reduction of seed-to-seed variance---requires repeating
-the runs over multiple seeds; with a single seed available we report the balancing
-mechanism here and leave the variance analysis as future work, and we do not claim a
-variance reduction without those runs.
+learnable temperature would otherwise encourage (C4). Reconstruction quality is also slightly
+higher with the regularizer enabled (Set5 $32.57$ vs.\ $32.55$\,dB; Urban100 $26.87$ vs.\
+$26.85$\,dB), so the balancing does not trade accuracy for a flatter usage distribution.
+Crucially, with three seeds available we can now assess the second part of C4: enabling the
+balance loss \emph{reduces} the seed-to-seed standard deviation on both benchmarks
+($0.05\!\rightarrow\!0.02$\,dB) and on the usage entropy itself
+($0.008\!\rightarrow\!0.003$). The regularizer thus makes both the accuracy and the routing
+behavior more stable across seeds, supporting the variance-reduction sub-claim of C4 rather
+than only the balancing mechanism.
 
 \paragraph{Summary.}
-The ablations show that DPR's design elements are quality-neutral-to-mildly-positive and
-mutually compatible under a shared-initialization study---the full model is the best
-variant in every group---and that the balancing regularizer produces a measurable,
-block-consistent increase in prototype-usage entropy. Stronger, fully separated accuracy
-attributions require independent full-budget training; the present study supports the
-mechanism of each component without overstating its isolated contribution to PSNR.
+Across three seeds, the ablations show that DPR's design elements are
+quality-preserving-to-positive and mutually compatible---the full model is the best variant in
+every group. Beyond the mean effects, the study substantiates two mechanism claims: dynamic
+prototypes outperform an EMA history center under a matched protocol (C1), and the
+usage-balancing regularizer both increases prototype-usage entropy block-consistently and
+lowers seed-to-seed variance (C4).

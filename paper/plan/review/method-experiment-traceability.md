@@ -5,10 +5,10 @@
 
 | Contribution | Method 模块 | 实验 | 表/图 | 允许的 claim | 证据状态 |
 |---|---|---|---|---|---|
-| C1 动态语义原型（替代历史中心+EMA） | DPR soft assignment (2.2) | **C1 直接对照（2026-07-05 升级）**：routing_mode=dpr vs ema_center，from-scratch 同协议同 seed（EMACenterRouter 已实现）。旧：refine 开关消融 + 引用 CATANet 间接对比 | Table III + 聚类图 Fig.8 | 待新实验完成后可主张"动态原型 ≥ 历史中心+EMA"的受控结论；在此之前仅动机层面，不主张 PSNR 增益 | **代码就绪，待跑新实验**（ablfs_c1_dpr vs c1_emacenter × 3 seed）；旧受限数据见下 |
-| C2 原型生成与确认解耦（refine） | prototype query refine (2.3) | A1 refine on/off（use_prototype_query_refine）；新协议 ablfs_A1_refine_off × 3 seed | Table III | 旧口径："refine 不损质量、保持槽位稳定，更正数据下略优（Set5 +0.04/Urban100 +0.05dB）"，因共享初始化+短预算不主张单开关独立增益；新协议完成后可给 mean±std 归因 | 已训练（受限）；新协议待跑 |
-| C3 置信度感知路由（排序+门控+fallback） | 2.4-2.6 | A2 逐项加法（三 flag 已实现）+ 路由诊断（§3.6 sec:routing_analysis）；新协议 ablfs_A2_v1-v3 × 3 seed | Table IV + x_scores 直方图 Fig.5（待推理出图） | "各组件相互兼容、质量中性偏正（v4 全开为四者最高）"（A2）；"置信度信号在各 block 非退化、可用"（§3.6 已有日志统计支撑）；中间步非单调，不主张逐项 PSNR 单调增益；新协议完成后可给 mean±std | 已训练（受限）；§3.6 机制分析已写；新协议待跑 |
-| C4 路由稳定化（路由温度+balance loss） | router scale (2.4) + balance loss (2.7) | A3（新协议 ablfs_A3_balance_off × 3 seed，**优先跑**）+ 路由诊断（§3.6）；旧 A3 单 seed | Table V + usage 熵图 Fig.6（已出，fig6_usage_entropy.tex） | balance loss 使 prototype 使用更均衡（8 block 熵全升 0.6227→0.6865、active 槽 47.5→52.3）；温度稳定未饱和（τ≈6.06<10）；**"多 seed 方差下降"待 3-seed from-scratch 完成后方可主张** | 部分已训练（均衡/温度机制已有，§3.6+Fig.6）；方差待新协议 3 seed |
+| C1 动态语义原型（替代历史中心+EMA） | DPR soft assignment (2.2) | **C1 直接对照（2026-07-06 完成）**：routing_mode=dpr vs ema_center，from-scratch 250k 同协议 3 seed（EMACenterRouter） | **Table C1** (table_c1_dpr_vs_ema.tex) + 聚类图 Fig.8 | 可主张"动态原型在同协议下优于历史中心+EMA"的受控结论（Set5 +0.06dB、Urban100 +0.11dB，且方差更低） | **已完成**：ablfs_c1_dpr(=full) vs c1_emacenter × 3 seed，正文/表已回填 |
+| C2 原型生成与确认解耦（refine） | prototype query refine (2.3) | A1 refine on/off（use_prototype_query_refine）；from-scratch 250k × 3 seed | **Table III** | 可主张单开关归因："refine 提升重建（Set5 +0.04/Urban100 +0.05dB），增益大于 seed 间 std" | **已完成**：from-scratch 3-seed mean±std 已回填 |
+| C3 置信度感知路由（排序+门控+fallback） | 2.4-2.6 | A2 逐项加法（三 flag）+ 路由诊断（§3.6 sec:routing_analysis）；from-scratch 250k × 3 seed | **Table IV** + x_scores 直方图 Fig.5 | "各组件相互兼容、完整通路(v4)最优且优于 seed std；中间步(v2/v3)非单调，不主张逐项单调增益"；"置信度信号各 block 非退化、可用"（§3.6） | **已完成**：from-scratch 3-seed mean±std 已回填 |
+| C4 路由稳定化（路由温度+balance loss） | router scale (2.4) + balance loss (2.7) | A3（from-scratch 250k × 3 seed）+ 路由诊断（§3.6）+ Fig.6 | **Table V** + usage 熵图 Fig.6 | balance loss 使 prototype 使用更均衡（8 block 熵全升 0.623→0.686、active 槽 47.5→52.3）；温度稳定未饱和（τ≈6.06<10）；**"多 seed 方差下降"现已成立**（Set5/Urban100 std 0.05→0.02dB、usage 熵 std 0.008→0.003） | **已完成**：3-seed from-scratch，均衡机制 + 方差下降均已回填 |
 | 整体有效性 | 全 DPR | 主对比 | Table I/II + 视觉图 Fig.7 | DPRNet 在轻量设定下达到有竞争力的 PSNR/SSIM 与效率 | 自测数据已全(x2/x3/x4 主表+效率)；对手指标已摘录(B节,8方法)；Table I/II 已拼装(paper/tables/)；**视觉图 Fig.7 已完成**(GT/Bicubic/IMDN/SwinIR-light/SRFormer-light/CATANet/DPRNet/GT crop，纯定性不标指标，续7+续8) |
 
 ## 证据状态图例
@@ -25,10 +25,30 @@
     （旧 720×1280 反推数据 126.52/64.28/45.77G 已废弃。x4 52.14G 高于 CATANet 46.8G 但低于 SwinIR-light 60.3G/SRFormer-light 56.5G。）
   注：均为自测数据；baseline 对手指标（B 节）已摘录回填（8 方法三尺度，标注来源 A/B/C/D），
   可与本文自测数据拼装 Table I/II 对比列。
-- 待训练：消融变体（A1/A2/A3）训练完成后回填 C1–C4。
+- 已完成（2026-07-06）：from-scratch 250k × 3 seed 新协议消融全部跑完并回填 C1–C4
+  （新增 Table C1；Table III/IV/V 改为 mean±std；正文/摘要/讨论/结论已同步）。
 - 严禁：在证据状态非"已有/已完成"时，正文用"results show/实验表明"等断言。
 
-## 消融实验的已知局限（2026-06-17 起；2026-06-27 按更正数据修订）
+## ⭐ 消融升级完成（2026-07-06）：from-scratch 3-seed 新协议已回填
+
+旧的「共享全功能初始化 + 80k + 单 seed」受限口径消融已被 **from-scratch 250k × 3 seed
+（3407/42/1234）mean±std** 新协议取代并回填入稿件。核心结果（数据源
+`paper/plan/ablation-results-to-fill.md`）：
+
+- **C1（新增 Table C1）**：DPR（=full）vs EMA-center，同协议仅换原型生成机制。
+  Set5 32.57±0.02 vs 32.51±0.04 dB；Urban100 26.87±0.02 vs 26.76±0.06 dB。
+  动态原型在两基准均更优且方差更低 → C1 从"引用间接动机"升级为**受控直接结论**。
+- **C2（Table III）**：refine on/off，Set5 32.57±0.02 vs 32.53±0.03，Urban100 26.87±0.02
+  vs 26.82±0.04；增益 > seed std → 可做**单开关归因**。
+- **C3（Table IV）**：v1–v4，v4(full) 两基准最优且优于 seed std；v2/v3 中间步非单调 →
+  按"组件兼容、完整通路最优、不主张逐项单调增益"写。
+- **C4（Table V + Fig.6）**：usage 熵 8 block 全升（0.623→0.686）、active 槽 47.5→52.3、
+  τ≈6.06<10；**方差下降现已成立**：Set5/Urban100 PSNR std 0.05→0.02 dB、usage 熵 std
+  0.008→0.003 → C4 方差子主张不再"待定"。
+
+下面「消融实验的已知局限」一节为旧受限口径的历史记录，**已被上述新协议取代**，仅作留档。
+
+## 消融实验的已知局限（2026-06-17 起；2026-06-27 按更正数据修订；2026-07-06 已被 from-scratch 3-seed 取代，仅留档）
 
 所有 6 个 x4 消融变体（full / A1_refine_off / A2_v1-v3 / A3_balance_off）均已跑满预算
 （A1/A2/A3 各 80k，full 100k），日志在 CATANet/experiments/，解析干净。更正后的 full 行为

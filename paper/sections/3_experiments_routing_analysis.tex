@@ -1,9 +1,10 @@
 % =====================================================================
 % Section: Experiments -- Routing interpretability analysis (outline.md §3.6;
 %   defines sec:routing_analysis, referenced by 3_experiments_ablation.tex).
-% Draft v1 (2026-06-17). All numbers are taken verbatim from the x4 routing
-%   diagnostics logged at iter 80k on Urban100 (paper/data/ablation_metrics.csv,
-%   ablation_perblock_urban100_80k.csv). Per-block prototype count
+% Draft v2 (2026-07-06). All numbers are taken verbatim from the x4 routing
+%   diagnostics of the full model on Urban100
+%   (paper/plan/ablation-results-to-fill.md Sections 5b/5c/6; per-block usage
+%   entropy uses the representative seed 3407). Per-block prototype count
 %   M=[16,32,64,128,16,32,64,128] (catanet_arch.py:516); entropy/usage/temperature
 %   definitions in catanet_model.py:323-338. Figure: paper/figures/fig6_usage_entropy.tex.
 % Claims follow plan/review/method-experiment-traceability.md: usage balancing (C4)
@@ -16,7 +17,7 @@
 
 To inspect DPR's routing behavior independently of its effect on PSNR, we analyze
 the diagnostics logged during validation at $\times4$
-(iter $80$k, Urban100). For each of the $L{=}8$ TAB blocks we record the per-token
+(Urban100, full model). For each of the $L{=}8$ TAB blocks we record the per-token
 routing confidence $x^{\mathrm{s}}=\max_m S_{n,m}$ (Eq.~\eqref{eq:belong}), the
 number of \emph{active} prototypes (slots receiving at least one token), the
 normalized usage entropy $\mathcal{H}(u)$ (Eq.~\eqref{eq:balance}), and the learned
@@ -26,9 +27,9 @@ $M=[16,32,64,128,16,32,64,128]$ prototypes respectively.
 \paragraph{Balanced prototype usage (C4).}
 Fig.~\ref{fig:usage_entropy} reports the normalized usage entropy per block with
 and without the balancing regularizer. With balancing enabled (the full model) the
-entropy is higher in \emph{all eight} blocks, raising the block-mean from $0.6227$
-to $0.6865$; the effect is largest in the high-frequency-oriented block $b_4$
-($0.7088\!\rightarrow\!0.8466$). Consistently, the average number of active
+entropy is higher in \emph{all eight} blocks, raising the block-mean from $0.623$
+to $0.686$; the effect is largest in the high-frequency-oriented block $b_4$
+($0.709\!\rightarrow\!0.847$). Consistently, the average number of active
 prototypes increases from $47.5$ to $52.3$ across blocks, meaning that fewer slots are
 left unused. Because a learnable temperature can otherwise sharpen the assignment
 distribution and concentrate tokens on a handful of prototypes, these two

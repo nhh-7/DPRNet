@@ -5,6 +5,52 @@
 
 ---
 
+## 2026-07-06 · from-scratch 3-seed 消融结果回填（C1–C4 全部落地）
+
+用户已在训练机跑完 from-scratch 250k × 3 seed（3407/42/1234）新协议消融，并把结果写入
+`paper/plan/ablation-results-to-fill.md`。本轮据此完成计划 §7 的稿件回填：
+
+- **新增 Table C1**（`paper/tables/table_c1_dpr_vs_ema.tex`）：DPR（=full）vs EMA-center，
+  同协议仅换原型生成机制。Set5 32.57±0.02 vs 32.51±0.04 dB、Urban100 26.87±0.02 vs 26.76±0.06 dB，
+  DPR 两基准均更优且方差更低。已 \input 进 main.tex 与 main_mdpi.tex（A1 表之前），MDPI 里编号为 Table 4。
+- **Table III/IV/V 改为 mean±std**（`table3/table4/table5_ablation_a3.tex`）：全部改为 from-scratch
+  250k、3 seed、报 PSNR mean±std（逐 seed 只有 PSNR，无逐 seed SSIM，故 A1/A2/A3 表只报 PSNR，不编造 SSIM std）。
+  去掉全部"共享全功能初始化 / 80k / 单 seed"受限口径注。A3 表新增方差下降证据
+  （Set5/Urban100 std 0.05→0.02 dB、usage 熵 std 0.008→0.003），支撑 C4 方差子主张。
+- **正文回填**：
+  · `3_experiments_ablation.tex` 重写为 from-scratch 3-seed 协议，新增「C1: dynamic prototypes vs
+    history centers」段（直接受控对照），A1 改为单开关归因，A2 保留非单调诚实口径，A3 补方差下降。
+  · `3_experiments_routing_analysis.tex` usage 熵数字 0.6227→0.6865 更新为 0.623→0.686，去 iter-80k 口径。
+  · `fig6_usage_entropy.tex` 数据源/caption 改为 from-scratch 代表 seed 3407（逐 block 值本就一致，仅口径措辞变）。
+  · `0_abstract.tex` + main_mdpi.tex 内联摘要：补"from-scratch multi-seed 消融确认 DPR>EMA、balance loss 使
+    usage 更均衡且跨 seed 更稳定"。
+  · `4_discussion.tex`：C1 从"间接支撑"改为"直接对照"；限制段删"共享初始化/单 seed/方差待定/未重实现 EMA 分支"，
+    改为"from-scratch 3-seed、可单开关归因、方差已报；C1 直接对照仅在 x4 Set5/Urban100"。
+  · `5_conclusion.tex`：删未来工作里"分离开关 + 多 seed 方差研究"（已完成），保留 cross-method latency 与更大数据集。
+- **可追溯表**（`method-experiment-traceability.md`）：C1–C4 证据状态从"待跑/受限"改为"已完成"，
+  更新允许 claim；新增「消融升级完成（2026-07-06）」小节，旧「消融实验的已知局限」标注为留档。
+- **数据文件**：`ablation-results-to-fill.md` 的所有 mean±std 空格已算好填入（C1/A1/A2/A3/5b 全部）；
+  逐 seed 无 SSIM / 无活跃槽 std 处标 n/a 不编造。
+- ✅ **两套 build 均 TinyTeX latexmk 干净编译**：main.pdf 16 页、main_mdpi.pdf 23 页，
+  exit=0，0 error / 0 undefined ref / 0 Overfull/Underfull；渲染第 15/16/17 页目视确认
+  Table C1/A1/A2/A3 mean±std 正常、方差下降表正常。
+
+### Capability-use audit
+
+- Required skills: research-writing-assistant / using-research-writing; S3 Experiments backfill + S5 Review。
+- Skills actually used: 遵循 evidence-driven + 诚实口径要求；未编造 SSIM std / 活跃槽 std（逐 seed 数据缺失处标 n/a）。
+- Inputs consumed: `paper/plan/ablation-results-to-fill.md`（新数据）、既有 sections/tables/figures、
+  `method-experiment-traceability.md`、`progress.md`。
+- Artifacts produced: 新表 table_c1_dpr_vs_ema.tex；改写 table3/4/5、3_experiments_ablation/routing_analysis、
+  fig6、abstract（×2）、discussion、conclusion；更新 traceability + 本 progress + 填好 ablation-results-to-fill.md。
+- Verification run: TinyTeX latexmk 编译 main.tex（16 页）与 main_mdpi.tex（23 页）均 exit=0、
+  0 undefined/Overfull；grep 复查无残留 0.6227/0.6865/32.5878/26.8905/80k/single-seed 旧值（仅注释/对比语保留）；
+  Ghostscript 渲染第 15/16/17 页目视核对。
+- Remaining risk: A1/A2/A3 逐 seed 仅有 PSNR，表内只报 PSNR mean±std（SSIM 不报 std，非缺陷但审稿人可能问）；
+  C1 直接对照仅在 x4 Set5/Urban100，未扩到全 5 基准（已在 Discussion 限制段声明）。
+
+---
+
 ## 2026-07-05 · 消融协议升级（因果归因）+ C1 EMA-center 对照实现
 
 针对审阅意见（消融共享初始化无法归因、单 seed 无显著性、C1 未直接验证），落地三项改动：

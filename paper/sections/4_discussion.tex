@@ -5,10 +5,10 @@
 % Consistent with the honest framing of the experiments:
 %   - DPRNet matches/slightly surpasses CATANet at comparable compute
 %     (3_experiments_comparison.tex, 3_experiments_efficiency.tex).
-%   - Ablation is a shared-init, short-budget, single-seed study; no isolated-gain
-%     or variance-reduction claims (3_experiments_ablation.tex,
-%     method-experiment-traceability.md "消融实验的已知局限").
-%   - Some figures (x^s histogram, cluster maps, visual comparison) are camera-ready.
+%   - Ablation is now a 250k, 3-seed study (mean+/-std): single-switch
+%     attribution + C1 direct EMA comparison + C4 variance reduction are supported;
+%     margins are still small (3_experiments_ablation.tex,
+%     method-experiment-traceability.md).
 % No new numeric claims beyond those already established in the body.
 % =====================================================================
 \section{Discussion}
@@ -50,7 +50,7 @@ temperature is clamped (Eq.~\eqref{eq:scores}) and the usage-balancing regulariz
 Sec.~\ref{sec:routing_analysis} show both mechanisms operating as intended---the learned
 temperature settles in a moderate, unsaturated range (block-mean $6.06$, below the clamp
 of $10$) and the balancing regularizer raises the prototype-usage entropy in all eight
-blocks ($0.6227\!\rightarrow\!0.6865$) while increasing the number of active prototypes.
+blocks ($0.623\!\rightarrow\!0.686$) while increasing the number of active prototypes.
 Thus, the benefits of confidence-aware routing are obtained without letting the
 router become degenerate.
 
@@ -69,16 +69,14 @@ A systematic sweep of the prototype schedule is a natural extension but is ortho
 to the routing formulation studied here.
 
 \paragraph{Limitations.}
-Several limitations bound the present study and frame our claims conservatively. First,
-the ablations (Sec.~\ref{sec:ablation}) initialize every variant from the same converged
-full-model state under a short $80$k-iteration, single-seed budget; this isolates
-whether each design element is quality-neutral-to-mildly-positive and mutually compatible,
-but it cannot attribute an isolated PSNR gain to any single switch, and the seed-variance
-component of C4 is therefore left as future work rather than asserted. A fully separated
-attribution would require retraining each variant from a switch-neutral initialization
-under the CATANet $\times4$ full-budget ablation protocol. Second, the motivation for dynamic, per-image
-prototypes over cross-batch EMA centers (C1) is supported indirectly through the published
-CATANet results rather than through a re-implemented EMA branch. Third, the efficiency
+Several limitations bound the present study and frame our claims conservatively. The
+ablations (Sec.~\ref{sec:ablation}) train every variant over three seeds, which
+supports single-switch attribution and lets us report both the mean effect and its
+seed-to-seed variance; the margins over the strongest configuration nonetheless remain small,
+so we frame the design elements as quality-preserving-to-positive and mutually compatible
+rather than as large individual gains. The direct comparison against a re-implemented EMA
+center branch (C1) is conducted only at $\times4$ on Set5 and Urban100, the setting in which
+content routing is most stressed, rather than across all five benchmarks. The efficiency
 comparison is intentionally limited to common-protocol MACs and our measured DPRNet runtime:
 we do not claim cross-method latency because the competing models were not remeasured on the
 same hardware and implementation stack (Sec.~\ref{sec:efficiency}). Finally, models are

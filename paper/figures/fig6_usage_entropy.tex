@@ -4,12 +4,12 @@
 % Self-contained pgfplots figure; \input into the paper.
 % Requires in preamble: \usepackage{pgfplots}\pgfplotsset{compat=1.16}
 % DATA PROVENANCE (verbatim, no fabrication):
-%   paper/data/ablation_perblock_urban100_80k.csv, column entropy_norm,
-%   x4 ablation @ iter 80k on Urban100. Per-block prototype count M =
-%   [16,32,64,128,16,32,64,128] (catanet_arch.py:516). Higher entropy = more
-%   balanced prototype usage. "balance on" = full model; "balance off" =
-%   route_balance_weight all 0 (A3_balance_off).
-% Block means: on 0.6865 vs off 0.6227 (raised in ALL 8 blocks).
+%   paper/plan/ablation-results-to-fill.md Section 5c (per-block usage entropy),
+%   x4 ablation on Urban100, representative seed 3407. Per-block
+%   prototype count M = [16,32,64,128,16,32,64,128] (catanet_arch.py:516). Higher
+%   entropy = more balanced prototype usage. "balance on" = full model; "balance
+%   off" = route_balance_weight all 0 (A3_balance_off).
+% Block means: on 0.686 vs off 0.623 (raised in ALL 8 blocks).
 % =====================================================================
 \begin{figure}[t]
 \centering
@@ -41,9 +41,9 @@
 \end{axis}
 \end{tikzpicture}
 \caption{Normalized prototype-usage entropy $\mathcal{H}(u)$ (Eq.~\eqref{eq:balance};
-higher $=$ more balanced) per TAB block ($b_0$--$b_7$) at $\times4$, iter $80$k on
-Urban100. The usage-balancing regularizer increases the entropy in \emph{all eight}
-blocks (block-mean $0.6227\!\rightarrow\!0.6865$), confirming that it counteracts the
-collapse onto a few prototypes encouraged by the learnable temperature (C4).}
+higher $=$ more balanced) per TAB block ($b_0$--$b_7$) at $\times4$ on Urban100 (full
+model, representative seed $3407$). The usage-balancing regularizer increases the entropy in
+\emph{all eight} blocks (block-mean $0.623\!\rightarrow\!0.686$), confirming that it counteracts
+the collapse onto a few prototypes encouraged by the learnable temperature (C4).}
 \label{fig:usage_entropy}
 \end{figure}

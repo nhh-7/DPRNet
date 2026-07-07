@@ -1,11 +1,12 @@
 % =====================================================================
 % Section: Abstract  (outline.md "Abstract", 150-250 words)
-% Draft v3 (2026-06-28). Wording mirrors the honest framing used in the body:
+% Draft v4 (2026-07-06). Wording mirrors the honest framing used in the body:
 %   DPRNet matches CATANet-level accuracy with small gains on most benchmark cells
-%   (1_introduction.tex L86-89, 3_experiments_comparison.tex, 3_experiments_efficiency.tex).
+%   (1_introduction.tex, 3_experiments_comparison.tex, 3_experiments_efficiency.tex).
 %   Numbers VERBATIM from paper/tables/* and paper/data/*: x4 Urban100 26.89 dB,
 %   52.14G Multi-Adds (256x256-input protocol; below SwinIR-light 60.3G / SRFormer-light
-%   56.5G, above CATANet 46.8G), usage entropy 0.6227->0.6865.
+%   56.5G, above CATANet 46.8G). Ablation is a 250k, 3-seed study: C1 dynamic
+%   prototypes > EMA center, C4 balance loss -> more balanced + lower-variance usage.
 %   No overstated compute/isolated-gain claims; consistent with method-experiment-traceability.md.
 % =====================================================================
 \begin{abstract}
@@ -23,6 +24,8 @@ benchmarks at $\times2/\times3/\times4$, DPRNet stays in the lightweight regime 
 matches CATANet-level accuracy, with small gains on most benchmark cells. At $\times4$,
 for example, it obtains $26.89$\,dB on Urban100 with $52.14$\,G Multi-Adds. It uses fewer
 Multi-Adds than the lightweight Transformer baselines SwinIR-light and SRFormer-light
-under the same input convention, while providing interpretable routing diagnostics in
-which confidence remains soft and prototype usage becomes more balanced.
+under the same input convention. Multi-seed ablations confirm that the
+dynamic prototypes outperform a history-center variant with an exponential moving average
+and that the balancing loss makes prototype usage both more balanced and more stable across
+seeds, while the routing diagnostics remain interpretable with soft assignment confidence.
 \end{abstract}

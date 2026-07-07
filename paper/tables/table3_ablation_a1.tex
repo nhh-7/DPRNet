@@ -1,39 +1,37 @@
-% Table III — Ablation A1: prototype query refine (verifies C2).
+% Table III -- Ablation A1: prototype query refine (verifies C2).
 % Requires: \usepackage{booktabs}
-% Provenance: paper/plan/data-collection-checklist.md / experiment-protocol.md §5.A1.
-%   x4 ablation, finetuned from the full-functioning checkpoint net_g_250000 for an 80k budget.
-%   Metrics parsed from training logs at iter 80000 (val on Set5 + Urban100, Y channel, crop_border=4).
-%   entropy_norm = block-averaged normalized prototype-usage entropy on Urban100 (8 TAB blocks).
-% IMPORTANT (honest disclosure): all variants share the SAME full-functioning initialization and a SHORT
-%   80k finetune budget; the full model is best but the margin is small (~0.04-0.05 dB) and must NOT be
-%   over-read as a large isolated gain. The ablation is reported for mechanism + quality (mildly positive),
-%   not for a strong absolute-PSNR claim.
+% Provenance: paper/plan/ablation-results-to-fill.md (Section 3) / experiment-protocol.md §5.0.
+%   x4 ablation, trained for 250k on DIV2K over 3 seeds {3407,42,1234}.
+%   PSNR(dB) mean+/-std (Y channel, crop_border=4) on Set5 and Urban100; report point is the
+%   validation-best checkpoint (best on Set5+Urban100 mean).
+% SUPPORTED CLAIM (single-switch): enabling the query-refinement stage
+%   improves PSNR consistently across all 3 seeds on both benchmarks (Set5 +0.04 dB,
+%   Urban100 +0.05 dB); the gain is larger than the seed-to-seed std, so it is a clean
+%   single-switch attribution.
 \begin{table}[t]
 \centering
-\caption{Ablation A1 ($\times 4$): prototype query refine. PSNR(dB)/SSIM (Y channel) at iter 80k and
-block-averaged normalized prototype-usage entropy on Urban100. Enabling refine gives the better
-reconstruction on both benchmarks under the short finetune protocol; it is retained as it improves
-(and does not degrade) quality while keeping slot assignment stable.}
+\caption{Ablation A1 ($\times 4$): prototype query refine. PSNR(dB) mean$\pm$std (Y channel)
+over three seeds. Enabling refine improves reconstruction on both benchmarks by
+more than the seed variance, confirming that decoupling prototype generation from confirmation
+(C2) is quality-positive; we retain it by default.}
 \label{tab:abl_a1}
 \resizebox{\columnwidth}{!}{%
-\begin{tabular}{l cc c}
+\begin{tabular}{l cc}
 \toprule
-\multirow{2}{*}{Variant} & \multicolumn{2}{c}{Set5} & Urban100 \\
-\cmidrule(lr){2-3}
- & PSNR & SSIM & PSNR/SSIM \\
+Variant & Set5 PSNR & Urban100 PSNR \\
 \midrule
-w/o refine               & 32.5494 & 0.8995 & 26.8358 / 0.8065 \\
-w/\ \ refine (default)   & 32.5878 & 0.9001 & 26.8905 / 0.8086 \\
+w/o refine               & $32.53\pm0.03$ & $26.82\pm0.04$ \\
+w/\ \ refine (default)   & $\mathbf{32.57\pm0.02}$ & $\mathbf{26.87\pm0.02}$ \\
 \bottomrule
 \end{tabular}%
 }
 
 \vspace{2pt}
 {\footnotesize
-\textit{Notes.} $\times 4$ ablation finetuned from the full-functioning checkpoint
-(\texttt{net\_g\_250000}) for an 80k budget; metrics read at iter 80k. Enabling refine yields the better
-PSNR/SSIM on both Set5 and Urban100, though all variants share this initialization and a short budget so
-the margin (\,$\sim$0.04--0.05\,dB\,) should not be over-read as a large isolated gain. The design
-motivation of dynamic prototypes vs.\ history-center+EMA is supported indirectly by the cited CATANet
-results (Table~I), not by this controlled ablation.}
+\textit{Notes.} Each variant is trained for $250$k iterations on DIV2K with seeds
+$\{3407,42,1234\}$ and reported as mean$\pm$std at the validation-best checkpoint. Enabling
+refine yields the better PSNR on both Set5 ($+0.04$\,dB) and Urban100 ($+0.05$\,dB); because the
+improvement exceeds the seed-to-seed standard deviation, it is attributable to the query-refine
+switch itself. The comparison of dynamic prototypes against a history center with EMA update
+(C1) is reported separately in Table~\ref{tab:abl_c1}.}
 \end{table}
