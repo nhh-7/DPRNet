@@ -15,16 +15,19 @@ over three seeds. Enabling refine improves reconstruction on both benchmarks by
 more than the seed variance, confirming that decoupling prototype generation from confirmation
 (C2) is quality-positive; we retain it by default.}
 \label{tab:abl_a1}
-\resizebox{\columnwidth}{!}{%
-\begin{tabular}{l cc}
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lcc}
 \toprule
 Variant & Set5 PSNR & Urban100 PSNR \\
 \midrule
 w/o refine               & $32.53\pm0.03$ & $26.82\pm0.04$ \\
 w/\ \ refine (default)   & $\mathbf{32.57\pm0.02}$ & $\mathbf{26.87\pm0.02}$ \\
 \bottomrule
-\end{tabular}%
-}
+\end{tabular*}
+\endgroup
 
 \vspace{2pt}
 {\footnotesize

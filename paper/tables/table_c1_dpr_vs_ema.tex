@@ -17,16 +17,21 @@ over three seeds. Values are mean$\pm$std PSNR(dB)/SSIM (Y channel) on Set5 and 
 Under a matched protocol that differs \emph{only} in the prototype generator, dynamic
 prototypes give the better reconstruction on both benchmarks with lower seed variance.}
 \label{tab:abl_c1}
-\resizebox{\columnwidth}{!}{%
-\begin{tabular}{l cc}
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}llcc}
 \toprule
-Prototype generator & Set5 (PSNR / SSIM) & Urban100 (PSNR / SSIM) \\
+Benchmark & Prototype generator & PSNR & SSIM \\
 \midrule
-EMA-center             & $32.51\pm0.04$ / $0.8990\pm0.0004$ & $26.76\pm0.06$ / $0.8052\pm0.0009$ \\
-DPR (dynamic, $=$full) & $\mathbf{32.57\pm0.02}$ / $\mathbf{0.9000\pm0.0002}$ & $\mathbf{26.87\pm0.02}$ / $\mathbf{0.8085\pm0.0003}$ \\
+Set5     & EMA-center             & $32.51\pm0.04$ & $0.8990\pm0.0004$ \\
+Set5     & DPR (dynamic, $=$full) & $\mathbf{32.57\pm0.02}$ & $\mathbf{0.9000\pm0.0002}$ \\
+Urban100 & EMA-center             & $26.76\pm0.06$ & $0.8052\pm0.0009$ \\
+Urban100 & DPR (dynamic, $=$full) & $\mathbf{26.87\pm0.02}$ & $\mathbf{0.8085\pm0.0003}$ \\
 \bottomrule
-\end{tabular}%
-}
+\end{tabular*}
+\endgroup
 
 \vspace{2pt}
 {\footnotesize

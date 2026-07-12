@@ -75,9 +75,9 @@ temperature, and carries assignment confidence into token ordering, global gatin
 soft fallback; a balancing loss discourages prototype-slot collapse. Trained on DIV2K and
 evaluated on five standard benchmarks at
 \texorpdfstring{$\times2/\times3/\times4$}{x2/x3/x4}, DPRNet stays in the lightweight
-regime and matches CATANet-level accuracy, with small gains on most benchmark cells
-(e.g.\ \texorpdfstring{$26.89$\,dB}{26.89 dB} on Urban100 at
-\texorpdfstring{$\times4$}{x4} with \texorpdfstring{$52.14$\,G}{52.14 G} Multi-Adds).
+regime and matches CATANet-level accuracy. It yields small gains on most benchmark
+cells, including \texorpdfstring{$26.89$\,dB}{26.89 dB} on Urban100 at
+\texorpdfstring{$\times4$}{x4} with \texorpdfstring{$52.14$\,G}{52.14 G} Multi-Adds.
 It uses fewer Multi-Adds than the lightweight Transformer baselines SwinIR-light and
 SRFormer-light under the same input convention. Multi-seed ablations confirm
 that the dynamic prototypes outperform a history-center variant with an exponential moving

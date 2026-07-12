@@ -38,8 +38,8 @@ SwinIR-light ($897$K), SRFormer-light ($873$K), and the CNN-heavy CARN
 ($1592$K). It is, however, larger than its direct predecessor CATANet ($535$K):
 the learnable query bank and the router/score projections of DPR add parameters
 relative to the EMA-center routing of CATANet. The comparison with CATANet is
-therefore framed at \emph{matched-or-better accuracy} rather than as a parameter
-advantage (Urban100 $26.89$ vs.\ $26.87$, with the full ablation analysis in
+therefore framed as accuracy at a comparable or higher level, rather than as a
+parameter advantage (Urban100 $26.89$ vs.\ $26.87$, with the full ablation analysis in
 Sec.~\ref{sec:ablation}). Fig.~\ref{fig:psnr_params} plots this PSNR--parameter
 trade-off at $\times4$ on Urban100: DPRNet attains the highest PSNR among the
 compared lightweight methods while remaining within the same parameter bracket.
@@ -48,15 +48,16 @@ compared lightweight methods while remaining within the same parameter bracket.
 In terms of Multi-Adds, DPRNet requires $52.14$\,G at $\times4$ under the unified
 $256{\times}256$ protocol. This is higher than CATANet's $46.8$\,G, so the learnable
 query bank and the router/score projections of DPR do add inference cost relative to
-CATANet's EMA-center routing. We therefore make no compute claim against CATANet, and
-the comparison stays at \emph{matched-or-better accuracy} (Urban100 $26.89$ vs.\ $26.87$,
-full ablation in Sec.~\ref{sec:ablation}). The compute profile is more favorable against the
-Transformer baselines: at the same input size DPRNet uses markedly fewer Multi-Adds than
-both SwinIR-light ($60.3$\,G) and SRFormer-light ($56.5$\,G), while reaching the best
-Urban100 PSNR in Table~\ref{tab:efficiency}. DPRNet thus remains firmly inside the
-lightweight bracket, trading a modest cost increase over its direct predecessor for an
-interpretable, confidence-aware routing mechanism, and a clear cost reduction relative to
-attention-heavy Transformer designs at higher accuracy.
+CATANet's EMA-center routing. We therefore do not claim a compute advantage over CATANet;
+the relevant comparison is accuracy at a comparable or higher level (Urban100
+$26.89$ vs.\ $26.87$, full ablation in Sec.~\ref{sec:ablation}). The compute profile
+is more favorable relative to the Transformer baselines: at the same input size
+DPRNet uses markedly fewer Multi-Adds than both SwinIR-light ($60.3$\,G) and
+SRFormer-light ($56.5$\,G), while reaching the best Urban100 PSNR in
+Table~\ref{tab:efficiency}. DPRNet thus remains firmly inside the lightweight
+bracket, trading a modest cost increase over its direct predecessor for an
+interpretable, confidence-aware routing mechanism and a clear cost reduction
+relative to attention-heavy Transformer designs at higher accuracy.
 
 \paragraph{Per-scale behavior.}
 Table~\ref{tab:efficiency_profile} reports the profile at a fixed $256{\times}256$ LR

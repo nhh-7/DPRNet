@@ -19,16 +19,19 @@ each reported as mean$\pm$std over three seeds. The balance loss raises usage
 entropy while also \emph{reducing seed-to-seed variance} on both benchmarks and on the usage
 entropy itself, supporting the stabilizing role claimed for C4.}
 \label{tab:abl_a3}
-\resizebox{\columnwidth}{!}{%
-\begin{tabular}{l c cc}
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lccc}
 \toprule
 Variant & Usage entropy ($\uparrow$) & Set5 PSNR & Urban100 PSNR \\
 \midrule
 w/o balance loss          & $0.623\pm0.008$ & $32.55\pm0.05$ & $26.85\pm0.05$ \\
 w/\ \ balance loss (def.) & $\mathbf{0.686\pm0.003}$ & $\mathbf{32.57\pm0.02}$ & $\mathbf{26.87\pm0.02}$ \\
 \bottomrule
-\end{tabular}%
-}
+\end{tabular*}
+\endgroup
 
 \vspace{4pt}
 % Per-block normalized usage entropy (Urban100, representative seed 3407): supporting detail.
@@ -36,16 +39,19 @@ w/\ \ balance loss (def.) & $\mathbf{0.686\pm0.003}$ & $\mathbf{32.57\pm0.02}$ &
 \caption{Per-block normalized prototype-usage entropy (Urban100, representative seed $3407$).
 The balance loss increases usage entropy in every TAB block ($b_0$--$b_7$).}
 \label{tab:abl_a3_perblock}
-\resizebox{\columnwidth}{!}{%
-\begin{tabular}{l cccccccc}
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{2.6pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lcccccccc}
 \toprule
 Variant & $b_0$ & $b_1$ & $b_2$ & $b_3$ & $b_4$ & $b_5$ & $b_6$ & $b_7$ \\
 \midrule
 w/o balance & 0.648 & 0.566 & 0.695 & 0.627 & 0.709 & 0.576 & 0.628 & 0.533 \\
 w/\ \ balance & 0.718 & 0.585 & 0.723 & 0.681 & 0.847 & 0.635 & 0.685 & 0.619 \\
 \bottomrule
-\end{tabular}%
-}
+\end{tabular*}
+\endgroup
 
 \vspace{2pt}
 {\footnotesize

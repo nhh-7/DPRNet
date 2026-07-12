@@ -22,18 +22,21 @@
 input of $256\times256$ ($\times4$ output $1024\times1024$); to compare against FLOPs-based reports,
 multiply by 2. Representative PSNR is on Urban100 ($\times 4$).}
 \label{tab:efficiency}
-\resizebox{\columnwidth}{!}{%
-\begin{tabular}{l c c c c}
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lcccc}
 \toprule
-Method & Params (K) & Multi-Adds (G) & Urban100 PSNR & MAC source \\
+Method & Params & MACs & U100 PSNR & Source \\
 \midrule
 SwinIR-light    & 897  & 60.3  & 26.47 & CATANet Tab.~6 \\
 SRFormer-light  & 873  & 56.5  & 26.67 & CATANet Tab.~6 \\
 CATANet         & 535  & \textbf{46.8} & \underline{26.87} & CATANet Tab.~6 \\
 \textbf{DPRNet (ours)} & 660 & 52.14 & \textbf{26.89} & measured \\
 \bottomrule
-\end{tabular}%
-}
+\end{tabular*}
+\endgroup
 
 \vspace{2pt}
 {\footnotesize
@@ -57,8 +60,11 @@ latency is also omitted because runtime is hardware- and implementation-dependen
 $256\times256$; Multi-Adds are MACs (thop); latency averaged over $100$ runs after $20$ warm-ups on a
 single CUDA GPU.}
 \label{tab:efficiency_profile}
-\resizebox{\columnwidth}{!}{%
-\begin{tabular}{c c c c c}
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}ccccc}
 \toprule
 Scale & LR Input & Params (K) & Multi-Adds (G) & Latency (ms) \\
 \midrule
@@ -66,6 +72,6 @@ $\times 2$ & 256$\times$256 & 601.95 & 36.19 & 183.57 $\pm$ 7.70 \\
 $\times 3$ & 256$\times$256 & 674.15 & 41.26 & 185.88 $\pm$ 6.33 \\
 $\times 4$ & 256$\times$256 & 659.71 & 52.14 & 198.16 $\pm$ 9.43 \\
 \bottomrule
-\end{tabular}%
-}
+\end{tabular*}
+\endgroup
 \end{table}

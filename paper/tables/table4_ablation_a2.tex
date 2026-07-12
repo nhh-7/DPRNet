@@ -16,8 +16,11 @@ the best on both benchmarks, but the intermediate steps are not monotone; the co
 mutually compatible and best as a complete confidence-aware path rather than individually
 accuracy-additive.}
 \label{tab:abl_a2}
-\resizebox{\columnwidth}{!}{%
-\begin{tabular}{l ccc cc}
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lccccc}
 \toprule
 \multirow{2}{*}{Variant} & \multicolumn{3}{c}{Switches} & Set5 & Urban100 \\
 \cmidrule(lr){2-4}
@@ -28,8 +31,8 @@ v2 (+conf.\ sort)     & \ding{51} & \ding{55} & \ding{55} & $32.52\pm0.03$ & $26
 v3 (+score gate)      & \ding{51} & \ding{51} & \ding{55} & $32.53\pm0.03$ & $26.80\pm0.04$ \\
 v4 (full, +soft fb)   & \ding{51} & \ding{51} & \ding{51} & $\mathbf{32.57\pm0.02}$ & $\mathbf{26.87\pm0.02}$ \\
 \bottomrule
-\end{tabular}%
-}
+\end{tabular*}
+\endgroup
 
 \vspace{2pt}
 {\footnotesize

@@ -43,25 +43,26 @@ directionally consistent: at $\times4$ DPRNet improves Urban100 from $26.87$/$0.
 $26.89$/$0.8089$, Set5 from $32.58$/$0.8998$ to $32.59$/$0.9002$, Set14 from
 $28.90$/$0.7880$ to $28.91$/$0.7883$, and Manga109 PSNR from $31.31$ to $31.32$;
 at $\times2$ it reaches the best Set14 ($34.06$/$0.9220$), Urban100 PSNR ($33.15$),
-and Manga109 ($39.38$/$0.9789$); and at $\times3$ it leads or ties CATANet on every
+and Manga109 ($39.38$/$0.9789$). At $\times3$ it leads or ties CATANet on every
 benchmark (e.g.\ BSD100 $29.29$/$0.8103$ and Urban100 $29.06$/$0.8689$). The single
 metric on which CATANet remains ahead is Manga109 SSIM at $\times4$
-($0.9183$ vs.\ $0.9181$). These gaps are within a few hundredths of a dB. The
-result therefore supports a conservative conclusion: replacing the EMA-center routing of TAB with the dynamic
-prototype routing of DPR preserves CATANet-level
-reconstruction quality while changing the routing mechanism to the interpretable,
-confidence-aware formulation analyzed in Sec.~\ref{sec:ablation} and
+($0.9183$ vs.\ $0.9181$). These gaps are within a few hundredths of a dB, so the
+result supports a conservative conclusion. Replacing the EMA-center routing of TAB
+with the dynamic prototype routing of DPR preserves CATANet-level reconstruction
+quality while changing the routing mechanism to the interpretable, confidence-aware
+formulation analyzed in Sec.~\ref{sec:ablation} and
 Sec.~\ref{sec:routing_analysis}.
 
 \paragraph{Efficiency.}
 Table~\ref{tab:efficiency} reports the $\times4$ efficiency subset for methods whose
 Multi-Adds are available under the same fixed $256{\times}256$ LR-input convention.
 DPRNet has $660$K parameters and $52.14$\,G Multi-Adds, keeping it within the
-lightweight bracket. It uses fewer Multi-Adds than the lightweight Transformer baselines
-SwinIR-light ($60.3$\,G) and SRFormer-light ($56.5$\,G) while delivering competitive
-top-tier accuracy. Both its parameter count and Multi-Adds are modestly higher than CATANet's
-($660$K/$52.14$\,G vs.\ $535$K/$46.8$\,G at $\times4$), reflecting the learnable query
-bank and router projections of DPR, so no efficiency advantage over CATANet is claimed.
+lightweight bracket. It uses fewer Multi-Adds than the lightweight Transformer
+baselines SwinIR-light ($60.3$\,G) and SRFormer-light ($56.5$\,G) while delivering
+top-tier accuracy. Both its parameter count and Multi-Adds are modestly higher than
+CATANet's ($660$K/$52.14$\,G vs.\ $535$K/$46.8$\,G at $\times4$), reflecting the
+learnable query bank and router projections of DPR. We therefore do not claim an
+efficiency advantage over CATANet.
 The per-scale DPRNet profile, including measured latency on our hardware, is given in
 Table~\ref{tab:efficiency_profile}. Cross-paper latency and compute values reported under
 incompatible conventions are excluded from Table~\ref{tab:efficiency} rather than mixed

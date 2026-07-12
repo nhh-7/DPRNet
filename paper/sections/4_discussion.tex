@@ -23,9 +23,9 @@ stochastic textures of BSD100 the margin between all top-tier methods narrows. T
 consistent with the premise of content routing and with earlier SR work that exploits
 internal self-similarity or cross-scale non-local
 correspondences~\cite{glasner2009single,huang2015urban100,mei2020csnln}: grouping tokens by semantics
-is most useful when semantically related content is spatially scattered, and less useful
-when local statistics already capture the signal. DPR does not discard spatial locality;
-it complements it, since each TAB is paired with a local self-attention unit
+is most useful when semantically related content is spatially scattered. It is less
+useful when local statistics already capture the signal. DPR does not discard spatial
+locality; it complements it, since each TAB is paired with a local self-attention unit
 (Sec.~\ref{sec:method_overview}); the routing module supplies the long-range, content-based
 interaction that a fixed spatial window cannot.
 
@@ -64,7 +64,8 @@ why DPRNet carries a modestly higher parameter count and Multi-Adds than CATANet
 ($660$K/$52.14$\,G vs.\ $535$K/$46.8$\,G at $\times4$ under a common $256{\times}256$ input),
 as the added cost lives in the query bank and projections of DPR. Even so, DPRNet stays
 within the lightweight bracket and below the Transformer baselines SwinIR-light
-($60.3$\,G) and SRFormer-light ($56.5$\,G) at higher accuracy (Sec.~\ref{sec:efficiency}).
+($60.3$\,G) and SRFormer-light ($56.5$\,G) while reaching higher Urban100 PSNR
+(Sec.~\ref{sec:efficiency}).
 A systematic sweep of the prototype schedule is a natural extension but is orthogonal
 to the routing formulation studied here.
 
@@ -73,12 +74,12 @@ Several limitations bound the present study and frame our claims conservatively.
 ablations (Sec.~\ref{sec:ablation}) train every variant over three seeds, which
 supports single-switch attribution and lets us report both the mean effect and its
 seed-to-seed variance; the margins over the strongest configuration nonetheless remain small,
-so we frame the design elements as quality-preserving-to-positive and mutually compatible
-rather than as large individual gains. The direct comparison against a re-implemented EMA
+so we frame the design elements as mutually compatible and at least quality-preserving
+rather than as sources of large individual gains. The direct comparison against a re-implemented EMA
 center branch (C1) is conducted only at $\times4$ on Set5 and Urban100, the setting in which
 content routing is most stressed, rather than across all five benchmarks. The efficiency
 comparison is intentionally limited to common-protocol MACs and our measured DPRNet runtime:
 we do not claim cross-method latency because the competing models were not remeasured on the
-same hardware and implementation stack (Sec.~\ref{sec:efficiency}). Finally, models are
-trained on DIV2K only; larger training sets (e.g.\ DF2K) and real-world or arbitrary-scale
+same hardware and implementation stack (Sec.~\ref{sec:efficiency}). The models are trained
+on DIV2K only; larger training sets (e.g.\ DF2K) and real-world or arbitrary-scale
 degradations are not explored here and may further shift the trade-off.

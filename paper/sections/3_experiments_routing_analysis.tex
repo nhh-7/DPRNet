@@ -50,13 +50,13 @@ The per-token confidence $x^{\mathrm{s}}$ that drives the ordering key
 (Eq.~\eqref{eq:sortkey}), the IASA gate (Eq.~\eqref{eq:iasa_gate}) and the soft
 fallback (Eq.~\eqref{eq:soft_fallback}) is a non-degenerate signal in every block.
 Fig.~\ref{fig:xscore_hist} shows its distribution accumulated over \emph{all} test
-images of Urban100 and Manga109 with the final model: in each block the mass lies
-clearly to the right of the uniform-assignment floor $1/M$ (for example, the
+images of Urban100 and Manga109 with the final model: in each block the probability
+mass lies clearly to the right of the uniform-assignment floor $1/M$ (for example, the
 Urban100 block means are $0.109$ vs.\ $0.0625$ for $b_0$ and $0.012$ vs.\
 $0.0078$ for $b_3$) yet stays far from $1$. The
 softmax assignment is therefore informative but soft rather than collapsed onto a
-single prototype, and its mode shifts toward the lower floor as $M$ grows. Reshaping the
-original-order labels $b_n=\arg\max_m S_{n,m}$ to $H\times W$ yields the routing
+single prototype. As $M$ grows, its mode shifts toward the lower floor. Reshaping
+the original-order labels $b_n=\arg\max_m S_{n,m}$ to $H\times W$ yields the routing
 cluster maps in Fig.~\ref{fig:cluster_maps}: the partitions track image content
 (repetitive building facades, high-contrast strokes) instead of a fixed spatial
 grid. In this visualization the important evidence is boundary continuity rather

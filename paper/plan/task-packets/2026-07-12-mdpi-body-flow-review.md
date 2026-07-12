@@ -1,0 +1,33 @@
+## Task Packet
+
+- Scope: Re-check the prose flow of `paper/main_mdpi.pdf` by reviewing `main_mdpi.tex` and all included body sections. Polish awkward sentences and paragraph transitions while preserving technical claims, citations, labels, equations, table/figure references, and all reported numbers.
+- Files to read:
+  - `paper/main_mdpi.tex`
+  - `paper/sections/*.tex`
+  - `paper/plan/project-overview.md`
+  - `paper/plan/outline.md`
+  - `paper/plan/progress.md`
+- Files allowed to edit:
+  - `paper/main_mdpi.tex`
+  - `paper/sections/*.tex`
+  - `paper/plan/progress.md`
+- Required skills:
+  - `research-writing-assistant`
+  - `using-research-writing`
+  - `paper-orchestration`
+  - `peer-review`
+  - `verification`
+- Evidence/data inputs: Existing manuscript prose, figures, tables, and LaTeX references only. No new claims, citations, or experimental values may be introduced.
+- Required artifacts:
+  - Polished LaTeX source for any paragraphs requiring language or transition fixes.
+  - Recompiled `paper/main_mdpi.pdf`.
+  - Capability-use audit appended to `paper/plan/progress.md`.
+- Rejection checks:
+  - Do not alter numeric results, labels, citations, equations, or method semantics.
+  - Do not weaken limitations or overstate improvements.
+  - Do not introduce undefined references, undefined citations, or LaTeX compile errors.
+  - Avoid mechanical transitions and unnecessary rewriting of already smooth paragraphs.
+- Validation commands:
+  - `latexmk -pdf -interaction=nonstopmode -halt-on-error main_mdpi.tex`
+  - `rg -n "(^!|Fatal|Error|Undefined|undefined|Citation|Reference|Overfull|Underfull|Rerun|Warning|Package .* Warning|Output written)" main_mdpi.log`
+  - PDF text extraction with `pdfminer` for final prose spot-checking.

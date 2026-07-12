@@ -1331,3 +1331,67 @@
   - `git diff --check` 通过。
 - Remaining risk: amber 与 blue 在灰度打印下区分度尚可（亮度差异足够），但若目标渠道为纯黑白印刷，
   可再为两色补充不同描边/纹理；当前彩色与多数 MDPI 在线 PDF 渠道一致。
+
+### 2026-07-12 · MDPI 全文正文流畅性复查
+
+- 用户要求复查 `paper/main_mdpi.pdf` 的全部正文内容，确认语言顺畅、无明显病句、段落衔接不突兀。
+- 创建任务包：`paper/plan/task-packets/2026-07-12-mdpi-body-flow-review.md`。
+- 复查范围：
+  - `paper/main_mdpi.tex` 的 MDPI 摘要和正文输入顺序。
+  - `paper/sections/1_introduction.tex` 至 `paper/sections/5_conclusion.tex`。
+  - 图表 caption 作为 PDF 阅读内容一并抽查。
+- 修改内容：
+  - `paper/main_mdpi.tex`：修正摘要中 Urban100/Multi-Adds 句子的多余右括号，并将
+    `gives small gains` 调整为更自然的 `yields small gains`。
+  - `paper/sections/2_method.tex`：润色 TAB 修改边界、center-based routing 动机、
+    balancing loss 解释和设计开关说明，避免口语化与过长句。
+  - `paper/sections/3_experiments_setup.tex`：将 Multi-Adds/FLOPs 换算句改为更准确的
+    `can be multiplied by two`。
+  - `paper/sections/3_experiments_comparison.tex`：拆分 CATANet 对比长句，明确“小幅差距支持保守结论”；
+    效率段单独说明不声称优于 CATANet 的效率。
+  - `paper/sections/3_experiments_efficiency.tex`：把 `matched-or-better accuracy` 与
+    `compute claim against CATANet` 改为更顺畅、正式的表达。
+  - `paper/sections/3_experiments_ablation.tex`：整理消融实验开头、C1 方差句、A2 解释和 summary，
+    使实验协议、开关作用和机制结论衔接更清楚。
+  - `paper/sections/3_experiments_routing_analysis.tex`：拆分 confidence 分布的长句。
+  - `paper/sections/4_discussion.tex`：改善 content routing 适用边界、效率取舍和 limitations 的措辞。
+  - `paper/sections/5_conclusion.tex`：拆分结论首段长句，避免方法、实验和诊断结论挤在同一句中。
+- 复查结论：
+  - 未改动实验数值、引用、公式、标签、表图编号或结论边界。
+  - 正文段落顺序保持：Introduction -> Method -> Experiments -> Discussion -> Conclusion。
+  - 经源码逐节复读和 PDF 抽文本抽查，未发现残留的明显病句、突兀段落跳转或异常标点。
+
+### Capability-use audit（2026-07-12 MDPI body flow review）
+
+- Required skills: research-writing-assistant, using-research-writing, paper-orchestration,
+  peer-review, verification.
+- Skills actually used: 已读取并应用 research-writing-assistant、using-research-writing、
+  paper-orchestration、writing-core/peer-review 的语言质量与验证要求；按 S5 全文质量复查执行。
+- Inputs consumed: `paper/main_mdpi.tex`, `paper/sections/*.tex`, `paper/figures/*.tex`
+  与 `paper/tables/*.tex` caption, `paper/plan/outline.md`, `paper/plan/progress.md`,
+  `paper/main_mdpi.pdf`, `paper/main_mdpi.log`。
+- Inputs not used and why: 未检索外部文献或修改参考文献；本轮任务是现有 PDF 正文流畅性复查，
+  不涉及新增论证或事实来源。
+- Artifacts produced: 更新后的 MDPI 正文 LaTeX 源码、重新编译的 `paper/main_mdpi.pdf`、
+  任务包 `2026-07-12-mdpi-body-flow-review.md` 与本审计记录。
+- Verification run:
+  - `git diff --check -- paper/main_mdpi.tex paper/sections/... paper/plan/task-packets/2026-07-12-mdpi-body-flow-review.md`
+  - `PATH=/Users/bytedance/Library/TinyTeX/bin/universal-darwin:$PATH /Users/bytedance/Library/TinyTeX/bin/universal-darwin/latexmk -pdf -interaction=nonstopmode -halt-on-error main_mdpi.tex`
+  - `rg -n "(^!|Fatal|Error|Undefined|undefined|Citation|Reference|Overfull|Underfull|Rerun|Warning|Package .* Warning|Output written)" main_mdpi.log`
+  - `python3 -c "... pdfminer.high_level.extract_text('main_mdpi.pdf') ..."` 抽取 PDF 文本并检查重点异常表达。
+  - `mdls -name kMDItemNumberOfPages -name kMDItemFSSize paper/main_mdpi.pdf`
+- Remaining risk: 本轮为语言流畅性和段落衔接复查，未重新审计所有科学 claim 的外部证据；
+  若后续目标变为正式投稿前终审，可再单独做 reference/claim traceability 审查。
+
+### 2026-07-12 · Fig.2 legend 与 panel 边界对齐
+
+- 用户反馈 Fig.2 底部 legend/方框说明没有和上方 (a)/(b) 两个 panel 对齐。
+- 修改 `paper/figures/fig2_dpr.tex`：
+  - 为 legend 增加 `legendL=(-8,\yl)` 与 `legendR=(190,\yl)`，复用 Fig.2 上方两个 panel 的左右边界。
+  - 将 legend 五个说明项按该边界重新排布，最后一项用 `anchor=east` 锚到右边界。
+  - 增加一个轻量 legend panel，使底部说明行与上方 (a)/(b) panel 形成一致的对齐关系。
+- 验证：
+  - `latexmk -pdf -interaction=nonstopmode -halt-on-error main_mdpi.tex` 通过，输出 `main_mdpi.pdf` 23 页。
+  - Ghostscript 渲染第 8 页目视检查：Fig.2 底部 legend 与上方两个 panel 左右边界对齐。
+  - `rg` 检查 `main_mdpi.log`：无 fatal/error、未定义引用、Overfull/Underfull。
+  - `git diff --check -- paper/figures/fig2_dpr.tex` 通过。

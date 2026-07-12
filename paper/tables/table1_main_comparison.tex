@@ -12,8 +12,11 @@
 Competitor metrics are cited from the original papers (see notes). ``-'' denotes results not reported
 in the source.}
 \label{tab:main_comparison}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{l c cc cc cc cc cc}
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{2.2pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lccccccccccc}
 \toprule
 \multirow{2}{*}{Method} & \multirow{2}{*}{Params} &
 \multicolumn{2}{c}{Set5} & \multicolumn{2}{c}{Set14} & \multicolumn{2}{c}{BSD100} &
@@ -57,8 +60,8 @@ SRFormer-light  & 873  & 32.51 & 0.8988 & 28.82 & 0.7872 & 27.73 & 0.7422 & 26.6
 CATANet         & 535  & \underline{32.58} & \underline{0.8998} & \underline{28.90} & \underline{0.7880} & \underline{27.75} & \underline{0.7427} & \underline{26.87} & \underline{0.8081} & \underline{31.31} & \textbf{0.9183} \\
 \textbf{DPRNet (ours)} & 660 & \textbf{32.59} & \textbf{0.9002} & \textbf{28.91} & \textbf{0.7883} & \textbf{27.76} & \textbf{0.7434} & \textbf{26.89} & \textbf{0.8089} & \textbf{31.32} & \underline{0.9181} \\
 \bottomrule
-\end{tabular}%
-}
+\end{tabular*}
+\endgroup
 
 \vspace{2pt}
 {\footnotesize

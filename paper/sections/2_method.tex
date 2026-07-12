@@ -31,8 +31,8 @@ base image:
 \begin{equation}
 I_{SR} = \mathrm{Up}\big(F_0 + F_L\big) + \mathrm{Bilinear}_{\uparrow s}(I_{LR}),
 \end{equation}
-where $s\in\{2,3,4\}$ is the scale factor. The contribution of this work is
-entirely inside TAB: we keep its external interface
+where $s\in\{2,3,4\}$ is the scale factor. The proposed change is confined to TAB:
+we keep its external interface
 $\mathbb{R}^{C\times H\times W}\!\to\!\mathbb{R}^{C\times H\times W}$ unchanged and
 replace the original means-based center iteration and hard-label sorting with
 the DPR pipeline (Sec.~\ref{sec:method_dpr}), while reusing the subsequent
@@ -55,15 +55,15 @@ The original TAB performs content-aware reordering by maintaining a set of routi
 centers via a $k$-means--style iteration with an exponential moving average (EMA)
 buffer, assigning each token to its nearest center by an \texttt{argmax} hard
 label, sorting tokens by that label, and aggregating the sorted sequence. This
-design motivates DPR for four reasons. (i) The centers are driven by a
+design leaves four weaknesses that DPR targets. (i) The centers are driven by a
 cross-batch historical buffer rather than strictly by the current input, so they
 adapt slowly to per-image semantics. (ii) The token-to-center relation is a hard
 label and discards assignment confidence. (iii) The ordering clusters by label
 only, with no intra-cluster purity constraint. (iv) Prototype generation and
-prototype confirmation are entangled, which weakens interpretability. DPR responds
-by generating prototypes from the current tokens, decoupling
-generation from confirmation, and propagating an explicit assignment confidence
-through routing and aggregation.
+prototype confirmation are entangled, which weakens interpretability and makes the
+routing state harder to analyze. DPR addresses these issues by generating prototypes
+from the current tokens, decoupling generation from confirmation, and propagating an
+explicit assignment confidence through routing and aggregation.
 
 \subsection{Dynamic Prototype Routing}
 \label{sec:method_dpr}
@@ -207,8 +207,9 @@ its normalized entropy and the auxiliary loss are
 \mathcal{L}_{\mathrm{bal}} = \lambda\,\big(1 - \mathcal{H}(u)\big),
 \label{eq:balance}
 \end{equation}
-which is maximized (loss minimized) when usage is uniform. The total objective adds
-this term, summed over all blocks, to the pixel reconstruction loss:
+which is largest, and therefore gives the smallest auxiliary loss, when usage is
+uniform. The total objective adds this term, summed over all blocks, to the pixel
+reconstruction loss:
 \begin{equation}
 \mathcal{L} = \mathcal{L}_{\mathrm{pix}} + \sum_{l}\mathcal{L}^{(l)}_{\mathrm{bal}}.
 \end{equation}
@@ -224,6 +225,6 @@ directly to the contributions: dynamic generation (Eqs.~\ref{eq:assign}--%
 (Eqs.~\ref{eq:scores}--\ref{eq:sortkey}, \ref{eq:iasa_gate}--\ref{eq:soft_fallback})
 for C3, and the learnable temperature with usage balancing (Eqs.~\ref{eq:scores},
 \ref{eq:balance}) for C4. Because each design element is exposed as an independent
-switch that defaults to the full model and reduces to its disabled
-form when turned off, the contributions can be isolated cleanly in the ablation
-study (Sec.~\ref{sec:ablation}).
+switch that defaults to the full model and has a defined disabled form, the
+contributions can be isolated cleanly in the ablation study
+(Sec.~\ref{sec:ablation}).

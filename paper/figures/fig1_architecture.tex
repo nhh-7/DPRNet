@@ -28,25 +28,25 @@
 \begin{tikzpicture}[
     x=1mm, y=1mm,
     font=\footnotesize,
-    >={Latex[length=4pt]},
-    box/.style={rounded corners=2pt, draw=black!75, fill=black!7,
-                minimum height=8mm, align=center, inner sep=2.5pt,
-                font=\scriptsize},
-    data/.style={rounded corners=2pt, draw=dpramber!85!black, line width=0.7pt,
-                 fill=dpramber!20, minimum height=7mm, align=center,
-                 inner sep=2.2pt, font=\scriptsize},
-    dprbox/.style={rounded corners=2pt, draw=dprblue, line width=1pt,
-                   fill=dprblue!22, minimum height=8mm, align=center,
-                   inner sep=2.5pt, font=\scriptsize},
-    sum/.style={circle, draw=black!75, fill=white, inner sep=0pt,
+    >={Latex[length=4.5pt,width=3.2pt]},
+    box/.style={rounded corners=3pt, draw=black!60, line width=0.65pt,
+                fill=black!4, minimum height=8mm, align=center,
+                inner sep=2.8pt, font=\scriptsize},
+    data/.style={rounded corners=2.5pt, draw=dpramber!85!black, line width=0.85pt,
+                 fill=dpramber!16, minimum height=7.4mm, align=center,
+                 inner sep=2.4pt, font=\scriptsize},
+    dprbox/.style={rounded corners=3pt, draw=dprblue!90!black, line width=1.15pt,
+                   fill=dprblue!18, minimum height=8.4mm, align=center,
+                   inner sep=2.8pt, font=\scriptsize},
+    sum/.style={circle, draw=black!65, line width=0.65pt, fill=white, inner sep=0pt,
                 minimum size=4.6mm, font=\scriptsize},
-    flow/.style={->, draw=black!82, line width=0.7pt},
-    skip/.style={->, draw=black!55, line width=0.6pt, dashed},
-    lab/.style={font=\scriptsize, black!75, inner sep=1.5pt},
+    flow/.style={->, draw=black!82, line width=0.78pt, line cap=round},
+    skip/.style={->, draw=black!50, line width=0.62pt, dashed, rounded corners=2pt},
+    lab/.style={font=\scriptsize, black!75, fill=white, inner sep=1pt},
     note/.style={font=\scriptsize, black!65},
     tag/.style={font=\footnotesize\bfseries, black!80},
-    panel/.style={rounded corners=3pt, draw=black!28, fill=white,
-                  inner sep=3.5mm}
+    panel/.style={rounded corners=3.5pt, draw=black!25, line width=0.55pt,
+                  fill=black!1, inner sep=3.8mm}
 ]
 
 % ===================== (a) Network backbone =====================
@@ -80,6 +80,8 @@
 \coordinate (fitTL) at (0,9);
 \coordinate (fitTM) at (68,13);
 \coordinate (fitTR) at (164,9);
+\coordinate (panelAleft) at (-2,0);
+\coordinate (panelAright) at (166,0);
 
 % main flow
 \draw[flow] (imgE) -- (conv.west);
@@ -110,38 +112,44 @@
 \draw[flow] (badd) -- (flo);
 \draw[skip] (finb.south) |- (10,-55) -| node[pos=0.35,below,lab]{block residual} (badd.south);
 \node[tag, anchor=west] at (-3,-34) {(b)};
+\coordinate (panelBleft) at (-2,-44);
+\coordinate (panelBright) at (166,-44);
+\coordinate (blockZoomL) at (1,-36);
+\coordinate (blockZoomR) at (92,-36);
 
 % ===================== (c) Inside TAB =====================
-\node[data] (xin) at (97,-44) {$X$};
-\node[box, minimum width=11mm] (ln) at (108,-44) {LN};
-\node[dprbox, minimum width=12mm] (dpr) at (122,-44) {DPR};
-\node[box, minimum width=12mm] (iasa) at (137,-44) {IASA};
-\node[box, minimum width=13mm] (c11) at (152,-44) {Conv $1{\times}1$};
-\node[box, minimum width=14mm] (ffn) at (168,-44) {ConvFFN};
-\node[data] (tabout) at (180,-44) {out};
+\def\yc{-74}
+\node[data] (xin) at (24,\yc) {$X$};
+\node[box, minimum width=11mm] (ln) at (38,\yc) {LN};
+\node[dprbox, minimum width=12mm] (dpr) at (54,\yc) {DPR};
+\node[box, minimum width=12mm] (iasa) at (71,\yc) {IASA};
+\node[box, minimum width=13mm] (c11) at (90,\yc) {Conv $1{\times}1$};
+\node[box, minimum width=14mm] (ffn) at (109,\yc) {ConvFFN};
+\node[data] (tabout) at (126,\yc) {out};
 
 \draw[flow] (xin) -- (ln);
 \draw[flow] (ln) -- (dpr);
-\draw[flow] (dpr) -- node[lab,above,font=\tiny]{Fig.~\ref{fig:dpr}} (iasa);
+\draw[flow] (dpr) -- (iasa);
 \draw[flow] (iasa) -- (c11);
 \draw[flow] (c11) -- (ffn);
 \draw[flow] (ffn) -- (tabout);
-\node[tag, anchor=west] at (90,-34) {(c)};
+\node[tag, anchor=west] at (-3,\yc+11) {(c)};
+\coordinate (panelCleft) at (-2,\yc);
+\coordinate (panelCright) at (166,\yc);
 
 % ===================== panels + expansion wedges =====================
 \begin{scope}[on background layer]
-  \node[panel, fit=(img)(conv)(blkW)(blkE)(up)(osum)(sr)(gsum)(fitTL)(fitTM)(fitTR)] (pa) {};
-  \node[panel, fit=(finb)(tab)(lrsa)(fconv)(badd)(flo)] (pb) {};
-  \node[panel, fit=(xin)(ln)(dpr)(iasa)(c11)(ffn)(tabout)] (pc) {};
+  \node[panel, fit=(panelAleft)(panelAright)(img)(conv)(blkW)(blkE)(up)(osum)(sr)(gsum)(fitTL)(fitTM)(fitTR)] (pa) {};
+  \node[panel, fit=(panelBleft)(panelBright)(finb)(tab)(lrsa)(fconv)(badd)(flo)] (pb) {};
+  \node[panel, fit=(panelCleft)(panelCright)(xin)(ln)(dpr)(iasa)(c11)(ffn)(tabout)] (pc) {};
   % (a) deep-feature stack  ->  (b) one block
-  \fill[dprblue!7] (53,-7) -- (75,-7) -- (pb.north east) -- (pb.north west) -- cycle;
-  \draw[dprblue!40, dashed, line width=0.5pt] (53,-7) -- (pb.north west);
-  \draw[dprblue!40, dashed, line width=0.5pt] (75,-7) -- (pb.north east);
-  % (b) TAB  ->  (c) inside TAB
-  \fill[dprblue!7] (tab.south west) -- (tab.south east) -- (pc.north west) -- ($(pc.north west)!0.6!(pc.north east)$) -- cycle;
-  \draw[dprblue!40, dashed, line width=0.5pt] (tab.south west) -- (pc.north west);
-  \draw[dprblue!40, dashed, line width=0.5pt] (tab.south east) -- ($(pc.north west)!0.6!(pc.north east)$);
+  \fill[dprblue!6] (53,-7) -- (75,-7) -- (blockZoomR) -- (blockZoomL) -- cycle;
+  \draw[dprblue!35, dashed, line width=0.5pt] (53,-7) -- (blockZoomL);
+  \draw[dprblue!35, dashed, line width=0.5pt] (75,-7) -- (blockZoomR);
 \end{scope}
+
+\node[note, anchor=west, dprblue!80!black] at ($(pc.north west)+(2,-2.6)$)
+  {inside TAB$_l$};
 
 \end{tikzpicture}%
 }
