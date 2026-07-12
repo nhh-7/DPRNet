@@ -44,7 +44,7 @@ training budget, which are held fixed here.
 Table~\ref{tab:abl_a1} compares DPR with and without the query-refinement stage
 (Eq.~\eqref{eq:proto_refine}). Enabling refine improves the result on both benchmarks
 (Set5 $32.57$ vs.\ $32.53$\,dB; Urban100 $26.87$ vs.\ $26.82$\,dB), and because the gain
-($\sim0.04$--$0.05$\,dB) exceeds the seed-to-seed standard deviation ($\sim0.02$--$0.03$\,dB),
+($\sim0.04$--$0.05$\,dB) exceeds the seed-to-seed standard deviation ($\sim0.02$--$0.04$\,dB),
 it is attributable to the refine switch itself rather than to run-to-run noise. The refinement
 is gated by a small-initialized scalar (Eq.~\eqref{eq:proto_refine}), so it acts as a residual
 confirmation step that keeps the prototype slots stable while decoupling generation from

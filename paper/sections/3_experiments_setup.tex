@@ -52,9 +52,7 @@ $2{\times}10^{-4}$, halved by a MultiStep schedule (milestones at
 $\{300,500,650,700,750\}$k for $\times2$ and $\{125,200,225,237.5\}$k for
 $\times3/\times4$). The learnable routing temperature is trained with a
 $0.1{\times}$ learning-rate multiplier for stability. Validation is run every
-$2{.}5$k iterations; the unified reporting checkpoint per scale is selected by the
-best benchmark-averaged PSNR/SSIM over Set5--Manga109, without per-dataset
-checkpoint selection. Experiments use PyTorch with the BasicSR
+$2{.}5$k iterations. Experiments use PyTorch with the BasicSR
 framework on a single NVIDIA RTX~4090 GPU.
 
 \paragraph{Efficiency measurement.}
