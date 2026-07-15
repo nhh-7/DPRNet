@@ -17,7 +17,7 @@
 %   vs 0.0078), i.e. informative but soft assignment. >99.8% of mass lies in
 %   [0,0.30], so the x-axis is clipped there for readability.
 % =====================================================================
-\begin{figure}[t]
+\begin{figure}[H]
 \centering
 \pgfplotsset{
   xscoreaxis/.style={
@@ -85,8 +85,8 @@ $x^{\mathrm{s}}=\max_m S_{n,m}$ (Eq.~\eqref{eq:belong}) at $\times4$, accumulate
 over \emph{all} test images of (a)~Urban100 and (b)~Manga109 with the final model.
 Curves are shown for three representative TAB blocks with increasing prototype
 count $M$; dotted vertical lines mark the uniform-assignment floor $1/M$. In every
-block the distribution sits clearly to the right of its floor (block-mean
-$\approx 1.5$--$1.9\times\,1/M$) yet stays far from $1$, confirming that the softmax
+plotted block the distribution sits clearly to the right of its floor (block means
+are about $1.5$--$2.1$ times $1/M$) yet stays far from $1$, confirming that the softmax
 assignment is \emph{informative but soft}: tokens commit to a prototype more than
 chance while retaining the graded confidence that the C3 components
 (ordering key, IASA gate, soft fallback) rely on. As $M$ grows the mode shifts

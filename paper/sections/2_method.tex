@@ -14,7 +14,7 @@
 \label{sec:method_overview}
 We build on the lightweight super-resolution (SR) backbone of CATANet and replace
 its token-routing component with a \emph{Dynamic Prototype Routing} (DPR) module
-(Fig.~\ref{fig:arch}).
+(Figure~\ref{fig:arch}).
 Given a low-resolution (LR) input $I_{LR}\in\mathbb{R}^{3\times H\times W}$, a
 $3\times3$ convolution extracts shallow features
 $F_0\in\mathbb{R}^{C\times H\times W}$ ($C{=}40$). The deep feature extractor is a
@@ -35,8 +35,8 @@ where $s\in\{2,3,4\}$ is the scale factor. The proposed change is confined to TA
 we keep its external interface
 $\mathbb{R}^{C\times H\times W}\!\to\!\mathbb{R}^{C\times H\times W}$ unchanged and
 replace the original means-based center iteration and hard-label sorting with
-the DPR pipeline (Sec.~\ref{sec:method_dpr}), while reusing the subsequent
-intra/inter-group aggregation operator (IASA, Sec.~\ref{sec:method_iasa}). This
+the DPR pipeline (Section~\ref{sec:method_dpr}), while reusing the subsequent
+intra/inter-group aggregation operator (IASA, Section~\ref{sec:method_iasa}). This
 keeps the rest of the backbone untouched and isolates the effect of the routing
 mechanism.
 
@@ -69,7 +69,7 @@ explicit assignment confidence through routing and aggregation.
 \label{sec:method_dpr}
 DPR maps a token sequence $X\in\mathbb{R}^{B\times N\times C}$ to a content-reordered
 sequence, $M$ dynamic prototypes, and routing metadata. The pipeline contains four
-stages (Fig.~\ref{fig:dpr}).
+stages (Figure~\ref{fig:dpr}).
 
 \paragraph{(1) Dynamic prototype generation.}
 We first embed tokens with a lightweight head
@@ -219,12 +219,12 @@ Setting the per-block weight $\lambda{=}0$ disables balancing (ablation A3).
 \label{sec:method_design}
 DPR keeps the backbone interface and parameter budget in the lightweight regime
 while changing only how tokens are organized before aggregation. The four stages map
-directly to the contributions: dynamic generation (Eqs.~\ref{eq:assign}--%
-\ref{eq:proto_content}) for C1, generation/confirmation decoupling
-(Eq.~\ref{eq:proto_refine}) for C2, confidence-aware routing
-(Eqs.~\ref{eq:scores}--\ref{eq:sortkey}, \ref{eq:iasa_gate}--\ref{eq:soft_fallback})
-for C3, and the learnable temperature with usage balancing (Eqs.~\ref{eq:scores},
-\ref{eq:balance}) for C4. Because each design element is exposed as an independent
+directly to the contributions: dynamic generation (Eqs.~\eqref{eq:assign}--%
+\eqref{eq:proto_content}) for C1, generation/confirmation decoupling
+(Eq.~\eqref{eq:proto_refine}) for C2, confidence-aware routing
+(Eqs.~\eqref{eq:scores}--\eqref{eq:sortkey}, \eqref{eq:iasa_gate}--\eqref{eq:soft_fallback})
+for C3, and the learnable temperature with usage balancing (Eqs.~\eqref{eq:scores},
+\eqref{eq:balance}) for C4. Because each design element is exposed as an independent
 switch that defaults to the full model and has a defined disabled form, the
 contributions can be isolated cleanly in the ablation study
-(Sec.~\ref{sec:ablation}).
+(Section~\ref{sec:ablation}).

@@ -16,7 +16,7 @@
 %   CATANet (46.8G) -- do NOT claim a compute win over CATANet -- but it is clearly LOWER than the
 %   Transformer baselines SwinIR-light (60.3G) and SRFormer-light (56.5G) while achieving the best
 %   Urban100 PSNR, and it stays within the same lightweight bracket.
-\begin{table}[t]
+\begin{table}[H]
 \centering
 \caption{Comparable efficiency subset on $\times 4$ SR. Multi-Adds are MACs under a unified fixed LR
 input of $256\times256$ ($\times4$ output $1024\times1024$); to compare against FLOPs-based reports,
@@ -30,9 +30,9 @@ multiply by 2. Representative PSNR is on Urban100 ($\times 4$).}
 \toprule
 Method & Params & MACs & U100 PSNR & Source \\
 \midrule
-SwinIR-light    & 897  & 60.3  & 26.47 & CATANet Tab.~6 \\
-SRFormer-light  & 873  & 56.5  & 26.67 & CATANet Tab.~6 \\
-CATANet         & 535  & \textbf{46.8} & \underline{26.87} & CATANet Tab.~6 \\
+SwinIR-light    & 897  & 60.3  & 26.47 & CATANet Table~6 \\
+SRFormer-light  & 873  & 56.5  & 26.67 & CATANet Table~6 \\
+CATANet         & 535  & \textbf{46.8} & \underline{26.87} & CATANet Table~6 \\
 \textbf{DPRNet (ours)} & 660 & 52.14 & \textbf{26.89} & measured \\
 \bottomrule
 \end{tabular*}
@@ -42,7 +42,7 @@ CATANet         & 535  & \textbf{46.8} & \underline{26.87} & CATANet Tab.~6 \\
 {\footnotesize
 \textit{Notes.} All Multi-Adds are MACs under a common $256\times256$ LR input
 ($\times4$ output $1024\times1024$): DPRNet is measured under this protocol, and the CATANet,
-SwinIR-light and SRFormer-light values are taken from the CATANet paper (CVPR'25, Tab.~6), which uses
+SwinIR-light and SRFormer-light values are taken from the CATANet paper (CVPR'25, Table~6), which uses
 the identical input convention, so the four entries are directly comparable. DPRNet
 needs more Multi-Adds than its direct predecessor CATANet ($52.14$ vs.\ $46.8$\,G) but markedly fewer
 than the Transformer baselines SwinIR-light ($60.3$\,G) and SRFormer-light ($56.5$\,G), while attaining
@@ -54,7 +54,7 @@ latency is also omitted because runtime is hardware- and implementation-dependen
 
 % --- DPRNet per-scale efficiency profile (all measured; mode=A_fixed_lr_256) ---
 % Optionally include as a separate small table or merge into the text.
-\begin{table}[t]
+\begin{table}[H]
 \centering
 \caption{DPRNet per-scale efficiency profile (measured). All scales use a fixed LR input of
 $256\times256$; Multi-Adds are MACs (thop); latency averaged over $100$ runs after $20$ warm-ups on a

@@ -21,7 +21,7 @@
 Table~\ref{tab:efficiency} compares model complexity at $\times4$ for the subset of
 methods whose Multi-Adds are available under the same input convention, and
 Table~\ref{tab:efficiency_profile} gives DPRNet's per-scale profile. All DPRNet
-numbers are measured under the protocol of Sec.~\ref{sec:exp_setup} with a fixed
+numbers are measured under the protocol of Section~\ref{sec:exp_setup} with a fixed
 $256{\times}256$ LR input ($\times4$ output $1024{\times}1024$), reporting thop
 MACs and latency over $100$ runs after $20$ warm-ups. We use this
 $256{\times}256$ input convention because it is the one under which the CATANet
@@ -40,7 +40,7 @@ the learnable query bank and the router/score projections of DPR add parameters
 relative to the EMA-center routing of CATANet. The comparison with CATANet is
 therefore framed as accuracy at a comparable or higher level, rather than as a
 parameter advantage (Urban100 $26.89$ vs.\ $26.87$, with the full ablation analysis in
-Sec.~\ref{sec:ablation}). Fig.~\ref{fig:psnr_params} plots this PSNR--parameter
+Section~\ref{sec:ablation}). Figure~\ref{fig:psnr_params} plots this PSNR--parameter
 trade-off at $\times4$ on Urban100: DPRNet attains the highest PSNR among the
 compared lightweight methods while remaining within the same parameter bracket.
 
@@ -50,7 +50,7 @@ $256{\times}256$ protocol. This is higher than CATANet's $46.8$\,G, so the learn
 query bank and the router/score projections of DPR do add inference cost relative to
 CATANet's EMA-center routing. We therefore do not claim a compute advantage over CATANet;
 the relevant comparison is accuracy at a comparable or higher level (Urban100
-$26.89$ vs.\ $26.87$, full ablation in Sec.~\ref{sec:ablation}). The compute profile
+$26.89$ vs.\ $26.87$, full ablation in Section~\ref{sec:ablation}). The compute profile
 is more favorable relative to the Transformer baselines: at the same input size
 DPRNet uses markedly fewer Multi-Adds than both SwinIR-light ($60.3$\,G) and
 SRFormer-light ($56.5$\,G), while reaching the best Urban100 PSNR in

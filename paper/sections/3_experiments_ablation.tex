@@ -15,7 +15,7 @@
 \label{sec:ablation}
 
 We ablate the four design elements of DPR using the independent switches exposed in
-Sec.~\ref{sec:method}. All ablations are conducted at scale $\times4$, following
+Section~\ref{sec:method}. All ablations are conducted at scale $\times4$, following
 CATANet~\cite{liu2025catanet} whose ablations are likewise performed at $\times4$, the
 setting in which content routing over high-frequency texture is most stressed. Each
 variant is trained for $250$k iterations on DIV2K under the same schedule as the full
@@ -63,7 +63,7 @@ switches as mutually compatible and most effective as the \emph{complete} confid
 path, rather than as three individually additive accuracy gains. We keep the components
 because they make the routing path interpretable and confidence-driven: the retained per-token
 confidence $x^{\mathrm{s}}$ modulates ordering, the global gate, and the fallback (C3), which
-we visualize through the $x^{\mathrm{s}}$ distributions in Sec.~\ref{sec:routing_analysis}.
+we visualize through the $x^{\mathrm{s}}$ distributions in Section~\ref{sec:routing_analysis}.
 
 \paragraph{A3: prototype usage balancing.}
 Table~\ref{tab:abl_a3} isolates the usage-balancing regularizer

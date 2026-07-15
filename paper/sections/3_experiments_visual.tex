@@ -15,7 +15,7 @@
 \subsection{Qualitative comparison}
 \label{sec:visual}
 
-Beyond aggregate PSNR/SSIM, Fig.~\ref{fig:visual} compares reconstructions at
+Beyond aggregate PSNR/SSIM, Figure~\ref{fig:visual} compares reconstructions at
 $\times4$ on three texture-dense hard samples selected by ground-truth
 high-frequency energy: two Urban100 images dominated by repetitive building
 grids (\texttt{img\_092}, \texttt{img\_024}) and one Manga109 page of
@@ -26,16 +26,16 @@ local window.
 
 On the repetitive facades of Urban100, the bicubic baseline collapses adjacent
 window edges into blurred, aliased bands, and the lightweight CNN IMDN only
-partially recovers them. The transformer-based methods (SwinIR-light,
+partially recovers them. The Transformer-based methods (SwinIR-light,
 SRFormer-light, CATANet) progressively sharpen the grid structure, and DPRNet
 reconstructs the window spacing with clean, well-separated boundaries on par
 with the strongest content-routing baseline, CATANet. On the Manga109 line art,
 where thin strokes are easily broken by upsampling, DPRNet keeps the contours
 continuous and avoids obvious ringing, matching the visual quality of the best
-transformer baselines. These observations are consistent with the routing
-diagnostics of Sec.~\ref{sec:routing_analysis}: confidence-aware aggregation
+Transformer baselines. These observations are consistent with the routing
+diagnostics of Section~\ref{sec:routing_analysis}: confidence-aware aggregation
 tracks structured, high-frequency regions that local-window methods resolve less
-faithfully. We stress that Fig.~\ref{fig:visual} is a qualitative comparison;
+faithfully. We stress that Figure~\ref{fig:visual} is a qualitative comparison;
 the corresponding quantitative results for all baselines are reported in
 Table~\ref{tab:main_comparison}, where DPRNet remains in the top tier at a
 comparable parameter budget.

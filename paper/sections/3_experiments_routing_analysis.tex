@@ -25,7 +25,7 @@ temperature $\tau$ (Eq.~\eqref{eq:scores}). The blocks use
 $M=[16,32,64,128,16,32,64,128]$ prototypes respectively.
 
 \paragraph{Balanced prototype usage (C4).}
-Fig.~\ref{fig:usage_entropy} reports the normalized usage entropy per block with
+Figure~\ref{fig:usage_entropy} reports the normalized usage entropy per block with
 and without the balancing regularizer. With balancing enabled (the full model) the
 entropy is higher in \emph{all eight} blocks, raising the block-mean from $0.623$
 to $0.686$; the effect is largest in the high-frequency-oriented block $b_4$
@@ -49,7 +49,7 @@ hitting their safety bound.
 The per-token confidence $x^{\mathrm{s}}$ that drives the ordering key
 (Eq.~\eqref{eq:sortkey}), the IASA gate (Eq.~\eqref{eq:iasa_gate}) and the soft
 fallback (Eq.~\eqref{eq:soft_fallback}) is a non-degenerate signal in every block.
-Fig.~\ref{fig:xscore_hist} shows its distribution accumulated over \emph{all} test
+Figure~\ref{fig:xscore_hist} shows its distribution accumulated over \emph{all} test
 images of Urban100 and Manga109 with the final model: in each block the probability
 mass lies clearly to the right of the uniform-assignment floor $1/M$ (for example, the
 Urban100 block means are $0.109$ vs.\ $0.0625$ for $b_0$ and $0.012$ vs.\
@@ -57,7 +57,7 @@ $0.0078$ for $b_3$) yet stays far from $1$. The
 softmax assignment is therefore informative but soft rather than collapsed onto a
 single prototype. As $M$ grows, its mode shifts toward the lower floor. Reshaping
 the original-order labels $b_n=\arg\max_m S_{n,m}$ to $H\times W$ yields the routing
-cluster maps in Fig.~\ref{fig:cluster_maps}: the partitions track image content
+cluster maps in Figure~\ref{fig:cluster_maps}: the partitions track image content
 (repetitive building facades, high-contrast strokes) instead of a fixed spatial
 grid. In this visualization the important evidence is boundary continuity rather
 than the exact hue: early blocks form coarse content groups, while deeper
@@ -73,4 +73,4 @@ entropy and active-prototype count (C4), the learnable temperature stays in a
 stable, unsaturated range (C4), and the retained confidence signal is informative
 across all blocks (C3). These observations characterize the behavior of DPR
 independently of the reconstruction metrics discussed in
-Sec.~\ref{sec:ablation}.
+Section~\ref{sec:ablation}.

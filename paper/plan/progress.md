@@ -1395,3 +1395,52 @@
   - Ghostscript 渲染第 8 页目视检查：Fig.2 底部 legend 与上方两个 panel 左右边界对齐。
   - `rg` 检查 `main_mdpi.log`：无 fatal/error、未定义引用、Overfull/Underfull。
   - `git diff --check -- paper/figures/fig2_dpr.tex` 通过。
+
+### 2026-07-15 · MDPI PDF 定稿前终审
+
+- 用户要求审阅 `paper/main_mdpi.pdf`，作者信息尚未填写，按用户要求不审作者信息。
+- 检查范围：
+  - 当前 `paper/main_mdpi.pdf`、`paper/main_mdpi.log`、`paper/main_mdpi.tex`。
+  - 正文、图表、参考文献和 MDPI back matter 对应源文件。
+  - `paper/figures/fig58_assets/fig5_*_xscore_stats.csv` 中 Fig.5 confidence 统计。
+- 修改内容：
+  - `paper/figures/fig5_xscore_hist.tex`：将 Fig.5 caption 中
+    `1.5--1.9 times 1/M` 改为 `1.5--2.1 times 1/M`，与当前 Urban100/Manga109
+    统计文件一致。
+  - `paper/tables/table5_ablation_a3.tex`：将 Table 7 和 Table 8 拆成两个独立
+    `table` 浮动体，避免两个 caption 共用同一 hyperref anchor。
+- 复查结论：
+  - 除作者信息占位符外，PDF 文本中未发现 TODO/FIXME/TBD、未替换模板文本、
+    `??`/`[?]`、NaN/Inf。
+  - 源码标签、交叉引用、引用 key、BibTeX 条目检查均为 0 缺失、0 重复、0 未用。
+  - `main_mdpi.log` 无 LaTeX/package/pdfTeX warning，无 undefined citation/reference，
+    无 Overfull/Underfull。
+  - 仍需投稿前人工确认：MDPI 投稿系统是否要求显式加入
+    `\institutionalreview{Not applicable.}`、`\informedconsent{Not applicable.}`、
+    `\acknowledgments{...}` 或 GenAI 使用声明。
+
+### Capability-use audit（2026-07-15 MDPI final PDF review）
+
+- Required skills: research-writing-assistant, using-research-writing, paper-orchestration,
+  peer-review, verification.
+- Skills actually used: 已读取并应用 research-writing-assistant、using-research-writing、
+  paper-orchestration、peer-review、verification；按 S5 投稿前质量复查执行。
+- Inputs consumed: `paper/main_mdpi.pdf`, `paper/main_mdpi.log`, `paper/main_mdpi.tex`,
+  `paper/sections/*.tex`, `paper/tables/*.tex`, `paper/figures/*.tex`,
+  `paper/references.bib`, `paper/main_mdpi.bbl`,
+  `paper/figures/fig58_assets/fig5_*_xscore_stats.csv`,
+  `paper/plan/review/main-mdpi-submission-readiness-review-2026-06-28.md`,
+  `paper/plan/review/reference-final-verification.md`。
+- Inputs not used and why: 未重新检索外部文献；本轮目标是当前 PDF 定稿前终审，
+  参考文献已有 DOI/CrossRef 审计记录，且未新增引用。
+- Artifacts produced: 更新后的 `paper/main_mdpi.pdf`、`paper/main_mdpi.log`、
+  `paper/figures/fig5_xscore_hist.tex`、`paper/tables/table5_ablation_a3.tex`，
+  以及本审计记录。
+- Verification run:
+  - `PATH=/Users/bytedance/Library/TinyTeX/bin/universal-darwin:$PATH latexmk -pdf -shell-escape -interaction=nonstopmode -halt-on-error main_mdpi.tex`
+  - `grep -nE '(^!|Warning|undefined|Undefined|Citation|Reference|Rerun|Overfull|Underfull|pdfTeX warning|Emergency stop|No file)' paper/main_mdpi.log`
+  - `python3` + `pdfplumber` 抽取 23 页 PDF 文本，检查占位符、异常标记和 Fig.5/Table 7/8 文本。
+  - `python3` 检查 `label/ref/cite/bibkey` 一致性、重复 label、未用 bib 条目。
+  - `python3` 检查所有 figure/table 环境的 caption 数量。
+- Remaining risk: 作者元信息按用户要求未处理；MDPI 平台级 back-matter 字段和
+  AI 使用披露需由作者按实际情况确认。

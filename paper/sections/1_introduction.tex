@@ -117,7 +117,7 @@ The main contributions are as follows.
   \item \textbf{C1 -- Dynamic semantic prototypes.} We generate routing prototypes
   from the current tokens by a soft, assignment-weighted aggregation, removing the
   cross-batch EMA center buffer so that prototypes follow per-image semantics
-  (Sec.~\ref{sec:method_dpr}, Eqs.~\eqref{eq:assign}--\eqref{eq:proto_content}).
+  (Section~\ref{sec:method_dpr}, Eqs.~\eqref{eq:assign}--\eqref{eq:proto_content}).
   \item \textbf{C2 -- Decoupled prototype confirmation.} We separate prototype
   \emph{generation} from \emph{confirmation} by refining the content prototypes
   with a learnable query bank through a single gated cross-attention, improving the
@@ -136,4 +136,4 @@ The main contributions are as follows.
 Each design element is exposed as an independent switch that defaults to the full
 model. Turning these switches off gives the corresponding ablated variants, which
 allows the contributions to be isolated cleanly in the ablation study
-(Sec.~\ref{sec:ablation}).
+(Section~\ref{sec:ablation}).
