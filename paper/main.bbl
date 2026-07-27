@@ -1,4 +1,4 @@
-\begin{thebibliography}{45}
+\begin{thebibliography}{44}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -21,12 +21,6 @@ Marco Bevilacqua, Aline Roumy, Christine Guillemot, and Marie~Line Alberi-Morel.
 \newblock Low-complexity single-image super-resolution based on nonnegative neighbor embedding.
 \newblock In \emph{British Machine Vision Conference (BMVC)}, pages 135.1--135.10, 2012.
 
-\bibitem[Chen et~al.(2021)Chen, Wang, Guo, Xu, Deng, Liu, Ma, Xu, Xu, and Gao]{chen2021ipt}
-Hanting Chen, Yunhe Wang, Tianyu Guo, Chang Xu, Yiping Deng, Zhenhua Liu, Siwei Ma, Chunjing Xu, Chao Xu, and Wen Gao.
-\newblock Pre-trained image processing transformer.
-\newblock In \emph{IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}, pages 12294--12305, 2021.
-\newblock arXiv:2012.00364.
-
 \bibitem[Chen et~al.(2023)Chen, Wang, Zhou, Qiao, and Dong]{chen2023hat}
 Xiangyu Chen, Xintao Wang, Jiantao Zhou, Yu Qiao, and Chao Dong.
 \newblock Activating more pixels in image super-resolution transformer.
@@ -44,12 +38,6 @@ Chao Dong, Chen~Change Loy, Kaiming He, and Xiaoou Tang.
 \newblock Learning a deep convolutional network for image super-resolution.
 \newblock In \emph{European Conference on Computer Vision (ECCV)}, pages 184--199, 2014.
 
-\bibitem[Dong et~al.(2016)Dong, Loy, and Tang]{dong2016fsrcnn}
-Chao Dong, Chen~Change Loy, and Xiaoou Tang.
-\newblock Accelerating the super-resolution convolutional neural network.
-\newblock In \emph{European Conference on Computer Vision (ECCV)}, pages 391--407, 2016.
-\newblock arXiv:1608.00367.
-
 \bibitem[Glasner et~al.(2009)Glasner, Bagon, and Irani]{glasner2009single}
 Daniel Glasner, Shai Bagon, and Michal Irani.
 \newblock Super-resolution from a single image.
@@ -61,11 +49,17 @@ Yong Guo, Mingkui Tan, Zeshuai Deng, Jingdong Wang, Qi Chen, Jiezhang Cao, Yanwu
 \newblock \emph{IEEE Transactions on Pattern Analysis and Machine Intelligence}, 46\penalty0 (12):\penalty0 8365--8379, 2024.
 \newblock arXiv:2207.07929.
 
-\bibitem[Haris et~al.(2018)Haris, Shakhnarovich, and Ukita]{haris2018dbpn}
-Muhammad Haris, Greg Shakhnarovich, and Norimichi Ukita.
-\newblock Deep back-projection networks for super-resolution.
-\newblock In \emph{IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}, pages 1664--1673, 2018.
-\newblock arXiv:1803.02735.
+\bibitem[He et~al.(2026{\natexlab{a}})He, Tang, Tu, Zhang, Cheng, Chen, Guo, Zhu, Hu, Wang, and Gao]{he2026tadsr}
+Xiao He, Huaao Tang, Zhijun Tu, Junchao Zhang, Kun Cheng, Hanting Chen, Yong Guo, Mingrui Zhu, Jie Hu, Nannan Wang, and Xinbo Gao.
+\newblock One step diffusion-based super-resolution with time-aware distillation.
+\newblock \emph{IEEE Transactions on Image Processing}, 35:\penalty0 2928--2940, 2026{\natexlab{a}}.
+\newblock TAD-SR; arXiv:2408.07476.
+
+\bibitem[He et~al.(2026{\natexlab{b}})He, Tu, Cheng, Zhu, Hu, Wang, and Gao]{he2026mordasr}
+Xiao He, Zhijun Tu, Kun Cheng, Mingrui Zhu, Jie Hu, Nannan Wang, and Xinbo Gao.
+\newblock Mixture of ranks with degradation-aware routing for one-step real-world image super-resolution.
+\newblock In \emph{AAAI Conference on Artificial Intelligence (AAAI)}, pages 4681--4689, 2026{\natexlab{b}}.
+\newblock MoR-DASR; arXiv:2511.16024.
 
 \bibitem[Huang et~al.(2015)Huang, Singh, and Ahuja]{huang2015urban100}
 Jia-Bin Huang, Abhishek Singh, and Narendra Ahuja.
@@ -78,17 +72,23 @@ Zheng Hui, Xinbo Gao, Yunchu Yang, and Xiumei Wang.
 \newblock In \emph{27th ACM International Conference on Multimedia (ACM MM)}, pages 2024--2032, 2019.
 \newblock arXiv:1909.11856.
 
-\bibitem[Kim et~al.(2016{\natexlab{a}})Kim, Lee, and Lee]{kim2016drcn}
-Jiwon Kim, Jung~Kwon Lee, and Kyoung~Mu Lee.
-\newblock Deeply-recursive convolutional network for image super-resolution.
-\newblock In \emph{IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}, pages 1637--1645, 2016{\natexlab{a}}.
-\newblock arXiv:1511.04491.
+\bibitem[Jeong et~al.(2024)Jeong, Kim, Jo, and Kim]{jeong2024pcsr}
+Jinho Jeong, Jinwoo Kim, Younghyun Jo, and Seon~Joo Kim.
+\newblock Accelerating image super-resolution networks with pixel-level classification.
+\newblock In \emph{European Conference on Computer Vision (ECCV)}, pages 236--251, 2024.
+\newblock PCSR; arXiv:2407.21448.
 
-\bibitem[Kim et~al.(2016{\natexlab{b}})Kim, Lee, and Lee]{kim2016vdsr}
+\bibitem[Kim et~al.(2016)Kim, Lee, and Lee]{kim2016vdsr}
 Jiwon Kim, Jung~Kwon Lee, and Kyoung~Mu Lee.
 \newblock Accurate image super-resolution using very deep convolutional networks.
-\newblock In \emph{IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}, pages 1646--1654, 2016{\natexlab{b}}.
+\newblock In \emph{IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}, pages 1646--1654, 2016.
 \newblock arXiv:1511.04587.
+
+\bibitem[Kim et~al.(2025)Kim, Nang, and Choe]{kim2025lmlt}
+Jeongsoo Kim, Jongho Nang, and Junsuk Choe.
+\newblock {LMLT}: Low-to-high multi-level vision transformer for lightweight image super-resolution.
+\newblock In \emph{IEEE/CVF International Conference on Computer Vision Workshops (ICCVW)}, pages 5568--5578, 2025.
+\newblock arXiv:2409.03516.
 
 \bibitem[Kong et~al.(2022)Kong, Li, Liu, Liu, He, Bai, Chen, and Fu]{kong2022rlfn}
 Fangyuan Kong, Mingxi Li, Songwei Liu, Ding Liu, Jingwen He, Yang Bai, Fangmin Chen, and Lean Fu.
@@ -96,10 +96,11 @@ Fangyuan Kong, Mingxi Li, Songwei Liu, Ding Liu, Jingwen He, Yang Bai, Fangmin C
 \newblock In \emph{IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops (CVPRW)}, pages 765--775, 2022.
 \newblock arXiv:2205.07514; NTIRE 2022 Efficient SR Challenge winner.
 
-\bibitem[Lai et~al.(2017)Lai, Huang, Ahuja, and Yang]{lai2017lapsrn}
-Wei-Sheng Lai, Jia-Bin Huang, Narendra Ahuja, and Ming-Hsuan Yang.
-\newblock Deep laplacian pyramid networks for fast and accurate super-resolution.
-\newblock In \emph{IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}, pages 5835--5843, 2017.
+\bibitem[Li et~al.(2024)Li, Deng, Cao, and Liu]{li2024grformer}
+Yuzhen Li, Zehang Deng, Yuxin Cao, and Lihua Liu.
+\newblock {GRFormer}: Grouped residual self-attention for lightweight single image super-resolution.
+\newblock In \emph{32nd ACM International Conference on Multimedia (ACM MM)}, pages 9378--9386, 2024.
+\newblock arXiv:2408.07484.
 
 \bibitem[Liang et~al.(2021)Liang, Cao, Sun, Zhang, Van~Gool, and Timofte]{liang2021swinir}
 Jingyun Liang, Jiezhang Cao, Guolei Sun, Kai Zhang, Luc Van~Gool, and Radu Timofte.
@@ -153,34 +154,23 @@ Yiqun Mei, Yuchen Fan, Yuqian Zhou, Lichao Huang, Thomas~S. Huang, and Humphrey 
 \newblock In \emph{IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}, pages 5689--5698, 2020.
 \newblock arXiv:2006.01424.
 
+\bibitem[Moser et~al.(2023)Moser, Raue, Frolov, Palacio, Hees, and Dengel]{moser2023survey}
+Brian~B. Moser, Federico Raue, Stanislav Frolov, Sebastian Palacio, J\"orn Hees, and Andreas Dengel.
+\newblock Hitchhiker's guide to super-resolution: Introduction and recent advances.
+\newblock \emph{IEEE Transactions on Pattern Analysis and Machine Intelligence}, 45\penalty0 (8):\penalty0 9862--9882, 2023.
+\newblock arXiv:2209.13131.
+
 \bibitem[Ren et~al.(2024)Ren, Li, Mehta, Timofte, et~al.]{ren2024ntire}
 Bin Ren, Yawei Li, Nancy Mehta, Radu Timofte, et~al.
 \newblock The ninth {NTIRE} 2024 efficient super-resolution challenge report.
 \newblock \emph{Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops (CVPRW)}, pages 6595--6631, 2024.
 \newblock arXiv:2404.10343.
 
-\bibitem[Shi et~al.(2016)Shi, Caballero, Huszar, Totz, Aitken, Bishop, Rueckert, and Wang]{shi2016espcn}
-Wenzhe Shi, Jose Caballero, Ferenc Huszar, Johannes Totz, Andrew~P. Aitken, Rob Bishop, Daniel Rueckert, and Zehan Wang.
-\newblock Real-time single image and video super-resolution using an efficient sub-pixel convolutional neural network.
-\newblock In \emph{IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}, pages 1874--1883, 2016.
-\newblock arXiv:1609.05158.
-
 \bibitem[Sun et~al.(2022)Sun, Pan, and Tang]{sun2022shufflemixer}
 Long Sun, Jinshan Pan, and Jinhui Tang.
 \newblock {ShuffleMixer}: An efficient convnet for image super-resolution.
 \newblock In \emph{Advances in Neural Information Processing Systems (NeurIPS)}, pages 17314--17326, 2022.
 \newblock arXiv:2205.15175.
-
-\bibitem[Tai et~al.(2017{\natexlab{a}})Tai, Yang, and Liu]{tai2017drrn}
-Ying Tai, Jian Yang, and Xiaoming Liu.
-\newblock Image super-resolution via deep recursive residual network.
-\newblock In \emph{IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}, pages 2790--2798, 2017{\natexlab{a}}.
-
-\bibitem[Tai et~al.(2017{\natexlab{b}})Tai, Yang, Liu, and Xu]{tai2017memnet}
-Ying Tai, Jian Yang, Xiaoming Liu, and Chunyan Xu.
-\newblock {MemNet}: A persistent memory network for image restoration.
-\newblock In \emph{IEEE International Conference on Computer Vision (ICCV)}, pages 4549--4557, 2017{\natexlab{b}}.
-\newblock arXiv:1708.02209.
 
 \bibitem[Wang et~al.(2023)Wang, Chen, Ni, Liu, and Liu]{wang2023omnisr}
 Hang Wang, Xuanhong Chen, Bingbing Ni, Yutian Liu, and Jinfan Liu.
@@ -199,21 +189,22 @@ Zhou Wang, Alan~C. Bovik, Hamid~R. Sheikh, and Eero~P. Simoncelli.
 \newblock Image quality assessment: From error visibility to structural similarity.
 \newblock \emph{IEEE Transactions on Image Processing}, 13\penalty0 (4):\penalty0 600--612, 2004.
 
-\bibitem[Wang et~al.(2021)Wang, Chen, and Hoi]{wang2021survey}
-Zhihao Wang, Jian Chen, and Steven C.~H. Hoi.
-\newblock Deep learning algorithms for single image super-resolution: A systematic review.
-\newblock \emph{Electronics}, 10\penalty0 (7):\penalty0 867, 2021.
+\bibitem[Wu et~al.(2023)Wu, Ni, and Zhang]{wu2023saldrn}
+Hanlin Wu, Ning Ni, and Libao Zhang.
+\newblock Lightweight stepless super-resolution of remote sensing images via saliency-aware dynamic routing strategy.
+\newblock \emph{IEEE Transactions on Geoscience and Remote Sensing}, 61:\penalty0 1--17, 2023.
+\newblock SalDRN; Art. no. 5601717; arXiv:2210.07598.
+
+\bibitem[Wu et~al.(2024)Wu, Li, Hu, and Huang]{wu2024compacter}
+Zhijian Wu, Jun Li, Yang Hu, and Dingjiang Huang.
+\newblock {Compacter}: A lightweight transformer for image restoration.
+\newblock In \emph{32nd ACM International Conference on Multimedia (ACM MM)}, 2024.
 
 \bibitem[Yang et~al.(2020)Yang, Yang, Fu, Lu, and Guo]{yang2020ttn}
 Fuzhi Yang, Huan Yang, Jianlong Fu, Hongtao Lu, and Baining Guo.
 \newblock Learning texture transformer network for image super-resolution.
 \newblock In \emph{IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}, pages 5790--5799, 2020.
 \newblock arXiv:2006.04139.
-
-\bibitem[Yang et~al.(2010)Yang, Wright, Huang, and Ma]{yang2010sparse}
-Jianchao Yang, John Wright, Thomas~S. Huang, and Yi Ma.
-\newblock Image super-resolution via sparse representation.
-\newblock \emph{IEEE Transactions on Image Processing}, 19\penalty0 (11):\penalty0 2861--2873, 2010.
 
 \bibitem[Zeyde et~al.(2012)Zeyde, Elad, and Protter]{zeyde2010set14}
 Roman Zeyde, Michael Elad, and Matan Protter.
@@ -254,6 +245,12 @@ Ling Zheng, Jinchen Zhu, Jinpeng Shi, and Shizhuang Weng.
 \newblock Efficient mixed transformer for single image super-resolution.
 \newblock \emph{Engineering Applications of Artificial Intelligence}, 133:\penalty0 108035, 2024.
 \newblock arXiv:2305.11403.
+
+\bibitem[Zheng et~al.(2026)Zheng, Zhang, Zhu, Liu, Hu, Li, and Yang]{zheng2026dvar}
+Yu Zheng, Kai Zhang, Wei Zhu, Qingguo Liu, Xiantao Hu, Jun Li, and Jian Yang.
+\newblock {DVAR}: Dynamic visual autoregressive modeling for image super-resolution.
+\newblock In \emph{IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}, 2026.
+\newblock DVAR.
 
 \bibitem[Zhou et~al.(2023)Zhou, Li, Guo, Bai, Cheng, and Hou]{zhou2023srformer}
 Yupeng Zhou, Zhen Li, Chun-Le Guo, Song Bai, Ming-Ming Cheng, and Qibin Hou.

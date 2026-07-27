@@ -13,14 +13,13 @@
 Single image super-resolution (SR) aims to reconstruct a high-resolution (HR)
 image from a low-resolution (LR) observation, a problem that underpins applications
 from mobile photography to display rendering. Before deep learning, SR was often
-formulated with image priors such as sparse representation and internal
-self-similarity~\cite{yang2010sparse,glasner2009single}. Since the seminal deep
+formulated with hand-crafted image priors, such as internal self-similarity
+across scales~\cite{glasner2009single}. Since the seminal deep
 model SRCNN~\cite{dong2014srcnn}, accuracy has improved through deeper,
-recurrent, progressive, and feature-reuse networks, including
-VDSR~\cite{kim2016vdsr}, DRCN~\cite{kim2016drcn}, LapSRN~\cite{lai2017lapsrn},
-DBPN~\cite{haris2018dbpn}, RDN~\cite{zhang2018rdn}, RCAN~\cite{zhang2018rcan},
+residual, and feature-reuse networks, including
+VDSR~\cite{kim2016vdsr}, RDN~\cite{zhang2018rdn}, RCAN~\cite{zhang2018rcan},
 and EDSR~\cite{lim2017edsr}. A recent survey summarizes this progression across
-architectures, losses, datasets, and metrics~\cite{wang2021survey}. The
+architectures, losses, datasets, and metrics~\cite{moser2023survey}. The
 corresponding growth in parameters and computation, however, makes many
 high-capacity models impractical for mobile and edge devices, where memory,
 latency, and energy are tightly constrained. This tension has motivated a sustained
@@ -30,16 +29,14 @@ trade-off between reconstruction quality and model cost.
 \paragraph{Lightweight CNN-based SR.}
 Efficient CNN designs reduce cost by moving computation to low-resolution
 features, reusing parameters, simplifying feature distillation, or replacing
-heavy operators with compact mixing. FSRCNN accelerates SRCNN-style
-reconstruction~\cite{dong2016fsrcnn}, ESPCN performs efficient sub-pixel
-upsampling~\cite{shi2016espcn}, and recursive or memory-based designs reuse
-features across depth~\cite{tai2017drrn,tai2017memnet}. CARN employs cascading
+heavy operators with compact mixing. CARN employs cascading
 residual connections with group convolutions~\cite{ahn2018carn}; IMDN introduces
 information multi-distillation~\cite{hui2019imdn}; RFDN reformulates this idea
 with residual feature distillation blocks~\cite{liu2020rfdn}; and RLFN further
 simplifies local feature extraction for efficient SR~\cite{kong2022rlfn}. More
-recent lightweight designs also explore shuffle-based convolutional mixing and
-dual-regression constraints~\cite{sun2022shufflemixer,guo2022dualregression}.
+recent lightweight designs also explore shuffle-based convolutional
+mixing~\cite{sun2022shufflemixer} and dual-regression
+constraints~\cite{guo2022dualregression}.
 Efficient-SR challenges reflect the same deployment pressure by ranking models
 with accuracy, runtime, parameters, and FLOPs considered together~\cite{ren2024ntire}.
 For the present work, the main limitation of these methods is not efficiency but
@@ -50,35 +47,51 @@ distant yet semantically similar regions without stacking many layers.
 Long-range modeling tackles the context limitation from a different direction.
 Non-local operators aggregate features across distant positions~\cite{wang2018nonlocal},
 and Transformer-based restoration extends this idea with learned attention.
-IPT shows that large pre-trained Transformers can serve image restoration tasks
-including SR~\cite{chen2021ipt}, while Swin Transformer provides the shifted-window
+Swin Transformer provides the shifted-window
 operator that later restoration models adopt for tractable attention~\cite{liu2021swin}.
 SwinIR introduces window-based attention for image restoration~\cite{liang2021swinir};
 ELAN streamlines long-range attention to cut redundant computation~\cite{zhang2022elan};
 SRFormer revisits the window--channel trade-off with permuted
 self-attention~\cite{zhou2023srformer}; and HAT activates more pixels to enlarge the
 effective receptive field~\cite{chen2023hat}. Efficient variants further mix local
-operators with omni-dimensional, n-gram, or hierarchical attention
-patterns~\cite{zheng2023emt,wang2023omnisr,choi2023ngswin,liu2022hpinet}.
-ATD augments local windows with an adaptive token dictionary to extend the
-effective context~\cite{zhang2024atd}. While effective, window attention still
-ties token interaction to a fixed spatial partition. Semantically similar but
-spatially distant tokens therefore interact only when the window grows or an
-additional global path is introduced.
+operators with omni-dimensional attention~\cite{wang2023omnisr} or n-gram
+context~\cite{choi2023ngswin}, adopt mixed Transformer
+blocks~\cite{zheng2023emt}, or integrate features hierarchically from coarse to
+fine~\cite{liu2022hpinet}. More recent lightweight
+Transformers push this efficiency further: GRFormer introduces grouped residual
+self-attention to trim redundant parameters and computation~\cite{li2024grformer},
+LMLT applies multi-level attention with per-head feature sizes to widen the
+effective context~\cite{kim2025lmlt}, and Compacter shares a single projection
+across spatial and channel attention for compact restoration~\cite{wu2024compacter}.
+ATD takes a step toward content adaptivity by augmenting local windows with an
+adaptive token dictionary~\cite{zhang2024atd}. Yet all of these still bind token
+interaction to a predefined spatial partition: semantically similar but spatially
+distant tokens interact only when the window grows or an extra global path is
+added, which motivates organizing tokens by content instead of position.
 
-\paragraph{Content-aware / cluster-based routing.}
-A complementary direction groups tokens by \emph{content} rather than by spatial
-position, allowing long-range but semantically related regions to interact within a
-compact attention. This idea is related to earlier self-exemplar and non-local
-SR designs, where similar patches or texture correspondences are explicitly
-mined across an image or reference~\cite{glasner2009single,mei2020csnln,yang2020ttn}.
-SPIN performs superpixel-based token interaction for lightweight
-SR~\cite{zhang2024spin}. CATANet pushes this idea further with a Token
-Aggregation Block (TAB) that maintains a small set of routing centers, assigns
-each token to its nearest center, reorders tokens by cluster label, and aggregates
-the reordered sequence with an intra/inter-group attention
-operator~\cite{liu2025catanet}. This content routing delivers strong accuracy at
-a low budget and is the most direct predecessor of our work.
+\paragraph{Content-adaptive routing and token clustering.}
+A complementary direction routes computation or interaction by \emph{content}
+rather than by a fixed spatial layout. One thread allocates compute where
+reconstruction is hard: PCSR classifies each pixel and dispatches it to an
+upsampler of matching capacity~\cite{jeong2024pcsr}, while SalDRN treats visual
+saliency as a proxy for region-level difficulty and selects feature paths of
+appropriate depth accordingly~\cite{wu2023saldrn}. Pushing this idea to
+real-world SR, MoR-DASR casts restoration as a mixture of experts whose
+degradation-aware gate activates only relevant ranks and relies on a
+load-balancing loss to stop expert usage from collapsing onto a few
+branches~\cite{he2026mordasr}. A second thread instead groups \emph{tokens} by
+content, so that distant but semantically related regions interact within a
+compact attention---an idea rooted in non-local and self-exemplar SR that mines
+recurring patches within an image~\cite{mei2020csnln} or transfers texture from a
+reference~\cite{yang2020ttn}. SPIN clusters tokens into superpixels for
+lightweight interaction~\cite{zhang2024spin}, and CATANet, the most direct
+predecessor of our work, introduces a Token Aggregation Block (TAB) that keeps a
+small set of routing centers, assigns each token to its nearest center, reorders
+tokens by cluster label, and aggregates the reordered sequence with an
+intra/inter-group attention operator~\cite{liu2025catanet}. This content routing
+attains strong accuracy at a low budget; crucially, the load-balancing concern
+raised for expert routing reappears here as a risk of \emph{prototype collapse}
+that any learnable token router must also control.
 
 \paragraph{Limitations of center-based routing.}
 Despite its effectiveness, the TAB routing mechanism has four limitations.
@@ -95,7 +108,9 @@ and \emph{confirmation} are entangled in a single iterative update, which weaken
 interpretability and stability. These observations suggest that a routing module
 built directly from the current input, that preserves and exploits assignment
 confidence, and that separates prototype generation from confirmation could
-improve content routing without sacrificing the lightweight regime.
+improve content routing without sacrificing the lightweight regime---provided it
+also guards against the prototype collapse that a learnable router can induce, in
+the same spirit as the load balancing used for expert routing~\cite{he2026mordasr}.
 
 \paragraph{Our approach.}
 We propose \emph{Dynamic Prototype Routing} (DPR), a drop-in replacement for the

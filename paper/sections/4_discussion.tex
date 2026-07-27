@@ -20,9 +20,9 @@ routing helps most. On Urban100 and Manga109---images dominated by repetitive st
 and long-range self-similarity---DPRNet and CATANet, the two routing methods, separate
 more noticeably from the window- and distillation-based baselines, whereas on the more
 stochastic textures of BSD100 the margin between all top-tier methods narrows. This is
-consistent with the premise of content routing and with earlier SR work that exploits
-internal self-similarity or cross-scale non-local
-correspondences~\cite{glasner2009single,huang2015urban100,mei2020csnln}: grouping tokens by semantics
+consistent with the premise of content routing and with earlier SR work that
+exploits internal self-similarity~\cite{glasner2009single} or cross-scale
+non-local correspondences~\cite{mei2020csnln}: grouping tokens by semantics
 is most useful when semantically related content is spatially scattered. It is less
 useful when local statistics already capture the signal. DPR does not discard spatial
 locality; it complements it, since each TAB is paired with a local self-attention unit
@@ -82,4 +82,7 @@ comparison is intentionally limited to common-protocol MACs and our measured DPR
 we do not claim cross-method latency because the competing models were not remeasured on the
 same hardware and implementation stack (Section~\ref{sec:efficiency}). The models are trained
 on DIV2K only; larger training sets (e.g.\ DF2K) and real-world or arbitrary-scale
-degradations are not explored here and may further shift the trade-off.
+degradations are not explored here and may further shift the trade-off. Extending
+confidence-aware routing to such settings---for instance alongside one-step diffusion
+distillation~\cite{he2026tadsr} or dynamic autoregressive modeling~\cite{zheng2026dvar}
+for real-world SR---is a promising direction that we leave to future work.

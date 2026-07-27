@@ -8,6 +8,13 @@
 %     BasicSR 仅作为实验框架在正文说明，不再占用正式参考文献名额。
 %   - 2026-06-28 逐条 DOI 复核：修正 dong2016fsrcnn DOI/页码、wang2021survey 题名、
 %     zeyde2010set14 出版年份；见 plan/review/reference-doi-audit-2026-06-28.md。
+%   - 2026-07-20 文献更新：新增 8 条 2024--2026 经核实文献（GRFormer/LMLT/Compacter/
+%     PCSR/SalDRN/MoR-DASR/DVAR/TAD-SR），综述 wang2021survey 升级为 moser2023survey
+%     (TPAMI 2023)，移除 yang2010sparse(2010)。元数据经 DBLP/出版社/CVF 复核；
+%     DOI 仅在出版社/DOI 页可确认时填写，其余以正式会议/期刊 + arXiv 编号标注。
+%   - 2026-07-20 适度精简：移除 5 条冗余早期 CNN 历史文献（DRCN/ESPCN/LapSRN/DBPN/DRRN），
+%     保留里程碑与代表作（SRCNN/VDSR/EDSR/RDN/RCAN）及全部数据集/指标/基线。
+%   - 2026-07-20 进一步精简：再移除 IPT(与轻量主旨相反)、FSRCNN、MemNet 三条背景文献。
 % baseline 指标摘录见 plan/data-collection-checklist.md B 节（来源代号 A/B/C/D）。
 
 % ===== 最直接对手（本文基线主体，DPRNet 即在其上替换 TAB） =====
@@ -132,18 +139,86 @@
   note      = {ATD; arXiv:2401.08209}
 }
 
-% ===== SR 发展脉络与高容量 CNN / attention 代表方法 =====
-@article{yang2010sparse,
-  title   = {Image Super-Resolution via Sparse Representation},
-  author  = {Yang, Jianchao and Wright, John and Huang, Thomas S. and Ma, Yi},
-  journal = {IEEE Transactions on Image Processing},
-  volume  = {19},
-  number  = {11},
-  pages   = {2861--2873},
-  year    = {2010},
-  doi     = {10.1109/TIP.2010.2050625}
+% ===== 2024--2026 新增文献（经 DBLP/出版社/CVF 复核，2026-07-20） =====
+% -- 轻量 Transformer / 高效自注意力 SR --
+@inproceedings{li2024grformer,
+  title     = {{GRFormer}: Grouped Residual Self-Attention for Lightweight Single Image Super-Resolution},
+  author    = {Li, Yuzhen and Deng, Zehang and Cao, Yuxin and Liu, Lihua},
+  booktitle = {32nd ACM International Conference on Multimedia (ACM MM)},
+  pages     = {9378--9386},
+  year      = {2024},
+  doi       = {10.1145/3664647.3681554},
+  note      = {arXiv:2408.07484}
 }
 
+@inproceedings{kim2025lmlt,
+  title     = {{LMLT}: Low-to-high Multi-Level Vision Transformer for Lightweight Image Super-Resolution},
+  author    = {Kim, Jeongsoo and Nang, Jongho and Choe, Junsuk},
+  booktitle = {IEEE/CVF International Conference on Computer Vision Workshops (ICCVW)},
+  pages     = {5568--5578},
+  year      = {2025},
+  doi       = {10.1109/ICCVW69036.2025.00583},
+  note      = {arXiv:2409.03516}
+}
+
+@inproceedings{wu2024compacter,
+  title     = {{Compacter}: A Lightweight Transformer for Image Restoration},
+  author    = {Wu, Zhijian and Li, Jun and Hu, Yang and Huang, Dingjiang},
+  booktitle = {32nd ACM International Conference on Multimedia (ACM MM)},
+  year      = {2024},
+  doi       = {10.1145/3664647.3680811}
+}
+
+% -- 内容感知 / 像素级 / 退化感知路由 SR --
+@inproceedings{jeong2024pcsr,
+  title     = {Accelerating Image Super-Resolution Networks with Pixel-Level Classification},
+  author    = {Jeong, Jinho and Kim, Jinwoo and Jo, Younghyun and Kim, Seon Joo},
+  booktitle = {European Conference on Computer Vision (ECCV)},
+  pages     = {236--251},
+  year      = {2024},
+  doi       = {10.1007/978-3-031-72646-0_14},
+  note      = {PCSR; arXiv:2407.21448}
+}
+
+@article{wu2023saldrn,
+  title   = {Lightweight Stepless Super-Resolution of Remote Sensing Images via Saliency-Aware Dynamic Routing Strategy},
+  author  = {Wu, Hanlin and Ni, Ning and Zhang, Libao},
+  journal = {IEEE Transactions on Geoscience and Remote Sensing},
+  volume  = {61},
+  pages   = {1--17},
+  year    = {2023},
+  doi     = {10.1109/TGRS.2023.3236624},
+  note    = {SalDRN; Art. no. 5601717; arXiv:2210.07598}
+}
+
+@inproceedings{he2026mordasr,
+  title     = {Mixture of Ranks with Degradation-Aware Routing for One-Step Real-World Image Super-Resolution},
+  author    = {He, Xiao and Tu, Zhijun and Cheng, Kun and Zhu, Mingrui and Hu, Jie and Wang, Nannan and Gao, Xinbo},
+  booktitle = {AAAI Conference on Artificial Intelligence (AAAI)},
+  pages     = {4681--4689},
+  year      = {2026},
+  note      = {MoR-DASR; arXiv:2511.16024}
+}
+
+@inproceedings{zheng2026dvar,
+  title     = {{DVAR}: Dynamic Visual Autoregressive Modeling for Image Super-Resolution},
+  author    = {Zheng, Yu and Zhang, Kai and Zhu, Wei and Liu, Qingguo and Hu, Xiantao and Li, Jun and Yang, Jian},
+  booktitle = {IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  year      = {2026},
+  note      = {DVAR}
+}
+
+@article{he2026tadsr,
+  title   = {One Step Diffusion-Based Super-Resolution With Time-Aware Distillation},
+  author  = {He, Xiao and Tang, Huaao and Tu, Zhijun and Zhang, Junchao and Cheng, Kun and Chen, Hanting and Guo, Yong and Zhu, Mingrui and Hu, Jie and Wang, Nannan and Gao, Xinbo},
+  journal = {IEEE Transactions on Image Processing},
+  volume  = {35},
+  pages   = {2928--2940},
+  year    = {2026},
+  note    = {TAD-SR; arXiv:2408.07476}
+}
+
+% ===== SR 发展脉络与高容量 CNN / attention 代表方法 =====
 @inproceedings{glasner2009single,
   title     = {Super-Resolution from a Single Image},
   author    = {Glasner, Daniel and Bagon, Shai and Irani, Michal},
@@ -161,45 +236,6 @@
   year      = {2016},
   doi       = {10.1109/CVPR.2016.182},
   note      = {arXiv:1511.04587}
-}
-
-@inproceedings{kim2016drcn,
-  title     = {Deeply-Recursive Convolutional Network for Image Super-Resolution},
-  author    = {Kim, Jiwon and Lee, Jung Kwon and Lee, Kyoung Mu},
-  booktitle = {IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
-  pages     = {1637--1645},
-  year      = {2016},
-  doi       = {10.1109/CVPR.2016.181},
-  note      = {arXiv:1511.04491}
-}
-
-@inproceedings{shi2016espcn,
-  title     = {Real-Time Single Image and Video Super-Resolution Using an Efficient Sub-Pixel Convolutional Neural Network},
-  author    = {Shi, Wenzhe and Caballero, Jose and Huszar, Ferenc and Totz, Johannes and Aitken, Andrew P. and Bishop, Rob and Rueckert, Daniel and Wang, Zehan},
-  booktitle = {IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
-  pages     = {1874--1883},
-  year      = {2016},
-  doi       = {10.1109/CVPR.2016.207},
-  note      = {arXiv:1609.05158}
-}
-
-@inproceedings{lai2017lapsrn,
-  title     = {Deep Laplacian Pyramid Networks for Fast and Accurate Super-Resolution},
-  author    = {Lai, Wei-Sheng and Huang, Jia-Bin and Ahuja, Narendra and Yang, Ming-Hsuan},
-  booktitle = {IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
-  pages     = {5835--5843},
-  year      = {2017},
-  doi       = {10.1109/CVPR.2017.618}
-}
-
-@inproceedings{haris2018dbpn,
-  title     = {Deep Back-Projection Networks for Super-Resolution},
-  author    = {Haris, Muhammad and Shakhnarovich, Greg and Ukita, Norimichi},
-  booktitle = {IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
-  pages     = {1664--1673},
-  year      = {2018},
-  doi       = {10.1109/CVPR.2018.00179},
-  note      = {arXiv:1803.02735}
 }
 
 @inproceedings{zhang2018rdn,
@@ -223,35 +259,6 @@
 }
 
 % ===== 轻量 / 高效 CNN SR 代表方法 =====
-@inproceedings{dong2016fsrcnn,
-  title     = {Accelerating the Super-Resolution Convolutional Neural Network},
-  author    = {Dong, Chao and Loy, Chen Change and Tang, Xiaoou},
-  booktitle = {European Conference on Computer Vision (ECCV)},
-  pages     = {391--407},
-  year      = {2016},
-  doi       = {10.1007/978-3-319-46475-6_25},
-  note      = {arXiv:1608.00367}
-}
-
-@inproceedings{tai2017drrn,
-  title     = {Image Super-Resolution via Deep Recursive Residual Network},
-  author    = {Tai, Ying and Yang, Jian and Liu, Xiaoming},
-  booktitle = {IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
-  pages     = {2790--2798},
-  year      = {2017},
-  doi       = {10.1109/CVPR.2017.298}
-}
-
-@inproceedings{tai2017memnet,
-  title     = {{MemNet}: A Persistent Memory Network for Image Restoration},
-  author    = {Tai, Ying and Yang, Jian and Liu, Xiaoming and Xu, Chunyan},
-  booktitle = {IEEE International Conference on Computer Vision (ICCV)},
-  pages     = {4549--4557},
-  year      = {2017},
-  doi       = {10.1109/ICCV.2017.486},
-  note      = {arXiv:1708.02209}
-}
-
 @inproceedings{sun2022shufflemixer,
   title     = {{ShuffleMixer}: An Efficient ConvNet for Image Super-Resolution},
   author    = {Sun, Long and Pan, Jinshan and Tang, Jinhui},
@@ -304,16 +311,6 @@
   year      = {2020},
   doi       = {10.1109/CVPR42600.2020.00583},
   note      = {arXiv:2006.04139}
-}
-
-@inproceedings{chen2021ipt,
-  title     = {Pre-Trained Image Processing Transformer},
-  author    = {Chen, Hanting and Wang, Yunhe and Guo, Tianyu and Xu, Chang and Deng, Yiping and Liu, Zhenhua and Ma, Siwei and Xu, Chunjing and Xu, Chao and Gao, Wen},
-  booktitle = {IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
-  pages     = {12294--12305},
-  year      = {2021},
-  doi       = {10.1109/CVPR46437.2021.01212},
-  note      = {arXiv:2012.00364}
 }
 
 @inproceedings{liu2021swin,
@@ -380,15 +377,16 @@
 }
 
 % ===== 综述与效率挑战背景 =====
-@article{wang2021survey,
-  title   = {Deep Learning Algorithms for Single Image Super-Resolution: A Systematic Review},
-  author  = {Wang, Zhihao and Chen, Jian and Hoi, Steven C. H.},
-  journal = {Electronics},
-  volume  = {10},
-  number  = {7},
-  pages   = {867},
-  year    = {2021},
-  doi     = {10.3390/electronics10070867}
+@article{moser2023survey,
+  title   = {Hitchhiker's Guide to Super-Resolution: Introduction and Recent Advances},
+  author  = {Moser, Brian B. and Raue, Federico and Frolov, Stanislav and Palacio, Sebastian and Hees, J\"orn and Dengel, Andreas},
+  journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  volume  = {45},
+  number  = {8},
+  pages   = {9862--9882},
+  year    = {2023},
+  doi     = {10.1109/TPAMI.2023.3243794},
+  note    = {arXiv:2209.13131}
 }
 
 @article{ren2024ntire,

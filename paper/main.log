@@ -1,8 +1,8 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.6.26)  12 JUL 2026 21:56
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.6.26)  20 JUL 2026 20:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**main.tex
+**main
 (./main.tex
 LaTeX2e <2026-06-01>
 L3 programming layer <2026-06-18>
@@ -262,6 +262,13 @@ Package: multirow 2024/11/12 v2.9 Span multiple rows of a table
 \multirow@cntb=\count331
 \multirow@dima=\skip58
 \bigstrutjot=\dimen192
+) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count332
+\float@exts=\toks33
+\float@box=\box59
+\@float@everytoks=\toks34
+\@floatcapt=\box60
 ) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/psnfss/pifont.sty
 Package: pifont 2020/03/25 PSNFSS-v9.3 Pi font support (SPQR) 
 LaTeX Font Info:    Trying to load font information for U+pzd on input line 63.
@@ -274,11 +281,11 @@ File: upsy.fd 2001/06/04 font definitions for U/psy.
 )) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/pgfplots/pgfplots.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/pgfplots.revision.tex)
 Package: pgfplots 2025/08/14 v1.18.2 Data Visualization (1.18.2)
  (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.tex
-\pgfutil@everybye=\toks33
+\pgfutil@everybye=\toks35
 \pgfutil@tempdima=\dimen193
 \pgfutil@tempdimb=\dimen194
 ) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
-\pgfutil@abb=\box59
+\pgfutil@abb=\box61
 ) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/pgf.revision.tex)
 Package: pgfrcs 2025-08-29 v3.1.11a (3.1.11a)
 ))
@@ -286,10 +293,10 @@ Package: pgf 2025-08-29 v3.1.11a (3.1.11a)
  (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
 Package: pgfsys 2025-08-29 v3.1.11a (3.1.11a)
  (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
-\pgfkeys@pathtoks=\toks34
-\pgfkeys@temptoks=\toks35
+\pgfkeys@pathtoks=\toks36
+\pgfkeys@temptoks=\toks37
  (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfkeyslibraryfiltered.code.tex
-\pgfkeys@tmptoks=\toks36
+\pgfkeys@tmptoks=\toks38
 ))
 \pgf@x=\dimen195
 \pgf@y=\dimen196
@@ -303,14 +310,14 @@ Package: pgfsys 2025-08-29 v3.1.11a (3.1.11a)
 \pgf@yd=\dimen260
 \w@pgf@writea=\write3
 \r@pgf@reada=\read2
-\c@pgf@counta=\count332
-\c@pgf@countb=\count333
-\c@pgf@countc=\count334
-\c@pgf@countd=\count335
-\t@pgf@toka=\toks37
-\t@pgf@tokb=\toks38
-\t@pgf@tokc=\toks39
-\pgf@sys@id@count=\count336
+\c@pgf@counta=\count333
+\c@pgf@countb=\count334
+\c@pgf@countc=\count335
+\c@pgf@countd=\count336
+\t@pgf@toka=\toks39
+\t@pgf@tokb=\toks40
+\t@pgf@tokc=\toks41
+\pgf@sys@id@count=\count337
  (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
 File: pgf.cfg 2025-08-29 v3.1.11a (3.1.11a)
 )
@@ -321,21 +328,21 @@ File: pgfsys-pdftex.def 2025-08-29 v3.1.11a (3.1.11a)
 File: pgfsys-common-pdf.def 2025-08-29 v3.1.11a (3.1.11a)
 ))) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.tex
 File: pgfsyssoftpath.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgfsyssoftpath@smallbuffer@items=\count337
-\pgfsyssoftpath@bigbuffer@items=\count338
+\pgfsyssoftpath@smallbuffer@items=\count338
+\pgfsyssoftpath@bigbuffer@items=\count339
 ) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.tex
 File: pgfsysprotocol.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 )) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
 Package: pgfcore 2025-08-29 v3.1.11a (3.1.11a)
  (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
 \pgfmath@dimen=\dimen261
-\pgfmath@count=\count339
-\pgfmath@box=\box60
-\pgfmath@toks=\toks40
-\pgfmath@stack@operand=\toks41
-\pgfmath@stack@operation=\toks42
+\pgfmath@count=\count340
+\pgfmath@box=\box62
+\pgfmath@toks=\toks42
+\pgfmath@stack@operand=\toks43
+\pgfmath@stack@operation=\toks44
 ) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigonometric.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.random.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.comparison.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerarithmetics.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
-\c@pgfmathroundto@lastzeros=\count340
+\c@pgfmathroundto@lastzeros=\count341
 )) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfint.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.tex
 File: pgfcorepoints.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 \pgf@picminx=\dimen262
@@ -362,10 +369,10 @@ File: pgfcorepathusage.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 \pgf@shorten@start@additional=\dimen279
 ) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.code.tex
 File: pgfcorescopes.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgfpic=\box61
-\pgf@hbox=\box62
-\pgf@layerbox@main=\box63
-\pgf@picture@serial@count=\count341
+\pgfpic=\box63
+\pgf@hbox=\box64
+\pgf@layerbox@main=\box65
+\pgf@picture@serial@count=\count342
 ) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.code.tex
 File: pgfcoregraphicstate.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 \pgflinewidth=\dimen280
@@ -386,13 +393,13 @@ File: pgfcorearrows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 ) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
 File: pgfcoreshade.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 \pgf@max=\dimen285
-\pgf@sys@shading@range@num=\count342
-\pgf@shadingcount=\count343
+\pgf@sys@shading@range@num=\count343
+\pgf@shadingcount=\count344
 ) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
 File: pgfcoreimage.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 ) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.code.tex
 File: pgfcoreexternal.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgfexternal@startupbox=\box64
+\pgfexternal@startupbox=\box66
 ) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.code.tex
 File: pgfcorelayers.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 ) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransparency.code.tex
@@ -403,7 +410,7 @@ File: pgfcorepatterns.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 File: pgfcorerdf.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 ))) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.code.tex
 File: pgfmoduleshapes.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgfnodeparttextbox=\box65
+\pgfnodeparttextbox=\box67
 ) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.tex
 File: pgfmoduleplot.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 ) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-0-65.sty
@@ -416,13 +423,13 @@ Package: pgfcomp-version-1-18 2025-08-29 v3.1.11a (3.1.11a)
 Package: pgffor 2025-08-29 v3.1.11a (3.1.11a)
 \pgffor@iter=\dimen288
 \pgffor@skip=\dimen289
-\pgffor@stack=\toks43
-\pgffor@toks=\toks44
+\pgffor@stack=\toks45
+\pgffor@toks=\toks46
 )) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex
 Package: tikz 2025-08-29 v3.1.11a (3.1.11a)
  (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers.code.tex
 File: pgflibraryplothandlers.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgf@plot@mark@count=\count344
+\pgf@plot@mark@count=\count345
 \pgfplotmarksize=\dimen290
 )
 \tikz@lastx=\dimen291
@@ -433,51 +440,51 @@ File: pgflibraryplothandlers.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 \tikz@lastmovetoy=\dimen296
 \tikzleveldistance=\dimen297
 \tikzsiblingdistance=\dimen298
-\tikz@figbox=\box66
-\tikz@figbox@bg=\box67
-\tikz@tempbox=\box68
-\tikz@tempbox@bg=\box69
-\tikztreelevel=\count345
-\tikznumberofchildren=\count346
-\tikznumberofcurrentchild=\count347
-\tikz@fig@count=\count348
+\tikz@figbox=\box68
+\tikz@figbox@bg=\box69
+\tikz@tempbox=\box70
+\tikz@tempbox@bg=\box71
+\tikztreelevel=\count346
+\tikznumberofchildren=\count347
+\tikznumberofcurrentchild=\count348
+\tikz@fig@count=\count349
  (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.tex
 File: pgfmodulematrix.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgfmatrixcurrentrow=\count349
-\pgfmatrixcurrentcolumn=\count350
-\pgf@matrix@numberofcolumns=\count351
+\pgfmatrixcurrentrow=\count350
+\pgfmatrixcurrentcolumn=\count351
+\pgf@matrix@numberofcolumns=\count352
 )
-\tikz@expandcount=\count352
+\tikz@expandcount=\count353
  (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarytopaths.code.tex
 File: tikzlibrarytopaths.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 ))) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/pgfplots.code.tex (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/pgfplotscore.code.tex
-\t@pgfplots@toka=\toks45
-\t@pgfplots@tokb=\toks46
-\t@pgfplots@tokc=\toks47
+\t@pgfplots@toka=\toks47
+\t@pgfplots@tokb=\toks48
+\t@pgfplots@tokc=\toks49
 \pgfplots@tmpa=\dimen299
-\c@pgfplots@coordindex=\count353
-\c@pgfplots@scanlineindex=\count354
+\c@pgfplots@coordindex=\count354
+\c@pgfplots@scanlineindex=\count355
  (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/sys/pgfplotssysgeneric.code.tex)) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/libs/pgfplotslibrary.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplotsoldpgfsupp_loader.code.tex (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/libraries/pgflibraryfpu.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplotsoldpgfsupp_pgfutil-common-lists.tex)) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/util/pgfplotsutil.code.tex (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsliststructure.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsliststructureext.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsarray.code.tex
-\c@pgfplotsarray@tmp=\count355
+\c@pgfplotsarray@tmp=\count356
 ) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsmatrix.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/numtable/pgfplotstableshared.code.tex
-\c@pgfplotstable@counta=\count356
-\t@pgfplotstable@a=\toks48
+\c@pgfplotstable@counta=\count357
+\t@pgfplotstable@a=\toks50
 ) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsdeque.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/util/pgfplotsbinary.code.tex (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/util/pgfplotsbinary.data.code.tex)) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/util/pgfplotsutil.verb.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/libs/pgflibrarypgfplots.surfshading.code.tex
-\c@pgfplotslibrarysurf@no=\count357
- (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/sys/pgflibrarypgfplots.surfshading.pgfsys-pdftex.def))) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/util/pgfplotscolormap.code.tex (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/util/pgfplotscolor.code.tex)) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/pgfplotsstackedplots.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/pgfplotsplothandlers.code.tex (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/pgfplotsmeshplothandler.code.tex (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/pgfplotsmeshplotimage.code.tex))) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/pgfplots.scaling.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/pgfplotscoordprocessing.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/pgfplots.errorbars.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/pgfplots.markers.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/pgfplotsticks.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/pgfplots.paths.code.tex)
-(/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarydecorations.code.tex (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/modules/pgfmoduledecorations.code.tex
+\c@pgfplotslibrarysurf@no=\count358
+ (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/sys/pgflibrarypgfplots.surfshading.pgfsys-pdftex.def))) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/util/pgfplotscolormap.code.tex (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/util/pgfplotscolor.code.tex)) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/pgfplotsstackedplots.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/pgfplotsplothandlers.code.tex (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/pgfplotsmeshplothandler.code.tex (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/pgfplotsmeshplotimage.code.tex))) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/pgfplots.scaling.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/pgfplotscoordprocessing.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/pgfplots.errorbars.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/pgfplots.markers.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/pgfplotsticks.code.tex)
+(/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/pgfplots.paths.code.tex) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarydecorations.code.tex (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/modules/pgfmoduledecorations.code.tex
 \pgfdecoratedcompleteddistance=\dimen300
 \pgfdecoratedremainingdistance=\dimen301
 \pgfdecoratedinputsegmentcompleteddistance=\dimen302
 \pgfdecoratedinputsegmentremainingdistance=\dimen303
 \pgf@decorate@distancetomove=\dimen304
-\pgf@decorate@repeatstate=\count358
+\pgf@decorate@repeatstate=\count359
 \pgfdecorationsegmentamplitude=\dimen305
 \pgfdecorationsegmentlength=\dimen306
 )
-\tikz@lib@dec@box=\box70
+\tikz@lib@dec@box=\box72
 ) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarydecorations.pathmorphing.code.tex (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrarydecorations.pathmorphing.code.tex)) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarydecorations.pathreplacing.code.tex (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrarydecorations.pathreplacing.code.tex)) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgfplots/libs/tikzlibrarypgfplots.contourlua.code.tex)
-\pgfplots@numplots=\count359
+\pgfplots@numplots=\count360
 \pgfplots@xmin@reg=\dimen307
 \pgfplots@xmax@reg=\dimen308
 \pgfplots@ymin@reg=\dimen309
@@ -502,8 +509,8 @@ File: tikzlibrarycalc.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 File: tikzlibraryfit.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 ) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarybackgrounds.code.tex
 File: tikzlibrarybackgrounds.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgf@layerbox@background=\box71
-\pgf@layerboxsaved@background=\box72
+\pgf@layerbox@background=\box73
+\pgf@layerboxsaved@background=\box74
 ) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshapes.geometric.code.tex
 File: tikzlibraryshapes.geometric.code.tex 2025-08-29 v3.1.11a (3.1.11a)
  (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshapes.geometric.code.tex
@@ -533,13 +540,13 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count360
+\c@section@level=\count361
 ) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/stringenc/stringenc.sty
 Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO)
 )
 \@linkdim=\dimen317
-\Hy@linkcounter=\count361
-\Hy@pagecounter=\count362
+\Hy@linkcounter=\count362
+\Hy@pagecounter=\count363
  (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2026-06-17 v7.01r Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
@@ -547,7 +554,7 @@ Now handling font encoding PD1 ...
 ) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/intcalc/intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
-\Hy@SavedSpaceFactor=\count363
+\Hy@SavedSpaceFactor=\count364
  (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/hyperref/puenc.def
 File: puenc.def 2026-06-17 v7.01r Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
@@ -573,13 +580,13 @@ Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
 ))
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 284.
 ))
-\c@Hy@tempcnt=\count364
+\c@Hy@tempcnt=\count365
 LaTeX Info: Redefining \url on input line 4805.
 \XeTeXLinkMargin=\dimen318
  (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/generic/bitset/bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
 )
-\Fld@menulength=\count365
+\Fld@menulength=\count366
 \Field@Width=\dimen319
 \Fld@charsize=\dimen320
 Package hyperref Info: Hyper figures OFF on input line 6091.
@@ -589,15 +596,15 @@ Package hyperref Info: backreferencing ON on input line 6104.
 Package hyperref Info: Link coloring ON on input line 6109.
 Package hyperref Info: Link coloring with OCG OFF on input line 6116.
 Package hyperref Info: PDF/A mode OFF on input line 6121.
-\Hy@abspage=\count366
-\c@Item=\count367
-\c@Hfootnote=\count368
+\Hy@abspage=\count367
+\c@Item=\count368
+\c@Hfootnote=\count369
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
  (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hpdftex.def
 File: hpdftex.def 2026-06-17 v7.01r Hyperref driver for pdfTeX
-\Fld@listcount=\count369
-\c@bookmark@seq@number=\count370
+\Fld@listcount=\count370
+\c@bookmark@seq@number=\count371
 \Hy@SectionHShift=\skip59
 ) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/cleveref/cleveref.sty
 Package: cleveref 2018/03/27 v0.21.4 Intelligent cross-referencing
@@ -621,7 +628,7 @@ LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 49
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 ) (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2026-02-18 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count371
+\l__color_backend_stack_int=\count372
 ) (./main.aux)
 \openout1 = `main.aux'.
 
@@ -656,6 +663,7 @@ Package grfext Info: Graphics extension search list:
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
 Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
  ABD: EveryShipout initializing macros
@@ -676,209 +684,236 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 23.
  (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )) (./sections/1_introduction.tex
-LaTeX Font Info:    Trying to load font information for OT1+phv on input line 68.
+LaTeX Font Info:    Trying to load font information for OT1+phv on input line 71.
  (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/psnfss/ot1phv.fd
 File: ot1phv.fd 2020/03/25 scalable font definitions for OT1/phv.
 ) [1{/Users/bytedance/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/Users/bytedance/Library/TinyTeX/texmf-dist/fonts/enc/dvips/base/8r.enc}
 
 
 ]
-LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 89.
+LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 102.
  (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
-LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 117.
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 132.
  (/Users/bytedance/Library/TinyTeX/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-)) (./sections/2_method.tex [2] [3]) (./figures/fig1_architecture.tex) (./figures/fig2_dpr.tex) (./sections/3_experiments_setup.tex [4]) (./sections/3_experiments_comparison.tex [5]) (./tables/table1_main_comparison.tex) (./tables/table2_efficiency.tex) (./sections/3_experiments_efficiency.tex [6] [7]) (./figures/fig3_psnr_params.tex) (./sections/3_experiments_visual.tex) (./figures/fig7_visual.tex [8]
-<figures/fig7_assets/Urban100_img_092_GT_full_box.png, id=351, 1027.84pt x 694.595pt>
+) [2]) (./sections/2_method.tex [3]) (./figures/fig1_architecture.tex
+Overfull \hbox (249.8002pt too wide) in paragraph at lines 27--164
+ [][] 
+ []
+
+) (./figures/fig2_dpr.tex
+Overfull \hbox (249.79135pt too wide) in paragraph at lines 9--158
+ [][] 
+ []
+
+[4]) (./sections/3_experiments_setup.tex [5]) (./sections/3_experiments_comparison.tex) (./tables/table1_main_comparison.tex
+Overfull \hbox (259.7203pt too wide) in paragraph at lines 19--65
+ [][] 
+ []
+
+) (./tables/table2_efficiency.tex [6]) (./sections/3_experiments_efficiency.tex [7]) (./figures/fig3_psnr_params.tex) (./sections/3_experiments_visual.tex) (./figures/fig7_visual.tex
+<figures/fig7_assets/Urban100_img_092_GT_full_box.png, id=336, 1027.84pt x 694.595pt>
 File: figures/fig7_assets/Urban100_img_092_GT_full_box.png Graphic file (type png)
 <use figures/fig7_assets/Urban100_img_092_GT_full_box.png>
 Package pdftex.def Info: figures/fig7_assets/Urban100_img_092_GT_full_box.png  used on input line 66.
 (pdftex.def)             Requested size: 80.67621pt x 54.52298pt.
-<figures/fig7_assets/Urban100_img_024_GT_full_box.png, id=352, 1027.84pt x 662.475pt>
+<figures/fig7_assets/Urban100_img_024_GT_full_box.png, id=337, 1027.84pt x 662.475pt>
 File: figures/fig7_assets/Urban100_img_024_GT_full_box.png Graphic file (type png)
 <use figures/fig7_assets/Urban100_img_024_GT_full_box.png>
 Package pdftex.def Info: figures/fig7_assets/Urban100_img_024_GT_full_box.png  used on input line 67.
 (pdftex.def)             Requested size: 84.5814pt x 54.52298pt.
-<figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_full_box.png, id=353, 827.09pt x 1172.38pt>
+<figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_full_box.png, id=338, 827.09pt x 1172.38pt>
 File: figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_full_box.png Graphic file (type png)
 <use figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_full_box.png>
 Package pdftex.def Info: figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_full_box.png  used on input line 68.
 (pdftex.def)             Requested size: 38.45424pt x 54.52298pt.
-<figures/fig7_assets/Urban100_img_092_Bicubic_crop.png, id=354, 289.08pt x 289.08pt>
+<figures/fig7_assets/Urban100_img_092_Bicubic_crop.png, id=339, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Urban100_img_092_Bicubic_crop.png Graphic file (type png)
 <use figures/fig7_assets/Urban100_img_092_Bicubic_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Urban100_img_092_Bicubic_crop.png  used on input line 71.
 (pdftex.def)             Requested size: 67.07286pt x 67.06924pt.
-<figures/fig7_assets/Urban100_img_092_IMDN_crop.png, id=355, 289.08pt x 289.08pt>
+<figures/fig7_assets/Urban100_img_092_IMDN_crop.png, id=340, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Urban100_img_092_IMDN_crop.png Graphic file (type png)
 <use figures/fig7_assets/Urban100_img_092_IMDN_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Urban100_img_092_IMDN_crop.png  used on input line 71.
 (pdftex.def)             Requested size: 67.07286pt x 67.06924pt.
-<figures/fig7_assets/Urban100_img_092_SwinIR-light_crop.png, id=356, 289.08pt x 289.08pt>
+<figures/fig7_assets/Urban100_img_092_SwinIR-light_crop.png, id=341, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Urban100_img_092_SwinIR-light_crop.png Graphic file (type png)
 <use figures/fig7_assets/Urban100_img_092_SwinIR-light_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Urban100_img_092_SwinIR-light_crop.png  used on input line 71.
 (pdftex.def)             Requested size: 67.07286pt x 67.06924pt.
-<figures/fig7_assets/Urban100_img_092_SRFormer-light_crop.png, id=357, 289.08pt x 289.08pt>
+<figures/fig7_assets/Urban100_img_092_SRFormer-light_crop.png, id=342, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Urban100_img_092_SRFormer-light_crop.png Graphic file (type png)
 <use figures/fig7_assets/Urban100_img_092_SRFormer-light_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Urban100_img_092_SRFormer-light_crop.png  used on input line 71.
 (pdftex.def)             Requested size: 67.07286pt x 67.06924pt.
-<figures/fig7_assets/Urban100_img_092_CATANet_crop.png, id=358, 289.08pt x 289.08pt>
+<figures/fig7_assets/Urban100_img_092_CATANet_crop.png, id=343, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Urban100_img_092_CATANet_crop.png Graphic file (type png)
 <use figures/fig7_assets/Urban100_img_092_CATANet_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Urban100_img_092_CATANet_crop.png  used on input line 71.
 (pdftex.def)             Requested size: 67.07286pt x 67.06924pt.
-<figures/fig7_assets/Urban100_img_092_DPRNet_crop.png, id=359, 289.08pt x 289.08pt>
+<figures/fig7_assets/Urban100_img_092_DPRNet_crop.png, id=344, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Urban100_img_092_DPRNet_crop.png Graphic file (type png)
 <use figures/fig7_assets/Urban100_img_092_DPRNet_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Urban100_img_092_DPRNet_crop.png  used on input line 71.
 (pdftex.def)             Requested size: 67.07286pt x 67.06924pt.
-<figures/fig7_assets/Urban100_img_092_GT_crop.png, id=360, 289.08pt x 289.08pt>
+<figures/fig7_assets/Urban100_img_092_GT_crop.png, id=345, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Urban100_img_092_GT_crop.png Graphic file (type png)
 <use figures/fig7_assets/Urban100_img_092_GT_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Urban100_img_092_GT_crop.png  used on input line 71.
 (pdftex.def)             Requested size: 67.07286pt x 67.06924pt.
-<figures/fig7_assets/Urban100_img_024_Bicubic_crop.png, id=361, 289.08pt x 289.08pt>
+<figures/fig7_assets/Urban100_img_024_Bicubic_crop.png, id=346, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Urban100_img_024_Bicubic_crop.png Graphic file (type png)
 <use figures/fig7_assets/Urban100_img_024_Bicubic_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Urban100_img_024_Bicubic_crop.png  used on input line 74.
 (pdftex.def)             Requested size: 67.07286pt x 67.06924pt.
-<figures/fig7_assets/Urban100_img_024_IMDN_crop.png, id=362, 289.08pt x 289.08pt>
+<figures/fig7_assets/Urban100_img_024_IMDN_crop.png, id=347, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Urban100_img_024_IMDN_crop.png Graphic file (type png)
 <use figures/fig7_assets/Urban100_img_024_IMDN_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Urban100_img_024_IMDN_crop.png  used on input line 74.
 (pdftex.def)             Requested size: 67.07286pt x 67.06924pt.
-<figures/fig7_assets/Urban100_img_024_SwinIR-light_crop.png, id=363, 289.08pt x 289.08pt>
+<figures/fig7_assets/Urban100_img_024_SwinIR-light_crop.png, id=348, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Urban100_img_024_SwinIR-light_crop.png Graphic file (type png)
 <use figures/fig7_assets/Urban100_img_024_SwinIR-light_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Urban100_img_024_SwinIR-light_crop.png  used on input line 74.
 (pdftex.def)             Requested size: 67.07286pt x 67.06924pt.
-<figures/fig7_assets/Urban100_img_024_SRFormer-light_crop.png, id=364, 289.08pt x 289.08pt>
+<figures/fig7_assets/Urban100_img_024_SRFormer-light_crop.png, id=349, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Urban100_img_024_SRFormer-light_crop.png Graphic file (type png)
 <use figures/fig7_assets/Urban100_img_024_SRFormer-light_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Urban100_img_024_SRFormer-light_crop.png  used on input line 74.
 (pdftex.def)             Requested size: 67.07286pt x 67.06924pt.
-<figures/fig7_assets/Urban100_img_024_CATANet_crop.png, id=365, 289.08pt x 289.08pt>
+<figures/fig7_assets/Urban100_img_024_CATANet_crop.png, id=350, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Urban100_img_024_CATANet_crop.png Graphic file (type png)
 <use figures/fig7_assets/Urban100_img_024_CATANet_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Urban100_img_024_CATANet_crop.png  used on input line 74.
 (pdftex.def)             Requested size: 67.07286pt x 67.06924pt.
-<figures/fig7_assets/Urban100_img_024_DPRNet_crop.png, id=366, 289.08pt x 289.08pt>
+<figures/fig7_assets/Urban100_img_024_DPRNet_crop.png, id=351, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Urban100_img_024_DPRNet_crop.png Graphic file (type png)
 <use figures/fig7_assets/Urban100_img_024_DPRNet_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Urban100_img_024_DPRNet_crop.png  used on input line 74.
 (pdftex.def)             Requested size: 67.07286pt x 67.06924pt.
-<figures/fig7_assets/Urban100_img_024_GT_crop.png, id=367, 289.08pt x 289.08pt>
+<figures/fig7_assets/Urban100_img_024_GT_crop.png, id=352, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Urban100_img_024_GT_crop.png Graphic file (type png)
 <use figures/fig7_assets/Urban100_img_024_GT_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Urban100_img_024_GT_crop.png  used on input line 74.
 (pdftex.def)             Requested size: 67.07286pt x 67.06924pt.
-<figures/fig7_assets/Manga109_ThatsIzumiko_000_Bicubic_crop.png, id=368, 289.08pt x 289.08pt>
+<figures/fig7_assets/Manga109_ThatsIzumiko_000_Bicubic_crop.png, id=353, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Manga109_ThatsIzumiko_000_Bicubic_crop.png Graphic file (type png)
 <use figures/fig7_assets/Manga109_ThatsIzumiko_000_Bicubic_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Manga109_ThatsIzumiko_000_Bicubic_crop.png  used on input line 77.
 (pdftex.def)             Requested size: 67.07286pt x 67.06924pt.
-<figures/fig7_assets/Manga109_ThatsIzumiko_000_IMDN_crop.png, id=369, 289.08pt x 289.08pt>
+<figures/fig7_assets/Manga109_ThatsIzumiko_000_IMDN_crop.png, id=354, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Manga109_ThatsIzumiko_000_IMDN_crop.png Graphic file (type png)
 <use figures/fig7_assets/Manga109_ThatsIzumiko_000_IMDN_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Manga109_ThatsIzumiko_000_IMDN_crop.png  used on input line 77.
 (pdftex.def)             Requested size: 67.07286pt x 67.06924pt.
-<figures/fig7_assets/Manga109_ThatsIzumiko_000_SwinIR-light_crop.png, id=370, 289.08pt x 289.08pt>
+<figures/fig7_assets/Manga109_ThatsIzumiko_000_SwinIR-light_crop.png, id=355, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Manga109_ThatsIzumiko_000_SwinIR-light_crop.png Graphic file (type png)
 <use figures/fig7_assets/Manga109_ThatsIzumiko_000_SwinIR-light_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Manga109_ThatsIzumiko_000_SwinIR-light_crop.png  used on input line 77.
 (pdftex.def)             Requested size: 67.07286pt x 67.06924pt.
-<figures/fig7_assets/Manga109_ThatsIzumiko_000_SRFormer-light_crop.png, id=371, 289.08pt x 289.08pt>
+<figures/fig7_assets/Manga109_ThatsIzumiko_000_SRFormer-light_crop.png, id=356, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Manga109_ThatsIzumiko_000_SRFormer-light_crop.png Graphic file (type png)
 <use figures/fig7_assets/Manga109_ThatsIzumiko_000_SRFormer-light_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Manga109_ThatsIzumiko_000_SRFormer-light_crop.png  used on input line 77.
 (pdftex.def)             Requested size: 67.07286pt x 67.06924pt.
-<figures/fig7_assets/Manga109_ThatsIzumiko_000_CATANet_crop.png, id=372, 289.08pt x 289.08pt>
+<figures/fig7_assets/Manga109_ThatsIzumiko_000_CATANet_crop.png, id=357, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Manga109_ThatsIzumiko_000_CATANet_crop.png Graphic file (type png)
 <use figures/fig7_assets/Manga109_ThatsIzumiko_000_CATANet_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Manga109_ThatsIzumiko_000_CATANet_crop.png  used on input line 77.
 (pdftex.def)             Requested size: 67.07286pt x 67.06924pt.
-<figures/fig7_assets/Manga109_ThatsIzumiko_000_DPRNet_crop.png, id=373, 289.08pt x 289.08pt>
+<figures/fig7_assets/Manga109_ThatsIzumiko_000_DPRNet_crop.png, id=358, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Manga109_ThatsIzumiko_000_DPRNet_crop.png Graphic file (type png)
 <use figures/fig7_assets/Manga109_ThatsIzumiko_000_DPRNet_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Manga109_ThatsIzumiko_000_DPRNet_crop.png  used on input line 77.
 (pdftex.def)             Requested size: 67.07286pt x 67.06924pt.
-<figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_crop.png, id=374, 289.08pt x 289.08pt>
+<figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_crop.png, id=359, 289.08pt x 289.08pt>
 File: figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_crop.png Graphic file (type png)
 <use figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_crop.png>
 Package pdftex.def Info: figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_crop.png  used on input line 77.
 (pdftex.def)             Requested size: 67.07286pt x 67.06924pt.
-) (./sections/3_experiments_ablation.tex) (./tables/table_c1_dpr_vs_ema.tex) (./tables/table3_ablation_a1.tex) (./tables/table4_ablation_a2.tex) (./tables/table5_ablation_a3.tex) [9] (./sections/3_experiments_routing_analysis.tex [10 <./figures/fig7_assets/Urban100_img_092_GT_full_box.png (PNG copy)> <./figures/fig7_assets/Urban100_img_024_GT_full_box.png (PNG copy)> <./figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_full_box.png (PNG copy)> <./figures/fig7_assets/Urban100_img_092_Bicubic_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_092_IMDN_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_092_SwinIR-light_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_092_SRFormer-light_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_092_CATANet_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_092_DPRNet_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_092_GT_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_024_Bicubic_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_024_IMDN_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_024_SwinIR-light_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_024_SRFormer-light_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_024_CATANet_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_024_DPRNet_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_024_GT_crop.png (PNG copy)> <./figures/fig7_assets/Manga109_ThatsIzumiko_000_Bicubic_crop.png (PNG copy)> <./figures/fig7_assets/Manga109_ThatsIzumiko_000_IMDN_crop.png (PNG copy)> <./figures/fig7_assets/Manga109_ThatsIzumiko_000_SwinIR-light_crop.png (PNG copy)> <./figures/fig7_assets/Manga109_ThatsIzumiko_000_SRFormer-light_crop.png (PNG copy)> <./figures/fig7_assets/Manga109_ThatsIzumiko_000_CATANet_crop.png (PNG copy)> <./figures/fig7_assets/Manga109_ThatsIzumiko_000_DPRNet_crop.png (PNG copy)> <./figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_crop.png (PNG copy)>] [11]) (./figures/fig5_xscore_hist.tex) (./figures/fig6_usage_entropy.tex
+) [8]
+Overfull \vbox (456.61592pt too high) has occurred while \output is active []
+
+
+Overfull \vbox (456.61592pt too high) has occurred while \output is active []
+
+ (./sections/3_experiments_ablation.tex [9 <./figures/fig7_assets/Urban100_img_092_GT_full_box.png (PNG copy)> <./figures/fig7_assets/Urban100_img_024_GT_full_box.png (PNG copy)> <./figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_full_box.png (PNG copy)> <./figures/fig7_assets/Urban100_img_092_Bicubic_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_092_IMDN_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_092_SwinIR-light_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_092_SRFormer-light_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_092_CATANet_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_092_DPRNet_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_092_GT_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_024_Bicubic_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_024_IMDN_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_024_SwinIR-light_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_024_SRFormer-light_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_024_CATANet_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_024_DPRNet_crop.png (PNG copy)> <./figures/fig7_assets/Urban100_img_024_GT_crop.png (PNG copy)> <./figures/fig7_assets/Manga109_ThatsIzumiko_000_Bicubic_crop.png (PNG copy)> <./figures/fig7_assets/Manga109_ThatsIzumiko_000_IMDN_crop.png (PNG copy)> <./figures/fig7_assets/Manga109_ThatsIzumiko_000_SwinIR-light_crop.png (PNG copy)> <./figures/fig7_assets/Manga109_ThatsIzumiko_000_SRFormer-light_crop.png (PNG copy)> <./figures/fig7_assets/Manga109_ThatsIzumiko_000_CATANet_crop.png (PNG copy)> <./figures/fig7_assets/Manga109_ThatsIzumiko_000_DPRNet_crop.png (PNG copy)> <./figures/fig7_assets/Manga109_ThatsIzumiko_000_GT_crop.png (PNG copy)>]) (./tables/table_c1_dpr_vs_ema.tex) (./tables/table3_ablation_a1.tex) (./tables/table4_ablation_a2.tex) (./tables/table5_ablation_a3.tex [10]) (./sections/3_experiments_routing_analysis.tex [11]) (./figures/fig5_xscore_hist.tex) (./figures/fig6_usage_entropy.tex
 Package pgfplots info on input line 31: Using 'lua backend=false' for axis: x coord trafo unsupported.
 ) (./figures/fig8_cluster_maps.tex
-<figures/fig58_assets/fig8_Urban100_img_092_lr.png, id=436, 1027.84pt x 694.595pt>
+<figures/fig58_assets/fig8_Urban100_img_092_lr.png, id=432, 1027.84pt x 694.595pt>
 File: figures/fig58_assets/fig8_Urban100_img_092_lr.png Graphic file (type png)
 <use figures/fig58_assets/fig8_Urban100_img_092_lr.png>
 Package pdftex.def Info: figures/fig58_assets/fig8_Urban100_img_092_lr.png  used on input line 49.
 (pdftex.def)             Requested size: 119.9015pt x 81.02669pt.
-<figures/fig58_assets/fig8_Urban100_img_092_b0_cluster.png, id=437, 1027.84pt x 694.595pt>
+<figures/fig58_assets/fig8_Urban100_img_092_b0_cluster.png, id=433, 1027.84pt x 694.595pt>
 File: figures/fig58_assets/fig8_Urban100_img_092_b0_cluster.png Graphic file (type png)
 <use figures/fig58_assets/fig8_Urban100_img_092_b0_cluster.png>
 Package pdftex.def Info: figures/fig58_assets/fig8_Urban100_img_092_b0_cluster.png  used on input line 49.
 (pdftex.def)             Requested size: 119.9015pt x 81.02669pt.
-<figures/fig58_assets/fig8_Urban100_img_092_b3_cluster.png, id=438, 1027.84pt x 694.595pt>
+<figures/fig58_assets/fig8_Urban100_img_092_b3_cluster.png, id=434, 1027.84pt x 694.595pt>
 File: figures/fig58_assets/fig8_Urban100_img_092_b3_cluster.png Graphic file (type png)
 <use figures/fig58_assets/fig8_Urban100_img_092_b3_cluster.png>
 Package pdftex.def Info: figures/fig58_assets/fig8_Urban100_img_092_b3_cluster.png  used on input line 49.
 (pdftex.def)             Requested size: 119.9015pt x 81.02669pt.
-<figures/fig58_assets/fig8_Urban100_img_092_b7_cluster.png, id=439, 1027.84pt x 694.595pt>
+<figures/fig58_assets/fig8_Urban100_img_092_b7_cluster.png, id=435, 1027.84pt x 694.595pt>
 File: figures/fig58_assets/fig8_Urban100_img_092_b7_cluster.png Graphic file (type png)
 <use figures/fig58_assets/fig8_Urban100_img_092_b7_cluster.png>
 Package pdftex.def Info: figures/fig58_assets/fig8_Urban100_img_092_b7_cluster.png  used on input line 49.
 (pdftex.def)             Requested size: 119.9015pt x 81.02669pt.
-<figures/fig58_assets/fig8_Urban100_img_024_lr.png, id=440, 1027.84pt x 662.475pt>
+<figures/fig58_assets/fig8_Urban100_img_024_lr.png, id=436, 1027.84pt x 662.475pt>
 File: figures/fig58_assets/fig8_Urban100_img_024_lr.png Graphic file (type png)
 <use figures/fig58_assets/fig8_Urban100_img_024_lr.png>
 Package pdftex.def Info: figures/fig58_assets/fig8_Urban100_img_024_lr.png  used on input line 52.
 (pdftex.def)             Requested size: 119.9015pt x 77.2798pt.
-<figures/fig58_assets/fig8_Urban100_img_024_b0_cluster.png, id=441, 1027.84pt x 662.475pt>
+<figures/fig58_assets/fig8_Urban100_img_024_b0_cluster.png, id=437, 1027.84pt x 662.475pt>
 File: figures/fig58_assets/fig8_Urban100_img_024_b0_cluster.png Graphic file (type png)
 <use figures/fig58_assets/fig8_Urban100_img_024_b0_cluster.png>
 Package pdftex.def Info: figures/fig58_assets/fig8_Urban100_img_024_b0_cluster.png  used on input line 52.
 (pdftex.def)             Requested size: 119.9015pt x 77.2798pt.
-<figures/fig58_assets/fig8_Urban100_img_024_b3_cluster.png, id=442, 1027.84pt x 662.475pt>
+<figures/fig58_assets/fig8_Urban100_img_024_b3_cluster.png, id=438, 1027.84pt x 662.475pt>
 File: figures/fig58_assets/fig8_Urban100_img_024_b3_cluster.png Graphic file (type png)
 <use figures/fig58_assets/fig8_Urban100_img_024_b3_cluster.png>
 Package pdftex.def Info: figures/fig58_assets/fig8_Urban100_img_024_b3_cluster.png  used on input line 52.
 (pdftex.def)             Requested size: 119.9015pt x 77.2798pt.
-<figures/fig58_assets/fig8_Urban100_img_024_b7_cluster.png, id=443, 1027.84pt x 662.475pt>
+<figures/fig58_assets/fig8_Urban100_img_024_b7_cluster.png, id=439, 1027.84pt x 662.475pt>
 File: figures/fig58_assets/fig8_Urban100_img_024_b7_cluster.png Graphic file (type png)
 <use figures/fig58_assets/fig8_Urban100_img_024_b7_cluster.png>
 Package pdftex.def Info: figures/fig58_assets/fig8_Urban100_img_024_b7_cluster.png  used on input line 52.
 (pdftex.def)             Requested size: 119.9015pt x 77.2798pt.
-<figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_lr.png, id=444, 827.09pt x 1172.38pt>
+<figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_lr.png, id=440, 827.09pt x 1172.38pt>
 File: figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_lr.png Graphic file (type png)
 <use figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_lr.png>
 Package pdftex.def Info: figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_lr.png  used on input line 55.
 (pdftex.def)             Requested size: 119.9015pt x 169.94601pt.
-<figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b0_cluster.png, id=445, 827.09pt x 1172.38pt>
+<figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b0_cluster.png, id=441, 827.09pt x 1172.38pt>
 File: figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b0_cluster.png Graphic file (type png)
 <use figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b0_cluster.png>
 Package pdftex.def Info: figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b0_cluster.png  used on input line 55.
 (pdftex.def)             Requested size: 119.9015pt x 169.94601pt.
-<figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b3_cluster.png, id=446, 827.09pt x 1172.38pt>
+<figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b3_cluster.png, id=442, 827.09pt x 1172.38pt>
 File: figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b3_cluster.png Graphic file (type png)
 <use figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b3_cluster.png>
 Package pdftex.def Info: figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b3_cluster.png  used on input line 55.
 (pdftex.def)             Requested size: 119.9015pt x 169.94601pt.
-<figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b7_cluster.png, id=447, 827.09pt x 1172.38pt>
+<figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b7_cluster.png, id=443, 827.09pt x 1172.38pt>
 File: figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b7_cluster.png Graphic file (type png)
 <use figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b7_cluster.png>
 Package pdftex.def Info: figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b7_cluster.png  used on input line 55.
 (pdftex.def)             Requested size: 119.9015pt x 169.94601pt.
-) (./sections/4_discussion.tex [12]) (./sections/5_conclusion.tex) (./main.bbl (./main.brf)
+) [12]
+Overfull \vbox (1037.933pt too high) has occurred while \output is active []
+
+
+Overfull \vbox (1037.933pt too high) has occurred while \output is active []
+
+ (./sections/4_discussion.tex [13 <./figures/fig58_assets/fig8_Urban100_img_092_lr.png (PNG copy)> <./figures/fig58_assets/fig8_Urban100_img_092_b0_cluster.png (PNG copy)> <./figures/fig58_assets/fig8_Urban100_img_092_b3_cluster.png (PNG copy)> <./figures/fig58_assets/fig8_Urban100_img_092_b7_cluster.png (PNG copy)> <./figures/fig58_assets/fig8_Urban100_img_024_lr.png (PNG copy)> <./figures/fig58_assets/fig8_Urban100_img_024_b0_cluster.png (PNG copy)> <./figures/fig58_assets/fig8_Urban100_img_024_b3_cluster.png (PNG copy)> <./figures/fig58_assets/fig8_Urban100_img_024_b7_cluster.png (PNG copy)> <./figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_lr.png (PNG copy)> <./figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b0_cluster.png (PNG copy)> <./figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b3_cluster.png (PNG copy)> <./figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b7_cluster.png (PNG copy)>]) (./sections/5_conclusion.tex) (./main.bbl (./main.brf)
 \tf@brf=\write5
 \openout5 = `main.brf'.
 
- [13] [14 <./figures/fig58_assets/fig8_Urban100_img_092_lr.png (PNG copy)> <./figures/fig58_assets/fig8_Urban100_img_092_b0_cluster.png (PNG copy)> <./figures/fig58_assets/fig8_Urban100_img_092_b3_cluster.png (PNG copy)> <./figures/fig58_assets/fig8_Urban100_img_092_b7_cluster.png (PNG copy)> <./figures/fig58_assets/fig8_Urban100_img_024_lr.png (PNG copy)> <./figures/fig58_assets/fig8_Urban100_img_024_b0_cluster.png (PNG copy)> <./figures/fig58_assets/fig8_Urban100_img_024_b3_cluster.png (PNG copy)> <./figures/fig58_assets/fig8_Urban100_img_024_b7_cluster.png (PNG copy)> <./figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_lr.png (PNG copy)> <./figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b0_cluster.png (PNG copy)> <./figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b3_cluster.png (PNG copy)> <./figures/fig58_assets/fig8_Manga109_ThatsIzumiko_000_b7_cluster.png (PNG copy)>] [15]) [16] (./main.aux)
+ [14] [15]) [16] (./main.aux)
  ***********
 LaTeX2e <2026-06-01>
 L3 programming layer <2026-06-18>
@@ -886,21 +921,21 @@ L3 programming layer <2026-06-18>
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: B23B5A93BE850256D1581CBD3B5C85DE;2865.
 Package rerunfilecheck Info: File `main.brf' has not changed.
-(rerunfilecheck)             Checksum: A648FCA6870E44CF765C175111A6DE7C;2822.
+(rerunfilecheck)             Checksum: F64779D893DE7CC1B4317FA7B0460098;2732.
  ) 
 Here is how much of TeX's memory you used:
- 38257 strings out of 469158
- 897304 string characters out of 5459505
- 1451508 words of memory out of 5000000
- 66456 multiletter control sequences out of 15000+600000
+ 38371 strings out of 469158
+ 899374 string characters out of 5459505
+ 1449728 words of memory out of 5000000
+ 66566 multiletter control sequences out of 15000+600000
  671239 words of font info for 121 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 104i,22n,111p,1091b,2365s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 104i,22n,111p,1087b,2357s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmri8a.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on main.pdf (16 pages, 10846762 bytes).
+Output written on main.pdf (16 pages, 10847457 bytes).
 PDF statistics:
- 704 PDF objects out of 1000 (max. 8388607)
- 576 compressed objects within 6 object streams
+ 699 PDF objects out of 1000 (max. 8388607)
+ 571 compressed objects within 6 object streams
  144 named destinations out of 1000 (max. 500000)
  329 words of extra memory for PDF output out of 10000 (max. 10000000)
 
