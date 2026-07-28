@@ -56,11 +56,11 @@ Section~\ref{sec:routing_analysis}.
 \paragraph{Efficiency.}
 Table~\ref{tab:efficiency} reports the $\times4$ efficiency subset for methods whose
 Multi-Adds are available under the same fixed $256{\times}256$ LR-input convention.
-DPRNet has $660$K parameters and $52.14$\,G Multi-Adds, keeping it within the
+DPRNet has $660$\,K parameters and $52.14$\,G Multi-Adds, keeping it within the
 lightweight bracket. It uses fewer Multi-Adds than the lightweight Transformer
 baselines SwinIR-light ($60.3$\,G) and SRFormer-light ($56.5$\,G) while delivering
 top-tier accuracy. Both its parameter count and Multi-Adds are modestly higher than
-CATANet's ($660$K/$52.14$\,G vs.\ $535$K/$46.8$\,G at $\times4$), reflecting the
+CATANet's ($660$\,K/$52.14$\,G vs.\ $535$\,K/$46.8$\,G at $\times4$), reflecting the
 learnable query bank and router projections of DPR. We therefore do not claim an
 efficiency advantage over CATANet.
 The per-scale DPRNet profile, including measured latency on our hardware, is given in

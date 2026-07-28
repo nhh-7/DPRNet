@@ -1,0 +1,9 @@
+优先级,期刊/会议,名单级别,类型,费用,审稿周期,中稿概率,适配理由,官网投稿链接
+首选,Neurocomputing,T2,期刊(SCI),免费,3-5月,中高 55-65%,"SR审稿池最熟GRFormer同刊;认""打平+可解释+3seed消融"";免费又T2性价比之王",https://www.editorialmanager.com/neucom/
+首选,Applied Sciences,T3,期刊(SCI),CHF2400(约2.1万元),2-3月最快,高 约70%,已排版最快达标;工程/即插即用友好;缺点是贵,https://susy.mdpi.com/user/manuscripts/upload?journal=applsci
+稳妥,CVIU (Computer Vision and Image Understanding),T3,期刊(SCI),免费,5-7月,中 45-55%,CV底层特征+可解释性对口适合突出动态原型数学设计;免费但慢,https://www.editorialmanager.com/cviu/
+稳妥,The Visual Computer,T3,期刊(SCI),免费,4-6月,中高 约60%,图形/视觉对增量创新宽容超分常见;免费,https://www.editorialmanager.com/tvcj/
+稳妥,Applied Soft Computing,T2,期刊(SCI),免费(订阅),4-6月,中 约50%,"T2免费;需把""学习式路由/均衡损失""往软计算角度写",https://www.editorialmanager.com/asoc/
+快速兜底,Pattern Recognition Letters,T3,期刊(SCI短文),免费,3-5月,中高 约60%,短快接收方法类改进;篇幅受限消融需精简,https://www.editorialmanager.com/prletters/
+快速兜底,Machine Vision and Applications,T4,期刊(SCI),免费,4-6月,高 约65%,门槛较低视觉应用;稳达标,https://www.editorialmanager.com/mvap/
+快速兜底,Journal of Real-Time Image Processing,T3,期刊(SCI),有APC,4-6月,中高 约60%,"主打""轻量/实时""正对口你的Multi-Adds卖点",https://www.editorialmanager.com/rtip/

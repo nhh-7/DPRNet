@@ -23,7 +23,7 @@ unit (the Token Aggregation Block, TAB) with a local self-attention unit (LRSA),
 followed by a $3\times3$ fusion convolution and a residual connection:
 \begin{equation}
 F_l = F_{l-1} + \mathrm{Conv}_{3\times3}\!\big(\mathrm{LRSA}_l(\mathrm{TAB}_l(F_{l-1}))\big),
-\quad l=1,\dots,L .
+\quad l=1,\dots,L.
 \end{equation}
 A global residual links the deep features to the network output, which is
 reconstructed by a pixel-shuffle upsampler and added to a bilinearly upsampled
@@ -76,11 +76,11 @@ We first embed tokens with a lightweight head
 $E = \mathrm{GELU}(\mathrm{Linear}(\mathrm{LN}(X)))\in\mathbb{R}^{B\times N\times C}$,
 and predict a soft assignment of each token to $M$ prototype slots:
 \begin{equation}
-A = \mathrm{softmax}\big(E W_a\big)\in\mathbb{R}^{B\times N\times M},
-\quad W_a\in\mathbb{R}^{C\times M},
+A = \mathrm{softmax}\big(E W_a\big),
 \label{eq:assign}
 \end{equation}
-where the softmax is taken over the $M$ slots. Each prototype is the
+where $W_a\in\mathbb{R}^{C\times M}$, the soft assignment
+$A\in\mathbb{R}^{B\times N\times M}$, and the softmax is taken over the $M$ slots. Each prototype is the
 assignment-weighted average of the \emph{current} tokens,
 \begin{equation}
 P^{\mathrm{c}}_{m} = \frac{\sum_{n} A_{n,m}\, X_{n}}{\sum_{n} A_{n,m} + \epsilon},
@@ -120,13 +120,13 @@ $\ell_2$-normalized router space, $\hat{e}_n=\mathrm{normalize}(E_n W_t)$ and
 $\hat{p}_m=\mathrm{normalize}(P_m W_p)$, and compute routing scores with a
 \emph{learnable temperature} $\tau$:
 \begin{equation}
-S = \mathrm{softmax}\big(\tau\,\hat{E}\hat{P}^{\!\top}\big)
-\in\mathbb{R}^{B\times N\times M},
+S = \mathrm{softmax}\big(\tau\,\hat{E}\hat{P}^{\!\top}\big),
 \qquad
 \tau = \min\!\big(e^{\,\theta},\,\tau_{\max}\big),
 \label{eq:scores}
 \end{equation}
-where $\theta$ is a learnable log-scale clamped by $\tau_{\max}$ for stability.
+where $S\in\mathbb{R}^{B\times N\times M}$ and $\theta$ is a learnable log-scale
+clamped by $\tau_{\max}$ for stability.
 A larger $\tau$ sharpens the assignment distribution and increases the separation
 of routing scores. For each token we read out the hard label and its confidence,
 \begin{equation}
@@ -145,7 +145,7 @@ cluster:
 \begin{equation}
 k_n = b_n + 0.5\,\big(1 - x^{\mathrm{s}}_n\big),
 \qquad
-\pi = \mathrm{argsort}_n(k_n).
+\pi = \operatorname{argsort}_n(k_n).
 \label{eq:sortkey}
 \end{equation}
 Since $x^{\mathrm{s}}_n\in(0,1)$, the additive term lies in $(0,0.5)$ and never

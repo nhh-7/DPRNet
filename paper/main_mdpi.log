@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.6.26)  20 JUL 2026 20:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.6.26)  27 JUL 2026 17:45
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1428,13 +1428,13 @@ Package rerunfilecheck Info: File `main_mdpi.out' has not changed.
 Here is how much of TeX's memory you used:
  47713 strings out of 469158
  1068805 string characters out of 5459505
- 1663329 words of memory out of 5000000
+ 1663330 words of memory out of 5000000
  75027 multiletter control sequences out of 15000+600000
  725572 words of font info for 614 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  123i,22n,121p,1091b,2402s stack positions out of 10000i,1000n,20000p,200000b,200000s
  </Users/bytedance/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt0800.600pk> </Users/bytedance/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1000.600pk> </Users/bytedance/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecss0800.375pk></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/mathpazo/fplmr.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/mathpazo/fplmri.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb></Users/bytedance/Library/TinyTeX/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on main_mdpi.pdf (24 pages, 10710522 bytes).
+Output written on main_mdpi.pdf (24 pages, 10710632 bytes).
 PDF statistics:
  752 PDF objects out of 1000 (max. 8388607)
  613 compressed objects within 7 object streams

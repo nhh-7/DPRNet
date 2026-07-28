@@ -28,7 +28,7 @@ multiply by 2. Representative PSNR is on Urban100 ($\times 4$).}
 \renewcommand{\arraystretch}{1.05}
 \begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lcccc}
 \toprule
-Method & Params & MACs & U100 PSNR & Source \\
+Method & Params (K) & Multi-Adds (G) & Urban100 PSNR & Source \\
 \midrule
 SwinIR-light    & 897  & 60.3  & 26.47 & CATANet Table~6 \\
 SRFormer-light  & 873  & 56.5  & 26.67 & CATANet Table~6 \\
@@ -68,9 +68,9 @@ single CUDA GPU.}
 \toprule
 Scale & LR Input & Params (K) & Multi-Adds (G) & Latency (ms) \\
 \midrule
-$\times 2$ & 256$\times$256 & 601.95 & 36.19 & 183.57 $\pm$ 7.70 \\
-$\times 3$ & 256$\times$256 & 674.15 & 41.26 & 185.88 $\pm$ 6.33 \\
-$\times 4$ & 256$\times$256 & 659.71 & 52.14 & 198.16 $\pm$ 9.43 \\
+$\times 2$ & 256$\times$256 & 601.95 & 36.19 & $183.57\pm7.70$ \\
+$\times 3$ & 256$\times$256 & 674.15 & 41.26 & $185.88\pm6.33$ \\
+$\times 4$ & 256$\times$256 & 659.71 & 52.14 & $198.16\pm9.43$ \\
 \bottomrule
 \end{tabular*}
 \endgroup
