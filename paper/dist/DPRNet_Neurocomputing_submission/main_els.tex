@@ -1,0 +1,127 @@
+% =====================================================================
+% DPRNet -- Elsevier (elsarticle) SUBMISSION build for Neurocomputing.
+% Created 2026-07-28. Single-column preprint layout (elsarticle "preprint"),
+% numeric citations via natbib + elsarticle-num.bst.
+%
+% This file reuses the SAME shared sources as the CVPR (main.tex) and MDPI
+% (main_mdpi.tex) builds:
+%   sections/*  tables/*  figures/*  references.bib
+% Only the class, front matter, and bibliography wiring differ. Extra packages
+% needed by the shared figures/tables live in preamble_els.tex.
+%
+% Compile:
+%   pdflatex main_els ; bibtex main_els ; pdflatex main_els ; pdflatex main_els
+% (shell-escape NOT required -- no EPS logos in this build.)
+%
+% Submission notes:
+%   - Author/affiliation/email are placeholders; fill real values before upload.
+%   - Neurocomputing accepts a single-column preprint-style PDF for first
+%     submission ("your paper, your way"); final formatting is done post-accept.
+% =====================================================================
+\documentclass[preprint,12pt]{elsarticle}
+
+\input{preamble_els}
+
+\journal{Neurocomputing}
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{Dynamic Prototype Routing for Lightweight Image Super-Resolution}
+
+% Submission metadata -- replace with the final author information before upload.
+% ---- Authors: first author (you, corresponding) + advisor (second author) ----
+% If you and your advisor are in DIFFERENT institutions, duplicate \affiliation
+% with label [b] and change the advisor's \author[a] to \author[b].
+\author[a]{Hainan Huang\corref{cor1}}
+\ead{huanghainan.7@cug.edu.cn}
+\author[a]{Xiang Li}
+
+\affiliation[a]{organization={China University of Geosciences (Wuhan)},
+                city={Wuhan},
+                country={China}}
+
+\cortext[cor1]{Corresponding author.}
+
+\begin{abstract}
+Lightweight single image super-resolution (SR) must balance reconstruction quality with
+model cost on resource-constrained platforms. Content-aware routing improves this balance
+by grouping semantically related tokens, but the Token Aggregation Block (TAB) of CATANet
+uses cross-batch exponential-moving-average centers, hard assignment labels, and a coupled
+prototype update/confirmation step. We propose \emph{Dynamic Prototype Routing} (DPR), a
+drop-in TAB replacement that keeps the CATANet backbone and tensor interface unchanged.
+DPR forms per-image prototypes from the current tokens, refines them with a learnable
+query bank, matches tokens with a bounded learnable temperature, and carries assignment
+confidence into token ordering, global gating, and a soft fallback; a balancing loss
+discourages prototype-slot collapse. Trained on DIV2K and evaluated on five standard
+benchmarks at $\times2/\times3/\times4$, DPRNet stays in the lightweight regime and
+matches CATANet-level accuracy, with small gains on most benchmark cells. At $\times4$,
+for example, it obtains $26.89$\,dB on Urban100 with $52.14$\,G Multi-Adds. It uses fewer
+Multi-Adds than the lightweight Transformer baselines SwinIR-light and SRFormer-light
+under the same input convention. Multi-seed ablations confirm that the
+dynamic prototypes outperform a history-center variant with an exponential moving average
+and that the balancing loss makes prototype usage both more balanced and more stable across
+seeds, while the routing diagnostics remain interpretable with soft assignment confidence.
+\end{abstract}
+
+\begin{keyword}
+image super-resolution \sep lightweight super-resolution \sep content-aware routing \sep
+dynamic prototype routing \sep self-attention \sep vision transformer \sep deep learning
+\end{keyword}
+
+\end{frontmatter}
+
+\input{sections/1_introduction}
+\input{sections/2_method}
+\input{figures/fig1_architecture}         % defines fig:arch
+\input{figures/fig2_dpr}                  % defines fig:dpr
+
+% ---- Experiments ----
+\input{sections/3_experiments_setup}      % opens \section{Experiments}
+
+\input{sections/3_experiments_comparison} % Table I + Table II
+\input{tables/table1_main_comparison}
+\input{tables/table2_efficiency}          % defines tab:efficiency + tab:efficiency_profile
+
+\input{sections/3_experiments_efficiency}
+\input{figures/fig3_psnr_params}          % defines fig:psnr_params
+
+\input{sections/3_experiments_visual}     % qualitative comparison
+\input{figures/fig7_visual}               % defines fig:visual
+
+\input{sections/3_experiments_ablation}   % Tables C1/III/IV/V
+\input{tables/table_c1_dpr_vs_ema}        % defines tab:abl_c1
+\input{tables/table3_ablation_a1}
+\input{tables/table4_ablation_a2}
+\input{tables/table5_ablation_a3}
+
+\input{sections/3_experiments_routing_analysis}
+\input{figures/fig5_xscore_hist}          % defines fig:xscore_hist
+\input{figures/fig6_usage_entropy}        % defines fig:usage_entropy
+\input{figures/fig8_cluster_maps}         % defines fig:cluster_maps
+
+\input{sections/4_discussion}
+\input{sections/5_conclusion}
+
+%%%%%%%%% BACK MATTER -- Neurocomputing required declarations (fill before upload)
+\section*{CRediT authorship contribution statement}
+\textbf{Hainan Huang}: Conceptualization, Methodology, Software, Validation, Formal
+analysis, Investigation, Data curation, Writing -- original draft, Visualization.
+\textbf{Xiang Li}: Conceptualization, Supervision, Funding acquisition, Resources,
+Writing -- review \& editing, Project administration.
+
+\section*{Declaration of competing interest}
+The authors declare that they have no known competing financial interests or personal
+relationships that could have appeared to influence the work reported in this paper.
+
+\section*{Data availability}
+The datasets used in this study are all publicly available: the DIV2K training set and
+the Set5, Set14, BSD100, Urban100, and Manga109 benchmarks. No new data were generated.
+The code and trained models are not publicly available due to institutional restrictions.
+
+%%%%%%%%% REFERENCES (Elsevier numeric style)
+\bibliographystyle{elsarticle-num}
+\bibliography{references}
+
+\end{document}

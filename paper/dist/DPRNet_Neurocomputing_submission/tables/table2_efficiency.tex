@@ -1,0 +1,77 @@
+% Table II — Efficiency comparison.
+% Requires: \usepackage{booktabs}
+% Provenance:
+%   - DPRNet Params / Multi-Adds(MACs, thop) / latency: paper/data/dprnet_efficiency.csv,
+%     mode=A_fixed_lr_256 (fixed LR input 256x256 -> x4 output 1024x1024; device=cuda,
+%     warmup=20, repeat=100; thop reports MACs). x4: 660K / 52.14G / 198.16+-9.43 ms.
+%   - Competitor Params in this subset: cited from the CATANet table/source notes used by Table I.
+%   - Multi-Adds for CATANet (46.8G), SwinIR-light (60.3G), SRFormer-light (56.5G): cited from the
+%     CATANet paper (CVPR'25) Tab.6, measured with a 3x256x256 input (x4 output 1024x1024).
+%     DPRNet is now re-measured under the SAME 256x256-input protocol, so these three competitor
+%     Multi-Adds are DIRECTLY comparable to DPRNet's 52.14G (no dagger needed).
+%   - Representative PSNR: Urban100 x4 from Table I.
+% NOTE (scope): CARN/IMDN/RFDN/RLFN/ELAN-light Multi-Adds are NOT in CATANet Tab.6 and are not included
+%   in this table. Competitor LATENCY is device-dependent and is not mixed across papers/hardware.
+% HONEST FRAMING: under the unified 256x256 protocol DPRNet (52.14G) needs MORE Multi-Adds than
+%   CATANet (46.8G) -- do NOT claim a compute win over CATANet -- but it is clearly LOWER than the
+%   Transformer baselines SwinIR-light (60.3G) and SRFormer-light (56.5G) while achieving the best
+%   Urban100 PSNR, and it stays within the same lightweight bracket.
+\begin{table}[H]
+\centering
+\caption{Comparable efficiency subset on $\times 4$ SR. Multi-Adds are MACs under a unified fixed LR
+input of $256\times256$ ($\times4$ output $1024\times1024$); to compare against FLOPs-based reports,
+multiply by 2. Representative PSNR is on Urban100 ($\times 4$).}
+\label{tab:efficiency}
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lcccc}
+\toprule
+Method & Params (K) & Multi-Adds (G) & Urban100 PSNR & Source \\
+\midrule
+SwinIR-light    & 897  & 60.3  & 26.47 & CATANet Table~6 \\
+SRFormer-light  & 873  & 56.5  & 26.67 & CATANet Table~6 \\
+CATANet         & 535  & \textbf{46.8} & \underline{26.87} & CATANet Table~6 \\
+\textbf{DPRNet (ours)} & 660 & 52.14 & \textbf{26.89} & measured \\
+\bottomrule
+\end{tabular*}
+\endgroup
+
+\vspace{2pt}
+{\footnotesize
+\textit{Notes.} All Multi-Adds are MACs under a common $256\times256$ LR input
+($\times4$ output $1024\times1024$): DPRNet is measured under this protocol, and the CATANet,
+SwinIR-light and SRFormer-light values are taken from the CATANet paper (CVPR'25, Table~6), which uses
+the identical input convention, so the four entries are directly comparable. DPRNet
+needs more Multi-Adds than its direct predecessor CATANet ($52.14$ vs.\ $46.8$\,G) but markedly fewer
+than the Transformer baselines SwinIR-light ($60.3$\,G) and SRFormer-light ($56.5$\,G), while attaining
+the best Urban100 PSNR in this subset. Methods whose MACs are not reported under this shared input
+convention are omitted from the efficiency subset rather than filled from incompatible sources; the
+complete accuracy and parameter comparison remains in Table~\ref{tab:main_comparison}. Cross-paper
+latency is also omitted because runtime is hardware- and implementation-dependent.}
+\end{table}
+
+% --- DPRNet per-scale efficiency profile (all measured; mode=A_fixed_lr_256) ---
+% Optionally include as a separate small table or merge into the text.
+\begin{table}[H]
+\centering
+\caption{DPRNet per-scale efficiency profile (measured). All scales use a fixed LR input of
+$256\times256$; Multi-Adds are MACs (thop); latency averaged over $100$ runs after $20$ warm-ups on a
+single CUDA GPU.}
+\label{tab:efficiency_profile}
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}ccccc}
+\toprule
+Scale & LR Input & Params (K) & Multi-Adds (G) & Latency (ms) \\
+\midrule
+$\times 2$ & 256$\times$256 & 601.95 & 36.19 & $183.57\pm7.70$ \\
+$\times 3$ & 256$\times$256 & 674.15 & 41.26 & $185.88\pm6.33$ \\
+$\times 4$ & 256$\times$256 & 659.71 & 52.14 & $198.16\pm9.43$ \\
+\bottomrule
+\end{tabular*}
+\endgroup
+\end{table}

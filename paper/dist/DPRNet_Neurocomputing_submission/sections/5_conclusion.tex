@@ -1,0 +1,31 @@
+% =====================================================================
+% Section: Conclusion  (outline.md §5)
+% Draft v1 (2026-06-27). Summarizes contributions and results, notes the
+%   transferability of DPR as a generic content-routing module, and future work.
+% Consistent with the honest framing of the body (matches/slightly surpasses
+%   CATANet with a comparable lightweight cost profile; ablation is now a 250k
+%   3-seed study with C1 EMA comparison and C4 variance reduction supported).
+% No numeric claims beyond those established in Sec. 3.
+% =====================================================================
+\section{Conclusion}
+\label{sec:conclusion}
+
+We presented Dynamic Prototype Routing (DPR), a drop-in replacement for the
+center-based Token Aggregation Block of CATANet that keeps the backbone and tensor
+interface unchanged while remaining in a comparable lightweight operating regime. DPR
+generates semantic prototypes directly from the current tokens, decouples their
+confirmation through a learnable query bank, matches tokens back with a learnable
+temperature, and propagates explicit per-token confidence through ordering, gating,
+and a soft fallback. A usage-balancing regularizer keeps prototype use spread out. On
+five standard benchmarks at $\times2/\times3/\times4$, the resulting DPRNet maintains
+CATANet-level reconstruction quality with small gains on most benchmark cells and a
+comparable lightweight cost profile. Across three seeds, the ablations attribute the
+effect of each design element and show that dynamic prototypes outperform a
+re-implemented EMA history center. The routing diagnostics further provide
+mechanism-level evidence that the temperature remains unsaturated and that prototype
+usage becomes measurably more balanced---and more stable across seeds---in all blocks.
+Because DPR preserves the external interface of the routing block, it is not tied to
+this backbone and can serve as a confidence-aware content-routing module for other
+token-aggregation architectures. Future work includes remeasuring all comparison models
+for cross-method runtime under a single implementation protocol, and extending DPR to
+larger training sets and real-world or arbitrary-scale degradations.

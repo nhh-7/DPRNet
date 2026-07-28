@@ -1,0 +1,181 @@
+\begin{thebibliography}{10}
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{\texttt{#1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+\expandafter\ifx\csname href\endcsname\relax
+  \def\href#1#2{#2} \def\path#1{#1}\fi
+
+\bibitem{glasner2009single}
+D.~Glasner, S.~Bagon, M.~Irani, Super-resolution from a single image, in: IEEE International Conference on Computer Vision (ICCV), 2009, pp. 349--356.
+\newblock \href {https://doi.org/10.1109/ICCV.2009.5459271} {\path{doi:10.1109/ICCV.2009.5459271}}.
+
+\bibitem{dong2014srcnn}
+C.~Dong, C.~C. Loy, K.~He, X.~Tang, Learning a deep convolutional network for image super-resolution, in: European Conference on Computer Vision (ECCV), 2014, pp. 184--199.
+\newblock \href {https://doi.org/10.1007/978-3-319-10593-2_13} {\path{doi:10.1007/978-3-319-10593-2_13}}.
+
+\bibitem{kim2016vdsr}
+J.~Kim, J.~K. Lee, K.~M. Lee, Accurate image super-resolution using very deep convolutional networks, in: IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2016, pp. 1646--1654, arXiv:1511.04587.
+\newblock \href {https://doi.org/10.1109/CVPR.2016.182} {\path{doi:10.1109/CVPR.2016.182}}.
+
+\bibitem{zhang2018rdn}
+Y.~Zhang, Y.~Tian, Y.~Kong, B.~Zhong, Y.~Fu, Residual dense network for image super-resolution, in: IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2018, pp. 2472--2481, arXiv:1802.08797.
+\newblock \href {https://doi.org/10.1109/CVPR.2018.00262} {\path{doi:10.1109/CVPR.2018.00262}}.
+
+\bibitem{zhang2018rcan}
+Y.~Zhang, K.~Li, K.~Li, L.~Wang, B.~Zhong, Y.~Fu, Image super-resolution using very deep residual channel attention networks, in: European Conference on Computer Vision (ECCV), 2018, pp. 294--310, arXiv:1807.02758.
+\newblock \href {https://doi.org/10.1007/978-3-030-01234-2_18} {\path{doi:10.1007/978-3-030-01234-2_18}}.
+
+\bibitem{lim2017edsr}
+B.~Lim, S.~Son, H.~Kim, S.~Nah, K.~M. Lee, Enhanced deep residual networks for single image super-resolution, in: IEEE Conference on Computer Vision and Pattern Recognition Workshops (CVPRW), 2017, pp. 1132--1140, arXiv:1707.02921.
+\newblock \href {https://doi.org/10.1109/CVPRW.2017.151} {\path{doi:10.1109/CVPRW.2017.151}}.
+
+\bibitem{moser2023survey}
+B.~B. Moser, F.~Raue, S.~Frolov, S.~Palacio, J.~Hees, A.~Dengel, Hitchhiker's guide to super-resolution: Introduction and recent advances, IEEE Transactions on Pattern Analysis and Machine Intelligence 45~(8) (2023) 9862--9882, arXiv:2209.13131.
+\newblock \href {https://doi.org/10.1109/TPAMI.2023.3243794} {\path{doi:10.1109/TPAMI.2023.3243794}}.
+
+\bibitem{ahn2018carn}
+N.~Ahn, B.~Kang, K.-A. Sohn, Fast, accurate, and lightweight super-resolution with cascading residual network, in: European Conference on Computer Vision (ECCV), 2018, pp. 256--272, arXiv:1803.08664.
+\newblock \href {https://doi.org/10.1007/978-3-030-01249-6_16} {\path{doi:10.1007/978-3-030-01249-6_16}}.
+
+\bibitem{hui2019imdn}
+Z.~Hui, X.~Gao, Y.~Yang, X.~Wang, Lightweight image super-resolution with information multi-distillation network, in: 27th ACM International Conference on Multimedia (ACM MM), 2019, pp. 2024--2032, arXiv:1909.11856.
+\newblock \href {https://doi.org/10.1145/3343031.3351084} {\path{doi:10.1145/3343031.3351084}}.
+
+\bibitem{liu2020rfdn}
+J.~Liu, J.~Tang, G.~Wu, Residual feature distillation network for lightweight image super-resolution, in: European Conference on Computer Vision Workshops (ECCVW), 2020, pp. 41--55, arXiv:2009.11551; AIM 2020 Efficient SR Challenge.
+\newblock \href {https://doi.org/10.1007/978-3-030-67070-2_2} {\path{doi:10.1007/978-3-030-67070-2_2}}.
+
+\bibitem{kong2022rlfn}
+F.~Kong, M.~Li, S.~Liu, D.~Liu, J.~He, Y.~Bai, F.~Chen, L.~Fu, Residual local feature network for efficient super-resolution, in: IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops (CVPRW), 2022, pp. 765--775, arXiv:2205.07514; NTIRE 2022 Efficient SR Challenge winner.
+\newblock \href {https://doi.org/10.1109/CVPRW56347.2022.00092} {\path{doi:10.1109/CVPRW56347.2022.00092}}.
+
+\bibitem{sun2022shufflemixer}
+L.~Sun, J.~Pan, J.~Tang, {ShuffleMixer}: An efficient convnet for image super-resolution, in: Advances in Neural Information Processing Systems (NeurIPS), Vol.~35, 2022, pp. 17314--17326, arXiv:2205.15175.
+\newblock \href {https://doi.org/10.52202/068431-1259} {\path{doi:10.52202/068431-1259}}.
+
+\bibitem{guo2022dualregression}
+Y.~Guo, M.~Tan, Z.~Deng, J.~Wang, Q.~Chen, J.~Cao, Y.~Xu, J.~Chen, Towards lightweight super-resolution with dual regression learning, IEEE Transactions on Pattern Analysis and Machine Intelligence 46~(12) (2024) 8365--8379, arXiv:2207.07929.
+\newblock \href {https://doi.org/10.1109/TPAMI.2024.3406556} {\path{doi:10.1109/TPAMI.2024.3406556}}.
+
+\bibitem{ren2024ntire}
+B.~Ren, Y.~Li, N.~Mehta, R.~Timofte, et~al., The ninth {NTIRE} 2024 efficient super-resolution challenge report, Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops (CVPRW) (2024) 6595--6631ArXiv:2404.10343.
+\newblock \href {https://doi.org/10.1109/CVPRW63382.2024.00656} {\path{doi:10.1109/CVPRW63382.2024.00656}}.
+
+\bibitem{wang2018nonlocal}
+X.~Wang, R.~Girshick, A.~Gupta, K.~He, Non-local neural networks, in: IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2018, pp. 7794--7803, arXiv:1711.07971.
+\newblock \href {https://doi.org/10.1109/CVPR.2018.00813} {\path{doi:10.1109/CVPR.2018.00813}}.
+
+\bibitem{liu2021swin}
+Z.~Liu, Y.~Lin, Y.~Cao, H.~Hu, Y.~Wei, Z.~Zhang, S.~Lin, B.~Guo, Swin transformer: Hierarchical vision transformer using shifted windows, in: IEEE/CVF International Conference on Computer Vision (ICCV), 2021, pp. 9992--10002, arXiv:2103.14030.
+\newblock \href {https://doi.org/10.1109/ICCV48922.2021.00986} {\path{doi:10.1109/ICCV48922.2021.00986}}.
+
+\bibitem{liang2021swinir}
+J.~Liang, J.~Cao, G.~Sun, K.~Zhang, L.~Van~Gool, R.~Timofte, {SwinIR}: Image restoration using swin transformer, in: IEEE/CVF International Conference on Computer Vision Workshops (ICCVW), 2021, pp. 1833--1844, arXiv:2108.10257.
+\newblock \href {https://doi.org/10.1109/ICCVW54120.2021.00210} {\path{doi:10.1109/ICCVW54120.2021.00210}}.
+
+\bibitem{zhang2022elan}
+X.~Zhang, H.~Zeng, S.~Guo, L.~Zhang, Efficient long-range attention network for image super-resolution, in: European Conference on Computer Vision (ECCV), 2022, pp. 649--667, arXiv:2203.06697.
+\newblock \href {https://doi.org/10.1007/978-3-031-19790-1_39} {\path{doi:10.1007/978-3-031-19790-1_39}}.
+
+\bibitem{zhou2023srformer}
+Y.~Zhou, Z.~Li, C.-L. Guo, S.~Bai, M.-M. Cheng, Q.~Hou, {SRFormer}: Permuted self-attention for single image super-resolution, in: IEEE/CVF International Conference on Computer Vision (ICCV), 2023, pp. 12734--12745, arXiv:2303.09735.
+\newblock \href {https://doi.org/10.1109/ICCV51070.2023.01174} {\path{doi:10.1109/ICCV51070.2023.01174}}.
+
+\bibitem{chen2023hat}
+X.~Chen, X.~Wang, J.~Zhou, Y.~Qiao, C.~Dong, Activating more pixels in image super-resolution transformer, in: IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2023, pp. 22367--22377, hAT; arXiv:2205.04437.
+\newblock \href {https://doi.org/10.1109/CVPR52729.2023.02142} {\path{doi:10.1109/CVPR52729.2023.02142}}.
+
+\bibitem{wang2023omnisr}
+H.~Wang, X.~Chen, B.~Ni, Y.~Liu, J.~Liu, Omni aggregation networks for lightweight image super-resolution, in: IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2023, pp. 22378--22387, omni-SR; arXiv:2304.10244.
+\newblock \href {https://doi.org/10.1109/CVPR52729.2023.02143} {\path{doi:10.1109/CVPR52729.2023.02143}}.
+
+\bibitem{choi2023ngswin}
+H.~Choi, J.~Lee, J.~Yang, {N-Gram} in swin transformers for efficient lightweight image super-resolution, in: IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2023, pp. 2071--2081, nGswin.
+\newblock \href {https://doi.org/10.1109/CVPR52729.2023.00206} {\path{doi:10.1109/CVPR52729.2023.00206}}.
+
+\bibitem{zheng2023emt}
+L.~Zheng, J.~Zhu, J.~Shi, S.~Weng, Efficient mixed transformer for single image super-resolution, Engineering Applications of Artificial Intelligence 133 (2024) 108035, arXiv:2305.11403.
+\newblock \href {https://doi.org/10.1016/j.engappai.2024.108035} {\path{doi:10.1016/j.engappai.2024.108035}}.
+
+\bibitem{liu2022hpinet}
+J.~Liu, C.~Chen, J.~Tang, G.~Wu, From coarse to fine: Hierarchical pixel integration for lightweight image super-resolution, Proceedings of the AAAI Conference on Artificial Intelligence 37~(2) (2023) 1666--1674, arXiv:2211.16776.
+\newblock \href {https://doi.org/10.1609/aaai.v37i2.25254} {\path{doi:10.1609/aaai.v37i2.25254}}.
+
+\bibitem{li2024grformer}
+Y.~Li, Z.~Deng, Y.~Cao, L.~Liu, {GRFormer}: Grouped residual self-attention for lightweight single image super-resolution, in: 32nd ACM International Conference on Multimedia (ACM MM), 2024, pp. 9378--9386, arXiv:2408.07484.
+\newblock \href {https://doi.org/10.1145/3664647.3681554} {\path{doi:10.1145/3664647.3681554}}.
+
+\bibitem{kim2025lmlt}
+J.~Kim, J.~Nang, J.~Choe, {LMLT}: Low-to-high multi-level vision transformer for lightweight image super-resolution, in: IEEE/CVF International Conference on Computer Vision Workshops (ICCVW), 2025, pp. 5568--5578, arXiv:2409.03516.
+\newblock \href {https://doi.org/10.1109/ICCVW69036.2025.00583} {\path{doi:10.1109/ICCVW69036.2025.00583}}.
+
+\bibitem{wu2024compacter}
+Z.~Wu, J.~Li, Y.~Hu, D.~Huang, {Compacter}: A lightweight transformer for image restoration, in: 32nd ACM International Conference on Multimedia (ACM MM), 2024.
+\newblock \href {https://doi.org/10.1145/3664647.3680811} {\path{doi:10.1145/3664647.3680811}}.
+
+\bibitem{zhang2024atd}
+L.~Zhang, Y.~Li, X.~Zhou, X.~Zhao, S.~Gu, Transcending the limit of local window: Advanced super-resolution transformer with adaptive token dictionary, in: IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2024, pp. 2856--2865, aTD; arXiv:2401.08209.
+\newblock \href {https://doi.org/10.1109/CVPR52733.2024.00276} {\path{doi:10.1109/CVPR52733.2024.00276}}.
+
+\bibitem{jeong2024pcsr}
+J.~Jeong, J.~Kim, Y.~Jo, S.~J. Kim, Accelerating image super-resolution networks with pixel-level classification, in: European Conference on Computer Vision (ECCV), 2024, pp. 236--251, pCSR; arXiv:2407.21448.
+\newblock \href {https://doi.org/10.1007/978-3-031-72646-0_14} {\path{doi:10.1007/978-3-031-72646-0_14}}.
+
+\bibitem{wu2023saldrn}
+H.~Wu, N.~Ni, L.~Zhang, Lightweight stepless super-resolution of remote sensing images via saliency-aware dynamic routing strategy, IEEE Transactions on Geoscience and Remote Sensing 61 (2023) 1--17, salDRN; Art. no. 5601717; arXiv:2210.07598.
+\newblock \href {https://doi.org/10.1109/TGRS.2023.3236624} {\path{doi:10.1109/TGRS.2023.3236624}}.
+
+\bibitem{he2026mordasr}
+X.~He, Z.~Tu, K.~Cheng, M.~Zhu, J.~Hu, N.~Wang, X.~Gao, Mixture of ranks with degradation-aware routing for one-step real-world image super-resolution, in: AAAI Conference on Artificial Intelligence (AAAI), 2026, pp. 4681--4689, moR-DASR; arXiv:2511.16024.
+
+\bibitem{mei2020csnln}
+Y.~Mei, Y.~Fan, Y.~Zhou, L.~Huang, T.~S. Huang, H.~Shi, Image super-resolution with cross-scale non-local attention and exhaustive self-exemplars mining, in: IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2020, pp. 5689--5698, arXiv:2006.01424.
+\newblock \href {https://doi.org/10.1109/CVPR42600.2020.00573} {\path{doi:10.1109/CVPR42600.2020.00573}}.
+
+\bibitem{yang2020ttn}
+F.~Yang, H.~Yang, J.~Fu, H.~Lu, B.~Guo, Learning texture transformer network for image super-resolution, in: IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2020, pp. 5790--5799, arXiv:2006.04139.
+\newblock \href {https://doi.org/10.1109/CVPR42600.2020.00583} {\path{doi:10.1109/CVPR42600.2020.00583}}.
+
+\bibitem{zhang2024spin}
+A.~Zhang, W.~Ren, Y.~Liu, X.~Cao, Lightweight image super-resolution with superpixel token interaction, in: IEEE/CVF International Conference on Computer Vision (ICCV), 2023, pp. 12682--12691.
+\newblock \href {https://doi.org/10.1109/ICCV51070.2023.01169} {\path{doi:10.1109/ICCV51070.2023.01169}}.
+
+\bibitem{liu2025catanet}
+X.~Liu, J.~Liu, J.~Tang, G.~Wu, {CATANet}: Efficient content-aware token aggregation for lightweight image super-resolution, in: IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2025, pp. 17902--17912, arXiv:2503.06896.
+\newblock \href {https://doi.org/10.1109/CVPR52734.2025.01668} {\path{doi:10.1109/CVPR52734.2025.01668}}.
+
+\bibitem{agustsson2017div2k}
+E.~Agustsson, R.~Timofte, {NTIRE} 2017 challenge on single image super-resolution: Dataset and study, in: IEEE Conference on Computer Vision and Pattern Recognition Workshops (CVPRW), 2017, pp. 1122--1131.
+\newblock \href {https://doi.org/10.1109/CVPRW.2017.150} {\path{doi:10.1109/CVPRW.2017.150}}.
+
+\bibitem{bevilacqua2012set5}
+M.~Bevilacqua, A.~Roumy, C.~Guillemot, M.~L. Alberi-Morel, Low-complexity single-image super-resolution based on nonnegative neighbor embedding, in: British Machine Vision Conference (BMVC), 2012, pp. 135.1--135.10.
+\newblock \href {https://doi.org/10.5244/C.26.135} {\path{doi:10.5244/C.26.135}}.
+
+\bibitem{zeyde2010set14}
+R.~Zeyde, M.~Elad, M.~Protter, On single image scale-up using sparse-representations, in: International Conference on Curves and Surfaces, 2012, pp. 711--730.
+\newblock \href {https://doi.org/10.1007/978-3-642-27413-8_47} {\path{doi:10.1007/978-3-642-27413-8_47}}.
+
+\bibitem{martin2001bsd100}
+D.~Martin, C.~Fowlkes, D.~Tal, J.~Malik, A database of human segmented natural images and its application to evaluating segmentation algorithms and measuring ecological statistics, in: IEEE International Conference on Computer Vision (ICCV), Vol.~2, 2001, pp. 416--423.
+\newblock \href {https://doi.org/10.1109/ICCV.2001.937655} {\path{doi:10.1109/ICCV.2001.937655}}.
+
+\bibitem{huang2015urban100}
+J.-B. Huang, A.~Singh, N.~Ahuja, Single image super-resolution from transformed self-exemplars, in: IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2015, pp. 5197--5206.
+\newblock \href {https://doi.org/10.1109/CVPR.2015.7299156} {\path{doi:10.1109/CVPR.2015.7299156}}.
+
+\bibitem{matsui2017manga109}
+Y.~Matsui, K.~Ito, Y.~Aramaki, A.~Fujimoto, T.~Ogawa, T.~Yamasaki, K.~Aizawa, Sketch-based manga retrieval using {Manga109} dataset, Multimedia Tools and Applications 76~(20) (2017) 21811--21838.
+\newblock \href {https://doi.org/10.1007/s11042-016-4020-z} {\path{doi:10.1007/s11042-016-4020-z}}.
+
+\bibitem{wang2004ssim}
+Z.~Wang, A.~C. Bovik, H.~R. Sheikh, E.~P. Simoncelli, Image quality assessment: From error visibility to structural similarity, IEEE Transactions on Image Processing 13~(4) (2004) 600--612.
+\newblock \href {https://doi.org/10.1109/TIP.2003.819861} {\path{doi:10.1109/TIP.2003.819861}}.
+
+\bibitem{he2026tadsr}
+X.~He, H.~Tang, Z.~Tu, J.~Zhang, K.~Cheng, H.~Chen, Y.~Guo, M.~Zhu, J.~Hu, N.~Wang, X.~Gao, One step diffusion-based super-resolution with time-aware distillation, IEEE Transactions on Image Processing 35 (2026) 2928--2940, tAD-SR; arXiv:2408.07476.
+
+\bibitem{zheng2026dvar}
+Y.~Zheng, K.~Zhang, W.~Zhu, Q.~Liu, X.~Hu, J.~Li, J.~Yang, {DVAR}: Dynamic visual autoregressive modeling for image super-resolution, in: IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2026, dVAR.
+
+\end{thebibliography}

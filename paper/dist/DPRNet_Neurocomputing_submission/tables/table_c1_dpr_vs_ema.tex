@@ -1,0 +1,46 @@
+% Table (C1) -- Dynamic prototypes (DPR) vs. history center + EMA (verifies C1).
+% Requires: \usepackage{booktabs}
+% Provenance: paper/plan/ablation-results-to-fill.md (Section 2) / experiment-protocol.md §5.0.
+%   Direct controlled comparison under a matched protocol: routing_mode=dpr (=full)
+%   vs routing_mode=ema_center (EMACenterRouter), identical backbone/interface, each trained
+%   for 250k on DIV2K over 3 seeds {3407,42,1234}; PSNR(dB)/SSIM (Y channel,
+%   crop_border=4) on Set5 and Urban100. The DPR arm reuses the full-model result.
+% SUPPORTED CLAIM (now direct, no longer motivational): replacing the cross-batch EMA
+%   center generator with per-image dynamic prototypes improves accuracy on both benchmarks
+%   (Set5 +0.06 dB, Urban100 +0.11 dB) with lower seed-to-seed variance, under a matched
+%   protocol.
+\begin{table}[H]
+\centering
+\caption{Ablation C1 ($\times 4$): dynamic per-image prototypes (DPR, $=$ full model) vs.\ a
+cross-batch history center with EMA update (EMA-center), both trained for $250$k on DIV2K
+over three seeds. Values are mean$\pm$std PSNR(dB)/SSIM (Y channel) on Set5 and Urban100.
+Under a matched protocol that differs \emph{only} in the prototype generator, dynamic
+prototypes give the better reconstruction on both benchmarks with lower seed variance.}
+\label{tab:abl_c1}
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}llcc}
+\toprule
+Benchmark & Prototype generator & PSNR & SSIM \\
+\midrule
+Set5     & EMA-center             & $32.51\pm0.04$ & $0.8990\pm0.0004$ \\
+Set5     & DPR (dynamic, $=$full) & $\mathbf{32.57\pm0.02}$ & $\mathbf{0.9000\pm0.0002}$ \\
+Urban100 & EMA-center             & $26.76\pm0.06$ & $0.8052\pm0.0009$ \\
+Urban100 & DPR (dynamic, $=$full) & $\mathbf{26.87\pm0.02}$ & $\mathbf{0.8085\pm0.0003}$ \\
+\bottomrule
+\end{tabular*}
+\endgroup
+
+\vspace{2pt}
+{\footnotesize
+\textit{Notes.} Both arms share the identical CATANet backbone and DPR interface and differ
+only in how routing prototypes are formed: EMA-center maintains a cross-batch $k$-means-style
+center with an exponential-moving-average buffer and a hard \texttt{argmax} label
+(EMACenterRouter), whereas DPR forms prototypes from the current tokens by a soft,
+assignment-weighted aggregation. Each variant is trained for $250$k iterations on
+DIV2K with seeds $\{3407,42,1234\}$; we report the mean$\pm$std over the three seeds. Dynamic
+prototypes improve PSNR on both benchmarks (Set5 $+0.06$\,dB, Urban100 $+0.11$\,dB) and exhibit
+lower seed-to-seed variance, giving a direct controlled confirmation of C1.}
+\end{table}

@@ -1,0 +1,13 @@
+dataset,sample,method,psnr,ssim
+Urban100,img_092,IMDN,18.95,0.6606
+Urban100,img_092,SwinIR-light,19.03,0.6639
+Urban100,img_092,SRFormer-light,19.14,0.6724
+Urban100,img_092,CATANet,19.76,0.6958
+Urban100,img_024,IMDN,20.03,0.6420
+Urban100,img_024,SwinIR-light,20.35,0.6817
+Urban100,img_024,SRFormer-light,21.18,0.7099
+Urban100,img_024,CATANet,21.53,0.7242
+Manga109,ThatsIzumiko_000,IMDN,20.95,0.7299
+Manga109,ThatsIzumiko_000,SwinIR-light,21.29,0.7494
+Manga109,ThatsIzumiko_000,SRFormer-light,21.39,0.7549
+Manga109,ThatsIzumiko_000,CATANet,21.41,0.7563

@@ -1,0 +1,154 @@
+% =====================================================================
+% Section: Introduction (with Related Work)  (outline.md §1)
+% Draft v1 (2026-06-10). Related Work is integrated into the Introduction
+% following the CS/engineering SCI body convention (outline.md).
+% Citation keys refer to paper/references.bib.
+% This draft contains NO quantitative result assertions; all comparative
+% statements are qualitative (motivation / positioning) and are backed by
+% the experiments referenced in plan/review/method-experiment-traceability.md.
+% =====================================================================
+\section{Introduction}
+\label{sec:intro}
+
+Single image super-resolution (SR) aims to reconstruct a high-resolution (HR)
+image from a low-resolution (LR) observation, a problem that underpins applications
+from mobile photography to display rendering. Before deep learning, SR was often
+formulated with hand-crafted image priors, such as internal self-similarity
+across scales~\cite{glasner2009single}. Since the seminal deep
+model SRCNN~\cite{dong2014srcnn}, accuracy has improved through deeper,
+residual, and feature-reuse networks, including
+VDSR~\cite{kim2016vdsr}, RDN~\cite{zhang2018rdn}, RCAN~\cite{zhang2018rcan},
+and EDSR~\cite{lim2017edsr}. A recent survey summarizes this progression across
+architectures, losses, datasets, and metrics~\cite{moser2023survey}. The
+corresponding growth in parameters and computation, however, makes many
+high-capacity models impractical for mobile and edge devices, where memory,
+latency, and energy are tightly constrained. This tension has motivated a sustained
+line of \emph{lightweight} SR, which seeks a favorable
+trade-off between reconstruction quality and model cost.
+
+\paragraph{Lightweight CNN-based SR.}
+Efficient CNN designs reduce cost by moving computation to low-resolution
+features, reusing parameters, simplifying feature distillation, or replacing
+heavy operators with compact mixing. CARN employs cascading
+residual connections with group convolutions~\cite{ahn2018carn}; IMDN introduces
+information multi-distillation~\cite{hui2019imdn}; RFDN reformulates this idea
+with residual feature distillation blocks~\cite{liu2020rfdn}; and RLFN further
+simplifies local feature extraction for efficient SR~\cite{kong2022rlfn}. More
+recent lightweight designs also explore shuffle-based convolutional
+mixing~\cite{sun2022shufflemixer} and dual-regression
+constraints~\cite{guo2022dualregression}.
+Efficient-SR challenges reflect the same deployment pressure by ranking models
+with accuracy, runtime, parameters, and FLOPs considered together~\cite{ren2024ntire}.
+For the present work, the main limitation of these methods is not efficiency but
+context: locally connected convolutional operators cannot directly compare spatially
+distant yet semantically similar regions without stacking many layers.
+
+\paragraph{Lightweight Transformer-based SR.}
+Long-range modeling tackles the context limitation from a different direction.
+Non-local operators aggregate features across distant positions~\cite{wang2018nonlocal},
+and Transformer-based restoration extends this idea with learned attention.
+Swin Transformer provides the shifted-window
+operator that later restoration models adopt for tractable attention~\cite{liu2021swin}.
+SwinIR introduces window-based attention for image restoration~\cite{liang2021swinir};
+ELAN streamlines long-range attention to cut redundant computation~\cite{zhang2022elan};
+SRFormer revisits the window--channel trade-off with permuted
+self-attention~\cite{zhou2023srformer}; and HAT activates more pixels to enlarge the
+effective receptive field~\cite{chen2023hat}. Efficient variants further mix local
+operators with omni-dimensional attention~\cite{wang2023omnisr} or n-gram
+context~\cite{choi2023ngswin}, adopt mixed Transformer
+blocks~\cite{zheng2023emt}, or integrate features hierarchically from coarse to
+fine~\cite{liu2022hpinet}. More recent lightweight
+Transformers push this efficiency further: GRFormer introduces grouped residual
+self-attention to trim redundant parameters and computation~\cite{li2024grformer},
+LMLT applies multi-level attention with per-head feature sizes to widen the
+effective context~\cite{kim2025lmlt}, and Compacter shares a single projection
+across spatial and channel attention for compact restoration~\cite{wu2024compacter}.
+ATD takes a step toward content adaptivity by augmenting local windows with an
+adaptive token dictionary~\cite{zhang2024atd}. Yet all of these still bind token
+interaction to a predefined spatial partition: semantically similar but spatially
+distant tokens interact only when the window grows or an extra global path is
+added, which motivates organizing tokens by content instead of position.
+
+\paragraph{Content-adaptive routing and token clustering.}
+A complementary direction routes computation or interaction by \emph{content}
+rather than by a fixed spatial layout. One thread allocates compute where
+reconstruction is hard: PCSR classifies each pixel and dispatches it to an
+upsampler of matching capacity~\cite{jeong2024pcsr}, while SalDRN treats visual
+saliency as a proxy for region-level difficulty and selects feature paths of
+appropriate depth accordingly~\cite{wu2023saldrn}. Pushing this idea to
+real-world SR, MoR-DASR casts restoration as a mixture of experts whose
+degradation-aware gate activates only relevant ranks and relies on a
+load-balancing loss to stop expert usage from collapsing onto a few
+branches~\cite{he2026mordasr}. A second thread instead groups \emph{tokens} by
+content, so that distant but semantically related regions interact within a
+compact attention---an idea rooted in non-local and self-exemplar SR that mines
+recurring patches within an image~\cite{mei2020csnln} or transfers texture from a
+reference~\cite{yang2020ttn}. SPIN clusters tokens into superpixels for
+lightweight interaction~\cite{zhang2024spin}, and CATANet, the most direct
+predecessor of our work, introduces a Token Aggregation Block (TAB) that keeps a
+small set of routing centers, assigns each token to its nearest center, reorders
+tokens by cluster label, and aggregates the reordered sequence with an
+intra/inter-group attention operator~\cite{liu2025catanet}. This content routing
+attains strong accuracy at a low budget; crucially, the load-balancing concern
+raised for expert routing reappears here as a risk of \emph{prototype collapse}
+that any learnable token router must also control.
+
+\paragraph{Limitations of center-based routing.}
+Despite its effectiveness, the TAB routing mechanism has four limitations.
+(i) Its routing centers are maintained across batches through a $k$-means--style
+iteration with an exponential moving average (EMA) buffer, so the centers are
+driven by a cross-batch historical state rather than strictly by the current
+image and adapt only slowly to per-image semantics. (ii) The token-to-center
+relation is a hard \texttt{argmax} label that discards the \emph{confidence} of
+the assignment, treating a token that clearly belongs to one cluster identically
+to an ambiguous one on a boundary. (iii) The reordering clusters tokens only by
+label, with no intra-cluster purity constraint, so high- and low-confidence tokens
+are interleaved within a group during aggregation. (iv) Prototype \emph{generation}
+and \emph{confirmation} are entangled in a single iterative update, which weakens
+interpretability and stability. These observations suggest that a routing module
+built directly from the current input, that preserves and exploits assignment
+confidence, and that separates prototype generation from confirmation could
+improve content routing without sacrificing the lightweight regime---provided it
+also guards against the prototype collapse that a learnable router can induce, in
+the same spirit as the load balancing used for expert routing~\cite{he2026mordasr}.
+
+\paragraph{Our approach.}
+We propose \emph{Dynamic Prototype Routing} (DPR), a drop-in replacement for the
+TAB routing that keeps the CATANet backbone and its external tensor interface
+unchanged while remaining in a comparable lightweight operating regime. DPR builds
+semantic prototypes directly from the current tokens via a soft assignment. It then
+confirms them with a learnable query bank, matches tokens back to the confirmed
+prototypes with a learnable temperature, and propagates an explicit per-token
+confidence through ordering and aggregation. The resulting network,
+\textbf{DPRNet}, is trained on DIV2K and evaluated on five standard benchmarks at
+$\times2/\times3/\times4$, where it maintains CATANet-level reconstruction quality
+with small gains on most benchmark cells and a comparable lightweight cost profile,
+while exposing an interpretable, confidence-aware routing
+mechanism.
+
+\paragraph{Contributions.}
+The main contributions are as follows.
+\begin{itemize}
+  \item \textbf{C1 -- Dynamic semantic prototypes.} We generate routing prototypes
+  from the current tokens by a soft, assignment-weighted aggregation, removing the
+  cross-batch EMA center buffer so that prototypes follow per-image semantics
+  (Section~\ref{sec:method_dpr}, Eqs.~\eqref{eq:assign}--\eqref{eq:proto_content}).
+  \item \textbf{C2 -- Decoupled prototype confirmation.} We separate prototype
+  \emph{generation} from \emph{confirmation} by refining the content prototypes
+  with a learnable query bank through a single gated cross-attention, improving the
+  stability and interpretability of the routing slots
+  (Eq.~\eqref{eq:proto_refine}).
+  \item \textbf{C3 -- Confidence-aware routing.} We explicitly retain the token
+  assignment confidence and use it in three places: a composite ordering key that
+  sorts high-confidence tokens first within each cluster, a confidence-modulated
+  global gate, and a soft prototype fallback for uncertain tokens
+  (Eqs.~\eqref{eq:sortkey}, \eqref{eq:iasa_gate}, \eqref{eq:soft_fallback}).
+  \item \textbf{C4 -- Stabilized routing.} We introduce a learnable routing
+  temperature together with a prototype usage-balancing regularizer to mitigate
+  collapse onto a few prototypes and keep slot usage spread out
+  (Eqs.~\eqref{eq:scores}, \eqref{eq:balance}).
+\end{itemize}
+Each design element is exposed as an independent switch that defaults to the full
+model. Turning these switches off gives the corresponding ablated variants, which
+allows the contributions to be isolated cleanly in the ablation study
+(Section~\ref{sec:ablation}).

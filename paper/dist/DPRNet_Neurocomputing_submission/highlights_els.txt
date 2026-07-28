@@ -1,0 +1,8 @@
+Highlights
+Dynamic Prototype Routing for Lightweight Image Super-Resolution
+
+- Dynamic Prototype Routing replaces CATANet's TAB as a drop-in, interface-kept module
+- Per-image prototypes are built from current tokens, removing cross-batch EMA centers
+- A learnable query bank decouples prototype generation from confirmation
+- Assignment confidence drives token ordering, global gating and a soft fallback
+- A usage-balancing loss prevents prototype-slot collapse and stabilizes routing

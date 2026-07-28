@@ -1,0 +1,46 @@
+% Table IV -- Ablation A2: confidence-aware routing, incremental (verifies C3).
+% Requires: \usepackage{booktabs}, \usepackage{pifont}
+% Provenance: paper/plan/ablation-results-to-fill.md (Section 4) / experiment-protocol.md §5.0.
+%   Three independent switches added cumulatively: use_conf_sort -> use_iasa_score_gate -> use_soft_fallback.
+%   v1=all off, v2=+conf_sort, v3=+score_gate, v4=full(+soft_fallback). All x4, trained
+%   for 250k on DIV2K over 3 seeds {3407,42,1234}; PSNR(dB) mean+/-std (Y channel, crop_border=4).
+% IMPORTANT (honest disclosure): the full configuration (v4) is clearly the best of the four on
+%   both benchmarks and by more than the seed std, but the intermediate steps (v2/v3) are NOT
+%   monotone. We therefore report the components as mutually compatible and best as a complete
+%   confidence-aware path, rather than crediting each switch with an independent monotone gain.
+\begin{table}[H]
+\centering
+\caption{Ablation A2 ($\times 4$): incremental confidence-aware routing components. PSNR(dB)
+mean$\pm$std (Y channel) over three seeds. The full configuration (v4) is clearly
+the best on both benchmarks, but the intermediate steps are not monotone; the components are
+mutually compatible and best as a complete confidence-aware path rather than individually
+accuracy-additive.}
+\label{tab:abl_a2}
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lccccc}
+\toprule
+\multirow{2}{*}{Variant} & \multicolumn{3}{c}{Switches} & Set5 & Urban100 \\
+\cmidrule(lr){2-4}
+ & sort & gate & fb & PSNR & PSNR \\
+\midrule
+v1 (hard sort)        & \ding{55} & \ding{55} & \ding{55} & $32.54\pm0.03$ & $26.81\pm0.02$ \\
+v2 (+conf.\ sort)     & \ding{51} & \ding{55} & \ding{55} & $32.52\pm0.03$ & $26.78\pm0.03$ \\
+v3 (+score gate)      & \ding{51} & \ding{51} & \ding{55} & $32.53\pm0.03$ & $26.80\pm0.04$ \\
+v4 (full, +soft fb)   & \ding{51} & \ding{51} & \ding{51} & $\mathbf{32.57\pm0.02}$ & $\mathbf{26.87\pm0.02}$ \\
+\bottomrule
+\end{tabular*}
+\endgroup
+
+\vspace{2pt}
+{\footnotesize
+\textit{Notes.} ``sort''=confidence-aware sort key, ``gate''=IASA score gating, ``fb''=soft
+fallback. Each variant is trained for $250$k iterations on DIV2K with seeds
+$\{3407,42,1234\}$ and reported as mean$\pm$std at the validation-best checkpoint. The full
+configuration (v4) is the best of the four on both benchmarks and by more than the seed
+standard deviation, but the intermediate steps (v2/v3) are not monotone; the components are
+therefore reported as mutually compatible and best as the complete confidence-aware path,
+rather than as a monotone per-switch accuracy gain.}
+\end{table}

@@ -1,0 +1,37 @@
+%% DPRNet preamble for the Elsevier (elsarticle) submission build.
+%% elsarticle.cls already loads: graphicx, amssymb, natbib, geometry, hyperref-ish
+%% hooks. It does NOT load everything the DPRNet figures/tables need, so we add the
+%% same extra packages used by the CVPR/MDPI builds here.
+%% Rationale mirrors preamble.tex / preamble_mdpi.tex: the section/table/figure
+%% sources are shared verbatim across all three builds, so their dependencies
+%% (amsmath, booktabs, multirow, pifont, pgfplots/tikz, float [H], subcaption via
+%% minipage) must all be satisfied by whichever preamble is active.
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}    % Tables I--V rules
+\usepackage{multirow}    % Table I (tab:main_comparison)
+\usepackage{float}       % [H] placement used by the structure/plot figures and Table V
+\usepackage{pifont}      % Table IV (\ding{51}/\ding{55} switches)
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{pgfplots}    % Fig.3/5/6 plots
+\pgfplotsset{compat=1.16}
+\usetikzlibrary{positioning,arrows.meta,calc,fit,backgrounds,shapes.geometric} % Fig.1/Fig.2
+
+%% Highlight colors for the DPR/TAB contribution in structure figures (Fig.1/Fig.2).
+%% Kept identical to the CVPR/MDPI builds so the shared figure sources render the same.
+\providecommand{\dprhl}{}
+\definecolor{dprblue}{rgb}{0.21,0.49,0.74}
+\definecolor{dpramber}{rgb}{0.83,0.55,0.20}
+\definecolor{cvprblue}{rgb}{0.21,0.49,0.74}
+
+%% Inline annotation helpers (disabled/no-op for submission; keep macros defined
+%% so any stray \red/\todo in shared sources does not break the build).
+\newcommand{\red}[1]{#1}
+\newcommand{\todo}[1]{#1}
+\newcommand{\TODO}[1]{}
+
+%% hyperref last (elsarticle is compatible); light setup, no colored boxes for a
+%% clean submission PDF.
+\usepackage[hidelinks]{hyperref}

@@ -1,0 +1,166 @@
+% =====================================================================
+% Fig.1 -- Overall architecture of DPRNet.
+% Drawn in the convention used by lightweight-SR papers (SwinIR, CATANet):
+% the data path is rendered as feature-map slabs, the deep extractor is a
+% stacked "block x L" slab, and sub-modules are expanded through shaded
+% insets rather than hairline zoom lines. All equations stay in the text.
+% =====================================================================
+\begin{figure}[H]
+\centering
+% --- feature-map slab: name, cx, cy, w, h, front, top, side ---
+\newcommand{\fmslab}[8]{%
+  \begin{scope}[shift={(#2,#3)}]
+    \pgfmathsetmacro\hw{#4/2}\pgfmathsetmacro\hh{#5/2}%
+    \fill[#6] (-\hw,-\hh) rectangle (\hw,\hh);
+    \fill[#7] (-\hw,\hh)--(-\hw+2,\hh+2)--(\hw+2,\hh+2)--(\hw,\hh)--cycle;
+    \fill[#8] (\hw,-\hh)--(\hw+2,-\hh+2)--(\hw+2,\hh+2)--(\hw,\hh)--cycle;
+    \draw[black!65,line width=0.5pt] (-\hw,-\hh) rectangle (\hw,\hh);
+    \draw[black!65,line width=0.5pt]
+      (-\hw,\hh)--(-\hw+2,\hh+2)--(\hw+2,\hh+2)--(\hw+2,-\hh+2)--(\hw,-\hh);
+    \draw[black!65,line width=0.5pt] (\hw,\hh)--(\hw+2,\hh+2);
+    \coordinate (#1) at (0,0);
+    \coordinate (#1E) at (\hw+2,0);
+    \coordinate (#1W) at (-\hw,0);
+    \coordinate (#1N) at (1,\hh+1);
+    \coordinate (#1S) at (0,-\hh);
+  \end{scope}}
+\resizebox{0.98\textwidth}{!}{%
+\begin{tikzpicture}[
+    x=1mm, y=1mm,
+    font=\footnotesize,
+    >={Latex[length=4.5pt,width=3.2pt]},
+    box/.style={rounded corners=3pt, draw=black!60, line width=0.65pt,
+                fill=black!4, minimum height=8mm, align=center,
+                inner sep=2.8pt, font=\scriptsize},
+    data/.style={rounded corners=2.5pt, draw=dpramber!85!black, line width=0.85pt,
+                 fill=dpramber!16, minimum height=7.4mm, align=center,
+                 inner sep=2.4pt, font=\scriptsize},
+    dprbox/.style={rounded corners=3pt, draw=dprblue!90!black, line width=1.15pt,
+                   fill=dprblue!18, minimum height=8.4mm, align=center,
+                   inner sep=2.8pt, font=\scriptsize},
+    sum/.style={circle, draw=black!65, line width=0.65pt, fill=white, inner sep=0pt,
+                minimum size=4.6mm, font=\scriptsize},
+    flow/.style={->, draw=black!82, line width=0.78pt, line cap=round},
+    skip/.style={->, draw=black!50, line width=0.62pt, dashed, rounded corners=2pt},
+    lab/.style={font=\scriptsize, black!75, fill=white, inner sep=1pt},
+    note/.style={font=\scriptsize, black!65},
+    tag/.style={font=\footnotesize\bfseries, black!80},
+    panel/.style={rounded corners=3.5pt, draw=black!25, line width=0.55pt,
+                  fill=black!1, inner sep=3.8mm}
+]
+
+% ===================== (a) Network backbone =====================
+\fmslab{img}{5}{0}{8}{13}{dpramber!22}{dpramber!36}{dpramber!50}
+\node[box, minimum width=15mm] (conv) at (24,0) {Conv $3{\times}3$};
+\fmslab{ff0}{41}{0}{6}{11}{dpramber!18}{dpramber!32}{dpramber!46}
+% --- stacked deep-feature blocks ---
+\foreach \i in {2,1,0}{%
+  \begin{scope}[shift={($(64,0)+(1.8*\i,1.8*\i)$)}]
+    \fill[dprblue!16] (-11,-7) rectangle (11,7);
+    \fill[dprblue!30] (-11,7)--(-9,9)--(13,9)--(11,7)--cycle;
+    \fill[dprblue!40] (11,-7)--(13,-5)--(13,9)--(11,7)--cycle;
+    \draw[dprblue!70,line width=0.55pt] (-11,-7) rectangle (11,7);
+    \draw[dprblue!70,line width=0.55pt] (-11,7)--(-9,9)--(13,9)--(13,-5)--(11,-7);
+    \draw[dprblue!70,line width=0.55pt] (11,7)--(13,9);
+  \end{scope}}
+\node[align=center, font=\scriptsize, dprblue!85!black] at (64,0)
+  {\textbf{DPRNet}\\\textbf{block} $\times L$};
+\coordinate (blkW) at (53,0);
+\coordinate (blkE) at (77,0);
+\fmslab{ffl}{91}{0}{6}{11}{dpramber!18}{dpramber!32}{dpramber!46}
+\node[sum] (gsum) at (104,0) {$+$};
+\node[box, minimum width=24mm] (up) at (124,0) {Pixel-shuffle\\upsample};
+\node[sum] (osum) at (146,0) {$+$};
+\fmslab{sr}{160}{0}{8}{13}{dpramber!22}{dpramber!36}{dpramber!50}
+
+% labels under the I/O slabs
+\node[lab, below=0.5mm of imgS] {$I_{LR}$};
+\node[lab, below=0.5mm of srS] {$I_{SR}$};
+% coordinates that let the background panel enclose the 3D slab/stack tops
+\coordinate (fitTL) at (0,9);
+\coordinate (fitTM) at (68,13);
+\coordinate (fitTR) at (164,9);
+\coordinate (panelAleft) at (-2,0);
+\coordinate (panelAright) at (166,0);
+
+% main flow
+\draw[flow] (imgE) -- (conv.west);
+\draw[flow] (conv.east) -- node[lab,above]{$F_0$} (ff0W);
+\draw[flow] (ff0E) -- (blkW);
+\draw[flow] (blkE) -- node[lab,above]{$F_L$} (fflW);
+\draw[flow] (fflE) -- (gsum.west);
+\draw[flow] (gsum.east) -- (up.west);
+\draw[flow] (up.east) -- (osum.west);
+\draw[flow] (osum.east) -- (srW);
+% global residual (F_0) and image bypass (I_LR)
+\draw[skip] (ff0S) |- (41,-13) -| node[pos=0.25,below,lab]{global residual} (gsum.south);
+\draw[skip] (imgS) |- (5,-20) -| node[pos=0.22,below,lab]{bilinear $\uparrow s$} (osum.south);
+\node[tag, anchor=west] at (-3,11) {(a)};
+
+% ===================== (b) One DPRNet block =====================
+\node[data] (finb) at (10,-44) {$F_{l-1}$};
+\node[dprbox, minimum width=15mm] (tab) at (28,-44) {TAB$_l$};
+\node[box, minimum width=15mm] (lrsa) at (47,-44) {LRSA$_l$};
+\node[box, minimum width=15mm] (fconv) at (65,-44) {Conv $3{\times}3$};
+\node[sum] (badd) at (78,-44) {$+$};
+\node[data] (flo) at (88,-44) {$F_l$};
+
+\draw[flow] (finb) -- (tab);
+\draw[flow] (tab) -- (lrsa);
+\draw[flow] (lrsa) -- (fconv);
+\draw[flow] (fconv) -- (badd);
+\draw[flow] (badd) -- (flo);
+\draw[skip] (finb.south) |- (10,-55) -| node[pos=0.35,below,lab]{block residual} (badd.south);
+\node[tag, anchor=west] at (-3,-34) {(b)};
+\coordinate (panelBleft) at (-2,-44);
+\coordinate (panelBright) at (166,-44);
+\coordinate (blockZoomL) at (1,-36);
+\coordinate (blockZoomR) at (92,-36);
+
+% ===================== (c) Inside TAB =====================
+\def\yc{-74}
+\node[data] (xin) at (24,\yc) {$X$};
+\node[box, minimum width=11mm] (ln) at (38,\yc) {LN};
+\node[dprbox, minimum width=12mm] (dpr) at (54,\yc) {DPR};
+\node[box, minimum width=12mm] (iasa) at (71,\yc) {IASA};
+\node[box, minimum width=13mm] (c11) at (90,\yc) {Conv $1{\times}1$};
+\node[box, minimum width=14mm] (ffn) at (109,\yc) {ConvFFN};
+\node[data] (tabout) at (126,\yc) {out};
+
+\draw[flow] (xin) -- (ln);
+\draw[flow] (ln) -- (dpr);
+\draw[flow] (dpr) -- (iasa);
+\draw[flow] (iasa) -- (c11);
+\draw[flow] (c11) -- (ffn);
+\draw[flow] (ffn) -- (tabout);
+\node[tag, anchor=west] at (-3,\yc+11) {(c)};
+\coordinate (panelCleft) at (-2,\yc);
+\coordinate (panelCright) at (166,\yc);
+
+% ===================== panels + expansion wedges =====================
+\begin{scope}[on background layer]
+  \node[panel, fit=(panelAleft)(panelAright)(img)(conv)(blkW)(blkE)(up)(osum)(sr)(gsum)(fitTL)(fitTM)(fitTR)] (pa) {};
+  \node[panel, fit=(panelBleft)(panelBright)(finb)(tab)(lrsa)(fconv)(badd)(flo)] (pb) {};
+  \node[panel, fit=(panelCleft)(panelCright)(xin)(ln)(dpr)(iasa)(c11)(ffn)(tabout)] (pc) {};
+  % (a) deep-feature stack  ->  (b) one block
+  \fill[dprblue!6] (53,-7) -- (75,-7) -- (blockZoomR) -- (blockZoomL) -- cycle;
+  \draw[dprblue!35, dashed, line width=0.5pt] (53,-7) -- (blockZoomL);
+  \draw[dprblue!35, dashed, line width=0.5pt] (75,-7) -- (blockZoomR);
+\end{scope}
+
+\node[note, anchor=west, dprblue!80!black] at ($(pc.north west)+(2,-2.6)$)
+  {inside TAB$_l$};
+
+\end{tikzpicture}%
+}
+\caption{Overall architecture of DPRNet, following the lightweight-SR backbone of
+CATANet. \textbf{(a)}~A $3{\times}3$ convolution extracts shallow features $F_0$,
+which pass through a stack of $L{=}8$ DPRNet blocks; the deep features are added
+back through a global residual and reconstructed by a pixel-shuffle upsampler that
+is summed with a bilinearly upsampled base image. \textbf{(b)}~Each block keeps the
+TAB--LRSA--fusion structure under a residual connection. \textbf{(c)}~Inside a TAB,
+the only modified component is the routing module: DPR replaces center-based
+routing while preserving the input/output interface, and is expanded in
+Figure~\ref{fig:dpr}.}
+\label{fig:arch}
+\end{figure}

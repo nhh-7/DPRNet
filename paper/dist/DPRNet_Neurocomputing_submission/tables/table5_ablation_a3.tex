@@ -1,0 +1,67 @@
+% Table V -- Ablation A3: prototype balance loss (verifies C4).
+% Requires: \usepackage{booktabs}
+% Provenance: paper/plan/ablation-results-to-fill.md (Section 5) / experiment-protocol.md §5.0.
+%   balance OFF = route_balance_weight all 0.0; balance ON = full (default weights). x4, trained
+%   for 250k on DIV2K over 3 seeds {3407,42,1234}.
+%   PSNR(dB) mean+/-std and block-averaged normalized prototype-usage entropy mean+/-std
+%   (Y channel, crop_border=4, Urban100, 8 TAB blocks). Per-block usage entropy (5c) is shown
+%   for the representative seed 3407.
+% SUPPORTED CLAIMS:
+%   (i) balance loss raises usage entropy in ALL 8 blocks (block-mean 0.623 -> 0.686);
+%   (ii) with 3 seeds now available, enabling balance loss also REDUCES seed-to-seed variance
+%        (Set5 std 0.05 -> 0.02, Urban100 std 0.05 -> 0.02, usage-entropy std 0.008 -> 0.003),
+%        so the C4 variance sub-claim is now supported (no longer pending).
+\begin{table}[H]
+\centering
+\caption{Ablation A3 ($\times 4$): prototype balance loss. Reconstruction PSNR(dB) and
+block-averaged normalized prototype-usage entropy on Urban100 (higher $=$ more balanced),
+each reported as mean$\pm$std over three seeds. The balance loss raises usage
+entropy while also \emph{reducing seed-to-seed variance} on both benchmarks and on the usage
+entropy itself, supporting the stabilizing role claimed for C4.}
+\label{tab:abl_a3}
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lccc}
+\toprule
+Variant & Usage entropy ($\uparrow$) & Set5 PSNR & Urban100 PSNR \\
+\midrule
+w/o balance loss          & $0.623\pm0.008$ & $32.55\pm0.05$ & $26.85\pm0.05$ \\
+w/\ \ balance loss (def.) & $\mathbf{0.686\pm0.003}$ & $\mathbf{32.57\pm0.02}$ & $\mathbf{26.87\pm0.02}$ \\
+\bottomrule
+\end{tabular*}
+\endgroup
+\end{table}
+
+% Per-block normalized usage entropy (Urban100, representative seed 3407): supporting detail.
+\begin{table}[H]
+\centering
+\caption{Per-block normalized prototype-usage entropy (Urban100, representative seed $3407$).
+The balance loss increases usage entropy in every TAB block ($b_0$--$b_7$).}
+\label{tab:abl_a3_perblock}
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{2.6pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lcccccccc}
+\toprule
+Variant & $b_0$ & $b_1$ & $b_2$ & $b_3$ & $b_4$ & $b_5$ & $b_6$ & $b_7$ \\
+\midrule
+w/o balance & 0.648 & 0.566 & 0.695 & 0.627 & 0.709 & 0.576 & 0.628 & 0.533 \\
+w/\ \ balance & 0.718 & 0.585 & 0.723 & 0.681 & 0.847 & 0.635 & 0.685 & 0.619 \\
+\bottomrule
+\end{tabular*}
+\endgroup
+
+\vspace{2pt}
+{\footnotesize
+\textit{Notes.} Each variant is trained for $250$k iterations on DIV2K with seeds
+$\{3407,42,1234\}$; reconstruction and the block-mean usage entropy are reported as mean$\pm$std
+over the three seeds, and the per-block entropies are shown for the representative seed $3407$.
+The balance loss consistently increases prototype-usage entropy across all blocks (more balanced
+usage), supporting C4's balancing mechanism. With three seeds available, enabling the balance
+loss additionally lowers the seed-to-seed standard deviation on both benchmarks
+($0.05\!\rightarrow\!0.02$\,dB) and on the usage entropy itself
+($0.008\!\rightarrow\!0.003$), so C4's variance-reduction sub-claim is now supported directly.}
+\end{table}

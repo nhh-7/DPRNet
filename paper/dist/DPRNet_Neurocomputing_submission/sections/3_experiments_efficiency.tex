@@ -1,0 +1,78 @@
+% =====================================================================
+% Section: Experiments -- Model complexity and efficiency (outline.md §3.3;
+%   defines sec:efficiency). Discusses Table II (tab:efficiency) and the per-scale
+%   profile (tab:efficiency_profile).
+% Draft v2 (2026-06-27). Numbers VERBATIM from paper/tables/table2_efficiency.tex
+%   (paper/data/dprnet_efficiency.csv mode=A_fixed_lr_256). DPRNet RE-MEASURED under
+%   a fixed 256x256 LR input -> x4 52.14G, MATCHING the CATANet-paper Tab.6 convention,
+%   so CATANet 46.8G / SwinIR-light 60.3G / SRFormer-light 56.5G are now directly
+%   comparable (no dagger).
+% HONEST FRAMING (post re-measure): under the unified 256x256 protocol DPRNet needs
+%   MORE Multi-Adds than CATANet (52.14G vs 46.8G) AND more params (660K vs 535K) ->
+%   do NOT claim any compute/param advantage over CATANet. The defensible compute
+%   statement is that DPRNet is markedly LIGHTER than the Transformer baselines
+%   SwinIR-light (60.3G) / SRFormer-light (56.5G) while attaining the best Urban100
+%   PSNR, i.e. it stays in the lightweight bracket. Other 5 competitors' Multi-Adds
+%   and all competitor latency are excluded from the table instead of shown as blanks.
+% =====================================================================
+\subsection{Model complexity and efficiency}
+\label{sec:efficiency}
+
+Table~\ref{tab:efficiency} compares model complexity at $\times4$ for the subset of
+methods whose Multi-Adds are available under the same input convention, and
+Table~\ref{tab:efficiency_profile} gives DPRNet's per-scale profile. All DPRNet
+numbers are measured under the protocol of Section~\ref{sec:exp_setup} with a fixed
+$256{\times}256$ LR input ($\times4$ output $1024{\times}1024$), reporting thop
+MACs and latency over $100$ runs after $20$ warm-ups. We use this
+$256{\times}256$ input convention because it is the one under which the CATANet
+paper reports Multi-Adds for itself, SwinIR-light, and SRFormer-light; DPRNet's
+MACs are therefore directly comparable to those three cited figures. Methods whose
+published compute values use different conventions, or whose values are unavailable
+under this convention, are excluded from the efficiency subset rather than displayed
+as blank entries.
+
+\paragraph{Parameters.}
+DPRNet stays within the lightweight bracket at $660$\,K parameters ($\times4$),
+comparable to Transformer baselines such as ELAN-light ($601$\,K) and well below
+SwinIR-light ($897$\,K), SRFormer-light ($873$\,K), and the CNN-heavy CARN
+($1592$\,K). It is, however, larger than its direct predecessor CATANet ($535$\,K):
+the learnable query bank and the router/score projections of DPR add parameters
+relative to the EMA-center routing of CATANet. The comparison with CATANet is
+therefore framed as accuracy at a comparable or higher level, rather than as a
+parameter advantage (Urban100 $26.89$ vs.\ $26.87$, with the full ablation analysis in
+Section~\ref{sec:ablation}). Figure~\ref{fig:psnr_params} plots this PSNR--parameter
+trade-off at $\times4$ on Urban100: DPRNet attains the highest PSNR among the
+compared lightweight methods while remaining within the same parameter bracket.
+
+\paragraph{Computation.}
+In terms of Multi-Adds, DPRNet requires $52.14$\,G at $\times4$ under the unified
+$256{\times}256$ protocol. This is higher than CATANet's $46.8$\,G, so the learnable
+query bank and the router/score projections of DPR do add inference cost relative to
+CATANet's EMA-center routing. We therefore do not claim a compute advantage over CATANet;
+the relevant comparison is accuracy at a comparable or higher level (Urban100
+$26.89$ vs.\ $26.87$, full ablation in Section~\ref{sec:ablation}). The compute profile
+is more favorable relative to the Transformer baselines: at the same input size
+DPRNet uses markedly fewer Multi-Adds than both SwinIR-light ($60.3$\,G) and
+SRFormer-light ($56.5$\,G), while reaching the best Urban100 PSNR in
+Table~\ref{tab:efficiency}. DPRNet thus remains firmly inside the lightweight
+bracket, trading a modest cost increase over its direct predecessor for an
+interpretable, confidence-aware routing mechanism and a clear cost reduction
+relative to attention-heavy Transformer designs at higher accuracy.
+
+\paragraph{Per-scale behavior.}
+Table~\ref{tab:efficiency_profile} reports the profile at a fixed $256{\times}256$ LR
+input. Because the input size is held constant, the backbone cost is shared across scales
+and the Multi-Adds are dominated by the upsampling tail, so they \emph{grow} with the scale
+factor---from $36.19$\,G ($\times2$) to $41.26$\,G ($\times3$) and $52.14$\,G
+($\times4$). Latency follows the same order ($183.57$, $185.88$, $198.16$\,ms). The
+parameter count is essentially scale-independent ($\approx0.60$--$0.67$\,M), as only the
+input projection and the upsampling tail change with scale.
+
+\paragraph{Scope of the efficiency comparison.}
+The main accuracy table (Table~\ref{tab:main_comparison}) remains the full comparison
+against all eight baselines. The efficiency table is deliberately narrower: it reports
+only common-protocol MACs plus DPRNet's measured per-scale runtime. We do not mix
+latency values across different devices or implementation stacks, and we do not import
+compute numbers reported under incompatible input-size or FLOPs-counting conventions.
+This makes Table~\ref{tab:efficiency} a directly comparable efficiency subset rather
+than an all-method table with non-comparable entries.

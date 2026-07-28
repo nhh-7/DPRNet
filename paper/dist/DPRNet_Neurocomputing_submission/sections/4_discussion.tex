@@ -1,0 +1,88 @@
+% =====================================================================
+% Section: Discussion  (outline.md §4)
+% Draft v1 (2026-06-27). Discusses the applicability boundary of content routing,
+%   the risk of over-strong routing, prototype-count trade-off, and limitations.
+% Consistent with the honest framing of the experiments:
+%   - DPRNet matches/slightly surpasses CATANet at comparable compute
+%     (3_experiments_comparison.tex, 3_experiments_efficiency.tex).
+%   - Ablation is now a 250k, 3-seed study (mean+/-std): single-switch
+%     attribution + C1 direct EMA comparison + C4 variance reduction are supported;
+%     margins are still small (3_experiments_ablation.tex,
+%     method-experiment-traceability.md).
+% No new numeric claims beyond those already established in the body.
+% =====================================================================
+\section{Discussion}
+\label{sec:discussion}
+
+\paragraph{Content routing vs.\ spatial locality.}
+The benchmark results in Section~\ref{sec:main_comparison} indicate where content-aware
+routing helps most. On Urban100 and Manga109---images dominated by repetitive structures
+and long-range self-similarity---DPRNet and CATANet, the two routing methods, separate
+more noticeably from the window- and distillation-based baselines, whereas on the more
+stochastic textures of BSD100 the margin between all top-tier methods narrows. This is
+consistent with the premise of content routing and with earlier SR work that
+exploits internal self-similarity~\cite{glasner2009single} or cross-scale
+non-local correspondences~\cite{mei2020csnln}: grouping tokens by semantics
+is most useful when semantically related content is spatially scattered. It is less
+useful when local statistics already capture the signal. DPR does not discard spatial
+locality; it complements it, since each TAB is paired with a local self-attention unit
+(Section~\ref{sec:method_overview}); the routing module supplies the long-range, content-based
+interaction that a fixed spatial window cannot.
+
+\paragraph{Small margins and evidence strength.}
+The numerical margins over CATANet are deliberately framed as small. The value of DPR is
+therefore not a claim of large PSNR gain over its direct predecessor, but a combination of
+three evidence streams: a consistent top-tier position across five benchmarks and three
+scales (Section~\ref{sec:main_comparison}), a preserved lightweight profile relative to
+attention-heavy Transformer baselines (Section~\ref{sec:efficiency}), and explicit routing
+diagnostics showing meaningful confidence scores and more balanced prototype usage
+(Section~\ref{sec:routing_analysis}). This framing matters because modern lightweight
+SR methods are often separated by only a few hundredths of a dB under standard
+PSNR/SSIM evaluation; without mechanism-level analysis, such small differences would be
+weak evidence on their own.
+
+\paragraph{The risk of over-strong routing.}
+A confidence-aware router can, in principle, sharpen its assignments until tokens collapse
+onto a few prototypes, which would defeat the purpose of routing and destabilize training.
+Two components of DPR are explicitly designed against this failure mode: the routing
+temperature is clamped (Eq.~\eqref{eq:scores}) and the usage-balancing regularizer
+(Eq.~\eqref{eq:balance}) penalizes peaky usage distributions. The diagnostics in
+Section~\ref{sec:routing_analysis} show both mechanisms operating as intended---the learned
+temperature settles in a moderate, unsaturated range (block-mean $6.06$, below the clamp
+of $10$) and the balancing regularizer raises the prototype-usage entropy in all eight
+blocks ($0.623\!\rightarrow\!0.686$) while increasing the number of active prototypes.
+Thus, the benefits of confidence-aware routing are obtained without letting the
+router become degenerate.
+
+\paragraph{Prototype count and the cost trade-off.}
+DPR uses a per-block prototype budget $M=[16,32,64,128,16,32,64,128]$, growing within
+each stage. More prototypes give the router a finer content vocabulary but enlarge the
+query bank and the matching cost, while too few prototypes force unrelated tokens to
+share a slot. We keep the prototype schedule aligned with the CATANet backbone so that
+the comparison isolates the routing mechanism rather than a capacity change; this is also
+why DPRNet carries a modestly higher parameter count and Multi-Adds than CATANet
+($660$\,K/$52.14$\,G vs.\ $535$\,K/$46.8$\,G at $\times4$ under a common $256{\times}256$ input),
+as the added cost lives in the query bank and projections of DPR. Even so, DPRNet stays
+within the lightweight bracket and below the Transformer baselines SwinIR-light
+($60.3$\,G) and SRFormer-light ($56.5$\,G) while reaching higher Urban100 PSNR
+(Section~\ref{sec:efficiency}).
+A systematic sweep of the prototype schedule is a natural extension but is orthogonal
+to the routing formulation studied here.
+
+\paragraph{Limitations.}
+Several limitations bound the present study and frame our claims conservatively. The
+ablations (Section~\ref{sec:ablation}) train every variant over three seeds, which
+supports single-switch attribution and lets us report both the mean effect and its
+seed-to-seed variance; the margins over the strongest configuration nonetheless remain small,
+so we frame the design elements as mutually compatible and at least quality-preserving
+rather than as sources of large individual gains. The direct comparison against a re-implemented EMA
+center branch (C1) is conducted only at $\times4$ on Set5 and Urban100, the setting in which
+content routing is most stressed, rather than across all five benchmarks. The efficiency
+comparison is intentionally limited to common-protocol MACs and our measured DPRNet runtime:
+we do not claim cross-method latency because the competing models were not remeasured on the
+same hardware and implementation stack (Section~\ref{sec:efficiency}). The models are trained
+on DIV2K only; larger training sets (e.g.\ DF2K) and real-world or arbitrary-scale
+degradations are not explored here and may further shift the trade-off. Extending
+confidence-aware routing to such settings---for instance alongside one-step diffusion
+distillation~\cite{he2026tadsr} or dynamic autoregressive modeling~\cite{zheng2026dvar}
+for real-world SR---is a promising direction that we leave to future work.

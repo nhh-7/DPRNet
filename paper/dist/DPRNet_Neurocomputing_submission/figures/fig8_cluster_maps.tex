@@ -1,0 +1,68 @@
+% =====================================================================
+% Routing cluster maps: original-order belong_idx reshaped to HxW.
+% Two-column figure (figure*); \input into the paper after confidence histogram.
+%
+% ASSET PROVENANCE (paper/figures/fig58_assets/, generated on the training
+%   machine by CATANet/scripts/build_routing_figures.py with the x4 model
+%   net_g_250000): for each hard sample we forward the LR image once and color
+%   each LR pixel by its prototype index b_n=argmax_m S_{n,m} at three TAB
+%   blocks (b0: M=16, b3: M=128, b7: M=128). Colors are a fixed golden-ratio
+%   hue palette (distinct hue per prototype); the same palette indexes all
+%   panels but prototype identities are per-block (not comparable across blocks).
+%   "LR" is the nearest-neighbor-magnified input for reference. Hard samples are
+%   the same as Fig.7 (Urban100 img_092/img_024 dense grids; Manga109 line art).
+% =====================================================================
+\newcommand{\figeightheader}{%
+  \begin{minipage}{0.245\textwidth}\centering{\scriptsize Reference LR}\end{minipage}\hfill
+  \begin{minipage}{0.245\textwidth}\centering{\scriptsize Early router: coarse groups}\end{minipage}\hfill
+  \begin{minipage}{0.245\textwidth}\centering{\scriptsize Middle router: finer groups}\end{minipage}\hfill
+  \begin{minipage}{0.245\textwidth}\centering{\scriptsize Last router: fine groups}\end{minipage}%
+}
+
+\newcommand{\figeightrow}[2]{%
+  % #1 = asset tag   #2 = row caption (shown under the LR panel)
+    \setlength{\fboxsep}{0pt}%
+    \setlength{\fboxrule}{0.25pt}%
+  \begin{minipage}{0.245\textwidth}\centering
+      \fbox{\includegraphics[width=0.985\linewidth]{figures/fig58_assets/fig8_#1_lr.png}}\\[1pt]
+    {\tiny #2}
+  \end{minipage}\hfill
+  \begin{minipage}{0.245\textwidth}\centering
+      \fbox{\includegraphics[width=0.985\linewidth]{figures/fig58_assets/fig8_#1_b0_cluster.png}}\\[1pt]
+      {\tiny $b_0$ coarse ($M{=}16$)}
+  \end{minipage}\hfill
+  \begin{minipage}{0.245\textwidth}\centering
+      \fbox{\includegraphics[width=0.985\linewidth]{figures/fig58_assets/fig8_#1_b3_cluster.png}}\\[1pt]
+      {\tiny $b_3$ finer ($M{=}128$)}
+  \end{minipage}\hfill
+  \begin{minipage}{0.245\textwidth}\centering
+      \fbox{\includegraphics[width=0.985\linewidth]{figures/fig58_assets/fig8_#1_b7_cluster.png}}\\[1pt]
+      {\tiny $b_7$ fine ($M{=}128$)}
+  \end{minipage}%
+}
+
+\begin{figure}[H]
+\centering
+\figeightheader
+\vspace{2pt}
+
+\figeightrow{Urban100_img_092}{Urban100: img\_092 (LR)}
+
+\vspace{2pt}
+\figeightrow{Urban100_img_024}{Urban100: img\_024 (LR)}
+
+\vspace{2pt}
+\figeightrow{Manga109_ThatsIzumiko_000}{Manga109: ThatsIzumiko (LR)}
+
+\caption{Routing cluster maps at $\times4$. Each LR pixel is colored by its
+assigned prototype index $b_n=\arg\max_m S_{n,m}$ (Eq.~\eqref{eq:belong}) and
+reshaped from the original token order to $H\times W$. Read each row by comparing
+the cluster boundaries with the reference LR image: the early block forms coarse
+content groups, while the deeper blocks split repeated facade elements and
+high-contrast strokes into finer partitions. Colors encode prototype identity
+within a block and are not comparable across blocks, so the meaningful cue is
+region continuity rather than a specific hue. This visualizes the same routing
+signal whose confidence $x^{\mathrm{s}}$ is quantified in
+Figure~\ref{fig:xscore_hist}.}
+\label{fig:cluster_maps}
+\end{figure}

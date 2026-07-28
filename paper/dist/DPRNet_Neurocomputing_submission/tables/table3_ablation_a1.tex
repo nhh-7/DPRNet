@@ -1,0 +1,40 @@
+% Table III -- Ablation A1: prototype query refine (verifies C2).
+% Requires: \usepackage{booktabs}
+% Provenance: paper/plan/ablation-results-to-fill.md (Section 3) / experiment-protocol.md §5.0.
+%   x4 ablation, trained for 250k on DIV2K over 3 seeds {3407,42,1234}.
+%   PSNR(dB) mean+/-std (Y channel, crop_border=4) on Set5 and Urban100; report point is the
+%   validation-best checkpoint (best on Set5+Urban100 mean).
+% SUPPORTED CLAIM (single-switch): enabling the query-refinement stage
+%   improves PSNR consistently across all 3 seeds on both benchmarks (Set5 +0.04 dB,
+%   Urban100 +0.05 dB); the gain is larger than the seed-to-seed std, so it is a clean
+%   single-switch attribution.
+\begin{table}[H]
+\centering
+\caption{Ablation A1 ($\times 4$): prototype query refine. PSNR(dB) mean$\pm$std (Y channel)
+over three seeds. Enabling refine improves reconstruction on both benchmarks by
+more than the seed variance, confirming that decoupling prototype generation from confirmation
+(C2) is quality-positive; we retain it by default.}
+\label{tab:abl_a1}
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lcc}
+\toprule
+Variant & Set5 PSNR & Urban100 PSNR \\
+\midrule
+w/o refine               & $32.53\pm0.03$ & $26.82\pm0.04$ \\
+w/\ \ refine (default)   & $\mathbf{32.57\pm0.02}$ & $\mathbf{26.87\pm0.02}$ \\
+\bottomrule
+\end{tabular*}
+\endgroup
+
+\vspace{2pt}
+{\footnotesize
+\textit{Notes.} Each variant is trained for $250$k iterations on DIV2K with seeds
+$\{3407,42,1234\}$ and reported as mean$\pm$std at the validation-best checkpoint. Enabling
+refine yields the better PSNR on both Set5 ($+0.04$\,dB) and Urban100 ($+0.05$\,dB); because the
+improvement exceeds the seed-to-seed standard deviation, it is attributable to the query-refine
+switch itself. The comparison of dynamic prototypes against a history center with EMA update
+(C1) is reported separately in Table~\ref{tab:abl_c1}.}
+\end{table}

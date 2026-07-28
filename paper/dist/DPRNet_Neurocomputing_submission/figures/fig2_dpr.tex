@@ -1,0 +1,160 @@
+% =====================================================================
+% Fig.2 -- Dynamic Prototype Routing (DPR) pipeline.
+% Each panel flows left-to-right in a single unbroken pass (no zigzag).
+% Learnable gates / temperature share one visual grammar (small circles on
+% dashed modulation paths). Ablation switches live only in the tables.
+% =====================================================================
+\begin{figure}[H]
+\centering
+\resizebox{0.98\textwidth}{!}{%
+\begin{tikzpicture}[
+    x=1mm, y=1mm,
+    font=\footnotesize,
+    >={Latex[length=4.5pt,width=3.2pt]},
+    data/.style={rounded corners=2.5pt, draw=dpramber!85!black, line width=0.85pt,
+                 fill=dpramber!16, minimum height=8mm, align=center, inner sep=2.6pt,
+                 font=\scriptsize},
+    box/.style={rounded corners=3pt, draw=black!60, line width=0.65pt,
+                fill=black!4, minimum height=8mm, align=center, inner sep=2.6pt,
+                font=\scriptsize},
+    dprbox/.style={rounded corners=3pt, draw=dprblue!90!black, line width=1.15pt,
+                   fill=dprblue!18, minimum height=8.2mm, align=center,
+                   inner sep=2.7pt, font=\scriptsize},
+    meta/.style={rounded corners=6pt, draw=dprblue!75!black, line width=0.85pt,
+                 fill=dprblue!10, minimum height=8mm, align=center, inner sep=2.6pt,
+                 font=\scriptsize},
+    sum/.style={circle, draw=black!65, line width=0.65pt, fill=white, inner sep=0pt,
+                minimum size=5mm, font=\scriptsize},
+    gate/.style={circle, draw=dprblue!90!black, line width=0.9pt, fill=dprblue!15,
+                 inner sep=0pt, minimum size=5mm, font=\scriptsize},
+    flow/.style={->, draw=black!82, line width=0.78pt, line cap=round},
+    mod/.style={->, draw=dprblue!78, line width=0.68pt, dashed, rounded corners=2pt},
+    elab/.style={font=\scriptsize, black!75, fill=white, inner sep=0.8pt},
+    tag/.style={font=\footnotesize\bfseries, black!80},
+    note/.style={font=\scriptsize, black!65, fill=white, inner sep=0.8pt},
+    panel/.style={rounded corners=3.5pt, draw=black!25, line width=0.55pt,
+                  fill=black!1, inner sep=3.7mm},
+    band/.style={rounded corners=3pt, draw=none, inner sep=2mm}
+]
+
+% =================== (a) DPR router (single L->R flow) ===================
+\node[data,  minimum width=14mm] (x)      at (0,0)   {$X$\\tokens};
+\node[box,   minimum width=17mm] (embed)  at (25,0)  {Token\\embedding};
+\node[meta,  minimum width=20mm] (pc)     at (54,0)  {Content\\prototypes $P^{\mathrm{c}}$};
+\node[dprbox,minimum width=20mm] (refine) at (85,0)  {Query\\refinement};
+\node[meta,  minimum width=20mm] (p)      at (116,0) {Confirmed\\prototypes $P$};
+\node[dprbox,minimum width=20mm] (match)  at (147,0) {Router-space\\matching};
+\node[box,   minimum width=20mm] (order)  at (178,0) {Confidence\\ordering};
+\coordinate (routerL) at (-8,0);
+\coordinate (routerR) at (190,0);
+
+% learnable query bank feeds refinement; temperature feeds matching
+\node[meta, minimum width=16mm] (qbank) at (85,17) {Query bank $Q$};
+\node[gate] (gamma) at (85,9) {$\gamma$};
+\node[gate] (tau)   at (147,-13) {$\tau$};
+
+\draw[flow] (x) -- (embed);
+\draw[flow] (embed) -- node[elab,above]{$A$} (pc);
+\draw[flow] (pc) -- (refine);
+\draw[flow] (refine) -- (p);
+\draw[flow] (p) -- (match);
+\draw[flow] (match) -- (order);
+\draw[mod] (qbank) -- (gamma);
+\draw[mod] (gamma) -- (refine);
+\draw[mod] (tau) -- (match);
+% tokens are matched back to prototypes
+\coordinate (tokenlane) at (25,-24.5);
+\coordinate (matchtokin) at ($(match.south west)!0.38!(match.south)$);
+\draw[flow] (embed.south) |- (tokenlane) -| (matchtokin);
+\node[elab, anchor=south] at (67,-24.2) {routed tokens};
+
+% router outputs + usage balancing
+\node[note, anchor=west] (outs) at (169,-13) {out: $X^{\pi},\,x^{\mathrm{s}},\,b$};
+\node[box, minimum width=18mm] (bal) at (116,-19) {Usage\\balancing};
+\draw[mod] (match.south east) |- node[pos=0.72,above,elab]{$S$} (bal.east);
+\draw[mod] (order.south) -- (outs.north);
+
+\node[tag, anchor=west] at (-3,15) {(a)};
+
+
+% =================== (b) IASA aggregation (single L->R flow) ===================
+\def\yb{-58}
+\coordinate (iasaL) at (-8,\yb);
+\coordinate (iasaR) at (190,\yb);
+\node[data,  minimum width=18mm] (xpi)    at (0,\yb)   {$X^{\pi}$\\ordered};
+\node[box,   minimum width=22mm] (local)  at (32,\yb)  {Intra-group\\local attn.};
+\node[sum]                       (comb)   at (72,\yb)  {$+$};
+\node[dprbox,minimum width=24mm] (fb)     at (110,\yb) {Soft prototype\\fallback};
+\node[box,   minimum width=18mm] (scatter)at (148,\yb) {Scatter back\\$\pi^{-1}$};
+\node[data,  minimum width=16mm] (toconv) at (178,\yb) {to Conv\\$1{\times}1$};
+
+% global prototype branch enters the combiner from above
+\node[meta,  minimum width=16mm] (pin)    at (42,\yb+20) {$P$};
+\node[dprbox,minimum width=24mm] (global) at (72,\yb+20) {Prototype\\global branch};
+\node[gate] (beta) at (72,\yb+10) {$\beta$};
+% confidence drives both gates
+\node[data, minimum width=18mm] (conf) at (110,\yb+20) {$x^{\mathrm{s}}$};
+\node[gate] (alpha) at (110,\yb+10) {$\alpha$};
+
+\draw[flow] (xpi) -- (local);
+\draw[flow] (local) -- node[elab,above]{$O_{\mathrm{loc}}$} (comb);
+\draw[flow] (pin) -- (global);
+\draw[flow] (global.south) -- node[pos=0.42,left=0.7mm,elab,font=\tiny]{$O_{\mathrm{glb}}$} (beta.north);
+\draw[mod]  (beta) -- (comb);
+\draw[flow] (comb) -- node[elab,above]{$O$} (fb);
+\draw[flow] (conf) -- (alpha);
+\draw[mod]  (alpha) -- (fb);
+\draw[mod]  (conf.west) -- (beta.north east);
+\draw[flow] (fb) -- (scatter);
+\draw[flow] (scatter) -- (toconv);
+
+\node[tag, anchor=west] at (-3,\yb+13) {(b)};
+
+
+% =================== legend ===================
+\def\yl{-82}
+  \coordinate (legendL) at (-8,\yl);
+  \coordinate (legendR) at (190,\yl);
+  \node[data, minimum width=7mm, minimum height=4.5mm, font=\tiny] (legdata)
+    at ($(legendL)+(4,0)$) {};
+  \node[note, anchor=west] (legdatalab) at ($(legdata.east)+(2,0)$) {data tensor};
+  \node[dprbox, minimum width=7mm, minimum height=4.5mm, font=\tiny] (legdpr)
+    at ($(legendL)+(45,0)$) {};
+  \node[note, anchor=west] (legdprlab) at ($(legdpr.east)+(2,0)$) {DPR module};
+  \draw[flow] ($(legendL)+(84,0)$) -- ++(7,0)
+    node[right,note] (legflowlab) {tensor flow};
+  \draw[mod] ($(legendL)+(122,0)$) -- ++(7,0)
+    node[right,note] (legmodlab) {gate / temperature modulation};
+  \node[note, anchor=east] (leggatelab) at (legendR) {learnable gate $/\,\tau$};
+  \node[gate] (leggate) at ($(leggatelab.west)+(-4,0)$) {};
+
+% =================== panels ===================
+\begin{scope}[on background layer]
+  \node[panel, fit=(routerL)(routerR)(x)(embed)(pc)(refine)(p)(match)(order)(qbank)(tau)(bal)(outs)] (routerpanel) {};
+  \node[band, fill=dpramber!7, fit=(x)(embed)] {};
+  \node[band, fill=dprblue!5, fit=(pc)(refine)(p)(qbank)(gamma)] {};
+  \node[band, fill=dprblue!7, fit=(match)(tau)(order)(bal)(outs)] {};
+  \node[panel, fit=(iasaL)(iasaR)(xpi)(local)(comb)(fb)(scatter)(toconv)(pin)(global)(beta)(conf)(alpha)] (iasapanel) {};
+  \node[band, fill=dpramber!7, fit=(xpi)(local)(comb)] {};
+  \node[band, fill=dprblue!5, fit=(pin)(global)(beta)(conf)(alpha)(fb)] {};
+  \node[band, fill=black!3, fit=(scatter)(toconv)] {};
+    \node[panel, inner sep=2.1mm,
+      fit=(legendL)(legendR)(legdata)(legdatalab)(legdpr)(legdprlab)(legflowlab)(legmodlab)(leggate)(leggatelab)] {};
+\end{scope}
+
+\end{tikzpicture}%
+}
+\caption{Dynamic Prototype Routing (DPR). \textbf{(a)}~The router runs in a single
+pass: it embeds the tokens, forms content prototypes $P^{\mathrm{c}}$ from the
+current tokens, confirms them with a learnable query bank through a gated
+refinement ($\gamma$), and matches the tokens back to the confirmed prototypes $P$
+with a bounded temperature $\tau$, yielding the ordered sequence $X^{\pi}$, the
+confidence $x^{\mathrm{s}}$, and the label $b$ (Eqs.~\eqref{eq:assign}--%
+\eqref{eq:sortkey}); the usage-balancing term acts on the score map $S$
+(Eq.~\eqref{eq:balance}). \textbf{(b)}~IASA consumes $X^{\pi}$, $P$, and
+$x^{\mathrm{s}}$: a local branch and a prototype global branch are combined under a
+confidence-modulated gate $\beta$, and a soft prototype fallback gated by $\alpha$
+stabilizes low-confidence tokens before the output is scattered back via $\pi^{-1}$
+(Eqs.~\eqref{eq:iasa_gate}--\eqref{eq:soft_fallback}).}
+\label{fig:dpr}
+\end{figure}

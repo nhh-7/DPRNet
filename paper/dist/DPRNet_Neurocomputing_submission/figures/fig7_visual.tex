@@ -1,0 +1,88 @@
+% =====================================================================
+% Fig.7 -- Qualitative (visual) comparison at x4 on hard samples.
+% outline.md §3.4 / data-collection-checklist D3 "Fig.7".
+% Two-column figure (figure*); \input into the paper after §3.4.
+%
+% HARD SAMPLES (selected 2026-06-27 by GT high-frequency energy ranking +
+%   SR-literature convention; see paper/scripts/build_fig7_assets.py):
+%     Urban100 img_092, Urban100 img_024  (dense building grids)
+%     Manga109 ThatsIzumiko_000           (high-contrast line art)
+%
+% ASSET PROVENANCE (paper/figures/fig7_assets/, generated locally):
+%   - GT, LR  : CATANet/datasets/TestDataSR/{HR,LR/LRBI}/.../x4  (local datasets)
+%   - Bicubic : LR upscaled x4 (PIL BICUBIC) -- real, computed locally
+%   - DPRNet  : our SR output ("_CATANet" is only the arch registry name).
+%   - Competitors (IMDN, SwinIR-light, SRFormer-light, CATANet): real SR outputs
+%     produced on the training machine, cropped to the SAME fixed box by
+%     paper/scripts/build_fig7_competitor_crops.py. (RFDN dropped: its AIM x4
+%     weights gave sub-bicubic results under our LRBI protocol.)
+%
+% NOTE: per-image PSNR/SSIM intentionally NOT printed on the crops -- this is a
+%   purely qualitative comparison; quantitative numbers live in the main table.
+% =====================================================================
+\newcommand{\figsevenref}[2]{%
+  % #1 = asset tag   #2 = reference caption
+    \begin{minipage}{0.30\textwidth}\centering
+      \includegraphics[height=0.085\textheight,keepaspectratio]{figures/fig7_assets/#1_GT_full_box.png}\\[1pt]
+    {\tiny #2}
+  \end{minipage}%
+}
+
+\newcommand{\figsevencrops}[2]{%
+  % #1 = asset tag   #2 = row caption
+    {\scriptsize #2}\par\vspace{1pt}
+    \begin{minipage}{0.135\textwidth}\centering
+    \includegraphics[width=\linewidth]{figures/fig7_assets/#1_Bicubic_crop.png}\\[1pt]
+      {\tiny Bicubic}
+  \end{minipage}\hfill
+    \begin{minipage}{0.135\textwidth}\centering
+      \includegraphics[width=\linewidth]{figures/fig7_assets/#1_IMDN_crop.png}\\[1pt]
+      {\tiny IMDN}
+    \end{minipage}\hfill
+    \begin{minipage}{0.135\textwidth}\centering
+      \includegraphics[width=\linewidth]{figures/fig7_assets/#1_SwinIR-light_crop.png}\\[1pt]
+      {\tiny SwinIR-light}
+    \end{minipage}\hfill
+    \begin{minipage}{0.135\textwidth}\centering
+      \includegraphics[width=\linewidth]{figures/fig7_assets/#1_SRFormer-light_crop.png}\\[1pt]
+      {\tiny SRFormer-light}
+  \end{minipage}\hfill
+    \begin{minipage}{0.135\textwidth}\centering
+      \includegraphics[width=\linewidth]{figures/fig7_assets/#1_CATANet_crop.png}\\[1pt]
+      {\tiny CATANet}
+  \end{minipage}\hfill
+    \begin{minipage}{0.135\textwidth}\centering
+    \includegraphics[width=\linewidth]{figures/fig7_assets/#1_DPRNet_crop.png}\\[1pt]
+      {\tiny DPRNet (ours)}
+  \end{minipage}\hfill
+    \begin{minipage}{0.135\textwidth}\centering
+    \includegraphics[width=\linewidth]{figures/fig7_assets/#1_GT_crop.png}\\[1pt]
+      {\tiny GT}
+  \end{minipage}%
+}
+
+\begin{figure}[H]
+\centering
+\figsevenref{Urban100_img_092}{Urban100: img\_092}\hfill
+\figsevenref{Urban100_img_024}{Urban100: img\_024}\hfill
+\figsevenref{Manga109_ThatsIzumiko_000}{Manga109: ThatsIzumiko}
+
+\vspace{3pt}
+\figsevencrops{Urban100_img_092}{Urban100: img\_092}
+
+\vspace{3pt}
+\figsevencrops{Urban100_img_024}{Urban100: img\_024}
+
+\vspace{3pt}
+\figsevencrops{Manga109_ThatsIzumiko_000}{Manga109: ThatsIzumiko}
+
+\caption{Qualitative comparison at $\times4$ on texture-dense hard samples. The
+top reference strip shows the ground-truth images with the crop regions; the rows
+below magnify those regions for Bicubic, IMDN, SwinIR-light, SRFormer-light,
+CATANet, DPRNet (ours), and the ground truth. DPRNet restores repetitive building
+grids and high-contrast line art with clear structure, visually comparable to the
+strongest content-routing baseline on these challenging crops. The samples are
+chosen by high-frequency content rather than by per-crop DPRNet advantage, and
+quantitative PSNR/SSIM are reported in Table~\ref{tab:main_comparison}.}
+\label{fig:visual}
+\end{figure}

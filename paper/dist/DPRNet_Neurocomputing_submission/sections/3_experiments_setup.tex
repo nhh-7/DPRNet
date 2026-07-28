@@ -1,0 +1,66 @@
+% =====================================================================
+% Section: Experiments -- Datasets and implementation details (outline.md §3.1;
+%   defines sec:exp_setup). Opens the Experiments section.
+% Draft v1 (2026-06-17). All settings are transcribed verbatim from the training
+%   configs (CATANet/experiments/*/*.yml) and the efficiency/test logs recorded in
+%   paper/plan/data-collection-checklist.md (A2/A3) and experiment-protocol.md.
+% This draft makes NO result assertions; it only states the protocol.
+% HARDWARE (2026-06-28): per the user's instruction we adopt the same hardware as
+%   the CATANet paper. CATANet only reports running each model on a single
+%   NVIDIA RTX 4090 GPU (CATANet §4.5 efficiency measurement); training GPU count
+%   and total GPU-hours are not disclosed in CATANet; they are not reported.
+%   Both training and efficiency measurement therefore state a single RTX 4090.
+% =====================================================================
+\section{Experiments}
+\label{sec:experiments}
+
+\subsection{Datasets and implementation details}
+\label{sec:exp_setup}
+
+\paragraph{Datasets and metrics.}
+Following the standard lightweight-SR protocol, we train on the $800$ training
+images of DIV2K~\cite{agustsson2017div2k} and evaluate on five benchmarks:
+Set5~\cite{bevilacqua2012set5}, Set14~\cite{zeyde2010set14},
+BSD100~\cite{martin2001bsd100}, Urban100~\cite{huang2015urban100}, and
+Manga109~\cite{matsui2017manga109}. Low-resolution inputs are produced by
+bicubic downscaling at $\times2$, $\times3$, and $\times4$. We report PSNR and
+SSIM~\cite{wang2004ssim} on the Y channel of the YCbCr space, discarding a border
+of $s$ pixels for scale $s$, which matches the convention used by the cited
+baselines.
+
+\paragraph{Network configuration.}
+DPRNet keeps the CATANet backbone unchanged and replaces only the routing inside
+each TAB with the DPR module (Section~\ref{sec:method}). The deep feature extractor
+stacks $L{=}8$ blocks with channel width $C{=}40$. The number of prototype slots
+per block is $M=[16,32,64,128,16,32,64,128]$, and the intra-group attention uses a
+group size of $128$. The learnable routing temperature is initialized at $\tau{=}6$
+(i.e.\ a log-scale parameter $\theta{=}\log 6$) and clamped at $\tau_{\max}{=}10$
+(Eq.~\eqref{eq:scores}); the per-block usage-balancing weights are
+$\lambda=[5{\times}10^{-4}]_{\times6}$ for the first six blocks and
+$7{\times}10^{-4}$ for the last two (Eq.~\eqref{eq:balance}). These yield
+$0.60$--$0.67$\,M parameters depending on scale (Table~\ref{tab:efficiency}).
+
+\paragraph{Training.}
+We train the $\times2$ model for $800$k iterations and the $\times3$ and $\times4$
+models for $250$k iterations each. Training patches are $128{\times}128$, $192{\times}192$,
+and $256{\times}256$ HR crops for $\times2/\times3/\times4$ respectively, with a
+batch size of $16$ and random horizontal flips and $90^{\circ}$ rotations for
+augmentation. We optimize the $\ell_1$ reconstruction loss together with the
+usage-balancing regularizer (Eq.~\eqref{eq:balance}) using Adam
+($\beta_1{=}0.9$, $\beta_2{=}0.99$, no weight decay) at an initial learning rate of
+$2{\times}10^{-4}$, halved by a MultiStep schedule (milestones at
+$\{300,500,650,700,750\}$k for $\times2$ and $\{125,200,225,237.5\}$k for
+$\times3/\times4$). The learnable routing temperature is trained with a
+$0.1{\times}$ learning-rate multiplier for stability. Validation is run every
+$2{.}5$k iterations. Experiments use PyTorch with the BasicSR
+framework on a single NVIDIA RTX~4090 GPU.
+
+\paragraph{Efficiency measurement.}
+Parameters, Multi-Adds (MACs reported by thop), and inference latency are measured
+on a single NVIDIA RTX~4090 GPU for a fixed LR input of $256{\times}256$ ($\times4$
+output $1024{\times}1024$), averaged over $100$ runs after $20$ warm-up runs. This input
+convention matches the one under which the CATANet paper reports Multi-Adds for
+itself and the lightweight Transformer baselines, making the figures directly
+comparable. Efficient-SR challenge reports likewise treat runtime, parameters, and
+FLOPs as joint deployment criteria rather than auxiliary statistics~\cite{ren2024ntire}.
+For comparison with FLOPs-based reports, Multi-Adds can be multiplied by two.

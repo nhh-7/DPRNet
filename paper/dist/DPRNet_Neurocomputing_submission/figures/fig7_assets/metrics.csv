@@ -1,0 +1,4 @@
+dataset,sample,crop_top,crop_left,crop_side,bicubic_psnr,bicubic_ssim,dprnet_psnr,dprnet_ssim
+Urban100,img_092,204,756,96,16.58,0.4377,19.62,0.6922
+Urban100,img_024,408,456,96,18.14,0.4593,21.05,0.7071
+Manga109,ThatsIzumiko_000,792,648,96,18.00,0.5118,21.42,0.7597
